@@ -25,7 +25,7 @@ import cv2
 
 start_time = time.time()
 
-csv_file_name = '../devfiles/test3.csv'
+csv_file_name = '../devfiles/test3_all.csv'
 beauty_file_name = 'settings/my_beauty_links.csv'
 selenium_file_name = 'settings/my_selenium_links.csv'
 
@@ -121,7 +121,7 @@ def selen_parse(link, name):
 def beauty_pars(name):
     main_page = row[0]
     link = row[2]
-    '''
+
     try:
         driver.get(row[2])
     except:
@@ -130,7 +130,7 @@ def beauty_pars(name):
     image = pyautogui.screenshot(region=(0, 0, 1920, 1080))
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     cv2.imwrite(name, image)
-    '''
+
     # подключение
     response = requests.get(link)
     soup = BeautifulSoup(response.text, 'lxml')
@@ -165,8 +165,7 @@ with open(csv_file_name) as file:
     readers = csv.reader(file, delimiter = ';')
 
     for row in readers:
-        #print('я здесь', row[0])
-        if row[0] in selen_dict: ####and comon_counter <= 2000 not in temp_list  and row[0] != 'my-shop.ru'
+        if row[0] in selen_dict and row[0] == '0': ####and comon_counter <= 2000 not in temp_list  and row[0] != 'my-shop.ru'
             answer = selen_parse(row[0], '../devfiles/scr/' + row[1] + '.jpg')
 
             row.append(answer)
@@ -177,7 +176,7 @@ with open(csv_file_name) as file:
             print(comon_counter, row[0], answer)
 
 
-        elif row[0] in beauty_dict: # and row[0] != 'www.citilink.ru'
+        elif row[0] in beauty_dict and row[0] == 'www.citilink.ru' and int(row[1]) >= 439 and int(row[1]) <= 729: # and row[0] != 'www.citilink.ru'
             answer = beauty_pars('../devfiles/scr/' + row[1] + '.jpg')
 
             row.append(answer)
@@ -205,7 +204,7 @@ print("beauty_dict", current_counter3)
 print("not_pars", current_counterz)
 
 
-new_name = '../devfiles/new_' + csv_file_name.split('/')[-1]
+new_name = '../devfiles/citi439_729_' + csv_file_name.split('/')[-1]
 with open(new_name, 'w') as file:
     for line in finish_list:
         file.write(f'{line[0]};{line[1]};{line[2]};{line[3]}\n')
