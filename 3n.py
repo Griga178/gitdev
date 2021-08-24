@@ -5,8 +5,8 @@ import os
 import pandas
 
 
-exel_file = '../devfiles/miniciti.xlsx'
-sheets_name = 'citi439_729_test3_all'
+exel_file = '../devfiles/manual_test3_all.xlsx'
+sheets_name = 'manual_test3_all'
 
 # нужные столбцы
 column_price =  'price'

@@ -156,11 +156,10 @@ def beauty_pars(name):
 
 # открываем браузер  (пытаемся)
 try:
-
     driver.get('https://www.google.com/')
-
 except:
     print('хз что-то произошло')
+    
 with open(csv_file_name) as file:
     readers = csv.reader(file, delimiter = ';')
 
