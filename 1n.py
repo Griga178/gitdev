@@ -7,13 +7,13 @@
 '''
 import pandas
 
-exel_file = '../devfiles/reestr 4.xlsx'
-sheets_name = 'RT new'
+exel_file = 'list1.xlsx' #'../devfiles/reestr 4.xlsx'
+sheets_name = 'rt' #'RT new'
 
 # нужные столбцы
-column_links =  'Ссылка'
+column_links =  'link'#'Ссылка'
 
-csv_file_name = '../devfiles/test3.csv'
+csv_file_name = '../devfiles/petrov_list1.csv'
 
 first_num = 2 # Номер первой строки, в которой ссылка
 
@@ -50,5 +50,6 @@ sorted_tuples = sorted(list_tuples_links)
 
 with open(csv_file_name, 'w') as file:
     for line in sorted_tuples:
-        file.write(f'{line[0]};{line[1]};{line[2]}\n')
+        if line[0] == 'my-shop.ru': # Для записи только 1 ссылок
+            file.write(f'{line[0]};{line[1]};{line[2]}\n')
         #print(f'{line[0]};{line[1]};{line[2]}')

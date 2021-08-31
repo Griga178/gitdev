@@ -25,7 +25,7 @@ import cv2
 
 start_time = time.time()
 
-csv_file_name = '../devfiles/test3_all.csv'
+csv_file_name = '../devfiles/petrov_list1.csv'#'../devfiles/test3_all.csv'
 beauty_file_name = 'settings/my_beauty_links.csv'
 selenium_file_name = 'settings/my_selenium_links.csv'
 
@@ -65,11 +65,22 @@ current_counterz = 0
 caps = DesiredCapabilities().CHROME # выбор браузера
 caps["pageLoadStrategy"] = "eager" # не ждем полной загрузки
 options = Options()
-options.add_argument("--start-maximized") # открываем во весь экран
+#options.add_argument("--start-maximized") # открываем во весь экран
+
+#options.add_argument('--headless')
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+options.add_argument("--start-maximized")
+options.add_argument("--window-size=1920x1080")
 driver = webdriver.Chrome(options = options)
+
+#driver = webdriver.Firefox()
+#driver = webdriver.Ie()
 
 driver.implicitly_wait(3) # ждем столько, если не справился закрываем
 
+
+# my-shop.ru;div;class;price__base price-black;
 def selen_parse(link, name):
     # находим правила
     main_page = link
@@ -121,7 +132,8 @@ def selen_parse(link, name):
 def beauty_pars(name):
     main_page = row[0]
     link = row[2]
-
+    '''
+    # тут скрины делаются
     try:
         driver.get(row[2])
     except:
@@ -130,7 +142,7 @@ def beauty_pars(name):
     image = pyautogui.screenshot(region=(0, 0, 1920, 1080))
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     cv2.imwrite(name, image)
-
+    '''
     # подключение
     response = requests.get(link)
     soup = BeautifulSoup(response.text, 'lxml')
@@ -141,13 +153,13 @@ def beauty_pars(name):
         quotes = soup.find_all(price_tag, {p_atr: p_atr_val})   # цитаты
     except Exception as e:
         print('BeautifulSoup не справился')
-        return 'manual'
+        return 'manual1'
     xval = str('')
     for i in quotes:
         xval = i.text
 
     if xval == '': # поле пустое
-        return 'manual'
+        return 'manual2'
     else:
         return stand_clear(xval)
 
@@ -159,12 +171,12 @@ try:
     driver.get('https://www.google.com/')
 except:
     print('хз что-то произошло')
-    
+
 with open(csv_file_name) as file:
     readers = csv.reader(file, delimiter = ';')
 
     for row in readers:
-        if row[0] in selen_dict and row[0] == '0': ####and comon_counter <= 2000 not in temp_list  and row[0] != 'my-shop.ru'
+        if row[0] in selen_dict and row[0] == '0': ####and comon_counter <= 2000 not in temp_list
             answer = selen_parse(row[0], '../devfiles/scr/' + row[1] + '.jpg')
 
             row.append(answer)
@@ -175,7 +187,7 @@ with open(csv_file_name) as file:
             print(comon_counter, row[0], answer)
 
 
-        elif row[0] in beauty_dict and row[0] == 'www.citilink.ru' and int(row[1]) >= 439 and int(row[1]) <= 729: # and row[0] != 'www.citilink.ru'
+        elif row[0] in beauty_dict and int(row[1]) <= 4: # and row[0] != 'www.citilink.ru'
             answer = beauty_pars('../devfiles/scr/' + row[1] + '.jpg')
 
             row.append(answer)
@@ -203,7 +215,7 @@ print("beauty_dict", current_counter3)
 print("not_pars", current_counterz)
 
 
-new_name = '../devfiles/citi439_729_' + csv_file_name.split('/')[-1]
+new_name = '../devfiles/links_' + csv_file_name.split('/')[-1]
 with open(new_name, 'w') as file:
     for line in finish_list:
         file.write(f'{line[0]};{line[1]};{line[2]};{line[3]}\n')
