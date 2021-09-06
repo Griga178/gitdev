@@ -77,5 +77,9 @@ print(o_count,e_count)
 print(count)
 print(len(set_otvetov))
 print(len(set_ekran))
-for el in set_ekran:
+
+with open('new.csv') as f:
+    for el in set_ekran:
+        
+
 #print(len(list_comp_name))
