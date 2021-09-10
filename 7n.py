@@ -12,26 +12,27 @@
 import pandas
 
 
-exel_file = '../devfiles/reestr 4 (для скринов + норм вар).xlsx'
+#exel_file = '../devfiles/reestr 4 (для скринов + норм вар).xlsx'
+exel_file = '../../../reestr 4.xlsx'
 
-sheets_name = 'new+'
+sheets_name = 'RT new'
 
 column_name = 'Наименование поставщика'
 column_inn = 'ИНН поставщика'
 column_price = 'Новая цена 4кв'
 column_numer = 'Источник ценовой информации'
-column_jpg_name = 'jpg_name'
+#column_jpg_name = 'jpg_name'
 
 dict_main = {}
 
 df = pandas.read_excel(exel_file, sheet_name = sheets_name,
-usecols = [column_price, column_numer, column_name, column_inn, column_jpg_name])
+usecols = [column_price, column_numer, column_name]) #, column_jpg_name , column_inn
 
 list_name = df[column_name].tolist()
 list_numer  = df[column_numer].tolist()
 #list_inn = df[column_inn].tolist()
 list_price = df[column_price].tolist()
-list_jpg_name = df[column_jpg_name].tolist()
+#list_jpg_name = df[column_jpg_name].tolist()
 
 list_comp_name = []
 
@@ -54,8 +55,7 @@ for el in list_name:
         str_len = len(list_numer[row])
         if str_len != 33:
             count += 1
-            #jpg_name = (str(int(list_jpg_name[row])) + '.jpg')
-            jpg_name = (int(list_jpg_name[row]))
+            #jpg_name = (int(list_jpg_name[row]))           # ---- с колонкой jpg менять тут
             #print(f'Номер строки: {row + 2} jpg_name: {jpg_name}')
             if list_numer[row][:1] == "О" and list_price[row] > 0:
                 o_count += 1
@@ -65,12 +65,12 @@ for el in list_name:
                 list_comp_name.append(new_el)
 
                 if new_el not in dict_otveti:
-                    #deic_el = {new_el: [row + 2]}
-                    deic_el = {new_el: [jpg_name]}
+                    deic_el = {new_el: [row + 2]} # ---- с колонкой jpg менять тут
+                    #deic_el = {new_el: [jpg_name]}
                     dict_otveti.update(deic_el)
                 else:
-                    #dict_otveti[new_el].append(row + 2)
-                    dict_otveti[new_el].append(jpg_name)
+                    dict_otveti[new_el].append(row + 2)
+                    #dict_otveti[new_el].append(jpg_name)    # ---- с колонкой jpg менять тут
             elif list_numer[row][:1] == "Э" and list_price[row] > 0:
                 new_el = el.replace('"', '').replace('«', '').replace('»', '')
 
@@ -80,12 +80,12 @@ for el in list_name:
 
 
                 if new_el not in dict_ekranki:
-                    #deic_el = {new_el: [row + 2]}
-                    deic_el = {new_el: [jpg_name]}
+                    deic_el = {new_el: [row + 2]}
+                    #deic_el = {new_el: [jpg_name]}  # ---- с колонкой jpg менять тут
                     dict_ekranki.update(deic_el)
                 else:
-                    #dict_ekranki[new_el].append(row + 2)
-                    dict_ekranki[new_el].append(jpg_name)
+                    dict_ekranki[new_el].append(row + 2)
+                    #dict_ekranki[new_el].append(jpg_name) # ---- с колонкой jpg менять тут
     except:
         pass
     #print(row + 2) # первая 0, вторая - заголовки
@@ -107,7 +107,7 @@ def count_scr_info():
     print(f'\n------Всего ответов: {cou_otv}\n')
     print(f'\n------Итого: {cou_otv + cou_ekr}\n')
 
-#count_scr_info()
+count_scr_info()
 
 import os
 import shutil
@@ -180,7 +180,7 @@ def copy_screen():
     print(copy_count_ecr, ' Экранок')
 
 #create_dirs()
-copy_screen()
+#copy_screen()
 
 
 # Считаем количество использования источников {Ситилинк ООО; 100}
