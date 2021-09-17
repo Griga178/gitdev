@@ -1,19 +1,35 @@
+"""
+    не программа! 
+    Тут тестирование добавления скриншотов в word
+"""
+
 import docx
 from docx.enum.section import WD_ORIENT
 from docx.shared import Inches
 
-x = 'https://python-docx.readthedocs.io/en/latest/'
+source_info_docx = 'https://python-docx.readthedocs.io/en/latest/'
 
 document = docx.Document()
 
-sections = document.sections
-section = sections[0]
+section = document.sections[0]
+#section = sections[0]
+# Горизонтальный формат листа
 new_width, new_height = section.page_height, section.page_width
 section.orientation = WD_ORIENT.LANDSCAPE
 section.page_width = new_width
 section.page_height = new_height
-section.top_margin = Inches(0.7)
+# отступы на странице
+section.top_margin = Inches(0.75)
 section.left_margin = Inches(0.7)
+
+# добавление верхнего колониткула
+header = section.header
+paragraph = header.paragraphs[0]
+paragraph.text = "Title of my document"
+
+footer = section.footer
+paragraph = footer.paragraphs[0]
+paragraph.text = "my footer"
 
 #document.add_heading('Heading')
 
@@ -27,14 +43,14 @@ document.add_heading('Heading')
 document.add_paragraph('terxt')
 '''
 
-source_O ='../devfiles/ales_screenes/Otveti/БИОН ООО/112.jpg'
-source_2 ='../devfiles/ales_screenes/Otveti/БИОН ООО/117.jpg'
 
+sources =  ['../devfiles/ales_screenes/Otveti/БИОН ООО/112.jpg', '../devfiles/ales_screenes/Otveti/БИОН ООО/117.jpg']
 
+for pic_name in sources:
+    document.add_picture(pic_name, width=docx.shared.Inches(9.3), height=docx.shared.Inches(6.5))
 
-document.add_picture(source_O, width=docx.shared.Inches(10), height=docx.shared.Inches(7.2))
-#document.add_page_break()
-document.add_picture(source_2, width=Inches(10), height=docx.shared.Inches(7.2))
+#document.add_picture(source_2, width=Inches(9.3), height=docx.shared.Inches(9.3))
+
 
 document.save('dem22.docx')
 
