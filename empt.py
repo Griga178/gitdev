@@ -20,3 +20,9 @@ with open(csv_file_name, mode = "a") as file:
         file_writer.writerow([i, i*2, i**2])
         print(i)
 '''
+
+
+
+file = 'C:/Users/G.Tishchenko/Desktop/Аквариус.msg'
+
+print(file.split('/')[-1].replace('.msg', ''))

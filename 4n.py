@@ -12,8 +12,8 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 start_time = time.time()
 
-csv_file_name = '../devfiles/test3_all.csv'
-
+#csv_file_name = '../devfiles/test3_all.csv'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/reestr 4.csv'
 beauty_file_name = 'settings/my_beauty_links.csv'
 selenium_file_name = 'settings/my_selenium_links.csv'
 

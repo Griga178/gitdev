@@ -16,7 +16,9 @@ import pyautogui
 import imutils
 import cv2
 start_time = time.time()
-csv_file_name = '../devfiles/manual_test3_all.csv'
+#csv_file_name = '../devfiles/manual_test3_all.csv'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/reestr 4.csv'
+dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens/'
 comon_counter = 0
 
 caps = DesiredCapabilities().CHROME # выбор браузера
@@ -40,7 +42,7 @@ with open(csv_file_name) as file:
             print('get link error selenium 1')
 
         # Делаем скириншооот
-        name = '../devfiles/scr/' + row[1] + '.jpg'
+        name = dir_for_screen + row[1] + '.jpg'
         print(name)
 
         time.sleep(1)

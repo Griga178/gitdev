@@ -9,9 +9,12 @@ import pandas
 
 
 #exel_file = '../devfiles/reestr 4 (для скринов + норм вар).xlsx'
-exel_file = '../../../reestr 4.xlsx'
+#exel_file = '../../../reestr 4.xlsx'
 
-sheets_name = 'RT new'
+#sheets_name = 'RT new'
+
+exel_file = 'C:/Users/G.Tishchenko/Desktop/reestr 4.xlsx'
+sheets_name = 'new_kkn' #'RT new'
 
 column_name = 'Наименование поставщика'
 column_inn = 'ИНН поставщика'
@@ -108,7 +111,8 @@ count_scr_info()
 import os
 import shutil
 
-main_dir = '../devfiles/new_ales_screenes'
+#main_dir = '../devfiles/new_ales_screenes'
+main_dir = 'C:/Users/G.Tishchenko/Desktop/new_skr/'
 otvet_dir = main_dir + '/Otveti'
 ekran_dir = main_dir + '/Ekranki'
 
@@ -137,7 +141,8 @@ def create_dirs():
 
 # Копируем скриншоты
 # испольюзуются: dict_ekranki, dict_otveti
-where_screens = '../devfiles/scr/new/'
+#where_screens = '../devfiles/scr/new/'
+where_screens = 'C:/Users/G.Tishchenko/Desktop/screens/'
 
 def copy_screen():
     copy_count = 0
@@ -151,7 +156,7 @@ def copy_screen():
             #print(old_screen_name)
             #print(new_screen_name)
             try:
-                #shutil.copyfile(old_screen_name, new_screen_name)
+                shutil.copyfile(old_screen_name, new_screen_name)
                 copy_count += 1
             except:
                 print("Не удалось скопировать", scr_name)
@@ -169,7 +174,7 @@ def copy_screen():
             print(old_screen_name)
             print(new_screen_name)
             try:
-                shutil.copyfile(old_screen_name, new_screen_name)
+                #shutil.copyfile(old_screen_name, new_screen_name)
                 copy_count_ecr += 1
             except:
                 print("Не удалось скопировать", scr_name)

@@ -1,5 +1,6 @@
 # РАБОТА С DOC
 '''
+    Добавление фоток (.jpg) в word
     Создать папки: images, otveti, ekranki --- create_dirs()
         (куда будем сохранять word с Скринами)
 
@@ -17,6 +18,7 @@ name_name_file = 'new_file_2.docx'
 dir_name_i = '../devfiles/images'
 dir_name_O = '../devfiles/images/Otveti'
 dir_name_E = '../devfiles/images/Ekranki'
+
 def create_dirs():
     try:
         os.mkdir(dir_name_i)
@@ -30,8 +32,6 @@ def create_dirs():
 source_O ='../devfiles/ales_screenes/Otveti'
 source_E ='../devfiles/ales_screenes/Ekranki'
 
-# # dir_source = source_O # где берем картинки и названия папок
-# # dir_destiny = dir_name_O # куда сохраняем word.doc с картинками
 
 def pic_save(dir_source, dir_destiny):
     ''' 2 обязательных аргумента (названия папок)
@@ -81,8 +81,6 @@ def pic_save(dir_source, dir_destiny):
             print(f' Нарушен стандарт в: {el}')
 
     print(f'\nВсего скриншотов: {all_pic_number}\nВсего word файлов: {doc_number}')
-
-
 
 
 #pic_save(source_O, dir_name_O) # 691 шт 4 кв Ответы
@@ -146,4 +144,11 @@ def one_pic_save(dir_source, dir_destiny, comp_name):
 #one_file = 'СИТИЛИНК ООО'
 #one_file = 'ОЛДИ ЛТД ЗАО'
 #one_file = 'ОНЛАЙН ТРЕЙД ООО'
+#one_file = 'ДНС РИТЕЙЛ ООО'
+#one_file = 'М-ИНВЕСТ ООО'
+#one_file = 'КОМПСЕРВИС ООО'
+#one_file = 'НЕРА-М ООО'
+
+#one_pic_save(source_O, dir_name_O, one_file)
+
 #one_pic_save(source_E, dir_name_E, one_file)
