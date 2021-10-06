@@ -22,29 +22,27 @@ def import_dicts_from_excel(file_name):
     # Открываем файл только на чтение - по быстрому
     wb = openpyxl.load_workbook(file_name, read_only = True, data_only = True)
 
-    # Смотрим сколько в файле листов
+    # Переменная содержит список существующих листов Excel
     listofsheets = wb.sheetnames
-
-    #active_sheet = wb[listofsheets[0]]
-
-    #all_row = active_sheet['1']
 
     pre_name = str()
     kkn_dict = {}
 
     for current_sheet in listofsheets:
+        # Перебираем листы по очереди
         active_sheet = wb[current_sheet]
-    # все строки на текущем листе листе
-        for row in active_sheet.rows: #
 
+        for row in active_sheet.rows:
+            # Читаем каждую строку
             row_list = []
-            # чтение ячеейк в строках и добавление в ""список строки"
+
             for cell in row[:12]:
+                # добавляем 12 ячеек строки в "список"
                 row_list.append(cell.value)
 
             if type(row_list[1]) == str:
-                # когда начинается новый ккн
-                pre_name = row_list[1]
+                # Название ККН, которое распространяется на следующие строки
+                pre_name = row_list[1] # - ключ для будущего словаря! (ККН)
 
                 # Если в характеристике есть изменяемые значения
                 if type(row_list[8]) == str:
@@ -58,7 +56,7 @@ def import_dicts_from_excel(file_name):
                     char_dict = {row_list[5]:[row_list[6], row_list[7], row_list[8], row_list[9], row_list[10]]}
 
                 # создается словарь для ккн-а
-                kkn = {row_list[1]:[row_list[2], row_list[3], row_list[4], char_dict, row_list[11]]} #row_list[0],
+                kkn = {row_list[1]:[row_list[0], row_list[2], row_list[3], row_list[4], char_dict, row_list[11]]}
 
                 # строка из excel ввиде словаря добавляется в общий словарь (создается новый ключ)
                 kkn_dict = kkn_dict | kkn

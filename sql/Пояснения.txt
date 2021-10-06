@@ -1,0 +1,19 @@
+1 Таблицы для работы с реестром:
+	companies (для заполнения др. табл.) [id, inn, form(FK), full_name, short_name, adress, phone, dir_name]
+	companies_form (для заполнения др. табл.) [ id, short_form, full_form]
+
+	prototypes [id, kkn_name, link, price, source, screen_name, companiy(FK), main_page(FK)]
+	
+	kkn_info [id, kkn_name, char_list, part]
+
+2 Функции:
+	1 (универсальная) Заполнение SQL-таблицы данными excel
+	2 Парсинг прототипов - создание скриншота
+
+
+
+План:
+таблица с компаниями
+функция заполнения
+
+______Выполнено______
