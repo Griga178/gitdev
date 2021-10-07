@@ -1,3 +1,5 @@
+'''поиск адресов и названий по ИНН
+'''
 import pandas
 from selenium import webdriver
 import time
