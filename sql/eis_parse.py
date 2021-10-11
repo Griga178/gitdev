@@ -47,32 +47,37 @@ def first_setting():
     driver.find_element_by_xpath(aply_btn).click()
     print('Применили')
 
+def clear_dateform():
+    # очистка формы даты (нажать на кнопу "до" и пустую часть)
+    date_form = '//*[@id="contractDateTag"]/div/div/div'
+    driver.find_element_by_xpath(date_form).click()
+    date_set_to = '//*[@id="calendarDays"]/div[1]/button[2]'
+    driver.find_element_by_xpath(date_set_to).click()
+    driver.find_element_by_xpath("//html").click()
 
+def clear_dateform2():
+    # очистка формы даты (нажать на кнопу "от" и пустую часть)
+    date_form = '//*[@id="contractDateTag"]/div/div/div'
+    driver.find_element_by_xpath(date_form).click()
+    date_set_to = '//*[@id="calendarDays"]/div[1]/button[1]'
+    driver.find_element_by_xpath(date_set_to).click()
+    driver.find_element_by_xpath("//html").click()
 
 def date_input(d_from, d_to):
     # Выбор даты
     date_form = '//*[@id="contractDateTag"]/div/div/div'
     driver.find_element_by_xpath(date_form).click()
-
     driver.find_element_by_xpath(date_form).click()
-
     date_set_to = '//*[@id="calendarDays"]/div[1]/button[2]'
     driver.find_element_by_xpath(date_set_to).click()
-
     date_from = '//*[@id="contractDateTag"]/div/div/div/div[1]/input'
     driver.find_element_by_xpath(date_from).send_keys(d_from)
-    #print(f'вставили дату "от" {d_from}')
     date_to = '//*[@id="contractDateTag"]/div/div/div/div[2]/input'
     driver.find_element_by_xpath(date_to).send_keys(d_to)
-    #print(f'вставили дату "до"  {d_to}')
     driver.find_element_by_xpath(date_form).click()
-    #print('все *')
     driver.find_element_by_xpath("//html").click()
-    #print('Раз html *')
-        # Применение характеристик
     aply_btn = '//*[@id="btn-floating"]/button'
     driver.find_element_by_xpath(aply_btn).click()
-    #print('Применили')
 
 def read_amount():
     # Смотрим, сколько вариантов нашлось
@@ -101,27 +106,31 @@ def page_data_save(file_name):
             numersss |= pickle_set
     except:
         print('no file')
+
         # добавляем в файл pkl
     with open(file_name, 'wb') as f:
         pickle.dump(numersss, f, pickle.HIGHEST_PROTOCOL)
-        print(f'Всего: {len(numersss)} номеров')
+        print(f'Всего в файле: {len(numersss)} номеров')
     #print(numersss)
 
 ###
 ### Рабочая часть
 ###
 # Формируем список из дат (365 дней) = days_list
-max_days_list = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] #, 31, 30, 31
-mounth_count = 1
+max_days_list = [31, 27, 31, 30, 31, 30, 31, 31, 30] # до сент., 31, 30, 31 # 
+# на сайте нет 28 февраля!!
+mounth_count = 2
 year_str = '2021'
 days_list = []
 for month in max_days_list:
+    # добавляем '0' к месяцу
     if len(str(mounth_count)) >= 2:
         monthe = str(mounth_count)
     else:
         monthe = '0' + str(mounth_count)
     mounth_count += 1
     for day in range(month):
+        # добавляем '0' к дню
         if len(str(day + 1)) >= 2:
             day_str = str(day + 1)
         else:
@@ -135,16 +144,14 @@ first_setting()
 # Выводит нужные даты если не подходит, то "до" уменьшается на 1 день
 first_value = 5 # стандартная разница между датами (от 01 до 05)
 step = first_value
-day_index = 0
-sum_kontrakts = 0
+day_index = 101 #  начинаем с **.**.2021
 period = 0
-pkl_name = 0
+error_date = []
 
-'''
-        КОНЕЦ ДНЯ....  НАДО ДОБАВИТЬ  НАЗВАНИЮ PICKLE ФАЙЛА
+sum_kontrakts = 0
+pkl_name_part = 9
 
-
-'''
+# перебор всех дат
 while day_index < len(days_list):
     pre_index = day_index # что бы переписать даты
     day_from = days_list[day_index]
@@ -153,41 +160,59 @@ while day_index < len(days_list):
         day_index = len(days_list) - 1
     day_to =  days_list[day_index]
     day_index += 1
-    print(day_from, day_to)
+    period = day_index - pre_index
+    # вставляем даты в поисковик
     date_input(day_from, day_to)
     some_text = read_amount()
-    if some_text > 1000:
+    print(f'от: {day_from} до: {day_to}, контрактов: {some_text}')
+    # Проверяем, что бы значений было меньше
+    if some_text > 999 and period > 1:
         day_index = pre_index
         step -= 1
+        clear_dateform()
     else:
+        if period < 2 and some_text > 999:
+            error_date.append([day_from, day_to])
+            print('--- Период = 1, контрактов больше 999!!')
         ## Начинаем цикл с перелистыванием и парсингом
         pars_pages_stat = 0
         page_number = 0
+        print(f'Записываем в файл № {pkl_name_part}')
+        print(f'Кол-во контрактов: {some_text}')
         while pars_pages_stat == 0:
-            page_data_save('contra/pkl_' + str(pkl_name) + '.pkl')
             # Перелистывание страницы
+            page_data_save('contra/pkl_' + str(pkl_name_part) + '.pkl')
             xp_pg_nums = '//*[@id="quickSearchForm_header"]/section[2]/div/div/div[1]/div[4]/div/div[1]/ul/a'
             pg_num = driver.find_elements_by_xpath(xp_pg_nums)
+            # ловим стрелку перемотки
             if page_number != 0:
+                # если это не первая страница - в списке две стрелки
                 if len(pg_num) == 2:
                     pg_num[1].click()
                     page_number += 1
                 else:
-                    print('break')
+                # в списке одна стрелка и стр. не №1 = последняя стр.
+                    print('Закончили перелистывать')
+                    pkl_name_part += 1
                     pars_pages_stat = 1
             else:
+                # если это первая страница - в списке одна стрелка - сслыка
                 pg_num[0].click()
                 page_number += 1
             #
-        period = day_index - pre_index
+
         print(f'Скачали: {some_text} шт. за период {period} дн.')
         sum_kontrakts += some_text
         print(f'Всего скачано: {sum_kontrakts} шт.')
         step = first_value
+        if period == 1:
+            clear_dateform2()
+        else:
+            clear_dateform()
+
         ##
-    pkl_name += 1
+    #pkl_name_part += 1
 
 
 
-
-time.sleep(15)
+print(error_date)
