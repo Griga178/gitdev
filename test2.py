@@ -1,8 +1,9 @@
 
-def comparison_ais_cmec_dicts(first_dict, second_dict, set_of_names = set()):
+def comparison_two_dicts(first_dict, second_dict, set_of_names = set()):
     ''' функция сравнивает два словаря
-    main_key = Наименование ккн
-    child_key = Наименование характеристик
+    loss_keys_x: {множество наименований ккн}, которые не нашлись в словаре x
+    loss_char: [список имен характеристик], которые не совпали по названию
+    kkn_name: {char_name: [char1, char2]}
 
     - 1 Сравнение ключей в о всех словарях
             => общие знач + чего и где нет
@@ -15,15 +16,20 @@ def comparison_ais_cmec_dicts(first_dict, second_dict, set_of_names = set()):
 
     ## -- № 1
     if set_of_names:
+        # Если сравниваются {конкретные позиции}
+        # множество перебираемых значений = ws
         work_set_of_names = first_set & second_set & set_of_names
+        # Запись значений, которые не нашлись
         first_set_loss = set_of_names - (first_set & set_of_names)
         second_set_loss = set_of_names - (second_set & set_of_names)
     else:
         work_set_of_names = first_set & second_set
+        # Запись значений, которые не нашлись
         first_set_loss = second_set - (first_set & second_set)
         second_set_loss = first_set - (first_set & second_set)
+    # Добавление нехватающих значений в словарь wrong_dict
     if first_set_loss:
-        wrong_dict = wrong_dict | {'loss_keys': first_set_loss}
+        wrong_dict = wrong_dict | {'loss_keys_1': first_set_loss}
     if second_set_loss:
         wrong_dict = wrong_dict | {'loss_keys_2': second_set_loss}
     if not first_set_loss and not second_set_loss:
@@ -31,13 +37,15 @@ def comparison_ais_cmec_dicts(first_dict, second_dict, set_of_names = set()):
 
     ## -- № 2
     for kkn_name in work_set_of_names:
-
+        # сравниваемые множества имен характеристик в двух словарях
         first_char_set = first_dict[kkn_name].keys()
         second_char_set = second_dict[kkn_name].keys()
-
+        # те что одинаково называются в обоих словарях
         comon_char_names = first_char_set & second_char_set
+
         first_char_loss = second_char_set - comon_char_names
         second_char_loss = first_char_set - comon_char_names
+
         if first_char_loss or second_char_loss:
             wrong_dict = wrong_dict | {kkn_name: {'loss_char': [first_char_loss, second_char_loss]}}
 
@@ -75,24 +83,15 @@ def comparison_ais_cmec_dicts(first_dict, second_dict, set_of_names = set()):
                     else:
                         adding_char = {char: [first_char_value[-1], second_char_value[-1]]}
 
-            if kkn_name in wrong_dict:
-                wrong_dict[kkn_name] = wrong_dict[kkn_name] | adding_char
-            else:
-                wrong_dict = wrong_dict | {kkn_name: adding_char}
+            if adding_char:
+
+                if kkn_name in wrong_dict:
+                    wrong_dict[kkn_name] = wrong_dict[kkn_name] | adding_char
+                else:
+                    wrong_dict = wrong_dict | {kkn_name: adding_char}
 
     return wrong_dict
 
-
-
-first_set = {'a': {'ОКПД2' : '112.112.02'}, 'b': {'ОКПД2' : '112.112.01', 'количество ядер': [{'1','2','3'}, 'ШТ']}, 'c':{'ОКПД2' : '112.112.03', 'Ширина корпуса': ['200', '300', 'ММ']}, 'd':{'ОКПД2' : '112.112.04'}, 'e':{'ОКПД2' : '112.112.05'}, 'f': {'ОКПД2' : '112.112.11'}}
-second_set = {'b': {'ОКПД2' : '112.112.01'}, 'c': {'ОКПД2' : '112.112.01', 'Ширина корпуса': ['200', '300', 'ММ']}, 'f': {'ОКПД2' : '112.112.11'}, 'a': {'ОКПД2' : '112.112.02'}}
-my_set = {'a', 'b', 'f', 'l'}
-
-
-
-#wrong_dict = comparison_ais_cmec_dicts(first_set, second_set, my_set)
-
-#print(wrong_dict)
 
 import openpyxl
 import time
@@ -103,8 +102,7 @@ def load_obj(name):
         return pickle.load(f)
 
 
-
-name_my_file = 'C:/Users/G.Tishchenko/Desktop/sentember_fresh.xlsx'
+name_my_file = 'C:/Users/G.Tishchenko/Desktop/my_list.xlsx'
 
 def search_set(file_name):
     wb = openpyxl.load_workbook(file_name, read_only = True, data_only = True)
@@ -121,24 +119,40 @@ def search_set(file_name):
     return search_val
 
 dict1 = load_obj('our_kkn.pkl')
-dict2 = load_obj('aic_dict.pkl')
+dict2 = load_obj('direct_kkn.pkl')
 
 
 set_of_keys = search_set(name_my_file)
 
 #print(set_of_keys)
-wrong_dict_1 = comparison_ais_cmec_dicts(dict1, dict2) #, set_of_keys
+wrong_dict_1 = comparison_two_dicts(dict1, dict2, set_of_keys) #, set_of_keys
 
 
-count = 0
-for el in wrong_dict_1.keys():
-    #print(el, wrong_dict_1[el])
-    #print('\n\n', el)
-    if wrong_dict_1[el] == 'loss_keys_2':
-        print(wrong_dict_1[el])
-        for char in wrong_dict_1[el]:
-            print(char, wrong_dict_1[el][char])
+from empt import print_kkn_dict
+
+#print_kkn_dict(wrong_dict_1)
 
 
+#print(wrong_dict_1)
+def print_wrong_dict(wrong_dict_1):
+    count_kkn = 0
+    count_loss_char = 0
 
-print(count)
+        # обработка loss_keys_x
+
+        # обработка 'kkn_name':{'char_name': []}
+    for key in wrong_dict_1:
+        count_kkn += 1
+        print(f"\n\n{count_kkn}. Наименование ККН: {key}\n")
+        count_char = 0
+
+        for value in wrong_dict_1[key]:
+
+            if value == 'loss_char':
+                count_loss_char += 1
+                list = wrong_dict_1[key]['loss_char']
+                for char_val in range(len(list)):
+                    print(f'   {list[char_val]} - ', end = '')
+
+
+print_wrong_dict(wrong_dict_1)

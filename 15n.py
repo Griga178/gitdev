@@ -2,9 +2,10 @@
 замена 14n.py
 функция преобразующая excel файл с ккнами и его характеристиками в словарь
 сохраняет его в формате pkl
+Таблица содержит 11 столбцов
 '''
 
-test_ais = 'C:/Users/G.Tishchenko/Desktop/test_ais.xlsx'
+
 
 import openpyxl
 import time
@@ -13,15 +14,18 @@ import pickle
 
 start_time = time.time()
 
-def import_dicts_from_excel(file_name):
+def import_dicts_from_excel(file_name, listofsheets = None):
+    # Переменная "listofsheets" содержит список существующих листов Excel по умолчанию
+    # либо принимает ['Название  Листа']
 
     counter_kkn = 0
     counter_char = 0
     # Открываем файл только на чтение - по быстрому
     wb = openpyxl.load_workbook(file_name, read_only = True, data_only = True)
 
-    # Переменная содержит список существующих листов Excel
-    listofsheets = wb.sheetnames
+    if not listofsheets:
+        listofsheets = wb.sheetnames
+
 
     pre_name = str()
     kkn_dict = {}
@@ -108,19 +112,23 @@ def import_dicts_from_excel(file_name):
     return kkn_dict
 
 
-
+test_ais = 'C:/Users/G.Tishchenko/Desktop/ditrctory.xlsx'
+test_ais2 = 'C:/Users/G.Tishchenko/Desktop/check_dir.xlsx'
 exel_name_ais = 'C:/Users/G.Tishchenko/Desktop/ais.xlsx'
 exel_name_kkn = 'C:/Users/G.Tishchenko/Desktop/49_kkn.xlsx'
 
 #ais_dict = import_dicts_from_excel(exel_name_ais)
-current_dict = import_dicts_from_excel(exel_name_kkn)
+#current_dict = import_dicts_from_excel(exel_name_kkn)
+#current_dict = import_dicts_from_excel(test_ais)
+#current_dict = import_dicts_from_excel(test_ais2, ['check_dir'])
+
 
 def save_obj(object, file_name):
     with open(file_name + '.pkl', 'wb') as f:
         pickle.dump(object, f, pickle.HIGHEST_PROTOCOL)
 
-#save_obj(ais_dict, 'aic_dict')
-save_obj(current_dict, 'our_kkn')
+#save_obj(current_dict, 'direct_kkn')
+#save_obj(current_dict, 'our_kkn')
 
 #dict1 = import_dicts_from_excel(exel_name_ais)
 '''

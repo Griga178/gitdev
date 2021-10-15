@@ -2,7 +2,9 @@
 Сравнение двух словарей на наличие значений, характеристик и их значений
 
 ... Проверка на правильность заполнения аисгз
+ --- готовый код в test2
 
+ теперь нужен вывод словарей
 '''
 
 import openpyxl
@@ -15,7 +17,7 @@ def load_obj(name):
         return pickle.load(f)
 
 
-name_my_file = 'C:/Users/G.Tishchenko/Desktop/sentember_fresh.xlsx'
+name_my_file = 'C:/Users/G.Tishchenko/Desktop/my_list.xlsx'
 
 def search_set(file_name):
     wb = openpyxl.load_workbook(file_name, read_only = True, data_only = True)
@@ -32,7 +34,7 @@ def search_set(file_name):
     return search_val
 
 
-dict2 = load_obj('aic_dict.pkl')
+dict2 = load_obj('direct_kkn.pkl')
 dict1 = load_obj('our_kkn.pkl')
 
 set_of_keys = search_set(name_my_file)
