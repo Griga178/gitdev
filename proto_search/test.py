@@ -15,8 +15,10 @@ goods_link = '/html/body/div[2]/div/div[1]/div[3]/div/a[2]'
 #driver.find_element_by_xpath(goods_link).click()
 
 full_page_path = '//*[@id="contractSubjects"]/div/div'
-str_full_page = driver.find_element_by_xpath(full_page_path).text
-full_list = str_full_page.split('\n')
+someval = driver.find_element_by_xpath(full_page_path)
+#newval = someval.get_attribute('outerHTML')
+anotherval = newval = someval.get_attribute("innerHTML")
+print(anotherval)
 
 '''
 Дан сплошной блок текста, разделенный '\n'
@@ -25,7 +27,15 @@ full_list = str_full_page.split('\n')
 строка заканчивается наличием "Ставка НДС"
 4 индекс ИМЯ
 
+
+БЛОК ТЕКСТА С САЙТА СКАЧАТЬ С ТЕГАМИ HTML
+ПО ТЕГАМ НАХОДИТЬ К ЧЕМУ ОТНОСИТЬСЯ ИНФА
+ЗАПИСЫВАТЬ ИНФУ В СЛОВАРЬ
 '''
+
+'''
+str_full_page = driver.find_element_by_xpath(full_page_path).text
+full_list = str_full_page.split('\n')
 counter = 0
 for el in full_list[3:]:
     # НАЗВАНИЕ ТОВАРА
@@ -44,8 +54,7 @@ for el in full_list[3:]:
         print(f'\n\nНЕ УЧТЕНО {el}\n\n')
     counter += 1
     # Конец строки
-
-
+'''
 
 
 
