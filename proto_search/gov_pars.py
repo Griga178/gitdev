@@ -1,5 +1,6 @@
 import sys
 import time
+import datetime
 import pickle
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -8,6 +9,8 @@ from lxml import etree, html
 
 start_time = time.time()
 
+time_of_start = datetime.datetime.now()
+print(f'\nЗапуск программы в {time_of_start.hour} ч. {time_of_start.minute} мин.\n')
 '''
 Задача, по списку номеров контрактов пропарсить сайт закупок
 вытащить из контракта имя закупаемого товара, цену и ОКПД2
@@ -20,7 +23,11 @@ pkl_file_name = '../sql/contra/2021kontr9.pkl'
 
 start_page = 'https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber='
 
-number_set = {'2781404664921000005', '2780610397421000011', '2781930090921000019', '2780210944621000200', '2246503513721000464'}
+#number_set = {'2781404664921000005', '2780610397421000011', '2781930090921000019', '2780210944621000200', '2246503513721000464'}
+
+def pkl_saver(file_name, variable_name):
+    with open(file_name, 'wb') as f:
+        pickle.dump(variable_name, f, pickle.HIGHEST_PROTOCOL)
 
 def pkl_set_reader(file_name):
     with open(file_name, 'rb') as f:
@@ -208,40 +215,109 @@ def full_page_pars():
     else:
         list_full_table = table_pars_two()
     goods_count += len(list_full_table)
-    print(f'Записано товаров: {goods_count}')
+    #print(f'Записано товаров: {goods_count}')
     return tuple(list_full_table)
 
 #set_size = sys.getsizeof(my_set) # размер переменной в байтах 1 байт = 8 бит
 
 options = Options()
 options.add_argument('--headless')
-driver = webdriver.Chrome(options = options)
-#driver = webdriver.Firefox()
+options.add_argument("--disable-gpu")
+options.add_argument('--log-level=3')
+driver = webdriver.Chrome(options = options) #driver = webdriver.Chrome()
+
 driver.implicitly_wait(100) # ждем столько, если не справился заканчиваем?
 
 # Слоаварь, который надо сохранить
 current_dict = {}
 # счетчик контрактов
-number_counter = 0
+number_counter = 16670 #0
+clear_num_counter = 0
+last_clear_num = 0
+last_time = 0
 # множество отпарсиных контрактов
 parsed_set = set()
+# контракты вызывающие ошибки
+errors_set = set()
+union_of_parsed_sets = pkl_set_reader('Parsing/parsed_comon_set.pkl')
 
-
+number_set = pkl_set_reader('../sql/contra/2021kontr9.pkl')
+number_set = number_set - union_of_parsed_sets
+print(f'Число искомых контрактов: {len(number_set)}')
 for gov_number in number_set:
+    number_counter += 1
+    clear_num_counter += 1
+    if number_counter % 100 == 0:
+        cur_sec = round((time.time() - start_time), 2)
+        time_past = cur_sec - last_time
+        print(f'\nОбработано номеров: {clear_num_counter} шт.;{last_clear_num} шт. за: {round(time_past)} сек.')
+        last_clear_num = clear_num_counter # колво обработ контр. в прошлый раз
+        print(f'Скорость парсинга: {round(clear_num_counter / cur_sec) * 60 } контр/мин')
+        last_time = cur_sec
+    elif number_counter % 25 == 0:
+        print(f"\rОбработано: {clear_num_counter}, в {datetime.datetime.now().hour} ч. {datetime.datetime.now().minute} мин.", end = '')
     #print(f'\nПарсим контракт № "{gov_number}"')
     current_link = start_page + gov_number
     # переходим на страницу контракта
     driver.get(current_link)
-    # на страницу товаров
-    goods_link = '/html/body/div[2]/div/div[1]/div[3]/div/a[2]'
-    driver.find_element_by_xpath(goods_link).click()
-    # настраиваем и парсим + добавляем в общий словарь
-    current_dict |= {gov_number: full_page_pars()}
-    # добавить номер контракта в parsed_set
-    # счетчик контрактов если 500 то сохранить в pkl + если ошибка то сохранить в pkl
 
-print_table(current_dict)
+    try:
+        # на страницу товаров
+        goods_link = '/html/body/div[2]/div/div[1]/div[3]/div/a[2]'  # №№№№№№№№№№№№№№ ВОЗНИКАЕТ ОШИБКА НЕ НАЙТИ ЭТОТ ЭЛЕМЕНТ
+        driver.find_element_by_xpath(goods_link).click()
+        # настраиваем и парсим + добавляем в общий словарь  # ВСТАВИТЬ ОБРАБОТЧИК ОШИБОК!!!!!!
+        current_dict |= {gov_number: full_page_pars()}
+    except:
+        if len(current_dict) != 0:
+            name_for_curd = f'Parsing/{number_counter}_dict.pkl'
+            name_for_pars = f'Parsing/{number_counter}_parsed.pkl'
+            # Сохранение словаря current_dict в файл pkl
+            pkl_saver(name_for_curd, current_dict)
+            # очистка current_dict
+            current_dict.clear()
+            # сохранение parsed_set
+            pkl_saver(name_for_pars, parsed_set)
+            # очистка parsed_set
+            parsed_set.clear()
+            errors_set.add(gov_number)
+            pkl_saver(f'Parsing/{number_counter}_errors.pkl', errors_set)
+            errors_set.clear()
+
+    # добавить номер контракта в parsed_set
+    parsed_set.add(gov_number)
+    # счетчик контрактов если 500 то сохранить в pkl
+    if number_counter % 500 == 0:
+        name_for_curd = f'Parsing/{number_counter}_dict.pkl'
+        name_for_pars = f'Parsing/{number_counter}_parsed.pkl'
+        #print(f"\rКонтрактов прочитано: {number_counter} шт.", end = '')
+        print(f"\n\n        Контрактов прочитано: {number_counter} шт.")
+        print(f"        Осталось: {len(number_set) - clear_num_counter} шт.")
+        # Сохранение словаря current_dict в файл pkl
+        pkl_saver(name_for_curd, current_dict)
+        # очистка current_dict
+        current_dict.clear()
+        # сохранение parsed_set
+        pkl_saver(name_for_pars, parsed_set)
+        # очистка parsed_set
+        parsed_set.clear()
+        cur_sec = round((time.time() - start_time), 2)
+        print(f'    Время работы: {int(cur_sec // 60)} мин. {round(cur_sec % 60)} сек.\n\n')
+
+    elif number_counter == len(number_set):
+        name_for_curd = f'Parsing/{number_counter}_dict.pkl'
+        name_for_pars = f'Parsing/{number_counter}_parsed.pkl'
+        print(f"\rКонтрактов прочитано: {number_counter} шт.", end = '')
+        # Сохранение словаря current_dict в файл pkl
+        pkl_saver(name_for_curd, current_dict)
+        # очистка current_dict
+        current_dict.clear()
+        # сохранение parsed_set
+        pkl_saver(name_for_pars, parsed_set)
+        # очистка parsed_set
+        parsed_set.clear()
+
+#print_table(current_dict)
 
 driver.close()
 cur_sec = round((time.time() - start_time), 2)
-print(f'Вревмя выполнения: {int(cur_sec // 60)} мин. {cur_sec} сек.)')
+print(f'Вревмя выполнения: {int(cur_sec // 60)} мин. {cur_sec % 60} сек.)')
