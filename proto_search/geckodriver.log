@@ -1,4 +1,0 @@
-1637158426537	geckodriver	INFO	Listening on 127.0.0.1:3591
-1637158429522	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-no-remote" "-profile" "C:\\Users\\G463D~1.TIS\\AppData\\Local\\Temp\\rust_mozprofilexd5vjJ"
-1637158455150	geckodriver	INFO	Listening on 127.0.0.1:3659
-1637158458161	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-no-remote" "-profile" "C:\\Users\\G463D~1.TIS\\AppData\\Local\\Temp\\rust_mozprofileKLoEGp"

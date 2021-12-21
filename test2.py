@@ -1,3 +1,6 @@
+'''
+ТУТ РАБОЧИЙ КОД
+'''
 
 def comparison_two_dicts(first_dict, second_dict, set_of_names = set()):
     ''' функция сравнивает два словаря

@@ -1,3 +1,7 @@
+'''
+ХЗ ЧТО ТУТ ДОЛЖНО БЫТЬ ПУСТО!
+'''
+
 def manual_cicle():
     for el in range(100):
         print(el)

@@ -66,6 +66,6 @@ print(len(error_union_of_sets))
 pkl_saver('Parsing/contract_union_of_dicts.pkl', contract_union_dict)
 print(len(contract_union_dict))
 
-for el in contract_union_dict:
-    union_of_parsed_sets.add(el)
+#for el in contract_union_dict:
+    #union_of_parsed_sets.add(el)
 #pkl_saver('Parsing/parsed_comon_set.pkl', union_of_parsed_sets)

@@ -27,11 +27,15 @@ import pyautogui
 import imutils
 import cv2
 
+
+import pickle
+
 start_time = time.time()
 
 #csv_file_name = '../devfiles/petrov_list1.csv'#'../devfiles/test3_all.csv'
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/reestr 4.csv'
-dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens/'
+#csv_file_name = 'C:/Users/G.Tishchenko/Desktop/reestr 4.csv'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_1_2022.csv'
+dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_1_2022/new/'
 beauty_file_name = 'settings/my_beauty_links.csv'
 selenium_file_name = 'settings/my_selenium_links.csv'
 
@@ -80,8 +84,6 @@ options.add_argument("--start-maximized")
 options.add_argument("--window-size=1920x1080")
 driver = webdriver.Chrome(options = options)
 
-#driver = webdriver.Firefox()
-#driver = webdriver.Ie()
 
 driver.implicitly_wait(3) # ждем столько, если не справился закрываем
 
@@ -183,24 +185,32 @@ with open(csv_file_name) as file:
 
     for row in readers:
         if row[0] in selen_dict: ####and comon_counter <= 2000 not in temp_list
-            answer = selen_parse(row[0], str(dir_for_screen + row[1] + '.jpg')) #'../devfiles/scr/'
+            try:
+                answer = selen_parse(row[0], str(dir_for_screen + row[1] + '.jpg')) #'../devfiles/scr/'
+            except:
+                print('ОШИБКА', row[0])
 
             row.append(answer)
             finish_list.append(row)
 
             current_counter2 += 1
+            with open('C:/Users/G.Tishchenko/Desktop/screens_1_2022/price.pkl', 'wb') as f:
+                pickle.dump(finish_list, f, pickle.HIGHEST_PROTOCOL)
              ###temp_list.append(row[0])
-            print(comon_counter, row[0], answer)
+            #print(comon_counter, row[0], answer)
 
 
-        elif row[0] in beauty_dict and row[0] != 'www.citilink.ru': #
-            answer = beauty_pars(str(dir_for_screen + row[1] + '.jpg'))
+        elif row[0] in beauty_dict: #and row[0] != 'www.citilink.ru': #
+            try:
+                answer = beauty_pars(str(dir_for_screen + row[1] + '.jpg'))
+            except:
+                print('ОШИБКА', row[0])
 
             row.append(answer)
             finish_list.append(row)
 
             current_counter3 += 1
-            print(comon_counter, row[0], answer)
+            #print(comon_counter, row[0], answer)
              ###temp_list.append(row[0])
         else:
             current_counterz += 1
