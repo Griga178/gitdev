@@ -13,25 +13,25 @@ import pandas
 
 #sheets_name = 'RT new'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/reestr 4.xlsx'
-sheets_name = 'new_kkn' #'RT new'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Реестр 1 кв 2022.xlsx'
+sheets_name = 'Общий (580 шт)' #'RT new'
 
 column_name = 'Наименование поставщика'
-column_inn = 'ИНН поставщика'
-column_price = 'Новая цена 4кв'
+#column_inn = 'ИНН поставщика'
+column_price = 'Цена, включая НДС, руб.'
 column_numer = 'Источник ценовой информации'
-#column_jpg_name = 'jpg_name'
+column_jpg_name = 'Номер скриншота'
 
 dict_main = {}
 
 df = pandas.read_excel(exel_file, sheet_name = sheets_name,
-usecols = [column_price, column_numer, column_name]) #, column_jpg_name , column_inn
+usecols = [column_price, column_numer, column_name, column_jpg_name]) #, column_jpg_name , column_inn
 
 list_name = df[column_name].tolist()
 list_numer  = df[column_numer].tolist()
 #list_inn = df[column_inn].tolist()
 list_price = df[column_price].tolist()
-#list_jpg_name = df[column_jpg_name].tolist()
+list_jpg_name = df[column_jpg_name].tolist()
 
 list_comp_name = []
 
@@ -53,24 +53,30 @@ for el in list_name:
     try:
         str_len = len(list_numer[row])
         if str_len != 33:
+            # Если это НЕ КОНТРАКТ!
             count += 1
-            #jpg_name = (int(list_jpg_name[row]))           # ---- с колонкой jpg менять тут
+            jpg_name = (int(list_jpg_name[row]))           # ---- с колонкой jpg менять тут
             #print(f'Номер строки: {row + 2} jpg_name: {jpg_name}')
             if list_numer[row][:1] == "О" and list_price[row] > 0:
+                # Если это "Ответ на запрос" и Цена используется
                 o_count += 1
                 new_el = el.replace('"', '').replace('«', '').replace('»', '')
+                # Название компании без кавычек
 
                 set_otvetov.add(new_el)
                 list_comp_name.append(new_el)
-
+                ''' В словарь (dict_otveti) по ключу "Название компании"
+                    добавляются в список номера скриншотов
+                '''
                 if new_el not in dict_otveti:
-                    deic_el = {new_el: [row + 2]} # ---- с колонкой jpg менять тут
-                    #deic_el = {new_el: [jpg_name]}
+                    #deic_el = {new_el: [row + 2]} # ---- с колонкой jpg менять тут
+                    deic_el = {new_el: [jpg_name]}
                     dict_otveti.update(deic_el)
                 else:
-                    dict_otveti[new_el].append(row + 2)
-                    #dict_otveti[new_el].append(jpg_name)    # ---- с колонкой jpg менять тут
+                    #dict_otveti[new_el].append(row + 2)
+                    dict_otveti[new_el].append(jpg_name)    # ---- с колонкой jpg менять тут
             elif list_numer[row][:1] == "Э" and list_price[row] > 0:
+                # Если это "Экранная копия" и Цена используется
                 new_el = el.replace('"', '').replace('«', '').replace('»', '')
 
                 e_count += 1
@@ -79,40 +85,40 @@ for el in list_name:
 
 
                 if new_el not in dict_ekranki:
-                    deic_el = {new_el: [row + 2]}
-                    #deic_el = {new_el: [jpg_name]}  # ---- с колонкой jpg менять тут
+                    #deic_el = {new_el: [row + 2]}
+                    deic_el = {new_el: [jpg_name]}  # ---- с колонкой jpg менять тут
                     dict_ekranki.update(deic_el)
                 else:
-                    dict_ekranki[new_el].append(row + 2)
-                    #dict_ekranki[new_el].append(jpg_name) # ---- с колонкой jpg менять тут
+                    #dict_ekranki[new_el].append(row + 2)
+                    dict_ekranki[new_el].append(jpg_name) # ---- с колонкой jpg менять тут
     except:
         pass
     #print(row + 2) # первая 0, вторая - заголовки
     row += 1
 
-#                        тут подсчет количества скриншотов
+# тут подсчет количества скриншотов
 def count_scr_info():
-    print('Количество экранных копий по компаниям')
+    print(f'Количество экранных копий по компаниям ({len(dict_ekranki)} шт.)')
     cou_ekr = 0
     cou_otv = 0
     for el in dict_ekranki:
         cou_ekr += len(dict_ekranki[el])
         print(el, len(dict_ekranki[el]))
     print(f'\n------Всего экранных: {cou_ekr}\n')
-    print('Количество ответов по компаниям')
+    print(f'Количество ответов по компаниям ({len(dict_otveti)} шт.)')
     for el in dict_otveti:
         cou_otv += len(dict_otveti[el])
         print(el, len(dict_otveti[el]))
     print(f'\n------Всего ответов: {cou_otv}\n')
     print(f'\n------Итого: {cou_otv + cou_ekr}\n')
 
-count_scr_info()
+#count_scr_info()
 
 import os
 import shutil
 
 #main_dir = '../devfiles/new_ales_screenes'
-main_dir = 'C:/Users/G.Tishchenko/Desktop/new_skr/'
+main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder/'
 otvet_dir = main_dir + '/Otveti'
 ekran_dir = main_dir + '/Ekranki'
 
@@ -142,7 +148,7 @@ def create_dirs():
 # Копируем скриншоты
 # испольюзуются: dict_ekranki, dict_otveti
 #where_screens = '../devfiles/scr/new/'
-where_screens = 'C:/Users/G.Tishchenko/Desktop/screens/'
+where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_1_2022/'
 
 def copy_screen():
     copy_count = 0
@@ -154,7 +160,7 @@ def copy_screen():
             old_screen_name = where_screens + scr_name
             new_screen_name = direct_name + 'new' + scr_name
             #print(old_screen_name)
-            #print(new_screen_name)
+            print(new_screen_name)
             try:
                 shutil.copyfile(old_screen_name, new_screen_name)
                 copy_count += 1
@@ -171,10 +177,10 @@ def copy_screen():
             scr_name = str(num) + '.jpg'
             old_screen_name = where_screens + scr_name
             new_screen_name = direct_name + 'new' +  scr_name
-            print(old_screen_name)
+            #print(old_screen_name)
             print(new_screen_name)
             try:
-                #shutil.copyfile(old_screen_name, new_screen_name)
+                shutil.copyfile(old_screen_name, new_screen_name)
                 copy_count_ecr += 1
             except:
                 print("Не удалось скопировать", scr_name)
@@ -198,3 +204,20 @@ def count_source_uses():
     print(f'\n------Итого: {count}\n')
 
 #count_source_uses()
+
+def print_dict(test_dict):
+    ''' Считаем количество
+         скринов в словаре всего
+         ответов
+         скринов по источнику
+    '''
+    print(len(test_dict))
+    full_count = 0
+    for key in test_dict:
+        print(key, len(test_dict[key]))
+        full_count += len(test_dict[key])
+    print(f'Всего фоток: {full_count}')
+
+
+#print_dict(dict_ekranki)
+#print_dict(dict_otveti)

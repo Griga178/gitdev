@@ -1,6 +1,7 @@
 '''
 Код для добавления значений/файлов в "СЭД"
-заходит на сайт, ищет по номеру документ, вставляет его (не проверено, нет обработок ошибок)
+заходит на сайт, ищет по номеру документ, вставляет его (нет обработок ошибок)
+полуавтомат, не дожидается полной загрузки файла, идет на след стр
 '''
 import time
 
@@ -22,7 +23,7 @@ page_enter = 'http://srv07/cmec/Login.aspx?ReturnUrl=%2fcmec%2fCA%2fDesktop%2fDe
 def authorization_func(user_name, user_passw):
     global driver
     driver = webdriver.Chrome()
-    driver.implicitly_wait(10) # ждем столько, если не справился заканчиваем?
+    driver.implicitly_wait(1000) # ждем столько, если не справился заканчиваем?
 
     driver.get(page_enter)
 
@@ -93,14 +94,17 @@ def upload_file(file_name): # загрузка файлов с компа
 
 user_name = 'Tishchenko_GL'
 user_passw = 'cmec789'
+#user_name = 'Mustafin_RI'
+#user_passw = '123123'
 
-
-exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
+#exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers1_22.xlsx'
 
 sheets_name_e = 'Ekranki'
 sheets_name_o = 'Otveti'
 
-dir_files = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/'
+#dir_files = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/'
+dir_files = 'C:/Users/G.Tishchenko/Desktop/Word_folder/'
 
 
 
@@ -122,13 +126,13 @@ def main_func(sheets_name):
         driver.get(main_page)
         #print(f'Следующий номер: {number}')
         find_document_from_main(number)
-        print(f'зашли на страницу по номеру {number}')
+        print(f'зашли на страницу по номеру {number} -- {list_name[num_index]}')
         time.sleep(1)
         click_by_name('Вложения')
         #print('перешли на вкладку вложения')
         file_name = list_name[num_index].replace('"', '').replace('«', '').replace('»', '') + '.docx'
         time.sleep(1)
-        print(f'Прикрепили файл {file_name}\n')
+        #print(f'Прикрепили файл {file_name}\n')
 
         # штука, что бы контролировать процесс
         # после каждого круга Enter или s = stop
@@ -140,9 +144,12 @@ def main_func(sheets_name):
             #time.sleep(1)
 
             num_index += 1
-            argument = input('Enter, что бы продолжить\ns, что бы закончить: \n')
-            if argument == 's':
-                break
+        else:
+            print(f'Не нашел файл: {file_name}\nв папке {cur_dir}')
+            num_index += 1
+        argument = input('Enter, что бы продолжить\ns, что бы закончить: \n')
+        if argument == 's':
+            break
 
 
     print(f'Добавлено: {num_index} файлов')
@@ -158,17 +165,18 @@ def one_append(file, number):
     time.sleep(5)
 
 
-#authorization_func(user_name, user_passw)
+authorization_func(user_name, user_passw)
 print('Авторизовались\n')
 
 #main_func(sheets_name_e)
 #main_func(sheets_name_o)
 
+
 #file = 'C:/Users/G.Tishchenko/Desktop/Аквариус.msg'
 #number = '04-6401/21-0-0'
 #one_append(file, number)
 
-#driver.quit()
+driver.quit()
 
 cur_sec = round((time.time() - start_time), 2)
 print(f'Вревмя выполнения: {int(cur_sec // 60)} мин. {cur_sec} сек.)')

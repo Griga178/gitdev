@@ -22,7 +22,7 @@ def authorization_func(user_name, user_passw):
 
     global driver
     driver = webdriver.Chrome()
-    driver.implicitly_wait(10) # ждем столько, если не справился заканчиваем?
+    driver.implicitly_wait(1000) # ждем столько, если не справился заканчиваем?
 
     driver.get(page_enter)
 
@@ -52,12 +52,6 @@ def find_document_from_main(number_element):
     atr_val_btn = 'WbForm_ButtonIcon buttonSearch searchButtonCtl'
     driver.find_element_by_xpath(f"//{tag}[@{atribute}='{atr_val_btn}']").click() # поиск в поисковике сайта
 
-
-
-
-
-
-
 def main_func(sheets_name):
     # Добавляет все экранки по списку excel
     column_name, column_number = 'name', 'number'
@@ -76,34 +70,29 @@ def main_func(sheets_name):
         print(f'зашли на {row + 1} страницу по номеру {number}')
         print(list_name[row])
         time.sleep(1)
+        #driver.find_element_by_xpath("//html").click()
 
+        ''' Нажать на кнопку "Полная карточка" '''
         qa0 = '//div[@id="btn_Mode_Full"]'
         driver.find_element_by_xpath(qa0).click()
-        '''
+
+
+        ''' Вставка текста в "Содержание": "Экранная копия" '''
         qa2 = '//div[@class="Wb_Textarea Wb_FormElement_Position1 text_Content Wb_Control Wb_EditableField WbForm_Obligatory"]/div/textarea'
         text2 = 'Экранная копия'
+        print("Пробуем заполнить содержание")
         find_element = driver.find_element_by_xpath(qa2)
         find_element.clear()
         find_element.send_keys(text2)
+        #driver.find_element_by_xpath("//html").click()
 
-        qa = '//div[@class="classifier_From Wb_Input Wb_Control WbForm_Obligatory Wb_EditableField"]/div/table/tbody/tr/td[@style="width: 100%"]/div/input'
+        ''' Вставка текста в "Откуда": "Сторонняя организация, интернет-магазин" '''
         text3 = 'Сторонняя организация, интернет-магазин'
-        find_element = driver.find_element_by_xpath(qa)
-        find_element.clear()
-        if '"' in list_name[row]:
-            find_element.send_keys(list_name[row].split('"')[1]) #list_name[row]
-        else:
-            find_element.send_keys(list_name[row]) #list_name[row]
-        qa3 = '//div[@class="Wb_Input Wb_InputText Wb_InputSelect classifier_FromWhom Wb_EditableField"]/div/input'
-        text1 = 'Руководителя'
-        find_element = driver.find_element_by_xpath(qa3)
-        find_element.clear()
-        find_element.send_keys(text1) #list_name[row]
-        '''
 
-        #print(list_name[row])
-        #print(text3)
-        #print(text1)
+
+        print('\n', list_name[row])
+        print(text3)
+        print(text2)
 
         # штука, что бы контролировать процесс
         # после каждого круга Enter или s = stop
@@ -111,25 +100,30 @@ def main_func(sheets_name):
         argument = input('\nEnter, что бы продолжить\ns, что бы закончить: \n')
         if argument == 's':
             break
+        else:
+            print("Продолжаем")
         row += 1
 
 
 
 
-user_name = #'Tishchenko_GL'
-user_passw = #'cmec789'
+#user_name = #'Tishchenko_GL'
+#user_passw = #'cmec789'
 
+user_name = 'Mustafin_RI'
+user_passw = '123123'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
+#exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers1_22.xlsx'
 
 sheets_name_e = 'Ekranki'
 
 
 
-#authorization_func(user_name, user_passw)
+authorization_func(user_name, user_passw)
 print('Авторизовались\n')
 
-#main_func(sheets_name_e)
+main_func(sheets_name_e)
 
 
 driver.quit()

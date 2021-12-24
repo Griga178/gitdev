@@ -6,18 +6,24 @@
 
     Из папки ales_screenes Otveti,Ekranki
                             ----- pic_save(dir_source, dir_destiny)
+
+    1 Меняем
+        screen_folder
 '''
 import docx
 from docx.enum.section import WD_ORIENT
 import os
 from docx.shared import Inches
 
-name_file = 'new_file.docx'
-name_name_file = 'new_file_2.docx'
+#name_file = 'new_file.docx'
+#name_name_file = 'new_file_2.docx'
 
-dir_name_i = '../devfiles/images'
-dir_name_O = '../devfiles/images/Otveti'
-dir_name_E = '../devfiles/images/Ekranki'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder'
+
+word_folder = 'C:/Users/G.Tishchenko/Desktop/'
+dir_name_i = word_folder + 'Word_folder'
+dir_name_O = dir_name_i + '/Otveti'
+dir_name_E = dir_name_i + '/Ekranki'
 
 def create_dirs():
     try:
@@ -29,9 +35,9 @@ def create_dirs():
 
 #create_dirs()
 
-source_O ='../devfiles/ales_screenes/Otveti'
-source_E ='../devfiles/ales_screenes/Ekranki'
 
+source_O = screen_folder + '/Otveti/'
+source_E = screen_folder + '/Ekranki'
 
 def pic_save(dir_source, dir_destiny):
     ''' 2 обязательных аргумента (названия папок)
