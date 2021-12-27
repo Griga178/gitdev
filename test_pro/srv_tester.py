@@ -3,7 +3,6 @@ from srv_helper import *
 
 
 
-page_enter = 'http://srv07/cmec/Login.aspx?ReturnUrl=%2fcmec%2fCA%2fDesktop%2fDefault.aspx%3fwintype%3dwindow_desktops'
 
 name = 'Tishchenko_GL'
 passe = 'cmec789'
@@ -12,4 +11,17 @@ passe = 'cmec789'
 driver.get(page_enter)
 
 
-authorization_func(name, passe)
+if authorization_func(name, passe):
+    print('All is OK')
+
+
+considering = 'На рассмотрении'
+my_reports = 'Мои отчеты'
+new_project = 'Новый проект исходящего'
+
+
+#link_by_wbtitle(new_project)
+#driver.get(main_page)
+find_document_by_number('04-8712/21-0-0')
+
+driver.close()

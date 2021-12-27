@@ -9,9 +9,9 @@ start_time = time.time()
 
 main_page = 'https://egrul.nalog.ru/index.html'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/reestr 4.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Реестр 1 кв 2022.xlsx'
 
-sheets_name = 'companies'
+sheets_name = 'for_search'
 
 
 column_name = 'comp_name'
@@ -19,7 +19,7 @@ column_inn = 'inn'
 
 csv_file_name = 'C:/Users/G.Tishchenko/Desktop/comp.csv'
 
-df = pandas.read_excel(exel_file, sheet_name = sheets_name, usecols = [column_name, column_inn])
+df = pandas.read_excel(exel_file, sheet_name = sheets_name, usecols = [column_inn]) #column_name
 
 # Вытащили список инн
 list_inn = df[column_inn].tolist()
