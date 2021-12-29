@@ -45,6 +45,7 @@ def authorization_func(user_name, user_passw):
 #t = '//*[contains(@wbtitle, "На рассмотрении")]'
 
 def link_by_wbtitle (search_text):
+    # Ищет кнопки с тегом wbtitle , в соновном на главной стр.
     xpath_rules = f'//*[contains(@wbtitle, "{search_text}")]'
     search_t = driver.find_element_by_xpath(xpath_rules)
     search_t.click()
@@ -65,3 +66,20 @@ def find_document_by_number(number):
     else:
         print("Не нашли, что искали")
     time.sleep(10)
+
+
+    '''
+    <div id="wb_control_windowView_document_attachments_1fnvqdevar3hl7th1m3" wbtype="control_windowView_document_attachments" wbkey="attachments" class="Wb_Control Wb_Control_WindowView" wbtitle="Вложения" style="display: none;"><div id="wb_control_toolbar_1fnvqdev9a14qn9arnh" wbtype="control_toolbar" wbkey="toolbar" class="Wb_Control Wb_Control_Toolbar WbMain_Controls WindowControlPanel">
+        <div class="WbMain_Controls_LeftAreaContainer">
+            <div class="WbMain_Controls_LeftArea"></div>
+            <div class="WbMain_Controls_RightArea"></div>
+        </div>
+        <div class="clear"></div>
+    </div><div class="WbTabbedView_Gutter"></div><div></div></div>
+
+<div id="wb_control_tabButton_1fnvqdevdhvl83hdb65" wbtype="control_tabButton" wbkey="attachments" class="Wb_Control WbTabbedViewButton" tabindex="1" wbtitle="Вложения">
+    <div class="WbTabbedViewButton_Icon" style="background-image: url(&quot;../../clip_plain.svg?angle=0&amp;color=forestgreen&amp;pressed=false&quot;); border-radius: 51px;"></div>
+    <div class="WbTabbedViewButton_Title">Вложения</div>
+    <div class="WbTabbedViewButton_Subtitle">( 0 )</div>
+</div>
+    '''
