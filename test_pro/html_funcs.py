@@ -1,4 +1,5 @@
 import requests
+import bs4
 from bs4 import BeautifulSoup
 
 import re
@@ -8,6 +9,11 @@ import re
 
 uri = 'https://www.lg.com/ru/monitors/lg-27MP77HM-P'
 
+''' Текст для поиска '''
+product_group = 'Мониторы '
+product_name = 'IPS монитор LG серии MP77'
+article_number = '27MP77HM-P'
+find_char = 'Диагональ экрана' #' экрана (дюймы)'
 
 uri_page = requests.get(uri)
 soup = BeautifulSoup(uri_page.text, 'html.parser')
@@ -20,22 +26,14 @@ soup = BeautifulSoup(uri_page.text, 'html.parser')
 #print(soup.find_all('p'))
 #print(uri_page.text)
 
-
-
-''' Текст для поиска '''
-find_char = 'Диагональ экрана (дюймы)' #' экрана (дюймы)'
-
 ''' Список всех тегов (+ RegEx) - в виде экземпляров класса '''
-alist = soup.find_all(re.compile("[\w]+"))
+alist = soup.find_all(re.compile("[\w]+")) # '\' и любой англ.символ
 
-''' Поиск текста среди всех тегов
-    нужен вариант с множеством найденных текстов '''
+''' Поиск текста среди всех тегов '''
 for el in alist:
     if el.string != None:
         if find_char in el.string:
             find_item = el
-
-#print(find_item.parent.parent)
 
 def clean_text(str_text):
     ''' выделение символов и цифр в строке с помощью регулярок '''
@@ -44,40 +42,41 @@ def clean_text(str_text):
     clear_text = ''.join(result)
     return clear_text
 
+''' 1 случай:
+    Имя - значение находятся в 1-ом теге = "Группа" (<tr> <p>"Name"</p> <p>"Val"</p> </tr>) '''
 
+def first_case(val_tag):
+    # Поиск всех тегов в Группе
+    parent_tag_list = val_tag.parent
+    char_name = clean_text(val_tag.string)
+    value = None
+    for el in parent_tag_list:
+        if type(el) == bs4.element.Tag and el.string != val_tag.string:
+            try:
+                value = clean_text(el.string)
+            except:
+                value = 'Error'
+    print([char_name], '-', [value])
 
+new_list = soup.find_all(find_item.name)
 
-''' Нашли название характеристики - теперь ищем ее значение '''
+#for el in new_list:
+#    first_case(el)
 
-# имя характеристики и значение находятся в своих тегах
-# и объединены общим тегом (<tr><p>Name</p><p>Val</p></tr>)
+''' Сохранение настроек сайта для дальнейшего парсинга всех товаров:
+        Как найти (имея пример):
+            Артикул = ссылкка - Есть
+            Категорию товара
+            Характеристики товара - Есть
+            '''
+# Поиск Артикула article_number
+new_soup_l = soup.find_all('nav', {'class':'breadcrumb'})[0]
+print([el for el in new_soup_l.text.split('\n') if el][-1])
+print([el for el in new_soup_l.text.split('\n') if el][-2])
+# Поиск Категории product_group
 
-find_val = find_item.next_sibling
-clear_val = clean_text(find_val.string)
-c = 0
-print(c, find_item)
-while len(clear_val) >= 0:
-    c += 1
-    print(c, find_val)
-
-    find_val = find_val.next_sibling
-
-    clear_val = clean_text(find_val.string)
-    print([clear_val])
-else:
-    print('yeah')
-    print([clear_val])
-
-
-#print([find_item.next_sibling.next_sibling.string]) #.string
-
-#print(clean_text(find_item.next_sibling.next_sibling.string))
 '''
-1 Найти на сайте тег по тексту (характеристика)
-2 в этом теге найти
-
-Найти слово - определить его адрес (htmk/div/p/слово)
-выделить теги (htmk/div/p/)
-проверить соседние теги на наличие текста (html/div/) - вытащить текст
+    Задачи:
+        найти все теги с текстом
 
 '''
