@@ -7,6 +7,11 @@
 ### Надо записывать названия скриншотов в оригинальный* файл
 * или что нибудь еще column_jpg_name в 7n.py (для сортировки скринов
 по папкам по компаниям)
+
+ПЕРЕД ЗАПУСКОМ:
+https://chromedriver.chromium.org/downloads
+обновит driver chrome
+заменить: csv_file_name, dir_for_screen
 '''
 import openpyxl
 import csv
@@ -32,10 +37,10 @@ import pickle
 
 start_time = time.time()
 
-#csv_file_name = '../devfiles/petrov_list1.csv'#'../devfiles/test3_all.csv'
-#csv_file_name = 'C:/Users/G.Tishchenko/Desktop/reestr 4.csv'
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_1_2022.csv'
-dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_1_2022/new/'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_2_2022.csv'
+dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/'
+pkl_file_name = dir_for_screen + 'price.pkl'
+# Если папки нет создать
 beauty_file_name = 'settings/my_beauty_links.csv'
 selenium_file_name = 'settings/my_selenium_links.csv'
 
@@ -194,7 +199,7 @@ with open(csv_file_name) as file:
             finish_list.append(row)
 
             current_counter2 += 1
-            with open('C:/Users/G.Tishchenko/Desktop/screens_1_2022/price.pkl', 'wb') as f:
+            with open(pkl_file_name, 'wb') as f:
                 pickle.dump(finish_list, f, pickle.HIGHEST_PROTOCOL)
              ###temp_list.append(row[0])
             #print(comon_counter, row[0], answer)
@@ -231,7 +236,7 @@ print("beauty_dict", current_counter3)
 print("not_pars", current_counterz)
 
 
-new_name = '../devfiles/links_' + csv_file_name.split('/')[-1]
+new_name = dir_for_screen + 'links_' + csv_file_name.split('/')[-1]
 with open(new_name, 'w') as file:
     for line in finish_list:
         file.write(f'{line[0]};{line[1]};{line[2]};{line[3]}\n')

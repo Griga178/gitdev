@@ -18,10 +18,10 @@ import pyautogui
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Проверка скринов.xlsx'
-sheet_name = 'Norman'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Ручной парсин.xlsx'
+sheet_name = 'Лист21'
 # Папка для скринов
-screens_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/new/'
+screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/'
 
 def links_to_list_from_excel():
     '   Создаем список с [Ссылка, номер скриншота(строки)]'
@@ -50,11 +50,19 @@ def run_manual_parse():
 
     for row in work_list:
         driver.set_window_size(1240, 1080)
-        driver.get(row[0])
+        try:
+            driver.get(row[0])
+        except:
+            print(f"ОШИБКА ПЕРЕХОДА НА СТРАНИЦУ: {row[0]}")
         input_price = input(f'{row[1]}. Значение цены: ')
 
         if input_price == 's':
             print('Стоп машина!')
+            with open(csv_new_name, 'w') as file:
+                for line in work_list_with_price:
+                    file.write(f'{line[0]};{line[1]};{line[2]}\n')
+            cur_sec = round((time.time() - start_time), 2)
+            print(f'Вревмя выполнения: {int(cur_sec // 60)} мин. {cur_sec} сек.)')
             break
         else:
             try:
@@ -67,7 +75,7 @@ def run_manual_parse():
             work_list_with_price.append([row[0], row[1], input_price])
             print('Цена =', input_price)
             driver.maximize_window()
-            screen_name = screens_folder + str(row[1]) + '.jpg' #row[1]
+            screen_name = screens_folder + str(row[1]) + '.jpg' #row[1] + f'_{str(input_price).replace(".", ",")}'
             print(screen_name)
             make_screenshoot(screen_name)
         elif input_price == 0:
