@@ -21,7 +21,7 @@ start_time = time.time()
 excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Ручной парсин.xlsx'
 sheet_name = 'Лист21'
 # Папка для скринов
-screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/'
+screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/new_step/'
 
 def links_to_list_from_excel():
     '   Создаем список с [Ссылка, номер скриншота(строки)]'
