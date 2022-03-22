@@ -13,6 +13,11 @@ import pyautogui
 человек в консоль вводит цену
 если есть цена - запись + создать скрин
 (свернуть консоль или в брузер в полный экран)
+ДОБАВИТЬ
+IF INPUY == 'n':
+добавить новую ссылку и цену
+elif == 'r'
+исправить цену в номере
 '''
 
 start_time = time.time()
@@ -45,7 +50,11 @@ def run_manual_parse():
     'В ручную добалвяем цены к ссылке + делаем скрин'
     csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(three).csv'
     work_list = links_to_list_from_excel()
-    driver = webdriver.Chrome()
+    #options = webdriver.ChromeOptions()
+    #options.add_argument("--ignore-certificate-error")
+    #options.add_argument('--ignore-certificate-errors-spki-list')
+    #options.add_argument('--ignore-ssl-errors')
+    driver = webdriver.Chrome() #options = options
     work_list_with_price = []
 
     for row in work_list:
