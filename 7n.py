@@ -13,8 +13,8 @@ import pandas
 
 #sheets_name = 'RT new'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Реестр 1 кв 2022.xlsx'
-sheets_name = 'Общий (580 шт)' #'RT new'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/картинки.xlsx'
+sheets_name = 'КБТ' #'RT new'
 
 column_name = 'Наименование поставщика'
 #column_inn = 'ИНН поставщика'
@@ -112,7 +112,7 @@ def count_scr_info():
     print(f'\n------Всего ответов: {cou_otv}\n')
     print(f'\n------Итого: {cou_otv + cou_ekr}\n')
 
-#count_scr_info()
+# count_scr_info()
 
 import os
 import shutil
@@ -148,7 +148,7 @@ def create_dirs():
 # Копируем скриншоты
 # испольюзуются: dict_ekranki, dict_otveti
 #where_screens = '../devfiles/scr/new/'
-where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_1_2022/'
+where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/'
 
 def copy_screen():
     copy_count = 0
@@ -185,9 +185,9 @@ def copy_screen():
             except:
                 print("Не удалось скопировать", scr_name)
     print(copy_count_ecr, ' Экранок')
-
-#create_dirs()
-#copy_screen()
+# 
+# create_dirs()
+# copy_screen()
 
 
 # Считаем количество использования источников {Ситилинк ООО; 100}

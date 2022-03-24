@@ -22,8 +22,8 @@ screen_set = read_screen_in_dir(r_path)
 Надо выбрать скрины по списку
 '''
 
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/номера скринов.xlsx'
-sheet_name = 'Лист1'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/картинки.xlsx'
+sheet_name = 'Лист 1'
 
 def read_search_screen():
     emppte_set = set()
@@ -59,6 +59,14 @@ def copy_scr():
     #final_set = set_from_excel - coped_set
     #print(final_set)
 
-copy_scr()
-#print(len(read_search_screen()))
-#my_set = read_search_screen()
+# copy_scr()
+excel_set = read_search_screen()
+folder_set = read_screen_in_dir(r_path)
+# next_step = read_screen_in_dir(r'C:\Users\G.Tishchenko\Desktop\screens_2_2022\new_step')
+print(len(excel_set))
+print(len(folder_set))
+# print(len(next_step))
+
+# union = folder_set & next_step
+union = excel_set - folder_set
+print(union)

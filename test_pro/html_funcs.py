@@ -2,7 +2,7 @@ import requests
 import bs4
 from bs4 import BeautifulSoup
 
-import re
+
 
 ''' http://bs4ru.geekwriter.ru/bs4ru.html
     https://tproger.ru/translations/regular-expression-python/ '''
