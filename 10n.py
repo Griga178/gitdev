@@ -168,8 +168,8 @@ def one_append(file, number):
 authorization_func(user_name, user_passw)
 print('Авторизовались\n')
 
-#main_func(sheets_name_e)
-#main_func(sheets_name_o)
+# main_func(sheets_name_e)
+# main_func(sheets_name_o)
 
 
 #file = 'C:/Users/G.Tishchenko/Desktop/Аквариус.msg'

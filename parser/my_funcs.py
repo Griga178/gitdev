@@ -7,8 +7,11 @@ def define_main_page(link):
     '''
     if type(link) == str:
         split_list = link.split("/")
-        main_page = split_list[2]
         h_protocol = split_list[0]
+        try:
+            main_page = split_list[2]
+        except:
+            main_page = ''
         if 'http' or 'ftp' in h_protocol:
             return main_page
         else:
