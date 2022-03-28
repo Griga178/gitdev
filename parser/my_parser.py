@@ -1,11 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 from my_funcs import *
+from my_classes import Link
 
 
-example_link = 'https://www.citilink.ru/catalog/karty-pamyati/'
-exemple_product_link = 'https://www.citilink.ru/product/karta-pamyati-microsdhc-uhs-i-kingston-canvselect-plus-32-gb-100-mb-s-1206983/'
-second_product_link = 'https://www.citilink.ru/product/kartrider-vneshnii-buro-bu-cr-110-chernyi-389726/'
 
 
 
@@ -30,31 +28,74 @@ my_site_dict = {'www.citilink.ru':{
 # ПРОЦЕСС ПАРСИНГА
 
 # ПАРСЕР ПО ССЫЛКЕ (ДОБАВИТЬ ЧТЕНИЕ ХАРАКТЕРИСТИК) ТОЧЕЧНЫЙ
-def page_info(link):
-    # ОПРЕДЕЛЯЕМ ГЛАВНУЮ СТРАНИЦУ
-    main_page = define_main_page(link)
-    if main_page:
-        # ПЕРЕХОД ПО ССЫЛКЕ - ОТВЕТ СЕРВЕРА
-        my_request = requests.get(exemple_product_link)
-        # ПРЕОБРАЗУЕМ HTML-КОД В ЭКЗЕМЛЯР BF4
-        soup = BeautifulSoup(my_request.text, 'html.parser')
-        if main_page in my_site_dict:
-            # ПОИСК БЛОКА С ЦЕНОЙ ПО ЗНАЧЕНИЮ КЛАССА
-            price_tag = soup.find(my_site_dict[main_page]['price_tag_class'][0], my_site_dict[main_page]['price_tag_class'][1]).string
+class Parser():
+    # ТЕГИ ДЛЯ ПАРСИНГА
+    # ПОДГРУЖАЮТСЯ ИЗ ФАЛА PICKLE
+    my_site_tags = {'www.citilink.ru':{
+    'price_tag_class': ['span', 'ProductHeader__price-default_current-price'],
+    'buy_button_block': ['div', 'ProductHeader__buy-block'],
+    'buy_button': ['button', 'ProductHeader__buy-button']}
+    }
+    parsed_links = {}
 
-            # ПОИСК КНОПКИ КУПИТЬ (проверка на наличие товара)
-            buy_button_block = soup.find(my_site_dict[main_page]['buy_button_block'][0], my_site_dict[main_page]['buy_button_block'][1]).contents[0]
-            if my_site_dict[main_page]['buy_button'][1] in buy_button_block['class']:
-                print('Товар есть в наличии')
-                print(f'Цена товара: {clean_number(price_tag)}')
-            else:
-                print(buy_button_block['class'])
-                print("Не нашли")
+    def parse_page(self, page):
 
-        else:
-            print(f'Нет правил для сайта {main_page}')
+        if type(page) == str:
+            page = [page]
+        for link in page:
+            my_request = requests.get(link)
+            soup = BeautifulSoup(my_request.text, 'html.parser')
+            main_page = define_main_page(link)
+            if main_page in my_site_dict:
+                # ПОИСК БЛОКА С ЦЕНОЙ ПО ЗНАЧЕНИЮ КЛАССА
+                price_tag = soup.find(Parser.my_site_tags[main_page]['price_tag_class'][0], Parser.my_site_tags[main_page]['price_tag_class'][1]).string
+                # ПОИСК КНОПКИ КУПИТЬ (проверка на наличие товара)
+                # buy_button_block = soup.find(Parser.my_site_tags[main_page]['buy_button_block'][0], Parser.my_site_tags[main_page]['buy_button_block'][1]).contents[0]
+                Parser.parsed_links[link] = Link(link, pars_price = clean_number(price_tag))
+    def __str__(self):
+        parsed_links = Parser.parsed_links
+        return f'Отпарсено ссылок: {len(parsed_links)}'
+    def all_parsed_links(self):
+        parsed_links = Parser.parsed_links
+        return parsed_links
 
-page_info(second_product_link)
+
+exemple_product_link = 'https://www.citilink.ru/product/karta-pamyati-microsdhc-uhs-i-kingston-canvselect-plus-32-gb-100-mb-s-1206983/'
+second_product_link = 'https://www.citilink.ru/product/kartrider-vneshnii-buro-bu-cr-110-chernyi-389726/'
+
+# p = Parser()
+#
+# p.parse_page(exemple_product_link)
+#
+# for link in p.all_parsed_links():
+#     print(link)
+#     print(p.all_parsed_links()[link])
+
+
+# def parser_funcs(link):
+#     # ПЕРЕХОД ПО ССЫЛКЕ - ОТВЕТ СЕРВЕРА
+#     my_request = requests.get(link)
+#     # ПРЕОБРАЗУЕМ HTML-КОД В ЭКЗЕМЛЯР BF4
+#     soup = BeautifulSoup(my_request.text, 'html.parser')
+#     if main_page in my_site_dict:
+#         # ПОИСК БЛОКА С ЦЕНОЙ ПО ЗНАЧЕНИЮ КЛАССА
+#         price_tag = soup.find(my_site_dict[main_page]['price_tag_class'][0], my_site_dict[main_page]['price_tag_class'][1]).string
+#
+#         # ПОИСК КНОПКИ КУПИТЬ (проверка на наличие товара)
+#         buy_button_block = soup.find(my_site_dict[main_page]['buy_button_block'][0], my_site_dict[main_page]['buy_button_block'][1]).contents[0]
+#         if my_site_dict[main_page]['buy_button'][1] in buy_button_block['class']:
+#             print('Товар есть в наличии')
+#             print(f'Цена товара: {clean_number(price_tag)}')
+#         else:
+#             print(buy_button_block['class'])
+#             print("Не нашли")
+#
+#     else:
+#         print(f'Нет правил для сайта {main_page}')
+
+# link = second_product_link
+# main_page = define_main_page(link)
+# parser_funcs(link)
 
 # 1 блок товара:
 #     полное название

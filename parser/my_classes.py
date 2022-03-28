@@ -2,24 +2,46 @@ from datetime import datetime
 from my_funcs import *
 from random import randint
 
+
 class Shop():
 
-    shop_count = 0
-    amount_of_protos = 0
+    links_data = set()
 
-    def __iinit__(self):
-        self.main_page = ''
+    def __init__:(self, main_page):
+        self.name = main_page
 
-    # catalog_info = False
+    def return_links(category = False):
+        # Возвращает все ссылки экземпляра/Объекта
+        # Либо ссылки по категориям
+        # return Shop.links_data
+        pass
 
+class Product():
+    def __init__(self, name, id = False, categories_id = False):
+        self.id = id
+        self.name = name
+        self.categories_id = categories_id
 
+class Categories():
+    # Загрузка PICKLE инфы
+    # послдений id категории
+    id_number = 0
 
+    def __init__(self, name, id = False, shop_id = False, parent_id = False, chile_id = False):
+        self.name = name
+        self.shop_id = shop_id
+        self.parent_id = parent_id
+        self.chile_id = chile_id
+        Categories.examples_id.append(id)
+        Categories.id_number += 1
+        if not id:
+            self.id = Categories.id_number
+        else:
+            self.id = Categories.id_number
+            print(f'Ручной ввод id - не доступен\nНазначен номер: {self.id}')
 
-main_pages = ["dns.ru", 'ciiti.ru', 'only.ru', 'just.ru']
-
-protos_links = ["dns.ru/1", "https://dns.ru/2", "https://dns.ru/3", 'https://ciiti.ru/1', 'https://only.ru/1',
-'https://just.ru/1' 'https://ciiti.ru/2', 'https://only.ru/2', 'https://just.ru/2' 'https://ciiti.ru/3', 'https://only.ru/3', 'https://just.ru/3']
-
+    def __str__(self):
+        return f'{self.id, self.name}'
 
 class Link():
     link_counter = 0
@@ -37,11 +59,26 @@ class Link():
         else:
             print(f'Что за хрень: {link}?')
     def __str__(self):
+        '''главная стр, название товара, последняя цена'''
         return f"{self.link} \nprice: {self.pars_price}"
-    # link_counter += 1
-    # Хрень_выводит_кол_во_ссылок = f'Всего ссылок: {link_counter}'
-    # не тут считается
-example_set = set()
+
+    def update(self, new_price):
+        pass
+
+
+
+# cat_list = [['Компы', 1], ['Бытовуха', 3], ['Театр', 26]]
+# cat_set = set()
+#
+# for cat in cat_list:
+#     cat_set.add(Categories(cat[0], cat[1]))
+# print(Categories.examples_id)
+#
+# for cat_sets in cat_set:
+#     print(cat_sets)
+
+
+# example_set = set()
 #
 # class_list = [Link(link, pars_price = randint(100, 200)) for link in protos_links]
 # print(class_list[1].link)
@@ -51,12 +88,12 @@ example_set = set()
 #     Link(link)
     # print(link.main_page)
 
-for exe in protos_links:
-    example_set.add(Link(exe, pars_price = randint(100, 200)))
-
-print(len(example_set))
-
-for el in example_set:
-    print(el)
+# for exe in protos_links:
+#     example_set.add(Link(exe, pars_price = randint(100, 200)))
+#
+# print(len(example_set))
+#
+# for el in example_set:
+#     print(el)
 
 # https://proglib.io/p/vvedenie-v-obektno-orientirovannoe-programmirovanie-oop-na-python-2020-07-23
