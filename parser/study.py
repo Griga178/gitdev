@@ -47,3 +47,6 @@ tags_dict = {'www.citilink.ru':
 print(product_block.find('span', 'ProductHeader__price-default_current-price').string)
 
 full_xpath = '/html/body/div[2]/div[2]/main/div[2]/div[1]/div[1]/div/div[3]/div[2]/div/div[5]/div[1]/div[2]/div/span/span[1]'
+
+
+# https://ru-qt4.livejournal.com/3827.html
