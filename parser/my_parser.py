@@ -2,11 +2,7 @@ import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 from my_funcs import *
-
-
-
-
-
+from data_loader import *
 
 #print(my_request.text)
 
@@ -19,12 +15,8 @@ from my_funcs import *
     ПОИСК ОБЪЕКТА - ТЕГА ПО Full_XPath"""
 
 
-# ПРОВЕРЯЕМ ЕСТЬ ЛИ ЭТОТ САЙТ В БАЗЕ ДАННЫХ
-my_site_dict = {'www.citilink.ru':{
-'price_tag_class': ['span', 'ProductHeader__price-default_current-price'],
-'buy_button_block': ['div', 'ProductHeader__buy-block'],
-'buy_button': ['button', 'ProductHeader__buy-button']}
-}
+
+
 
 # ПРОЦЕСС ПАРСИНГА
 
@@ -32,11 +24,16 @@ my_site_dict = {'www.citilink.ru':{
 class My_parser():
     # ТЕГИ ДЛЯ ПАРСИНГА
     # ПОДГРУЖАЮТСЯ ИЗ ФАЛА PICKLE
-    my_site_tags = {'www.citilink.ru':{
-    'price_tag_class': ['span', 'ProductHeader__price-default_current-price'],
-    'buy_button_block': ['div', 'ProductHeader__buy-block'],
-    'buy_button': ['button', 'ProductHeader__buy-button']}
-    }
+    my_site_tags = load_pkl_file(current_path_name_settings)
+    if my_site_tags:
+        print('Настроки загружены')
+    else:
+        print('Ошибка')
+    # my_site_tags = {'www.citilink.ru':{
+    # 'price_tag_class': ['span', 'ProductHeader__price-default_current-price'],
+    # 'buy_button_block': ['div', 'ProductHeader__buy-block'],
+    # 'buy_button': ['button', 'ProductHeader__buy-button']}
+    # }
     parsed_links = {}
     parsing_counter = 0
     # НОВАЯ СТРУКТУРА КОДА ПАРСИНГА
@@ -50,49 +47,37 @@ class My_parser():
 
     # ФУНКЦИЯ ЧИТАЮЩАЯ 1 СТРАНИЦУ
     def parse_one_link(self, link):
-
-        main_page = define_main_page(link)
+        self.parser_counter += 1
         # ПРОВЕРКА ССЫЛКИ НА НОРМАЛЬНОСТЬ
+        main_page = define_main_page(link)
         if main_page:
-            # ЗНАЕМ ЛИ МЫ ТЕГИ, ГДЕ ИСКАТЬ?
-            if main_page in my_site_dict:
-                my_request = requests.get(link)
-                soup = BeautifulSoup(my_request.text, 'html.parser')
-                # ПОИСК БЛОКА С ЦЕНОЙ ПО ЗНАЧЕНИЮ КЛАССА
-                try:
-                    price_tag = soup.find(My_parser.my_site_tags[main_page]['price_tag_class'][0], My_parser.my_site_tags[main_page]['price_tag_class'][1]).string
-                    current_price = clean_number(price_tag)
+            # ПРОВЕРКА НА ПОВТОРНЫЙ ПАРСИНГ
+            if link not in My_parser.parsed_links:
+                # ЗНАЕМ ЛИ МЫ ТЕГИ, ГДЕ ИСКАТЬ?
+                if main_page in My_parser.my_site_tags:
+                    my_request = requests.get(link)
+                    soup = BeautifulSoup(my_request.text, 'html.parser')
+                    # ПОИСК БЛОКА С ЦЕНОЙ ПО ЗНАЧЕНИЮ КЛАССА
+                    try:
+                        price_tag = soup.find(My_parser.my_site_tags[main_page]['price_tag_class'][0], My_parser.my_site_tags[main_page]['price_tag_class'][1]).string
+                        current_price = clean_number(price_tag)
 
-                except:
-                    current_price = False
-                    # print(f"ИСКЛЮЧЕНИЕ! {link}")
-                # product_name =
+                    except:
+                        current_price = False
+                        # print(f"ИСКЛЮЧЕНИЕ! {link}")
+                    # product_name =
 
-                # ПОИСК КНОПКИ КУПИТЬ (проверка на наличие товара)
-                # buy_button_block = soup.find(Parser.my_site_tags[main_page]['buy_button_block'][0], Parser.my_site_tags[main_page]['buy_button_block'][1]).contents[0]
-                My_parser.parsed_links[link] = My_Link(link, pars_price = current_price, main_page = main_page)
+                    # ПОИСК КНОПКИ КУПИТЬ (проверка на наличие товара)
+                    # buy_button_block = soup.find(Parser.my_site_tags[main_page]['buy_button_block'][0], Parser.my_site_tags[main_page]['buy_button_block'][1]).contents[0]
+                    My_parser.parsed_links[link] = My_Link(link, pars_price = current_price, main_page = main_page)
+                else:
+                    My_parser.parsed_links[link] = My_Link(link, main_page = main_page)
             else:
-                My_parser.parsed_links[link] = My_Link(link, main_page = main_page)
+                print(f'Ссылку: {link} уже пропарсили')
+                return False
         else:
             print(f'{link} не выделить главную страницу')
-        self.parser_counter += 1
-
-
-
-    # ЦИКЛ ПОДАЮЩИЙ ССЫЛКИ В ФУНКЦИЮ И ВОЗВРАЩАЮЩИЙ ОТВЕТ
-    def parse_page(self, page):
-        '''на вход 1 ссылка или несколько в одной строке через пробел
-        переделывается п список'''
-        # if type(page) == str:
-        #     page = [page.strip()]
-        #
-        # # ДЛЯ ОТОБРАЖЕНИЯ СТАТУСА РАБОТЫ
-        # my_index = 0
-        # my_range = len(page)
-        # for link in page:
-        #     my_index = self.parse_one_link(link, my_index)
-
-
+            return False
 
     def __str__(self):
         parsed_links = My_parser.parsed_links
@@ -101,6 +86,7 @@ class My_parser():
     def all_parsed_links(self):
         parsed_links = My_parser.parsed_links
         return parsed_links
+
 
 class My_Link():
     link_counter = 0

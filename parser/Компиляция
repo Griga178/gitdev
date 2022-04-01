@@ -16,7 +16,10 @@ C:\Users\G.Tishchenko\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9
 Старое - Новое имя
 C:\Users\G.Tishchenko\Desktop\myfiles\dev\gitdev\parser\qt_designer.ui
 C:\Users\G.Tishchenko\Desktop\myfiles\dev\gitdev\parser\parse_interface.py
-
+Второе окно (базой данных)
+C:\Users\G.Tishchenko\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts\pyuic6 C:\Users\G.Tishchenko\Desktop\myfiles\dev\gitdev\parser\qt_base_widget.ui -o C:\Users\G.Tishchenko\Desktop\myfiles\dev\gitdev\parser\qt_base_widget.py
+C:\Users\G.Tishchenko\Desktop\myfiles\dev\gitdev\parser\qt_base_widget.ui
+C:\Users\G.Tishchenko\Desktop\myfiles\dev\gitdev\parser\qt_base_widget.py
 Источник:
 https://rxlab.org/text/?id=45
 
