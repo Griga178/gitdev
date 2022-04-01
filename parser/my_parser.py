@@ -1,7 +1,8 @@
 import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
 from my_funcs import *
-from my_classes import Link
+
 
 
 
@@ -28,7 +29,7 @@ my_site_dict = {'www.citilink.ru':{
 # ПРОЦЕСС ПАРСИНГА
 
 # ПАРСЕР ПО ССЫЛКЕ (ДОБАВИТЬ ЧТЕНИЕ ХАРАКТЕРИСТИК) ТОЧЕЧНЫЙ
-class Parser():
+class My_parser():
     # ТЕГИ ДЛЯ ПАРСИНГА
     # ПОДГРУЖАЮТСЯ ИЗ ФАЛА PICKLE
     my_site_tags = {'www.citilink.ru':{
@@ -37,36 +38,105 @@ class Parser():
     'buy_button': ['button', 'ProductHeader__buy-button']}
     }
     parsed_links = {}
+    parsing_counter = 0
+    # НОВАЯ СТРУКТУРА КОДА ПАРСИНГА
 
-    def parse_page(self, page):
+    # СПИСОК СТРАНИЦ (ОТ 1 ДО БЕСК.)
+    def __init__(self, parser_counter = False):
+        if not parser_counter:
+            self.parser_counter = 0
+        else:
+            self.parser_counter = parser_counter
 
-        if type(page) == str:
-            page = [page]
-        for link in page:
-            my_request = requests.get(link)
-            soup = BeautifulSoup(my_request.text, 'html.parser')
-            main_page = define_main_page(link)
+    # ФУНКЦИЯ ЧИТАЮЩАЯ 1 СТРАНИЦУ
+    def parse_one_link(self, link):
+
+        main_page = define_main_page(link)
+        # ПРОВЕРКА ССЫЛКИ НА НОРМАЛЬНОСТЬ
+        if main_page:
+            # ЗНАЕМ ЛИ МЫ ТЕГИ, ГДЕ ИСКАТЬ?
             if main_page in my_site_dict:
+                my_request = requests.get(link)
+                soup = BeautifulSoup(my_request.text, 'html.parser')
                 # ПОИСК БЛОКА С ЦЕНОЙ ПО ЗНАЧЕНИЮ КЛАССА
-                price_tag = soup.find(Parser.my_site_tags[main_page]['price_tag_class'][0], Parser.my_site_tags[main_page]['price_tag_class'][1]).string
+                try:
+                    price_tag = soup.find(My_parser.my_site_tags[main_page]['price_tag_class'][0], My_parser.my_site_tags[main_page]['price_tag_class'][1]).string
+                    current_price = clean_number(price_tag)
+
+                except:
+                    current_price = False
+                    # print(f"ИСКЛЮЧЕНИЕ! {link}")
+                # product_name =
+
                 # ПОИСК КНОПКИ КУПИТЬ (проверка на наличие товара)
                 # buy_button_block = soup.find(Parser.my_site_tags[main_page]['buy_button_block'][0], Parser.my_site_tags[main_page]['buy_button_block'][1]).contents[0]
-                Parser.parsed_links[link] = Link(link, pars_price = clean_number(price_tag))
+                My_parser.parsed_links[link] = My_Link(link, pars_price = current_price, main_page = main_page)
+            else:
+                My_parser.parsed_links[link] = My_Link(link, main_page = main_page)
+        else:
+            print(f'{link} не выделить главную страницу')
+        self.parser_counter += 1
+
+
+
+    # ЦИКЛ ПОДАЮЩИЙ ССЫЛКИ В ФУНКЦИЮ И ВОЗВРАЩАЮЩИЙ ОТВЕТ
+    def parse_page(self, page):
+        '''на вход 1 ссылка или несколько в одной строке через пробел
+        переделывается п список'''
+        # if type(page) == str:
+        #     page = [page.strip()]
+        #
+        # # ДЛЯ ОТОБРАЖЕНИЯ СТАТУСА РАБОТЫ
+        # my_index = 0
+        # my_range = len(page)
+        # for link in page:
+        #     my_index = self.parse_one_link(link, my_index)
+
+
+
     def __str__(self):
-        parsed_links = Parser.parsed_links
+        parsed_links = My_parser.parsed_links
         return f'Отпарсено ссылок: {len(parsed_links)}'
+
     def all_parsed_links(self):
-        parsed_links = Parser.parsed_links
+        parsed_links = My_parser.parsed_links
         return parsed_links
+
+class My_Link():
+    link_counter = 0
+    type = 'ссылка магазина или инфосайта'
+    status = 'True or False (parsed or not)'
+    prices_date_screen = {}
+
+    def __init__(self, link, type = False, pars_price = False, screen_path = False, main_page = False, product_id = False, shop_id = False):
+        """ 7 атрибутов ссылки """
+        self.link = link
+        self.main_page = main_page
+        self.pars_price = pars_price
+        self.scr_date = datetime.now()
+        self.screen_path = screen_path
+        self.product_id = product_id
+        self.shop_id = shop_id
+
+
+    def __str__(self):
+        '''главная стр, название товара, последняя цена'''
+        return f"{self.link} \nprice: {self.pars_price}"
+
+    def update(self, new_price):
+        pass
 
 
 exemple_product_link = 'https://www.citilink.ru/product/karta-pamyati-microsdhc-uhs-i-kingston-canvselect-plus-32-gb-100-mb-s-1206983/'
 second_product_link = 'https://www.citilink.ru/product/kartrider-vneshnii-buro-bu-cr-110-chernyi-389726/'
 
-# p = Parser()
+# l_list = [exemple_product_link, second_product_link]
+
 #
-# p.parse_page(exemple_product_link)
+# p = My_parser()
 #
+# p.parse_page(l_list)
+
 # for link in p.all_parsed_links():
 #     print(link)
 #     print(p.all_parsed_links()[link])

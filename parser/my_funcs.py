@@ -37,3 +37,29 @@ def clean_number(str_text):
     except:
         print(f'Не преобразовать в число: {result, clear_number}')
         return False
+
+link = 'https://www.citilink.ru/product/kartrider-vneshnii-buro-bu-cr-3101-chernyi-1001427/'
+
+link = '''https://www.citilink.ru/product/karta-pamyati-microsdhc-uhs-i-kingston-canvselect-plus-32-gb-100-mb-s-1206983/
+https://www.citilink.ru/product/kartrider-vneshnii-buro-bu-cr-110-chernyi-389726/
+https://www.citilink.ru/product/kartrider-vneshnii-buro-bu-cr-3104-chernyi-1001429/
+https://www.citilink.ru/product/kartrider-vneshnii-buro-bu-cr-108-chernyi-389721/
+https://www.citilink.ru/product/kartrider-vneshnii-buro-bu-cr-3101-chernyi-1001427/
+'''
+# print(define_main_page(link))
+# # #
+# re_sult = re.findall(r'[\w:/.-]+', link)
+#
+# print(re_sult)
+
+
+
+# def my_ret(fr, counter, all_amount):
+#     print(fr, end = ' ')
+#     return f'{counter}/{10}'
+#
+# counter = 0
+# x = 10
+# for el in range(x):
+#     counter += 1
+#     print(my_ret('hello', counter, x))

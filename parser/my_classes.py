@@ -7,7 +7,7 @@ class Shop():
 
     links_data = set()
 
-    def __init__:(self, main_page):
+    def __init__(self, main_page):
         self.name = main_page
 
     def return_links(category = False):
@@ -42,28 +42,6 @@ class Categories():
 
     def __str__(self):
         return f'{self.id, self.name}'
-
-class Link():
-    link_counter = 0
-    type = 'ссылка магазина или инфосайта'
-    status = 'True or False (parsed or not)'
-    price_date_screen = {}
-    def __init__(self, link, type = False, pars_price = False, screen_path = False):
-        self.main_page = define_main_page(link)
-        self.link = link
-        self.pars_price = pars_price
-        self.scr_date = datetime.now()
-        self.screen_path = screen_path
-        if self.main_page:
-            print('Главная стр. - норм, привязываем к магазину')
-        else:
-            print(f'Что за хрень: {link}?')
-    def __str__(self):
-        '''главная стр, название товара, последняя цена'''
-        return f"{self.link} \nprice: {self.pars_price}"
-
-    def update(self, new_price):
-        pass
 
 
 

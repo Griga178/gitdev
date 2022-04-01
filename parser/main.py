@@ -1,3 +1,5 @@
+import interface
+
 from my_parser import Parser
 
 parser = Parser()
