@@ -37,7 +37,8 @@ import pickle
 
 start_time = time.time()
 
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_2_2022.csv'
+# csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_2_2022.csv'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/Norm_2_2022.csv'
 dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/'
 pkl_file_name = dir_for_screen + 'price.pkl'
 # Если папки нет создать

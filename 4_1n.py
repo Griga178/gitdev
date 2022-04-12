@@ -24,7 +24,7 @@ start_time = time.time()
 
 # ссылки по которым надо пройтись
 excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Ручной парсин.xlsx'
-sheet_name = 'Лист21'
+sheet_name = 'citi'
 # Папка для скринов
 screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/new_step/'
 
