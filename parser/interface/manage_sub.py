@@ -4,12 +4,13 @@ from data_loader import save_pkl as save
 from data_loader import load_pkl_file as load
 
 
-class Subject_ver_2():
-    def __init__(self, name, parent = False, child = False, chars = False):
+class Subject_ver_3():
+    def __init__(self, name, parent = False, child = False, chars = False, models = False):
         self.name = name
         self.parent = parent
         self.child = child
         self.chars = chars
+        self.models = models
 
     def __str__(self):
         return f'{self.name}'
@@ -63,66 +64,112 @@ class Subject_ver_2():
                         child_example = example
                         break
                 child_example.chars_description(examples_set, space = space)
+    def add_models(self, model_name, model_example):
+        if not self.models:
+            self.models = {model_name}
+        else:
+            self.models.add(model_name)
+        if not model_example.subject_name:
+            model_example.subject_name = {self.name}
+        else:
+            model_example.subject_name.add(self.name)
 
-class Model(): # Subject_ver_2
-    def __init__(self):
-        # super(Model, self).__init__()
+
+
+class Model():
+    def __init__(self, name, subject_name = False, model_parents = False, model_childs = False, model_chars = False):
         self.name = name# Intel Core i7 K-1255
         self.subject_name = subject_name    # Процессор
         self.model_parents = model_parents # {Samsung A 1225}
         self.model_childs = model_childs
         self.model_chars = model_chars # dict
+    def __str__(self):
+        return f'{self.name}'
 
-
-def recurse_interface():
-    command = input(str('Вызов подсказок: "9" \nВведите номер команды: '))
-    print('\n')
+def recurse_interface(command = False, sec_command = False):
+    pickle_file_name = 'Models_Subjects_dict'
     try:
-        load_set = load('Subjects_set')
+        load_dict = load(pickle_file_name)
+        print('Загружена база!')
+
     except:
         print('Создана новая база!')
-        load_set = {}
+        load_dict = {'Subjects': set(), 'Models': set()}
+    print('\n - - - - - - - - - - - - - - - - - - - - ')
+    if not command:
+        command = input(str('Вызов подсказок: "9" \nВведите номер команды: '))
 
     if command == '0':
-        save(load_set, 'Subjects_set')
+        save(load_dict, pickle_file_name)
         print('Успешно закрылись')
         quit()
 
     elif command == '1':
-        for el in load_set:
-            print(el, type(el))
+        for class_types in load_dict:
+            print('\n', class_types, len(load_dict[class_types]))
+            try:
+                for example in load_dict[class_types]:
+                    print(example)
+            except:
+                pass
 
     elif command == '2':
-        input_subj = input(str('Введите название предмета: '))
-        load_set.add(Subject_ver_2(input_subj))
-        save(load_set, 'Subjects_set')
+        print('Добавление экземпляров')
+        if not sec_command:
+            sec_command = str(input('Предмет - 1\nМодель - 2\nНазад - 0\nВыход 00:\n'))
+        if sec_command == '1':
+            input_subj = input(str('Назад - 0\nВведите название предмета: '))
+            if input_subj == '0':
+                recurse_interface('2')
+            else:
+                load_dict['Subjects'].add(Subject_ver_3(input_subj))
+                save(load_dict, pickle_file_name)
+                print(f'Предмет: "{input_subj}" - успешно добавлен')
+                recurse_interface('2', '1')
+        elif sec_command == '2':
+            input_mod = input(str('Назад - 0\nВведите название модели: '))
+            if input_mod == '0':
+                recurse_interface('2')
+            else:
+                load_dict['Models'].add(Model(input_mod))
+                save(load_dict, pickle_file_name)
+                print(f'Модель: "{input_mod}" - успешно добавлен')
+                recurse_interface('2', '2')
+        elif sec_command == '0':
+            recurse_interface()
+        elif sec_command == '00':
+            recurse_interface('0')
+        else:
+            print("Непонятная команда")
+            recurse_interface('2')
 
     elif command == '3':
-        print('Показать описание:')
-        print('Всех предметов 1\nВыбрать предмет 2\nСтарое описание 3 или 4')
-        sec_command = input(str('Введите номер команды: '))
+        if not sec_command:
+            print('Показать описание:')
+            print('Выбрать предмет - 1\nСтарое описание - 2 или 3\n')
+            sec_command = input(str('Введите номер команды: '))
         if sec_command == '1':
-            for el in load_set:
-                el.chars_description(load_set)
-        elif sec_command == '2':
             print("Выбери экземпляр")
             num = 0
             num_list = []
-            for el in load_set:
+            for el in load_dict['Subjects']:
                 num_list.append(el)
                 print(num, el)
                 num += 1
             ex_num = int(input('Номер экземпляра: '))
             chosen_example = num_list[ex_num]
-            chosen_example.chars_description(load_set)
-        elif sec_command == '3':
-            for el in load_set:
+            chosen_example.chars_description(load_dict['Subjects'])
+        elif sec_command == '2':
+            for el in load_dict['Subjects']:
                 print(el.description())
-        elif sec_command == '4':
-            for el in load_set:
+        elif sec_command == '3':
+            for el in load_dict['Subjects']:
                 print(el)
                 el.show_child()
                 el.show_parent()
+        else:
+            print("Непонятная команда")
+            recurse_interface('2')
 
     elif command == '4':
         num = 0
@@ -139,11 +186,11 @@ def recurse_interface():
     elif command == '5':
         new_set = set()
         for el in load_set:
-            # jel = Subject_ver_2(name = el.name, parent = el.parent, child = el.child, chars = False)
-            jel = Subject_ver_2(name = el.name, parent = False, child = False, chars = False)
-            new_set.add(jel)
-        # save(new_set, 'Subjects_set')
-        save(load_set, 'Subjects_dict.pckl')
+            if type(el) == 'Subject_ver_3':
+                print(el, 'update')
+                jel = Subject_ver_3(name = el.name, parent = el.parent, child = el.child, chars = el.chars, models = False)
+                new_set.add(jel)
+        save(new_set, 'Subjects_set')
         print('Успешно Обновлено')
 
     elif command == '6':
@@ -156,7 +203,7 @@ def recurse_interface():
             num += 1
         ex_num = int(input('Номер экземпляра: '))
         change_example = num_list[ex_num]
-        print('Что добавить?\n 1 - Родитель\n 2 - Ребенок\n 3 - Характеристика')
+        print('Что добавить?\n 1 - Родитель\n 2 - Ребенок\n 3 - Характеристика\n 4 - Модель')
         num_com = str(input("Введите номер: "))
 
         if num_com == '1':
@@ -191,16 +238,40 @@ def recurse_interface():
             chars_name = str(input("Введите название характеристики: "))
             change_example.add_chars(chars_name)
             save(load_set, 'Subjects_set')
+        elif num_com == '4':
+            print('Добавляем модель (существующую) в экземпляр')
+            sec_num = 0
+            sec_num_list = []
+            for el in load_set:
+                sec_num_list.append(el)
+                print(sec_num, el)
+                sec_num += 1
+            sec_ex_num = int(input('Номер экземпляра: '))
+            change_example = sec_num_list[sec_ex_num]
+            sec_num = 0
+            sec_num_list = []
+            # выбор модели
+            for el in load_set:
+                sec_num_list.append(el)
+                print(sec_num, el)
+                sec_num += 1
+            model_name_num = int(input('Номер модели: '))
+            model_example = sec_num_list[model_name_num]
+            change_example.add_models(model_example.name, model_example)
+            save(load_set, 'Subjects_set')
 
     elif command == '9':
         print('''\
         0 - Выход
         1 - Показать все объекты
         2 - Добавить новый экземпляр
-        3 - Показать дерево
+        3 - Показать дерево Предметов
         4 - Удалить элемент
         5 - Обновить класс
         6 - Добавить данные в класс''')
+    else:
+        print("\nНепонятная команда")
+        recurse_interface("9")
 
     recurse_interface()
 
