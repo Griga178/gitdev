@@ -8,6 +8,7 @@ import os
 cmec_path_name_settings = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/gitdev/parser/Data_Folder/Sites_settings.pkl'
 home_path_name_settings = False
 current_path_name_settings = cmec_path_name_settings
+current_path_name_settings = 'Data_Folder/Sites_settings.pkl'
 
 cmec_path_name_links = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/gitdev/parser/Data_Folder/Links_examples.pkl'
 

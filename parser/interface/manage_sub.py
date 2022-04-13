@@ -2,6 +2,7 @@ import sys
 sys.path.append('../')
 from data_loader import save_pkl as save
 from data_loader import load_pkl_file as load
+
 from classes import Subject_ver_3, Subjects_category, Model_ver2
 
 def recurse_interface(command = False, sec_command = False):
@@ -62,7 +63,7 @@ def recurse_interface(command = False, sec_command = False):
     elif command == '3':
         if not sec_command:
             print('Показать описание:')
-            print('Выбрать предмет - 1\nВыбрать модель - 2\nСтарое описание - 3 или 4\n')
+            print('Выбрать предмет - 1\nВыбрать модель - 2\nСтарое описание - 3')
             sec_command = input(str('Введите номер команды: '))
         if sec_command == '1':
             # print("Выбери экземпляр")
@@ -74,13 +75,11 @@ def recurse_interface(command = False, sec_command = False):
             chosen_example.description()
         elif sec_command == '3':
             for el in load_dict['Subjects']:
-                print(el.description())
-        elif sec_command == '4':
-            for el in load_dict['Subjects']:
                 print('\n', el)
                 el.show_child()
                 el.show_parent()
                 el.show_model()
+                el.show_chars()
         else:
             print("Непонятная команда")
             recurse_interface('2')
@@ -190,12 +189,21 @@ def recurse_interface(command = False, sec_command = False):
                 for chars_name in example.chars:
                     for example_two in load_dict['Subjects']:
                         if chars_name == example_two.name:
-                            print("Совпадение! Не думаю!", chars_name)
+                            print("Совпадение! Не думаю!", chars_name, example.name)
 
     elif command == '8':
-        print('Создать новый экземляр')
-        print('Удалить характеристику в другом экземляре')
-        print('Повторить с экземплярами моделей/предметов')
+        try:
+            exam_with_wrong_char = chose_example(load_dict['Subjects'])
+            print(f"Экземпляр с лишними характеристиками: {exam_with_wrong_char}")
+            wronng_chars_name = chose_example(exam_with_wrong_char.chars)
+            print(f'Лишняя характеристика: {wronng_chars_name}')
+            exam_with_wrong_char.chars.remove(wronng_chars_name)
+            save(load_dict, pickle_file_name)
+            print(f'{wronng_chars_name} - удалено')
+            print('Повторить с экземплярами моделей/предметов')
+        except:
+            recurse_interface()
+    # elif command == '10':
 
     elif command == '9':
         print('''\
@@ -207,7 +215,7 @@ def recurse_interface(command = False, sec_command = False):
         5 - Обновить класс
         6 - Добавить данные в экземпляр
         7 - Проверка. Экземляр в характеристиках другого экземляра!
-        х1 - Изменение характеристик
+        8 - Изменение характеристик
         (переместить из хар-к модели в отдельную модель)
         х2 - Парсинг страницы характеристики
         х3 - Парсинг каталога''')
