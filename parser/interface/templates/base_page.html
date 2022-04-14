@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main_page_styles.css') }}">
+    <title>{% block title %} Parser 2000 {% endblock %}</title>
+  </head>
+  <body>
+
+    <div class = "container">
+      <div class = "header clear_fix">
+	       <a href="{{url_for('index')}}"> <img src="{{url_for('static', filename = 'pictures/Parser.png')}}" alt="logo"> </a>
+         <ul class="menu clear_fix">
+           <li class="menu-list"><a href="main.html">#</a></li>
+           <li class="menu-list"><a href="#" title="Для загрузки списка ссылок">#</a></li>
+           <li class="menu-list"><a href="parser.html">Войти</a></li>
+         </ul>
+	    </div>
+
+        <div class = "funcs_block">
+
+  	       <h2>Основные функции</h2>
+
+           <div class="block">
+             <a href="">
+             <div class="block_img">
+              <img src="{{url_for('static', filename = 'pictures/letter_p_rus.png') }}" alt="">
+             </div>
+             <div class="under_text">
+                <p>Парсер</p>
+             </div>
+             </a>
+            </div>
+           <div class="block">
+             <a href="{{url_for('manage_data')}}">
+             <div class="block_img">
+              <img src="{{url_for('static', filename = 'pictures/letter_bd_rus.png') }}" alt="">
+             </div>
+             <div class="under_text">
+                <p>База данных</p>
+             </div></a>
+           </div>
+           <div class="block">
+             <div class="block_img">
+              <img src="{{url_for('static', filename = 'pictures/letter_n_rus.png') }}" alt="">
+             </div>
+             <div class="under_text">
+                <p>Настройки</p>
+             </div>
+           </div>
+
+  	    </div>
+
+      <div class="separator clear_fix"></div>
+
+        {% block content %}{% endblock %}
+    </div>
+    <div class="separator clear_fix"></div>
+    <div class = "footer clear_fix">
+       <p>Супер парсер 2022</p>
+    </div>
+  </body>
+</html>

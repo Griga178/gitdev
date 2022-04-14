@@ -1,0 +1,67 @@
+{% extends "base_page.html" %}
+{% block content %}
+      <div class="data_base_menu">
+        <li><a href="{{ url_for('manage_data', data = 'Subjects') }}">Предметы</a></li>
+        <li><a href="#">Модели</a></li>
+        <li><a href="#">Категории</a></li>
+      </div>
+
+      <div class="data_base_subject">
+        {% for subj in data %}
+          <p>{{ subj }}</p>
+        {% endfor %}
+
+      </div>
+      <!-- <div class="data_block catalogs clear_fix">
+        <h1>Каталоги:</h1>
+        <form class="" action="data_base.html" method="post">
+          <input type="text" name="" value="" list="list_of_models">
+          <button type="button" name="button">Выбрать магазин</button>
+        </form>
+        <datalist id="list_of_models">
+            <option value="Ситилинк">Ситилинк</option>
+            <option value="ДНС">ДНС</option>
+            <option value="ОнлайнТрейд">ОнлайнТрейд</option>
+        </datalist>
+
+        <button type="button" name="button">Выбрать магазины по предмету</button><br>
+        <button type="button" name="button" title="Что есть в одном и нет в другом">Сравнить магазины</button><br>
+
+        <h2>Ситилинк</h2>
+        <button type="button" name="button" title="Переход в функии парсера">Обновить каталог</button>
+        <ul>
+          <li>Бытовая техника</li>
+          <ul>
+            <li>Холодильники</li>
+            <li>Микроволновки</li>
+            <li>Стиральные машины</li>
+          </ul>
+          <li>Компьютеры</li>
+          <ul>
+            <li>Системные блоки</li>
+            <li>Моноблоки</li>
+            <li>Ноутбуки</li>
+          </ul>
+        </ul>
+      </div>
+
+
+      <div class="data_block subjects clear_fix">
+        <h1 title="Известные предметы, их виды и составляющие">Дерево предметов:</h1>
+
+        <ul>
+          <li>Компьютеры</li>
+          <ul>
+            <li>комплектующе</li>
+            <ul>
+              <li>Процессоры</li>
+              <li>Видеокарты</li>
+              <li>Оперативная память</li>
+            </ul>
+            <li>Системные блоки</li>
+            <li>Моноблоки</li>
+            <li>Ноутбуки</li>
+          </ul>
+        </ul>
+      </div> -->
+{% endblock %}

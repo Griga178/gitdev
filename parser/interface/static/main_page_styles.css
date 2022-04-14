@@ -1,0 +1,30 @@
+
+
+/* СТИЛИ КАКОЙ-ТО СТРАНИЦЫ */
+.data_block ul li {
+  margin-left: 30px;
+}
+.data_block ul ul li {
+  margin-left: 60px;
+}
+.data_block ul ul ul li {
+  margin-left: 90px;
+}
+.some_info {
+  padding: 10px;
+  padding-left: 10px;
+}
+
+.data_block {
+  padding: 10px;
+  padding-left: 10px;
+}
+
+.data_base_menu {
+  /* float: center; */
+  margin: 0 auto:
+}
+.data_base_menu li{
+  display: inline;
+
+}
