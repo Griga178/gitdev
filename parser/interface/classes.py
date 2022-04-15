@@ -113,6 +113,19 @@ class Subject_ver_3():
                         child_example = example
                         break
                 child_example.chars_description(examples_set, space = space)
+    def chars_description_dict(self, examples_set):
+        tree_list = []
+        tree_dict = {} 
+        if self.chars:
+            for char in self.chars:
+                tree_list.append(char)
+        # if self.child:
+        #     for child_name in self.child:
+        #         for example in examples_set:
+        #             if child_name == example.name:
+        #                 child_example = example
+        #                 break
+                child_example.chars_description(examples_set, space = space)
     def add_models(self, model_name, model_example):
         if not self.models:
             self.models = {model_name}

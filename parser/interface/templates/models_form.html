@@ -1,0 +1,28 @@
+{% extends "base_page.html" %}
+{% block content %}
+<div class="data_base_menu">
+  <li><a href="{{ url_for('subjects_form') }}">Предметы</a></li>
+  <li><a href="{{ url_for('models_form') }}">Модели</a></li>
+  <li><a href="#">Категории</a></li>
+  <li><a href="#">ККН-ы</a></li>
+</div>
+<div class="subject list">
+  <h3>Список моделей:</h3>
+  <ul>
+    {% for models in mod_set %}
+      <li>{{models}}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="subject form">
+  <h3>Добавить модель: </h3>
+  <form method="post">
+    <input type="text" maxlength="255" name="model_name" placeholder="Наименование модели">
+    <input type="submit"  value="Добавить">
+  </form>
+</div>
+<br><br>
+<p>Сортировать предметы по алфавиту, + по категориям</p>
+<p>Предмет = ссалка на его описание, открывается в блоке справа</p>
+{% endblock %}
