@@ -1,0 +1,47 @@
+{% extends "base_page.html" %}
+{% block content %}
+<div class="data_base_menu">
+  <li><a href="{{ url_for('subject_page')}}">Предметы</a></li>
+  <li><a href="#">Модели</a></li>
+  <li><a href="#">Категории</a></li>
+</div>
+
+<div class="data_block">
+  
+  <ul>
+
+
+  {% for subject in subj %}
+    <li>{{ subject}}</li>
+      {% if subj[subject]['chars'] %}
+        <ul>
+          {% for char in subj[subject]['chars'] %}
+          <li>{{char}}</li>
+          {% endfor %}
+        </ul>
+
+      {% endif %}
+
+      {% if subj[subject]['content'] %}
+        <ul>
+          {% for cont in subj[subject]['content'] %}
+          <li>{{cont}}</li>
+
+          {% if subj[subject]['content'][cont]['chars'] %}
+
+            <ul>
+              {% for sub_char in subj[subject]['content'][cont]['chars'] %}
+              <li>{{sub_char}}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% endfor %}
+        </ul>
+
+      {% endif %}
+
+  {% endfor%}
+  </ul>
+</div>
+{% endblock %}

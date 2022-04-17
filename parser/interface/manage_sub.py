@@ -68,7 +68,9 @@ def recurse_interface(command = False, sec_command = False):
         if sec_command == '1':
             # print("Выбери экземпляр")
             chosen_example = chose_example(load_dict['Subjects'])
-            chosen_example.chars_description(load_dict['Subjects'])
+            # chosen_example.chars_description(load_dict['Subjects'])
+            out = chosen_example.chars_description_dict(load_dict['Subjects'])
+            print(out)
             chosen_example.show_model()
         elif sec_command == '2':
             chosen_example = chose_example(load_dict['Models'])

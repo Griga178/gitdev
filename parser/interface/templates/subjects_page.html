@@ -1,0 +1,17 @@
+{% extends "base_page.html" %}
+{% block content %}
+<div class="data_base_menu">
+  <li><a href="{{ url_for('subject_page')}}">Предметы</a></li>
+  <li><a href="#">Модели</a></li>
+  <li><a href="#">Категории</a></li>
+</div>
+
+<div class="data_block">
+  {% for subj in subj_set %}
+  <ul>
+    <li>{{subj}} <a href="{{url_for('subj_desript', name = subj.name)}}"> Описание</a> </li>
+  </ul>
+  {% endfor %}
+
+</div>
+{% endblock %}
