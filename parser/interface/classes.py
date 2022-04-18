@@ -113,19 +113,35 @@ class Subject_ver_3():
                         child_example = example
                         break
                 child_example.chars_description(examples_set, space = space)
+
     def chars_description_dict(self, examples_set):
-        tree_list = []
-        tree_dict = {} 
+        ex_desc_d = {} # example_description_dict
+        ex_desc_d[self.name] = {'chars': False, 'content': False}
+
+        # {"Компьютер":{"Характеристики":[char1, char2],
+        #             "Содержимое":[
+        #                 "Процессор": {"Характеристики":[char1,char2],
+        #                             "Содержимое": False},
+        #                 "Видеокарта": {"Характеристики":[char1,char2],
+        #                             "Содержимое": False}
+        #                                 ]}}
+
         if self.chars:
+            ex_desc_d[self.name]['chars'] = []
             for char in self.chars:
-                tree_list.append(char)
-        # if self.child:
-        #     for child_name in self.child:
-        #         for example in examples_set:
-        #             if child_name == example.name:
-        #                 child_example = example
-        #                 break
-                child_example.chars_description(examples_set, space = space)
+                ex_desc_d[self.name]['chars'].append(char)
+        if self.child:
+            ex_desc_d[self.name]['content'] = {}
+            for child_name in self.child:
+                for example in examples_set:
+                    if child_name == example.name:
+                        child_example = example
+                        break
+                ex_desc_d[self.name]['content'].update(child_example.chars_description_dict(examples_set))
+        else:
+            ex_desc_d[self.name]['content'] = False
+        return ex_desc_d
+
     def add_models(self, model_name, model_example):
         if not self.models:
             self.models = {model_name}

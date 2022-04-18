@@ -65,6 +65,22 @@ def sub_descript(sub_name):
 
     return render_template('subject_description.html', data = data)
 
+@app.route('/subjects', methods = ('GET', 'POST'))
+def subject_page():
+    data = load(pickle_file_name)
+    subj_set = data['Subjects']
+    return render_template('subjects_page.html', subj_set = subj_set)
+
+@app.route('/desript/<name>', methods = ('GET', 'POST'))
+def subj_desript(name):
+    data = load(pickle_file_name)
+    subj_set = data['Subjects']
+    for sub in subj_set:
+        if name == sub.name:
+            subj = sub.chars_description_dict(subj_set)
+            break
+    return render_template('subj_desript.html', subj = subj)
+    
 if __name__ == "__main__":
 
     #app.run(host= '0.0.0.0')
