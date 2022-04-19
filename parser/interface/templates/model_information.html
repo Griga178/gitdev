@@ -1,0 +1,41 @@
+{% extends "base_page.html" %}
+{% block content %}
+<div class="data_base_menu">
+  <li><a href="{{ url_for('subject_page')}}">Предметы</a></li>
+  <li><a href="{{ url_for('models_form') }}">Модели</a></li>
+  <li><a href="#">Категории</a></li>
+  <li><a href="#">ККН-ы</a></li>
+</div>
+<div class="subject">
+  <br>
+  <p>Ссылка на описание модели - добавить (ark.intel.com) - пропарсить</p>
+  <br>
+  {% if descript[model_example.name]['subject_name'] %}
+    <h3>Предмет:</h3>
+    <h4>{{ descript[model_example.name]['subject_name'] }} - {{model_example.name}}</h4>
+    <p>Показать сравнительную таблицу всех моделей</p>
+  {% else %}
+    <p>Нет связи с предметом</p>
+    <button type="button" name="button">добавить название предмета</button>
+  {% endif %}
+
+  {% if descript %}
+    <h3>Характеристики:</h3>
+
+      {% if descript[model_example.name]['chars'] %}
+        <ul>
+          {% for char in descript[model_example.name]['chars'] %}
+          <li>{{char}}: {{descript[model_example.name]['chars'][char][0]}} ({{descript[model_example.name]['chars'][char][1]}}) -- изменить/ удалить</li>
+          {% endfor %}
+        </ul>
+
+      {% endif %}
+  {% endif %}
+  <br>
+  <p>Добавить характеристику</p>
+  <br>
+  <p>Добавить ссылки на магазины</p>
+  <br>
+
+</div>
+{% endblock %}

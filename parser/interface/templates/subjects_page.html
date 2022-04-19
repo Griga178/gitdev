@@ -2,16 +2,24 @@
 {% block content %}
 <div class="data_base_menu">
   <li><a href="{{ url_for('subject_page')}}">Предметы</a></li>
-  <li><a href="#">Модели</a></li>
+  <li><a href="{{ url_for('models_form') }}">Модели</a></li>
   <li><a href="#">Категории</a></li>
+  <li><a href="#">ККН-ы</a></li>
 </div>
 
 <div class="data_block">
   {% for subj in subj_set %}
   <ul>
-    <li>{{subj}} <a href="{{url_for('subj_desript', name = subj.name)}}"> Описание</a> </li>
+    <li><a href="{{url_for('subj_desript', name = subj.name)}}"> {{subj}}</a> <a href="{{url_for('subject_del', sub_name = subj.name)}}"> - - - Удалить</a></li>
   </ul>
   {% endfor %}
 
+  <div class="subject form">
+    <h3>Добавить предмет: </h3>
+    <form method="post">
+      <input type="text" maxlength="255" name="subject_name" placeholder="Наименование предмета">
+      <input type="submit" name="add_prototype" value="Добавить прототип">
+    </form>
+  </div>
 </div>
 {% endblock %}

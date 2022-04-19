@@ -41,7 +41,22 @@ class Model_ver2():
             print('Характеристики:')
             for chars_name in self.model_chars:
                 print(space, chars_name, self.model_chars[chars_name][0], self.model_chars[chars_name][1])
-
+    def full_description_dict(self):
+        desc_dict = {}
+        desc_dict[self.name] = {'chars': False, 'content': False, 'subject_name': self.subject_name}
+        if self.model_chars:
+            desc_dict[self.name]['chars'] = self.model_chars
+        print(desc_dict)
+        return desc_dict
+    def add_subject_name(self, subject_example):
+        if not self.subject_name:
+            self.subject_name = subject_example.name
+            if subject_example.models:
+                subject_example.models.add(self.name)
+            else:
+                subject_example.models = {self.name}
+        else:
+            print(f'ПРЕДМЕТ УЖЕ ОБОЗНЧЕН: {self.subject_name}')
 
 class Subject_ver_3():
     def __init__(self, name, parent = False, child = False, chars = False, models = False):
@@ -68,13 +83,16 @@ class Subject_ver_3():
             print('Предметов внутри: -')
         else:
             print(f'Предметы внутри: {self.child}')
+            return self.child
     def show_model(self):
         if not self.models:
             print('Модели внутри: -')
+
         else:
             print(f'Модели:')
             for mod_name in self.models:
                 print(f' - {mod_name}')
+        return self.models
     def add_parent(self, parent_name, parent_example):
         if not self.parent:
             self.parent = {parent_name}
@@ -89,10 +107,10 @@ class Subject_ver_3():
             self.child = {child_name}
         else:
             self.child.add(child_name)
-        if not child_example.parent:
-            child_example.parent = {self.name}
+        if not child_example.subject_name:
+            child_example.subject_name = self.name
         else:
-            child_example.parent.add(self.name)
+            print(f'Предмет уже назначен {child_example.subject_name}')
     def add_chars(self, chars_name):
         if not self.chars:
             self.chars = {chars_name}
@@ -137,7 +155,10 @@ class Subject_ver_3():
                     if child_name == example.name:
                         child_example = example
                         break
-                ex_desc_d[self.name]['content'].update(child_example.chars_description_dict(examples_set))
+                    else:
+                        child_example = False
+                if child_example:
+                    ex_desc_d[self.name]['content'].update(child_example.chars_description_dict(examples_set))
         else:
             ex_desc_d[self.name]['content'] = False
         return ex_desc_d

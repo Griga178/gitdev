@@ -1,7 +1,7 @@
 {% extends "base_page.html" %}
 {% block content %}
 <div class="data_base_menu">
-  <li><a href="{{ url_for('subjects_form') }}">Предметы</a></li>
+  <li><a href="{{ url_for('subject_page')}}">Предметы</a></li>
   <li><a href="{{ url_for('models_form') }}">Модели</a></li>
   <li><a href="#">Категории</a></li>
   <li><a href="#">ККН-ы</a></li>
@@ -10,7 +10,7 @@
   <h3>Список моделей:</h3>
   <ul>
     {% for models in mod_set %}
-      <li>{{models}}</li>
+      <li><a href="{{ url_for('model_information', model_str_name = models)}}">{{models}}</a> <a href="{{url_for('model_del', model_name = models.name)}}"> - - - Удалить</a></li>
     {% endfor %}
   </ul>
 </div>
@@ -23,6 +23,6 @@
   </form>
 </div>
 <br><br>
-<p>Сортировать предметы по алфавиту, + по категориям</p>
-<p>Предмет = ссалка на его описание, открывается в блоке справа</p>
+<p>Сортировать по категориям</p>
+<p>описание открывается в блоке справа</p>
 {% endblock %}
