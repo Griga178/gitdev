@@ -1,12 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
 from data_loader import save_pkl as save
 from classes import Subject_ver_3, Subjects_category, Model_ver2
+from input_form_classes import Subject_adding_form
 
 app = Flask(__name__, template_folder = "templates")
-
+app.config['SECRET_KEY']='AASDFASDF'
 pickle_file_name = 'Models_Subjects_dict'
 
 def chose_model_example_by_name(name):
@@ -82,6 +83,7 @@ def subj_desript(name):
         # if len(subj_name) > 0:
         #     subj_set.add(Subject_ver_3(subj_name))
         #     save(data, pickle_file_name)
+
     return render_template('subj_desript.html', subj = subj, subj_models = subj_models, models_list = models_list)
 
 
@@ -115,16 +117,36 @@ def model_del(model_name):
 #     name if Название предмета - изменить* else Добавить предмет
 #     список характеристик - изменить*
 #     Добавить характеристику, значение, ед.изм
-@app.route('/models/information/<model_str_name>')
+@app.route('/models/information/<model_str_name>', methods = ('GET', 'POST'))
 def model_information(model_str_name):
     model_example = chose_model_example_by_name(model_str_name)
-    # model_dict_description = {model_example.name: {"chars": {'Количество ядер': ['2', 'шт.'], 'Количество потоков': ['2', 'шт.']}, 'content': False}}
     model_dict_description = model_example.full_description_dict()
-
+    if request.method == "POST":
+        print(request.form)
+        # char, ch_val, ch_mes = request.form['char_name'], request.form['char_value'], request.form['char_measure']
+        # print(char, ch_val, ch_mes)
+        # if request.form['input_subject_name']:
+        #     input_subject_name = request.form['input_subject_name']
+        #     print(input_subject_name)
     return render_template('model_information.html', model_example = model_example, descript = model_dict_description)
 
 
 
+@app.route('/settings', methods = ('GET', 'POST'))
+def set_all():
+    form = Subject_adding_form()
+
+    if form.validate_on_submit():
+        name = form.name.data
+
+        # здесь логика базы данных
+        print(f"\nData received. Now redirecting ...{name}")
+        flash(f'Предмет: "{name}" добавлен успешно')
+        return redirect(url_for('set_all'))
+
+    return render_template('settings.html', form = form)
+
 if __name__ == "__main__":
     #app.run(host= '0.0.0.0')
+
     app.run(debug = True)

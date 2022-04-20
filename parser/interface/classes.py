@@ -46,7 +46,7 @@ class Model_ver2():
         desc_dict[self.name] = {'chars': False, 'content': False, 'subject_name': self.subject_name}
         if self.model_chars:
             desc_dict[self.name]['chars'] = self.model_chars
-        print(desc_dict)
+        # print(desc_dict)
         return desc_dict
     def add_subject_name(self, subject_example):
         if not self.subject_name:
