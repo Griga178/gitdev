@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Часть сайта</title>
+    <script src="contracts_js_funcs.js"></script>
+    <script src="file_funcs.js"></script>
+    <link rel="stylesheet" href="some_styles.css">
+  </head>
+  <body>
+
+    <div class="navigate_bar">
+      <ul>
+        <li><a href="contracts.html">Таблица контрактов</a> </li>
+        <li><a href="example_upload_file.html">Пример загрузки файлов</a> </li>
+        <li><a href="json_work.html">Работа с JSON</a> </li>
+      </ul>
+    </div>
+    <div class="file_page">
+
+
+    <div class="file_div" id ='drop_dile_div'>
+      +
+    </div>
+    <input type="file" id = "input_file">
+    </div>
+    <p>источник: <a href="https://habr.com/ru/post/511742/" target="_blank">ХАБР</a></p>
+    <script>
+      ((D, B, log = (arg) => console.log(arg)) => {
+        // const dropZone = D.querySelector("div");
+        const dropZone = drop_dile_div
+        // const input = D.querySelector("input");
+        const input = input_file;
+        let file;
+
+        D.addEventListener("dragover", (ev) => ev.preventDefault());
+        D.addEventListener("drop", (ev) => ev.preventDefault());
+
+        dropZone.addEventListener("drop", (ev) => {
+          ev.preventDefault();
+
+          log(ev.dataTransfer);
+
+          file = ev.dataTransfer.files[0];
+
+          log(file);
+
+          handleFile(file);
+        });
+
+        dropZone.addEventListener("click", () => {
+          input.click();
+          input.addEventListener("change", () => {
+            log(input.files);
+
+            file = input.files[0];
+
+            log(file);
+
+            handleFile(file);
+          });
+        });
+
+        const handleFile = (file) => {
+          dropZone.remove();
+          input.remove();
+
+          log(file.type);
+
+          if (
+            file.type === "text/html" ||
+            file.type === "text/css" ||
+            file.type === "text/javascript"
+          )
+            return;
+
+          if (file.type === "application/pdf") {
+            createIframe(file);
+            return;
+          }
+
+          const type = file.type.replace(/\/.+/, "");
+
+          log(type);
+
+          switch (type) {
+            case "image":
+              createImage(file);
+              break;
+            case "audio":
+              createAudio(file);
+              break;
+            case "video":
+              createVideo(file);
+              break;
+            case "text":
+              createText(file);
+              break;
+
+            default:
+              B.innerHTML = `<h3>Unknown File Format!</h3>`;
+              const timer = setTimeout(() => {
+                location.reload();
+                clearTimeout(timer);
+              }, 2000);
+              break;
+          }
+        };
+
+        const createImage = (image) => {
+          const imageEl = D.createElement("img");
+          imageEl.src = URL.createObjectURL(image);
+          log(imageEl);
+          B.append(imageEl);
+          URL.revokeObjectURL(image);
+        };
+
+        const createAudio = (audio) => {
+          const audioEl = D.createElement("audio");
+          audioEl.setAttribute("controls", "");
+          audioEl.src = URL.createObjectURL(audio);
+          log(audioEl);
+          B.append(audioEl);
+          audioEl.play();
+          URL.revokeObjectURL(audio);
+        };
+
+        const createVideo = (video) => {
+          const videoEl = D.createElement("video");
+          videoEl.setAttribute("controls", "");
+          videoEl.setAttribute("loop", "true");
+          videoEl.src = URL.createObjectURL(video);
+          log(videoEl);
+          B.append(videoEl);
+          videoEl.play();
+          URL.revokeObjectURL(video);
+        };
+
+        const createText = (text) => {
+          const reader = new FileReader();
+          reader.readAsText(text, "windows-1251");
+          reader.onload = () => (B.innerHTML = `<p><pre>${reader.result}</pre></p>`);
+        };
+
+        const createIframe = (pdf) => {
+          const iframe = D.createElement("iframe");
+          iframe.src = URL.createObjectURL(pdf);
+          iframe.width = innerWidth;
+          iframe.height = innerHeight;
+          log(iframe);
+          B.append(iframe);
+          URL.revokeObjectURL(pdf);
+        };
+      })(document, document.body);
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{"column_names":{"contract_number":"Номер Контракта","company_name":"Название компании","product_name":"Название товара"},
+"3785760001234":{"contract_number":"3785760001234","company_name":"ООО ЛАЙТКОМ","product_name":"Моноблок 23"},
+"3785760001235":{"contract_number":"3785760001235","company_name":"ООО ЛАЙТКОМ","product_name":"Моноблок 25"},
+"3785760001236":{"contract_number":"3785760001236","company_name":"ООО ЛАЙТКОМ","product_name":"Моноблок 27"}
+}

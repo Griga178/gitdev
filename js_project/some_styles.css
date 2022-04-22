@@ -1,0 +1,64 @@
+a {
+  text-decoration: none;
+  color: skyblue;
+}
+.navigate_bar ul li{
+  display: inline;
+  border: 1px solid green;
+  padding: 5px;
+  margin: 5px;
+}
+.navigate_bar ul li:hover {
+  background-color: grey;
+  border: none;
+}
+.navigate_bar ul li:hover a {
+  color: white;
+}
+
+/* стили для страницы работы с ФАЙЛАМИ */
+.file_div {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    font-weight: bold;
+    border: 6px solid;
+    border-radius: 8px;
+    user-select: none;
+    cursor: pointer;
+}
+
+input {
+    display: none;
+}
+
+img,
+audio,
+video {
+    max-width: 80vw;
+    max-height: 80vh;
+}
+.file_page {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  max-width: 568px;
+  background: radial-gradient(circle, skyblue, steelblue);
+  color: #222;
+}
+
+.my_table {
+  border-collapse: collapse;
+  border: 2px solid grey;
+  width: 500px;
+}
+.my_table th, td {
+   border: 1px solid grey;
+   padding: 5px 7px;
+
+}
