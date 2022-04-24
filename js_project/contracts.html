@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Часть сайта</title>
-    <script src="contracts_js_funcs.js"></script>
-    <link rel="stylesheet" href="some_styles.css">
-  </head>
-  <body>
+
+<head>
+  <meta charset="utf-8">
+  <title>Часть сайта</title>
+  <script src="contracts_js_funcs.js"></script>
+  <link rel="stylesheet" href="some_styles.css">
+</head>
+
+<body>
 
 
-    <div class="navigate_bar">
-      <ul>
-        <li><a href="contracts.html">Таблица контрактов</a> </li>
-        <li><a href="example_upload_file.html">Пример загрузки файлов</a> </li>
-        <li><a href="json_work.html">Работа с JSON</a> </li>
-      </ul>
-    </div>
-    <h1>Таблица контрактов</h1>
-    <button id = 'load_table_btn'>Заполнить</button>
-    <table border = "1px" id = 'contracts_tbl'>
-      <tr>
-        <th>№</th>
-        <th title = "Сортировка" style="cursor:pointer">№ Контракта</th>
-        <th title = "Сортировка" style="cursor:pointer">Товар</th>
-        <th title = "Сортировка" style="cursor:pointer">Категория</th>
-        <th title = "Сортировка" style="cursor:pointer">ККН</th>
-      </tr>
-      <!-- <tr>
+  <div class="navigate_bar">
+    <ul>
+      <li><a href="contracts.html">Таблица контрактов</a> </li>
+      <li><a href="example_upload_file.html">Пример загрузки файлов</a> </li>
+      <li><a href="json_work.html">Работа с JSON</a> </li>
+      <li><a href="paginate_table.html">пагинация таблиц</a> </li>
+    </ul>
+  </div>
+  <h1>Таблица контрактов</h1>
+  <button id='load_table_btn'>Заполнить</button>
+  <table border="1px" id='contracts_tbl'>
+    <tr>
+      <th>№</th>
+      <th title="Сортировка" style="cursor:pointer">№ Контракта</th>
+      <th title="Сортировка" style="cursor:pointer">Товар</th>
+      <th title="Сортировка" style="cursor:pointer">Категория</th>
+      <th title="Сортировка" style="cursor:pointer">ККН</th>
+    </tr>
+    <!-- <tr>
         <td>7</td>
         <td title = "Карточка контракта" style="cursor:pointer">37812343</td>
         <td title = "Характеристики" style="cursor:pointer">Моноблок 23"</td>
         <td title = "Карточка категории" style="cursor:pointer">Моноблоки</td>
         <td title = "Характеристики" style="cursor:pointer">Моноблок тип 1</td>
       </tr> -->
-      <script>
-         load_table_btn.onclick = load_data_to_table
-         add_contact_btn.onclick = my_funcs
-      </script>
-    </table>
+    <script>
+      load_table_btn.onclick = load_data_to_table
+      add_contact_btn.onclick = my_funcs
+    </script>
+  </table>
 
 
-    <button id = 'add_contact_btn'>Добавить элемент</button>
+  <button id='add_contact_btn'>Добавить элемент</button>
 
-  </body>
+</body>
+
 </html>

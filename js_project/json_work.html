@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Часть сайта</title>
-    <script src="contracts_js_funcs.js"></script>
-    <script src="json_funcs.js"></script>
-    <link rel="stylesheet" href="some_styles.css">
-  </head>
-  <body>
 
-    <div class="navigate_bar">
-      <ul>
-        <li><a href="contracts.html">Таблица контрактов</a> </li>
-        <li><a href="example_upload_file.html">Пример загрузки файлов</a> </li>
-        <li><a href="json_work.html">Работа с JSON</a> </li>
-      </ul>
-    </div>
+<head>
+  <meta charset="utf-8">
+  <title>Часть сайта</title>
+  <script src="contracts_js_funcs.js"></script>file_manager
+  <script src="json_funcs.js"></script>
+  <script src="file_manager.js"></script>
+  <link rel="stylesheet" href="some_styles.css">
+</head>
 
+<body>
+
+  <div class="navigate_bar">
+    <ul>
+      <li><a href="contracts.html">Таблица контрактов</a> </li>
+      <li><a href="example_upload_file.html">Пример загрузки файлов</a> </li>
+      <li><a href="json_work.html">Работа с JSON</a> </li>
+      <li><a href="paginate_table.html">пагинация таблиц</a> </li>
+    </ul>
+  </div>
   <h1>JSON</h1>
 
-  <button id = 'btn_one'>строка формата JSON в объект</button>
-  <button id = 'btn_two'>объект JS в строка формата JSON</button><br><br><br>
-  <button id = 'btn_3' onclick="create_table_with_3_keys(object_from_py_dict);">загрузить таблицу из объекта</button>
+
+  <button id='btn_one'>строка формата JSON в объект</button>
+  <button id='btn_two'>объект JS в строка формата JSON</button><br><br><br>
+  <button id='btn_3' onclick="create_table_with_3_keys(object_from_py_dict);">загрузить таблицу из объекта</button>
 
   <script>
     btn_one.onclick = my_btn_funcs
@@ -31,14 +35,15 @@
     create_table_with_columns_info(object_from_py_dict)
   </script>
 
-  <br><p>Источник: <a target="_blank" href="https://learn.javascript.ru/json">создание, редактирование, преобразование json </a></p>
+  <br>
+  <p>Источник: <a target="_blank" href="https://learn.javascript.ru/json">создание, редактирование, преобразование json </a></p>
   <ul>
-    <li>Функция отрисовывающая таблицу по данным из "словаря"</li>
     <li>В таблицу выводятся значения по n (10/25/50) шт. + перелистывание</li>
     <li>Удаление кнопки после активации функции</li>
     <li>AJAX, JQuery</li>
     <li>отображение процесса загрузки таблицы* (в долгих случаях)</li>
     <li>Чтение запись в файл .txt* (для интереса)</li>
   </ul>
-  </body>
+</body>
+
 </html>

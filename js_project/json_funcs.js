@@ -12,6 +12,22 @@ let py_json_output_str = `{
   "product_name": "Монитор 25",
   "product_category": "Мониторы",
   "company_name": "ООО ЛАЙТКОМ"},
+  "12346":{"contract_number": "12345",
+  "product_name": "Монитор 25",
+  "product_category": "Мониторы",
+  "company_name": "ООО ЛАЙТКОМ"},
+  "12347":{"contract_number": "12345",
+  "product_name": "Монитор 25",
+  "product_category": "Мониторы",
+  "company_name": "ООО ЛАЙТКОМ"},
+  "12348":{"contract_number": "12345",
+  "product_name": "Монитор 25",
+  "product_category": "Мониторы",
+  "company_name": "ООО ЛАЙТКОМ"},
+  "12349":{"contract_number": "12345",
+  "product_name": "Монитор 25",
+  "product_category": "Мониторы",
+  "company_name": "ООО ЛАЙТКОМ"},
   "columns_info":{"contract_number": "Номер Контракта",
   "product_name": "Название товара",
   "company_name": "Название компании",
@@ -19,12 +35,12 @@ let py_json_output_str = `{
 }
 }`
 
-function my_btn_funcs () {
+function my_btn_funcs() {
   let json = JSON.stringify(student, null, 2);
   alert("JSON-строка в объект:" + JSON.parse(py_json_output_str));
 };
 
-function my_btn_funcs_2 () {
+function my_btn_funcs_2() {
   let json = JSON.stringify(py_json_output_str, null, 2);
   alert(py_json_output_str);
 };
@@ -38,7 +54,7 @@ function my_btn_funcs_2 () {
 // парсим строку в объект
 let object_from_py_dict = JSON.parse(py_json_output_str);
 
-function create_table_with_3_keys (object_dict) {
+function create_table_with_3_keys(object_dict) {
   // создаем таблицу помещаем в html-body
   let html_body = document.querySelector('body');
   let table = document.createElement("table");
@@ -64,11 +80,11 @@ function create_table_with_3_keys (object_dict) {
       let td_for_data = document.createElement("td");
       tr_for_data.appendChild(td_for_data);
       td_for_data.textContent = object_dict[contract][contr_data];
-      }
     }
   }
+}
 
-function create_table_with_columns_info (json_dict) {
+function create_table_with_columns_info(json_dict) {
   // выделяем информацию о таблице
   if ("columns_info" in json_dict) {
     let culumns_name_list = [];
@@ -93,10 +109,10 @@ function create_table_with_columns_info (json_dict) {
       let tr_for_data = document.createElement("tr");
       tr_for_data.setAttribute('id', contract);
       table.appendChild(tr_for_data);
-       for (column_name in culumns_name_list){
+      for (column_name in culumns_name_list) {
         for (contr_data in json_dict[contract]) {
           // Если у ячейки название колонки совпадает с указанными в шапке - вставляем
-          if (culumns_name_list[column_name] === contr_data){
+          if (culumns_name_list[column_name] === contr_data) {
             let td_for_data = document.createElement("td");
             tr_for_data.appendChild(td_for_data);
             td_for_data.textContent = json_dict[contract][contr_data];
@@ -105,10 +121,9 @@ function create_table_with_columns_info (json_dict) {
         }
         // если не удалось определить столбец, то создаем новую колонку и в шапку новую строку + алерт
         // if !(json_dict[contract] in culumns_name_list)
-        }
       }
-  }
-  else {
+    }
+  } else {
     alert('НЕТ ИНФОРМАЦИИ ПО ТАБЛИЦЕ!')
   }
-  }
+}
