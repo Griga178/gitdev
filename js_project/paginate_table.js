@@ -9,64 +9,66 @@ let goods = [
   'Элемент 29', 'Элемент 30', 'Элемент 31', 'Элемент 32',
   'Элемент 33', 'Элемент 34', 'Элемент 35', 'Элемент 36',
   'Элемент 37', 'Элемент 38', 'Элемент 39', 'Элемент 40',
+  'Элемент 41', 'Элемент 42', 'Элемент 43', 'Элемент 44',
+  'Элемент 45', 'Элемент 46', 'Элемент 47', 'Элемент 48',
+  'Элемент 49', 'Элемент 50', 'Элемент 51', 'Элемент 52',
 ]
 
 // СОЗДАНИЕ ЭЛЕМЕНТОВ
 let body_tag = document.querySelector("body");
-// Главный DIV для результатов пагинации
-let pagDiv = document.createElement("div");
-pagDiv.setAttribute("class", "pagDiv");
-body_tag.appendChild(pagDiv)
-// Заголовок
-let pagH1 = document.createElement("h2");
-pagH1.textContent = "Товары на странице"
-pagDiv.appendChild(pagH1);
-// Блок для отрисовки результатов
-let result = document.createElement("div");
-result.setAttribute("class", "result");
-pagDiv.appendChild(result)
-// Линия КНОПКИ
-let bl2 = document.createElement("div");
-bl2.setAttribute("class", "bl2");
-pagDiv.appendChild(bl2)
-// ВВОД КОЛИЧЕСТВА ОТОБРАЖАЕМЫХ СТРОК
-let quantityforselection = 7;
+
 // ВЫВОД СТРОК
 function paintResult(arr) {
   for (item = 0, r = ""; item < arr.length; item++) {
-    r += `<li class="result-item">${arr[item]}</li>`
+    r += `<tr class="result-item"><td>${arr[item]}</td></tr>`
   }
-  return "<ul>" + r + "</ul>"
+  return "<thead><th>Заголовок таблицы</th></thead>" + r
 }
 
-let ul_block = paintResult(goods)
+// выбор КОЛИЧЕСТВА ОТОБРАЖАЕМЫХ СТРОК
+select_row_number.addEventListener('change', set_amount_rows);
 
+function set_amount_rows(quantityforselection = 10) {
+  let choice = select_row_number.value;
+  quantityforselection = select_row_number.value
+  table_for_data.innerHTML = paintResult(goods.slice(0, quantityforselection));
+  // num_page_btns.innerHTML = paintPaginationButton(numberofbuttons(goods, quantityforselection));
+  num_page_btns.innerHTML = paintPaginationButton(goods);
+}
+
+// РАСЧЕТЫ:
 // Считает нужное количество кнопок пагинации:
-function numberofbuttons(arr, num) {
-  return Math.ceil(arr.length / num)
+function numberofbuttons(arr, nums = select_row_number.value) {
+  return Math.ceil(arr.length / nums)
 }
 // РИСУЕМ КНОПКИ
-function paintPaginationButton(count) {
+function paintPaginationButton(data_array) {
+  let nums = select_row_number.value;
+  let count = Math.ceil(data_array.length / nums);
   for (i = 1, r = ""; i <= count; i++) {
     r += `<button class="pb">${i}</button>`
   }
   return r
 }
-let btn_number = numberofbuttons(goods, quantityforselection)
-let btn_string = paintPaginationButton(btn_number)
-bl2.innerHTML = btn_string
 
 // Первичная отрисовка результата
-result.innerHTML = paintResult(goods.slice(0, quantityforselection))
+table_for_data.innerHTML = paintResult(goods.slice(0, 10))
+num_page_btns.innerHTML = paintPaginationButton(numberofbuttons(goods, 10))
+num_page_btns.innerHTML = paintPaginationButton(goods)
 
-// НАЖАТИЯ НА КНОПИК
-document.addEventListener('click', function(event) {
-  if ([...event.target.classList].includes("pb")) {
-    var y = event.target.textContent;
-    var start = quantityforselection * (y - 1);
-    var end = quantityforselection * y;
-    result.innerHTML = paintResult(goods.slice(start, end));
+// НАЖАТИЯ НА КНОПКи
+document.addEventListener('click', push_btns);
+
+function push_btns(events) {
+  if ([...events.target.classList].includes("pb")) {
+    let rows_amount = select_row_number.value;
+    let y = events.target.textContent;
+    let start = rows_amount * (y - 1);
+    let end = rows_amount * y;
+    table_for_data.innerHTML = paintResult(goods.slice(start, end));
+
+    num_page_btns.innerHTML = paintPaginationButton(goods)
   } else {
-    console.log(event.target)
+    console.log(events.target)
   }
-});
+}

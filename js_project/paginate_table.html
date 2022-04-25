@@ -16,9 +16,32 @@
       <li><a href="example_upload_file.html">Пример загрузки файлов</a> </li>
       <li><a href="json_work.html">Работа с JSON</a> </li>
       <li><a href="paginate_table.html">пагинация таблиц</a> </li>
+      <li><a href="final_table.html">Финальная таблица</a></li>
     </ul>
   </div>
-  <script src="paginate_table.js"></script>
+
+  <div class = 'contracts_table'>
+    <table id = "table_for_data">
+    </table>
+
+    <div class = "set_btns" id = "setting_btns">
+
+    <label for="select_row_number">количество строк: </label>
+    <select id="select_row_number">
+      <option value=10>10</option>
+      <option value=25>25</option>
+      <option value=50>50</option>
+      <option value=75>75</option>
+      <option value=100>100</option>
+    </select>
+
+      <div id = "num_page_btns">
+      </div>
+
+    </div>
+    <script src="paginate_table.js"></script>
+  </div>
+
 
   <br><br>
   <p>Источник: <a href="https://efim360.ru/javascript-paginacziya-silami-klienta/" target="_blank"> Ссылка</a></p>

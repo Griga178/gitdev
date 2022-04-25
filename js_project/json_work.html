@@ -18,6 +18,7 @@
       <li><a href="example_upload_file.html">Пример загрузки файлов</a> </li>
       <li><a href="json_work.html">Работа с JSON</a> </li>
       <li><a href="paginate_table.html">пагинация таблиц</a> </li>
+      <li><a href="final_table.html">Финальная таблица</a></li>
     </ul>
   </div>
   <h1>JSON</h1>
@@ -27,20 +28,23 @@
   <button id='btn_two'>объект JS в строка формата JSON</button><br><br><br>
   <button id='btn_3' onclick="create_table_with_3_keys(object_from_py_dict);">загрузить таблицу из объекта</button>
 
+
+
   <script>
     btn_one.onclick = my_btn_funcs
     btn_two.onclick = my_btn_funcs_2
     // btn_3.onclick = create_table_with_3_keys(object_from_py_dict)
 
     create_table_with_columns_info(object_from_py_dict)
+
   </script>
+
 
   <br>
   <p>Источник: <a target="_blank" href="https://learn.javascript.ru/json">создание, редактирование, преобразование json </a></p>
   <ul>
-    <li>В таблицу выводятся значения по n (10/25/50) шт. + перелистывание</li>
-    <li>Удаление кнопки после активации функции</li>
-    <li>AJAX, JQuery</li>
+    <li>Удаление кнопки после активации функции (решение, кнопки не будет)</li>
+    <li><b>AJAX, JQuery</b></li>
     <li>отображение процесса загрузки таблицы* (в долгих случаях)</li>
     <li>Чтение запись в файл .txt* (для интереса)</li>
   </ul>

@@ -1,3 +1,4 @@
+// json_funcs.js
 let student = {
   name: 'John',
   age: 30,
@@ -54,35 +55,35 @@ function my_btn_funcs_2() {
 // парсим строку в объект
 let object_from_py_dict = JSON.parse(py_json_output_str);
 
-function create_table_with_3_keys(object_dict) {
-  // создаем таблицу помещаем в html-body
-  let html_body = document.querySelector('body');
-  let table = document.createElement("table");
-  table.setAttribute('class', 'my_table');
-  html_body.appendChild(table);
-  let tr_head = document.createElement("tr");
-  table.appendChild(tr_head);
-  let td_head_1 = document.createElement("th");
-  let td_head_2 = document.createElement("th");
-  let td_head_3 = document.createElement("th");
-  tr_head.appendChild(td_head_1);
-  tr_head.appendChild(td_head_2);
-  tr_head.appendChild(td_head_3);
-  td_head_1.textContent = 'Номер контракта';
-  td_head_2.textContent = 'Наименовение Товара';
-  td_head_3.textContent = 'Категория';
-
-  for (contract in object_dict) {
-    let tr_for_data = document.createElement("tr");
-    tr_for_data.setAttribute('id', contract);
-    table.appendChild(tr_for_data);
-    for (contr_data in object_dict[contract]) {
-      let td_for_data = document.createElement("td");
-      tr_for_data.appendChild(td_for_data);
-      td_for_data.textContent = object_dict[contract][contr_data];
-    }
-  }
-}
+// function create_table_with_3_keys(object_dict) {
+//   // создаем таблицу помещаем в html-body
+//   let html_body = document.querySelector('body');
+//   let table = document.createElement("table");
+//   table.setAttribute('class', 'my_table');
+//   html_body.appendChild(table);
+//   let tr_head = document.createElement("tr");
+//   table.appendChild(tr_head);
+//   let td_head_1 = document.createElement("th");
+//   let td_head_2 = document.createElement("th");
+//   let td_head_3 = document.createElement("th");
+//   tr_head.appendChild(td_head_1);
+//   tr_head.appendChild(td_head_2);
+//   tr_head.appendChild(td_head_3);
+//   td_head_1.textContent = 'Номер контракта';
+//   td_head_2.textContent = 'Наименовение Товара';
+//   td_head_3.textContent = 'Категория';
+//
+//   for (contract in object_dict) {
+//     let tr_for_data = document.createElement("tr");
+//     tr_for_data.setAttribute('id', contract);
+//     table.appendChild(tr_for_data);
+//     for (contr_data in object_dict[contract]) {
+//       let td_for_data = document.createElement("td");
+//       tr_for_data.appendChild(td_for_data);
+//       td_for_data.textContent = object_dict[contract][contr_data];
+//     }
+//   }
+// }
 
 function create_table_with_columns_info(json_dict) {
   // выделяем информацию о таблице
