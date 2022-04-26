@@ -38,13 +38,14 @@ function set_amount_rows(quantityforselection = 10) {
 
 // РАСЧЕТЫ:
 // Считает нужное количество кнопок пагинации:
-function numberofbuttons(arr, nums = select_row_number.value) {
-  return Math.ceil(arr.length / nums)
-}
+// function numberofbuttons(arr, nums = select_row_number.value) {
+//   return Math.ceil(arr.length / nums)
+// }
 // РИСУЕМ КНОПКИ
 function paintPaginationButton(data_array) {
   let nums = select_row_number.value;
   let count = Math.ceil(data_array.length / nums);
+  // alert(count)
   for (i = 1, r = ""; i <= count; i++) {
     r += `<button class="pb">${i}</button>`
   }
@@ -53,7 +54,7 @@ function paintPaginationButton(data_array) {
 
 // Первичная отрисовка результата
 table_for_data.innerHTML = paintResult(goods.slice(0, 10))
-num_page_btns.innerHTML = paintPaginationButton(numberofbuttons(goods, 10))
+// num_page_btns.innerHTML = paintPaginationButton(numberofbuttons(goods, 10))
 num_page_btns.innerHTML = paintPaginationButton(goods)
 
 // НАЖАТИЯ НА КНОПКи
