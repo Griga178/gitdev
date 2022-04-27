@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Часть сайта</title>
   <script src="contracts_js_funcs.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
   <link rel="stylesheet" href="some_styles.css">
 </head>
 
@@ -39,13 +40,15 @@
       </tr> -->
     <script>
       load_table_btn.onclick = load_data_to_table
-      add_contact_btn.onclick = my_funcs
+
     </script>
   </table>
 
 
   <button id='add_contact_btn'>Добавить элемент</button>
-
+<script>
+  add_contact_btn.onclick = my_funcs  
+</script>
 </body>
 
 </html>

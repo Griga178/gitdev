@@ -1,13 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, json
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
 from data_loader import save_pkl as save
+
 from classes import Subject_ver_3, Subjects_category, Model_ver2
 from input_form_classes import Subject_adding_form
 
-app = Flask(__name__, template_folder = "templates")
-app.config['SECRET_KEY']='AASDFASDF'
+from . import app
+# from run_server import
+
+# app = Flask(__name__, template_folder = "templates")
+# app.config['SECRET_KEY']='AASDFASDF'
 pickle_file_name = 'Models_Subjects_dict'
 
 def chose_model_example_by_name(name):
@@ -24,12 +28,15 @@ def chose_model_example_by_name(name):
 def index():
     return render_template('main.html')
 
+@app.route('/get_len', methods=['GET', 'POST'])
+def get_len():
+    name = request.form['name'];
+    return json.dumps({'len': len(name)})
 
 
 # БАЗЫ ДАННЫХ
 @app.route('/data', methods = ('GET', 'POST'))
 def manage_data():
-
     return render_template('data_base.html')
 
 # ПРЕДМЕТЫ
@@ -46,6 +53,7 @@ def subject_page():
     subj_list = list(subj_set)
     subj_list.sort(key=lambda x: x.name)
     return render_template('subjects_page.html', subj_set = subj_list)
+
 # Удалить предмет
 @app.route('/subjects/<sub_name>', methods = ('GET', 'POST'))
 def subject_del(sub_name):
@@ -146,7 +154,7 @@ def set_all():
 
     return render_template('settings.html', form = form)
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     #app.run(host= '0.0.0.0')
 
-    app.run(debug = True)
+    # app.run(debug = True)

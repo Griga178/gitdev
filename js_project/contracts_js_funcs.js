@@ -68,4 +68,9 @@ function load_data_to_table (){
   }
 
   from_list_to_table(contracts_massiv.slice(1))
+  $('#load_table_btn').hide()
   }
+
+function my_funcs() {
+  alert("вызываем функцию добавления в бд")
+}
