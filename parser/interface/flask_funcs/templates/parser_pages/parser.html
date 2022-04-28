@@ -1,11 +1,53 @@
-<!DOCTYPE html>
+{% extends "base_page.html" %}
+{% block content %}
+  <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
 
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>hello wirld</h1>
-  </body>
-</html>
+  <p>выбрать файл для загрузки ссылок</p>
+  <input type="file" name="" value="">
+  <button type="button" name="button">Как должен выглядеть файл</button>
+  <br><br>
+  <script>
+  alert('Hello');
+  function parse_link() {
+    $.ajax({
+        url: "/parse_link",
+        data: $('form').serialize(),
+        type: 'POST',
+        success: function(response) {
+            var json = jQuery.parseJSON(response)
+            $('#parse_result').html("Ссылка: " + json.text)
+            $('#main_page').html("Главная страница: " + json.main_page)
+            $('#parse_price').html("Цена: " + json.price)
+
+            // $("#form_link").hide()
+            console.log(response);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+
+  }
+
+  </script>
+  <div id = "online_parser">
+  <form action="" method="post" name="form" id = "form_link">
+    <label for="name">Введите ссылку:</label>
+    <input id = "link" name="name" type="text">
+    <input type="button" value="Отправить" onclick="parse_link();">
+  </form>
+    <p id="parse_result"></p>
+    <p id="main_page"></p>
+    <p id="parse_price"></p>
+  </div>
+  <script type="text/javascript">
+
+  </script>
+
+
+  <div class="setting_blog">
+
+  </div>
+  <script type=text/javascript src="{{ url_for('static', filename='js/funcs_parser/check_link_page.js') }}"></script>
+
+{% endblock %}

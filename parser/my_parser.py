@@ -61,6 +61,7 @@ class My_parser():
                     try:
                         price_tag = soup.find(My_parser.my_site_tags[main_page]['price_tag_class'][0], My_parser.my_site_tags[main_page]['price_tag_class'][1]).string
                         current_price = clean_number(price_tag)
+                        print(My_parser.my_site_tags[main_page]['price_tag_class'][0], My_parser.my_site_tags[main_page]['price_tag_class'][1])
 
                     except:
                         current_price = False

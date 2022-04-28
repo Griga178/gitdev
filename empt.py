@@ -2,13 +2,6 @@
 ХЗ ЧТО ТУТ ДОЛЖНО БЫТЬ ПУСТО!
 '''
 
-def manual_cicle():
-    for el in range(100):
-        print(el)
-        a = input('Ввод: ')
-        if a == 's':
-            break
-#manual_cicle()
 
 #global c
 

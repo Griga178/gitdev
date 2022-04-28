@@ -1,0 +1,41 @@
+.checker_container{
+  border: 2px dashed green;
+  min-height: 500px;
+  min-width: 500px;
+  padding: 15px;
+}
+.online_parser {
+  background-color: white;
+  float: left;
+  height: 200px;
+  width: 450px;
+}
+.setting_blog {
+  background-color: white;
+  float: right;
+  height: 200px;
+  width: 350px;
+}
+.check_block {
+  border: 2px dashed green;
+  margin: 5px;
+  padding: 15px;
+}
+.parsed_links{
+  clear: both;
+  background-color: white;
+  min-width: 500px;
+}
+.parsed_links div {
+  border: 1px dashed red;
+  background: dodgerblue;
+  color: white;
+  margin: 5px;
+  padding-left: 10px;
+}
+.parsed_links div:hover{
+  background: black;
+}
+.parsed_links h2{
+  margin: 5px;
+}

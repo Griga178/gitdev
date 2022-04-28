@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
+from funcs_parser import *
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
@@ -8,10 +9,7 @@ from classes import Subject_ver_3, Subjects_category, Model_ver2
 from input_form_classes import Subject_adding_form
 
 from . import app
-# from run_server import
 
-# app = Flask(__name__, template_folder = "templates")
-# app.config['SECRET_KEY']='AASDFASDF'
 pickle_file_name = 'Models_Subjects_dict'
 
 def chose_model_example_by_name(name):
@@ -33,6 +31,20 @@ def get_len():
     name = request.form['name'];
     return json.dumps({'len': len(name)})
 
+# ПАРСЕР
+@app.route('/parser')
+def open_parser():
+    return render_template('parser_pages/check_links.html')
+
+@app.route('/parser_link_check', methods=['GET', 'POST'])
+def parse_link():
+    json_message = func_parse_link(request.form['name'])
+    return json_message # посылается json строка
+
+@app.route('/link_setting', methods=['GET', 'POST'])
+def link_setting():
+    json_message = func_parse_link(request.form['name'])
+    return json_message # посылается json строка
 
 # БАЗЫ ДАННЫХ
 @app.route('/data', methods = ('GET', 'POST'))
@@ -137,8 +149,6 @@ def model_information(model_str_name):
         #     input_subject_name = request.form['input_subject_name']
         #     print(input_subject_name)
     return render_template('model_information.html', model_example = model_example, descript = model_dict_description)
-
-
 
 @app.route('/settings', methods = ('GET', 'POST'))
 def set_all():
