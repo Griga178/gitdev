@@ -9,6 +9,7 @@ from classes import Subject_ver_3, Subjects_category, Model_ver2
 from input_form_classes import Subject_adding_form
 
 from . import app
+from .sql_models import *
 
 pickle_file_name = 'Models_Subjects_dict'
 
@@ -38,13 +39,14 @@ def open_parser():
 
 @app.route('/parser_link_check', methods=['GET', 'POST'])
 def parse_link():
+    '''ПАРСИМ ПО 1 ССЫЛКЕ ОНЛАЙН, ПРОВЕРЯЕМ НАСТРОЙКИ '''
     json_message = func_parse_link(request.form['name'])
     return json_message # посылается json строка
 
-@app.route('/link_setting', methods=['GET', 'POST'])
-def link_setting():
-    json_message = func_parse_link(request.form['name'])
-    return json_message # посылается json строка
+@app.route('/file_parser', methods=['GET', 'POST'])
+def file_parser():
+    return render_template('parser_pages/file_parser.html')
+
 
 # БАЗЫ ДАННЫХ
 @app.route('/data', methods = ('GET', 'POST'))

@@ -23,6 +23,14 @@ def define_main_page(link):
         print('ERROR: ссылка не в формате строки')
         return False
 
+def define_links(string_value):
+    # возращает список с возможными сылками
+    if not string_value  is None:
+        re_sult = re.findall(r'[\w:/.\-?=&+%#\[\]]+', string_value)
+        return re_sult
+    else:
+        return False
+        
 def clean_number(str_text):
     ''' Выводит только числа из строк с помощью регулярок
         находит числа в которых "." или "," используется

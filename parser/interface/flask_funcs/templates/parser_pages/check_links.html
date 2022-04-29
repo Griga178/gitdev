@@ -1,33 +1,39 @@
 {% extends "base_page.html" %}
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='parser_styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='parser_styles.css') }}">
   <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
   <script type=text/javascript src="{{ url_for('static', filename='js/funcs_parser/check_link_page.js') }}"></script>
 
+  <div class="parser_nav_bar">
+    <a href="{{url_for('open_parser')}}">Проверка ссылок</a>
+    <a href="{{url_for('file_parser')}}">Загрузить файл</a>
+  </div>
+  
   <div class = "checker_container">
       <div class = "online_parser check_block">
         <form action = "javascript:parse_link()" method="post" name="form" id = "form_link">
           <label for="name">Вставьте ссылку:</label>
-          <input id = "link" name="name" type="text">
+          <input id = "link_input" name="name" type="text">
           <input type="button" value="Отправить" onclick="parse_link();">
         </form>
         <p><i>(Работает только ситилинк и компмаркет (пока что))</i></p>
         <h2 id = "loading"></h2>
 
       </div>
-
       <div class = "setting_blog check_block">
+        <div class="circle_btn" id = "crcl_r"></div>
+        <div class="circle_btn" id = "crcl_y"></div>
+        <div class="circle_btn" id = "crcl_g"></div>
         <h2>Настройки:</h2>
-        <h3>www.citilink.ru</h3>
+        <h3 id = "set_main_page">_ _ _ _ _ _ _ _ _</h3>
         <p>Теги:</p>
         <h3>"div" "id" "price"</h3>
         <p>Парсер:</p>
         <h3>BeautifulSoup</h3>
       </div>
-
+      <div class="clear_div"></div>
       <div class="parsed_links check_block" id = "parse_result_block">
         <h2>Результаты: </h2>
-        <button onclick="show_settings()"><i>Показать настройки</i></button>
       </div>
 
   </div>
