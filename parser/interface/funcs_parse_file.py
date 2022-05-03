@@ -39,7 +39,7 @@ def parse_file_links(file_name):
                         dict_links[main_page] = {link}
     return dict_links
 
-dict_links = parse_file_links(excel_file_name)
+# dict_links = parse_file_links(excel_file_name)
 # counter = 0
 # for set_l in dict_links:
     # counter += len(set_l)
@@ -74,8 +74,8 @@ def save_dict_to_sql():
 
 
 # save_dict_to_sql()
-# 
-# data_quyrure = session.query(Net_links).all()
-# print(len(data_quyrure))
+#
+data_quyrure = session.query(Net_links).all()
+print(len(data_quyrure))
 # for el in data_quyrure:
 #     print(el.id, el.net_shops.name)

@@ -11,6 +11,12 @@ from input_form_classes import Subject_adding_form
 from . import app
 from .sql_models import *
 
+from .sql_models import *
+from sqlalchemy.orm import sessionmaker
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
 pickle_file_name = 'Models_Subjects_dict'
 
 def chose_model_example_by_name(name):
@@ -32,7 +38,14 @@ def get_len():
     name = request.form['name'];
     return json.dumps({'len': len(name)})
 
-# ПАРСЕР
+# ВКЛАДКА ПАРСЕР
+# Функция парсинга 1 страницы
+# цена, название предмета, характеристики, статус
+# Отображение настроек для парсинга сайта       - !
+# список отпарсенных ссылок - скачать csv
+# функция загрузки файла
+# Отображение всех отпрсенных сайтов - главная страница # пагинация
+
 @app.route('/parser')
 def open_parser():
     return render_template('parser_pages/check_links.html')
@@ -46,7 +59,36 @@ def parse_link():
 @app.route('/file_parser', methods=['GET', 'POST'])
 def file_parser():
     return render_template('parser_pages/file_parser.html')
-
+# Отображение всех отпрсенных сайтов - главная страница # пагинация
+@app.route('/links_base', methods=['GET', 'POST'])
+def links_base():
+    main_page_list = session.query(Net_shops).all()
+    dict_m_p = {}
+    for el in main_page_list:
+        dict_m_p[el.id] = el.name
+    dict_m_p = json.dumps(dict_m_p)
+    return render_template('parser_pages/links_base.html', main_page_list = dict_m_p)
+# Отображение настроек для парсинга сайта
+@app.route('/links_sett/<some_data>', methods = ['GET',"POST"])
+def links_sett(some_data):
+    some_data = int(some_data)
+    data_from_sql = session.query(Shops_sett).filter_by(id_main_page = some_data).all()
+    dict_m_p = {}
+    if len(data_from_sql) > 0:
+        for el in main_page_list:
+            dict_m_p[el.id] = [el.tag_name]
+        dict_m_p = json.dumps(dict_m_p)
+    else:
+        dict_m_p = 'Настроек нет!'
+    return dict_m_p
+@app.route('/print_links_base', methods=['GET', 'POST'])
+def print_links_base():
+    main_page_list = session.query(Net_shops).all()
+    dict_m_p = {}
+    for el in main_page_list:
+        dict_m_p[el.id] = el.name
+    dict_m_p = json.dumps(dict_m_p)
+    return dict_m_p
 
 # БАЗЫ ДАННЫХ
 @app.route('/data', methods = ('GET', 'POST'))

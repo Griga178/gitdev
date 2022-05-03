@@ -11,36 +11,36 @@
   <p>Ссылка на описание модели - добавить (ark.intel.com) - пропарсить</p>
   <br>
   {% if descript[model_example.name]['subject_name'] %}
-    <h3>Предмет:</h3>
-    <h4>{{ descript[model_example.name]['subject_name'] }} - {{model_example.name}}</h4>
-    <p>Показать сравнительную таблицу всех моделей</p>
+  <h3>Предмет:</h3>
+  <h4>{{ descript[model_example.name]['subject_name'] }} - {{model_example.name}}</h4>
+  <p>Показать сравнительную таблицу всех моделей</p>
   {% else %}
-    <p>Нет связи с предметом</p>
-    <form class="" method="post">
-      <input type="text" name="input_subject_name" value="тут список известных предметов">
-      <button type="submit" name="subject_button">Связать</button>
-    </form>
+  <p>Нет связи с предметом</p>
+  <form class="" method="post">
+    <input type="text" name="input_subject_name" value="тут список известных предметов">
+    <button type="submit" name="subject_button">Связать</button>
+  </form>
 
   {% endif %}
 
   {% if descript %}
-    <h3>Характеристики:</h3>
+  <h3>Характеристики:</h3>
 
-      {% if descript[model_example.name]['chars'] %}
-        <ul>
-          {% for char in descript[model_example.name]['chars'] %}
-          <li>{{char}}: {{descript[model_example.name]['chars'][char][0]}} ({{descript[model_example.name]['chars'][char][1]}}) -- изменить/ удалить</li>
-          {% endfor %}
-        </ul>
+  {% if descript[model_example.name]['chars'] %}
+  <ul>
+    {% for char in descript[model_example.name]['chars'] %}
+    <li>{{char}}: {{descript[model_example.name]['chars'][char][0]}} ({{descript[model_example.name]['chars'][char][1]}}) -- изменить/ удалить</li>
+    {% endfor %}
+  </ul>
 
-      {% endif %}
+  {% endif %}
   {% endif %}
   <br>
   <form method="post">
-      <input type="text" name="char_name" placeholder="Длинна">
-      <input type="text" name="char_value" placeholder="20">
-      <input type="text" name="char_measure" placeholder="см">
-      <button type="submit" name="chars_button">Добавить</button>
+    <input type="text" name="char_name" placeholder="Длина">
+    <input type="text" name="char_value" placeholder="20">
+    <input type="text" name="char_measure" placeholder="см">
+    <button type="submit" name="chars_button">Добавить</button>
   </form>
   <br>
   <p>Добавить ссылки на магазины</p>

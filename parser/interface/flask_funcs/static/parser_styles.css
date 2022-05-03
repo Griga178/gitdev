@@ -5,15 +5,17 @@
 }
 .online_parser {width: 58%;}
 
-.setting_blog {width: 36%;}
+.setting_blog {
+  width: 58%;
+  height: 300px;
+  margin-top: 20px;}
 
 .check_block {
   background-color: white;
-  min-height: 180px;
   float: left;
   box-sizing: border-box;
   border: 2px dashed green;
-  margin-top: 2%;
+  /* margin-top: 2%; */
   margin-left: 2%;
   padding: 1%;
   border-radius: 5px;
@@ -51,4 +53,22 @@
 }
 .parser_nav_bar a {
   margin-left: 10%;
+}
+
+.row_list div p {
+  color: white;
+  background-color: dodgerblue;
+  min-height: 20px;
+  border-radius: 5px;
+  margin: 5px;
+  padding-left: 10px;
+}
+
+.row_list {
+  overflow-y: auto;
+  float: right;
+  margin-right: 3%;
+  width: 34%;
+  height: 400px;
+  /* padding: 1%; */
 }
