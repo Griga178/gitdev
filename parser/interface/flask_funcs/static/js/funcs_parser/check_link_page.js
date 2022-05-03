@@ -35,8 +35,20 @@ function show_settings(shop_id) {
   $.ajax({
     url: `/links_sett/${shop_id}`,
     type: 'POST',
-    success: function(shop_id) {
-      alert(`hello ${shop_id}`)
+    success: function(response) {
+      let row_counter = 0
+      let json_obj = $.parseJSON(response)
+      alert(`${response}`)
+      set_main_page.innerHTML = Object.keys(json_obj);
+      // alert(`${Object.keys(json_obj)}`)
+
+      for (set in json_obj) {
+        row_counter += 1
+        let set_row = document.createElement('p')
+        set_row.setAttribute("id", `set_row_${row_counter}`)
+        set_row.innerHTML = Object.keys(json_obj[set])
+        settings_block.appendChild(set_row)
+      }
     }
   })
 }

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
 from funcs_parser import *
+from funcs_parse_file import show_our_shops, show_shop_set
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
@@ -39,56 +40,34 @@ def get_len():
     return json.dumps({'len': len(name)})
 
 # ВКЛАДКА ПАРСЕР
-# Функция парсинга 1 страницы
 # цена, название предмета, характеристики, статус
-# Отображение настроек для парсинга сайта       - !
 # список отпарсенных ссылок - скачать csv
-# функция загрузки файла
 # Отображение всех отпрсенных сайтов - главная страница # пагинация
-
 @app.route('/parser')
 def open_parser():
     return render_template('parser_pages/check_links.html')
 
 @app.route('/parser_link_check', methods=['GET', 'POST'])
 def parse_link():
-    '''ПАРСИМ ПО 1 ССЫЛКЕ ОНЛАЙН, ПРОВЕРЯЕМ НАСТРОЙКИ '''
     json_message = func_parse_link(request.form['name'])
-    return json_message # посылается json строка
+    return json_message
 
+@app.route('/links_sett/<some_data>', methods = ['GET',"POST"])
+def links_sett(some_data):
+    dict_m_p = show_shop_set(some_data)
+    return dict_m_p
+
+@app.route('/print_links_base', methods=['GET', 'POST'])
+def print_links_base():
+    dict_m_p = show_our_shops()
+    return dict_m_p
+
+@app.route('/links_base', methods=['GET', 'POST'])
+def links_base():
+    return render_template('parser_pages/links_base.html')
 @app.route('/file_parser', methods=['GET', 'POST'])
 def file_parser():
     return render_template('parser_pages/file_parser.html')
-# Отображение всех отпрсенных сайтов - главная страница # пагинация
-@app.route('/links_base', methods=['GET', 'POST'])
-def links_base():
-    main_page_list = session.query(Net_shops).all()
-    dict_m_p = {}
-    for el in main_page_list:
-        dict_m_p[el.id] = el.name
-    dict_m_p = json.dumps(dict_m_p)
-    return render_template('parser_pages/links_base.html', main_page_list = dict_m_p)
-# Отображение настроек для парсинга сайта
-@app.route('/links_sett/<some_data>', methods = ['GET',"POST"])
-def links_sett(some_data):
-    some_data = int(some_data)
-    data_from_sql = session.query(Shops_sett).filter_by(id_main_page = some_data).all()
-    dict_m_p = {}
-    if len(data_from_sql) > 0:
-        for el in main_page_list:
-            dict_m_p[el.id] = [el.tag_name]
-        dict_m_p = json.dumps(dict_m_p)
-    else:
-        dict_m_p = 'Настроек нет!'
-    return dict_m_p
-@app.route('/print_links_base', methods=['GET', 'POST'])
-def print_links_base():
-    main_page_list = session.query(Net_shops).all()
-    dict_m_p = {}
-    for el in main_page_list:
-        dict_m_p[el.id] = el.name
-    dict_m_p = json.dumps(dict_m_p)
-    return dict_m_p
 
 # БАЗЫ ДАННЫХ
 @app.route('/data', methods = ('GET', 'POST'))

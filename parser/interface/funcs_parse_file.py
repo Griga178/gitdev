@@ -8,6 +8,8 @@ import sys
 sys.path.append('flask_funcs')
 from sql_models import *
 
+from flask import json
+
 # Подключаемся к базе
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
@@ -75,7 +77,53 @@ def save_dict_to_sql():
 
 # save_dict_to_sql()
 #
-data_quyrure = session.query(Net_links).all()
-print(len(data_quyrure))
+# data_quyrure = session.query(Net_links).all()
+# print(len(data_quyrure))
 # for el in data_quyrure:
 #     print(el.id, el.net_shops.name)
+
+def show_shop_set(shop_id):
+    # запрос всех настроек по id сайта
+    data = session.query(Net_shops).filter_by(id = shop_id).all()
+    json_dict = {}
+    for shop_name in data: # [1 магазин]
+        main_page = shop_name.name
+        sett_dict = {}
+        for satts in shop_name.net_link_sett: 
+            sett_dict[satts.tag_type] = [satts.tag_name, satts.attr_name, satts.attr_value, satts.sett_active]
+            # print(satts.sett_active)
+    json_dict[main_page] = sett_dict
+    json_dict = json.dumps(json_dict)
+    # print(json_dict)
+    return json_dict
+
+
+def save_shop_set(shop_id, sett_dict):
+    for tags_type in sett_dict:
+        sett_list = sett_dict[tags_type]
+
+        cur_data = Shops_sett(id_main_page = shop_id, tag_type = tags_type, tag_name = sett_list[0], attr_name = sett_list[1], attr_value = sett_list[2], sett_active = sett_list[3])
+        session.add(cur_data)
+        session.commit()
+
+def del_shop_set(set_id = False):
+    if set_id:
+        id_of_del = session.query(Shops_sett).filter_by(id = set_id).one()
+        session.delete(id_of_del)
+        session.commit()
+    query_l = session.query(Shops_sett).all()
+    for el in query_l:
+        print(el.id, el.net_shops.name, el.sett_active)
+
+def show_our_shops():
+    main_page_list = session.query(Net_shops).all()
+    dict_m_p = {}
+    for el in main_page_list:
+        dict_m_p[el.id] = el.name
+    dict_m_p = json.dumps(dict_m_p)
+    return dict_m_p
+# save_shop_set(2, {"price": ['div', 'class', 'price', 1]})
+# save_shop_set(1, {"name": ['div', 'class', 'name', 0]})
+# show_shop_set(1)
+
+# del_shop_set()

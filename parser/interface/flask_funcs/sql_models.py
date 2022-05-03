@@ -23,9 +23,11 @@ class Shops_sett(Base):
     __tablename__ = 'shops_setts'
     id = Column(Integer, primary_key = True)
     id_main_page = Column(Integer, ForeignKey('net_shops.id'))
+    tag_type = Column(Text)
     tag_name = Column(Text)
     attr_name = Column(Text)
     attr_value = Column(Text)
+    sett_active = Column(BOOLEAN)
 
 class Net_shops(Base):
     """Продавцы товаров"""
