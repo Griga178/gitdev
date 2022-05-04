@@ -89,12 +89,10 @@ def show_shop_set(shop_id):
     for shop_name in data: # [1 магазин]
         main_page = shop_name.name
         sett_dict = {}
-        for satts in shop_name.net_link_sett: 
-            sett_dict[satts.tag_type] = [satts.tag_name, satts.attr_name, satts.attr_value, satts.sett_active]
-            # print(satts.sett_active)
+        for satts in shop_name.net_link_sett:
+            sett_dict[satts.tag_type] = [satts.tag_name, satts.attr_name, satts.attr_value, satts.sett_active, satts.id]
     json_dict[main_page] = sett_dict
     json_dict = json.dumps(json_dict)
-    # print(json_dict)
     return json_dict
 
 
@@ -124,6 +122,7 @@ def show_our_shops():
     return dict_m_p
 # save_shop_set(2, {"price": ['div', 'class', 'price', 1]})
 # save_shop_set(1, {"name": ['div', 'class', 'name', 0]})
+# save_shop_set(1, {"chars": ['div', 'class', 'name', 0]})
 # show_shop_set(1)
 
 # del_shop_set()
