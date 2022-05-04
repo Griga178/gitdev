@@ -65,6 +65,30 @@ function show_settings(shop_id) {
   })
 }
 
+function show_settings_ver2(shop_id) {
+  $.ajax({
+    url: `/links_sett/${shop_id}`,
+    type: 'POST',
+    success: function(response) {
+      settings_block.innerHTML = ""
+      let json_obj = $.parseJSON(response)
+      let tags_types = {"price": "Цена", "name": "Название", "chars": "Характеристика"}
+      let shop_header = document.createElement("h2")
+      shop_header.innerHTML = `${json_obj['shop_id']}: ${json_obj['shop_name']}`
+      settings_block.appendChild(shop_header)
+      let update_btn = document.createElement("button")
+      update_btn.innerHTML = "Обновить"
+      update_btn.setAttribute("onclick", `show_settings_ver2(${json_obj['shop_id']})`)
+      settings_block.appendChild(update_btn)
+      for (tag_type in tags_types) {
+        let row_for_sett = document.createElement("p")
+        // row_for_sett.setAttribute("class", `tag_name_sett`)
+        row_for_sett.innerHTML = `${tags_types[tag_type]}: `
+        settings_block.appendChild(row_for_sett)
+      }
+    }
+  })
+}
 function change_setting(char_num, tags_strint) {
   if (char_num === 1) {
     // alert(`Изменяем: ${char_num} ${tags_strint}`)
@@ -116,13 +140,20 @@ function save_sett_changing(char_num) {
 }else if (char_num === 3) {
   let price_list = [inpt_tag_name_3.value, inpt_tag_attr_3.value, inpt_tag_val_3.value, chars_sett_id.innerHTML]
   let tags_strint = [price_list[0],price_list[1],price_list[2],price_list[3]].join()
-  alert(`Кидаем в SQL: "${price_list}" id: ${chars_sett_id.innerHTML}`)
+  // alert(`Кидаем в SQL: "${price_list}" id: ${chars_sett_id.innerHTML}`)
+  let str_data = `{"${price_list[3]}": ["${price_list[0]}","${price_list[1]}","${price_list[2]}","True",]}`
+  post_to_sql(str_data)
   set_row_chars.innerHTML = `Характеристика:&nbspid:<p id = "chars_sett_id">${price_list[3]}</p>&nbsp,
   <p class = 'tag_name_sett'>${price_list[0]}&nbsp;</p>
   <p class = 'attr_name_sett'>${price_list[1]} =&nbsp</p>
   <p>"${price_list[2]}"</p>
   <p id ="change_price_sett" onclick = "change_setting(3, '${tags_strint}')">&nbsp;Изменить</p>`
   }
+}
+
+function post_to_sql(str_data) {
+  alert(`Кидаем в SQL: "${str_data}"`)
+
 }
 function draw_json_dict() {
   $.ajax({

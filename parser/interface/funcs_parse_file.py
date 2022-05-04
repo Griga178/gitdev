@@ -82,8 +82,20 @@ def save_dict_to_sql():
 # for el in data_quyrure:
 #     print(el.id, el.net_shops.name)
 
+def show_shop_set_ver2(shop_id):
+    data = session.query(Net_shops).filter_by(id = shop_id).one() # all
+    json_dict = {}
+    json_dict['shop_name'] = data.name
+    json_dict['shop_id'] = shop_id
+    json_dict['price'] = []
+    json_dict['name'] = []
+    json_dict['chars'] = []
+    for satts in data.net_link_sett:
+        json_dict[satts.tag_type] = [satts.tag_name, satts.attr_name, satts.attr_value, satts.sett_active, satts.id]
+    json_dict = json.dumps(json_dict)
+    return json_dict
+
 def show_shop_set(shop_id):
-    # запрос всех настроек по id сайта
     data = session.query(Net_shops).filter_by(id = shop_id).all()
     json_dict = {}
     for shop_name in data: # [1 магазин]
@@ -94,8 +106,7 @@ def show_shop_set(shop_id):
     json_dict[main_page] = sett_dict
     json_dict = json.dumps(json_dict)
     return json_dict
-
-
+    
 def save_shop_set(shop_id, sett_dict):
     for tags_type in sett_dict:
         sett_list = sett_dict[tags_type]
