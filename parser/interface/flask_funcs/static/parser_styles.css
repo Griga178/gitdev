@@ -72,3 +72,17 @@
   height: 400px;
   /* padding: 1%; */
 }
+
+/* БЛОК С ТЕГАМИ ДЛЯ ПАРСИНГА */
+.div_for_tags {
+  display: flex;
+}
+.tag_name_sett {
+  color: #C71585;
+}
+.attr_name_sett {
+  color: #FF8C00;
+}
+.value_name_sett {
+  color: #0000FF;
+}

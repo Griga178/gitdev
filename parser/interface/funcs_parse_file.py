@@ -90,10 +90,32 @@ def show_shop_set_ver2(shop_id):
     json_dict['price'] = []
     json_dict['name'] = []
     json_dict['chars'] = []
-    for satts in data.net_link_sett:
-        json_dict[satts.tag_type] = [satts.tag_name, satts.attr_name, satts.attr_value, satts.sett_active, satts.id]
+    for settings in data.net_link_sett:
+        temp_dict = {
+        'tag_type': settings.tag_type,
+        'tag_name': settings.tag_name,
+        'attr_name': settings.attr_name,
+        'attr_val': settings.attr_value,
+        'tag_status': settings.sett_active,
+        'tag_id': settings.id}
+        json_dict[settings.tag_type] = temp_dict
     json_dict = json.dumps(json_dict)
+    '''{"shop_name": "citilink",
+    "shop_id": 1,
+     "price": {}
+     "name": {tag_name, attr_name, attr_val, tag_status, tag_id},
+     "chars": {}}'''
     return json_dict
+
+def show_settings_by_type(shop_id, tag_type):
+    sql_query = session.query(Shops_sett).filter_by(id_main_page = shop_id, tag_type = tag_type).first()
+    print(sql_query)
+    my_dict = {}
+    my_dict[tag_type] = [sql_query.tag_name, sql_query.attr_name, sql_query.attr_value, sql_query.sett_active, sql_query.id]
+    json_dict = json.dumps(my_dict)
+    # print(json_dict)
+    return json_dict
+# show_settings_by_type(1,'price')
 
 def show_shop_set(shop_id):
     data = session.query(Net_shops).filter_by(id = shop_id).all()
@@ -105,8 +127,9 @@ def show_shop_set(shop_id):
             sett_dict[satts.tag_type] = [satts.tag_name, satts.attr_name, satts.attr_value, satts.sett_active, satts.id]
     json_dict[main_page] = sett_dict
     json_dict = json.dumps(json_dict)
+    '''{"main_page": {"price": ["div","class","price_tag_vals",False,"1"], "name": [], "chars": []}}'''
     return json_dict
-    
+
 def save_shop_set(shop_id, sett_dict):
     for tags_type in sett_dict:
         sett_list = sett_dict[tags_type]
@@ -114,6 +137,50 @@ def save_shop_set(shop_id, sett_dict):
         cur_data = Shops_sett(id_main_page = shop_id, tag_type = tags_type, tag_name = sett_list[0], attr_name = sett_list[1], attr_value = sett_list[2], sett_active = sett_list[3])
         session.add(cur_data)
         session.commit()
+
+def save_shop_set_ver2(sett_dict):
+    if "id" in sett_dict:
+        session.query(Shops_sett).filter_by(id = sett_dict['id']).update({
+        'id_main_page': sett_dict['id_main_page'],
+        'tag_type': sett_dict['tag_type'],
+        'tag_name': sett_dict['tag_name'],
+        'attr_name': sett_dict['attr_name'],
+        'attr_value': sett_dict['attr_value'],
+        'sett_active': sett_dict['sett_active']
+        })
+    else:
+        cur_data = Shops_sett(
+        id_main_page = sett_dict['id_main_page'],
+        tag_type = sett_dict['tag_type'],
+        tag_name = sett_dict['tag_name'],
+        attr_name = sett_dict['attr_name'],
+        attr_value = sett_dict['attr_value'],
+        sett_active = sett_dict['sett_active']
+        )
+        session.add(cur_data)
+    session.commit()
+
+def change_shop_set(string_data):
+    py_dict_data = json.loads(string_data)
+    print(py_dict_data)
+    if len(py_dict_data) == 1:
+        # в строке должен быть один ключ
+        key = [key for key in py_dict_data]
+        shop_set_id = key[0]
+        shop_set_dict = {}
+        shop_set_dict['id_main_page'] = py_dict_data[shop_set_id][4]
+        shop_set_dict['tag_type'] = py_dict_data[shop_set_id][5]
+        shop_set_dict['tag_name'] = py_dict_data[shop_set_id][0]
+        shop_set_dict['attr_name'] = py_dict_data[shop_set_id][1]
+        shop_set_dict['attr_value'] = py_dict_data[shop_set_id][2]
+        shop_set_dict['sett_active'] = True
+        if shop_set_id == "None":
+            print("Создаем новую строку настроек")
+        else:
+            print(f"Перезаписываем строк с  id: {shop_set_id}")
+            shop_set_dict['id'] = shop_set_id
+        save_shop_set_ver2(shop_set_dict)
+        return "succses"
 
 def del_shop_set(set_id = False):
     if set_id:

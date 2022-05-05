@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
 from funcs_parser import *
-from funcs_parse_file import show_our_shops, show_shop_set
+from funcs_parse_file import show_our_shops, show_shop_set, change_shop_set, show_shop_set_ver2
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
@@ -54,7 +54,8 @@ def parse_link():
 
 @app.route('/links_sett/<some_data>', methods = ['GET',"POST"])
 def links_sett(some_data):
-    dict_m_p = show_shop_set(some_data)
+    # dict_m_p = show_shop_set(some_data)
+    dict_m_p = show_shop_set_ver2(some_data)
     return dict_m_p
 
 @app.route('/print_links_base', methods=['GET', 'POST'])
@@ -62,9 +63,11 @@ def print_links_base():
     dict_m_p = show_our_shops()
     return dict_m_p
 
-@app.route('/links_base', methods=['GET', 'POST'])
-def links_base():
-    return render_template('parser_pages/links_base.html')
+@app.route('/save_sett/<string_data>', methods=['GET', 'POST'])
+def save_sett(string_data):
+    answer = change_shop_set(string_data)
+    return answer
+
 @app.route('/file_parser', methods=['GET', 'POST'])
 def file_parser():
     return render_template('parser_pages/file_parser.html')
