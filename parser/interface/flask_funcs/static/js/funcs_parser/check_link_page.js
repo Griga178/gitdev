@@ -78,17 +78,17 @@ function show_settings_ver2(shop_id) {
       let tags_types_dict = {"price": "Цена", "name": "Название", "chars": "Характеристика"}
       set_main_page.innerHTML = `${json_obj['shop_name']}`
 
-      for (tag_type in tags_types_dict) {
+      let dict_without_sett = {"shop_name": json_obj['shop_name'], "shop_id": json_obj['shop_id']}
 
+      for (tag_type in tags_types_dict) {
         json_obj[tag_type]['rus_tag'] = tags_types_dict[tag_type]
         json_obj[tag_type]['shop_id'] = shop_id
-        json_obj['new_sett'] = false
+        json_obj[tag_type]['tag_type'] = tag_type
         let json_string_out = JSON.stringify(json_obj[tag_type])
-
-        if (json_obj[tag_type].length === 0) {
-          json_obj['new_sett'] = true
-          empty_json_string_out = JSON.stringify(json_obj)
-          draw_input_tags(empty_json_string_out)
+        if (Object.keys(json_obj[tag_type]).length === 3) {
+          // alert(json_string_out)
+          let json_string = $.parseJSON(json_string_out)
+          draw_input_tags(json_string)
         }
         else {
           draw_div_tags(json_string_out)
@@ -116,28 +116,27 @@ function draw_div_tags(json_string_in) {
 }
 
 function draw_input_tags(json_string_in) {
+
   let json_string_out = JSON.stringify(json_string_in)
-  alert("vS PLTCM")
+
   // НА ВХОД ТОЛЬКО ТИП ТЕГОВ (ДЛЯ ПОИСКА ЦЕНЫ/ИМЕНИ/ХАРАКТЕРИСТИК)
-  if (json_string_out['new_sett'] === true){
-    alert('true')
-    // let json_string_in_out = {'shop_id': 'shop_id', 'tag_type': json_string_in}
+  if (Object.keys(json_string_in).length === 3){
     let div_for_tags = document.createElement('div');
     div_for_tags.setAttribute("class", "div_for_tags");
-    div_for_tags.setAttribute("id", `${json_string_in}`);
+    div_for_tags.setAttribute("id", `${json_string_in['tag_type']}`);
     block_for_sett_tags.appendChild(div_for_tags)
     div_for_tags.innerHTML =
-    `${json_string_in}:&nbspid:
+    `${json_string_in['rus_tag']}:&nbspid:
     <input type = "text" value = "">
     <input type = "text" value = "">
     <input type = "text" value = "">
-    <p onclick = 'save_sett_changing_ver2(${json_string_in})'>Сохранить</p>
+    <p onclick = 'save_sett_changing_ver2(${json_string_out})'>Сохранить</p>
     <p onclick = "">Удалить</p>`
   }
   // НА ВХОД СЛОВАРЬ С ЗАПОЛНЕННЫМИ ТЕГАМИ И ДРУГИМИ ДАННЫМИ
   else {
-
     let div_tag_for_change = document.getElementById(json_string_in['tag_id'])
+
     div_tag_for_change.innerHTML =
     `${json_string_in['rus_tag']}:&nbspid:
     <input type = "text" value = "${json_string_in['tag_name']}">
@@ -149,20 +148,21 @@ function draw_input_tags(json_string_in) {
   }
 }
 function save_sett_changing_ver2(json_string_in) {
-  if (json_string_in['new_sett'] === true){
-    alert(" я тут")
-    let div_tag_for_change = document.getElementById(json_string_in)
+  let dict_out;
+
+  if (Object.keys(json_string_in).length === 3) {
+    let div_tag_for_change = document.getElementById(json_string_in['tag_type'])
     let a = div_tag_for_change.children
-    // получаем id магазина
+    dict_out = {"shop_id": json_string_in['shop_id'], "tag_type": json_string_in['tag_type'], "tag_name": a[0].value, "attr_name": a[1].value, "attr_val": a[2].value, "tag_status": true, "tag_id": false}
   }else {
     let div_tag_for_change = document.getElementById(json_string_in['tag_id'])
     let a = div_tag_for_change.children
-    let dict_out = {"shop_id": json_string_in['shop_id'], "tag_type": json_string_in['tag_type'], "tag_name": a[0].value, "attr_name": a[1].value, "attr_val": a[2].value, "tag_status": true, "tag_id": json_string_in['tag_id']}
-    json_string_out = JSON.stringify(dict_out)
-    alert(json_string_out)
-    // json_answer = post_to_sql(json_string_out)
-    // draw_div_tags(json_answer)
+    dict_out = {"shop_id": json_string_in['shop_id'], "tag_type": json_string_in['tag_type'], "tag_name": a[0].value, "attr_name": a[1].value, "attr_val": a[2].value, "tag_status": true, "tag_id": json_string_in['tag_id']}
   }
+  let json_string_out = JSON.stringify(dict_out)
+  json_answer = post_to_sql(json_string_out)
+
+
 }
 function change_setting(char_num, tags_strint) {
   if (char_num === 1) {
@@ -231,12 +231,11 @@ function save_sett_changing(char_num, shop_id) {
 }
 
 function post_to_sql(str_data) {
-  // alert(`Кидаем в SQL: "${str_data}"`)
   $.ajax({
     url: `/save_sett/${str_data}`,
     type: 'POST',
     success: function(response){
-      alert(response)
+      draw_div_tags(response)
     }
   })
 }

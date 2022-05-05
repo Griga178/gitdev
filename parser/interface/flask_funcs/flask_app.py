@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
 from funcs_parser import *
-from funcs_parse_file import show_our_shops, show_shop_set, change_shop_set, show_shop_set_ver2
+from funcs_parse_file import show_our_shops, show_shop_set, show_shop_set_ver2, take_post_message
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
@@ -65,8 +65,9 @@ def print_links_base():
 
 @app.route('/save_sett/<string_data>', methods=['GET', 'POST'])
 def save_sett(string_data):
-    answer = change_shop_set(string_data)
-    return answer
+    py_response = take_post_message(string_data)
+    return py_response
+
 
 @app.route('/file_parser', methods=['GET', 'POST'])
 def file_parser():
