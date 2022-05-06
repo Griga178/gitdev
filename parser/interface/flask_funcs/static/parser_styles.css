@@ -15,7 +15,7 @@
   float: left;
   box-sizing: border-box;
   border: 2px dashed green;
-  /* margin-top: 2%; */
+  margin-top: 2%;
   margin-left: 2%;
   padding: 1%;
   border-radius: 5px;
@@ -70,12 +70,24 @@
   margin-right: 3%;
   width: 34%;
   height: 400px;
-  /* padding: 1%; */
+  padding: 1%;
 }
 
 /* БЛОК С ТЕГАМИ ДЛЯ ПАРСИНГА */
 .div_for_tags {
+  box-sizing: border-box;
+  border: 1px solid red;
+  margin: 5px;
   display: flex;
+}
+.div_for_tags input{
+  width: 15%;
+}
+.div_for_tags p:first-child{
+  width: 25%;
+}
+.div_for_tags:hover {
+  background-color: dodgerblue;
 }
 .tag_name_sett {
   color: #C71585;

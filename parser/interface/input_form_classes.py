@@ -11,3 +11,9 @@ class Subject_adding_form(FlaskForm):
 class Model_adding_form(FlaskForm):
     name = StringField("Название модели: ", validators=[DataRequired()])
     submit = SubmitField("Отправить")
+
+class Tags_form(FlaskForm):
+    tag_name = StringField("Тэг: ", validators=[DataRequired()])
+    attr_name = StringField("Аттрибут: ", validators=[DataRequired()])
+    attr_val = StringField("Значение аттрибута: ", validators=[DataRequired()])
+    submit = SubmitField("Сохранить")

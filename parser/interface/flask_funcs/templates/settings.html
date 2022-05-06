@@ -1,9 +1,11 @@
+
 {% extends "base_page.html" %}
 {% block content %}
-
+<script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
   {% if get_flashed_messages() %}
     {{ get_flashed_messages()[0] }}
   {% endif %}
+
   <form action="" method="post">
 
     {{ form.csrf_token() }}
@@ -18,33 +20,55 @@
     {% endfor %}
 
 </form>
-<form id="form1" action="/settings" method="post">
+
+<form id="form" action="javascript:sendAjaxForm()" method="post">
   {{ form.csrf_token }}
-  {{ form.name.label }} {{ form.name() }}
+  {{ form.name.label }} {{ form.name() }} {{ form.submit() }}
   <input type="submit" value="Отправить"/>
 </form>
+
 <div id="msg"></div>
+
+<br><br><br><br>
+
+  <form method="POST" id = 'tag_form'>
+      {{ tags_form.csrf_token }}
+       {{ tags_form.tag_name(size=10) }} {{ tags_form.attr_name(size=10) }} {{ tags_form.attr_val(size=10) }}
+      <input type="submit" value="Go">
+  </form>
+  <script>
+    $(document).ready(function () {
+        $("#tag_form" ).submit(function( event ) {
+          sendAjaxForm("tag_form", "msg");
+          event.preventDefault();
+        });
+    });
+  </script>
+
+<br><br><br><br>
 <script>
-  /* переопределить поведение кнопки "Отправить" */
+   // переопределить поведение кнопки "Отправить"
   $(document).ready(function () {
-      $("#form1" ).submit(function( event ) {
-        sendAjaxForm("form1", "msg");
+      $("#form" ).submit(function( event ) {
+        sendAjaxForm("form", "msg");
         event.preventDefault();
       });
   });
 
-   /* отправка формы через ajax */
+
  function sendAjaxForm(form_ajax, msg) {
      var form = $("#" + form_ajax);
      $.ajax({
          type: form.attr('method'),
-         url: form.attr('action'),
+         url: '/settings',
          data: form.serialize(),
          success: function (response) {
-             var json = jQuery.parseJSON(response);
-             $('#' + msg).html(json.msg);
-             if (json.success == 'true') {
-                 form.trigger('reset');
+            alert(response)
+            var json = $.parseJSON(response);
+
+            $('#' + msg).html(json.msg);
+            if (json.success == 'true') {
+               form.trigger('reset');
              }
              else
              {
@@ -53,7 +77,7 @@
              }
          },
          error: function (error) {
-             console.log(error);
+           console.log(error);
          }
      });
  }
@@ -62,7 +86,7 @@
   <p>Формы:<br>
   Добавить предмет:<br>
   Добавить модель:<br>
-  соединить прдмет с моделью:<br>
+  соединить прeдмет с моделью:<br>
   соед. модель с предметом:<br>
   добавить характеристику в модель:<br>
   добавить хар-ку в предмет:<br>

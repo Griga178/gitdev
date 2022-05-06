@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
 from funcs_parser import *
-from funcs_parse_file import show_our_shops, show_shop_set, show_shop_set_ver2, take_post_message
+from funcs_parse_file import show_our_shops, show_shop_set_ver2, take_post_message, delete_setting
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
 from data_loader import save_pkl as save
 
 from classes import Subject_ver_3, Subjects_category, Model_ver2
-from input_form_classes import Subject_adding_form
+from input_form_classes import Subject_adding_form, Tags_form
 
 from . import app
 from .sql_models import *
@@ -39,7 +39,9 @@ def get_len():
     name = request.form['name'];
     return json.dumps({'len': len(name)})
 
-# ВКЛАДКА ПАРСЕР
+
+# """ - - - ПАРСЕР - - -"""
+
 # цена, название предмета, характеристики, статус
 # список отпарсенных ссылок - скачать csv
 # Отображение всех отпрсенных сайтов - главная страница # пагинация
@@ -54,7 +56,6 @@ def parse_link():
 
 @app.route('/links_sett/<some_data>', methods = ['GET',"POST"])
 def links_sett(some_data):
-    # dict_m_p = show_shop_set(some_data)
     dict_m_p = show_shop_set_ver2(some_data)
     return dict_m_p
 
@@ -68,12 +69,18 @@ def save_sett(string_data):
     py_response = take_post_message(string_data)
     return py_response
 
+@app.route('/del_sett/<string_data>', methods=['GET', 'POST'])
+def del_sett(string_data):
+    py_response = delete_setting(string_data)
+    return py_response
 
 @app.route('/file_parser', methods=['GET', 'POST'])
 def file_parser():
     return render_template('parser_pages/file_parser.html')
 
-# БАЗЫ ДАННЫХ
+
+# """ - - - БАЗЫ ДАННЫХ - - -"""
+
 @app.route('/data', methods = ('GET', 'POST'))
 def manage_data():
     return render_template('data_base.html')
@@ -180,16 +187,28 @@ def model_information(model_str_name):
 @app.route('/settings', methods = ('GET', 'POST'))
 def set_all():
     form = Subject_adding_form()
+    tags_form = Tags_form()
 
     if form.validate_on_submit():
         name = form.name.data
-
         # здесь логика базы данных
         print(f"\nData received. Now redirecting ...{name}")
         flash(f'Предмет: "{name}" добавлен успешно')
+        print(type(name))
         return redirect(url_for('set_all'))
 
-    return render_template('settings.html', form = form)
+    # if tags_form.validate_on_submit():
+    # if tags_form.validate():
+    if tags_form.validate_on_submit():
+        input_tag_name = tags_form.tag_name.data
+        input_attr_name = tags_form.attr_name.data
+        input_attr_val = tags_form.attr_val.data
+        print(f"\nData received. Now redirecting ///{input_tag_name}")
+        # return redirect('/settings')
+        # return redirect(url_for('set_all'))
+        return f'{input_tag_name} = {input_attr_name} "{input_attr_val}"'
+
+    return render_template('settings.html', form = form, tags_form = tags_form)
 
 # if __name__ == "__main__":
     #app.run(host= '0.0.0.0')
