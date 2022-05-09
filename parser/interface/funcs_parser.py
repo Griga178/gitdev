@@ -3,6 +3,106 @@ import requests
 from bs4 import BeautifulSoup
 from flask import json
 
+import sys
+sys.path.append('flask_funcs')
+from sql_models import *
+from sqlalchemy.orm import sessionmaker
+
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind = engine)
+session = DBSession()
+
+def check_links_in_db(link):
+    ''' Проверка есть ли ссылка в БД'''
+    result_dict = {}
+    list_of_links = session.query(Net_links).filter_by(http_link = link).all()
+    if len(list_of_links) == 1:
+        result_dict['link_id'] = list_of_links[0].id
+        result_dict['http_link'] = list_of_links[0].http_link
+        result_dict['main_page_id'] = list_of_links[0].id_main_page
+        result_dict['main_page'] = list_of_links[0].net_shops.name
+    elif len(list_of_links) == 0:
+        result_dict = add_new_link(link)
+    elif len(list_of_links) > 1:
+        result = 'Одинаковые ссылки в БД'
+    else:
+        result = 'Что то не так с запросом'
+    return result_dict
+
+def add_new_link(link):
+    '''Добавляем ссылку в БД, если нет главной страницы,
+    то добавляем и ее - так же связываем'''
+    result_dict = {}
+    main_page = define_main_page(link)
+    list_of_main_page = session.query(Net_shops).filter_by(name = main_page).all()
+    if len(list_of_main_page) == 1:
+        result_dict['main_page_id'] = list_of_main_page[0].id
+    elif len(list_of_main_page) == 0:
+        new_main_page = Net_shops(name = main_page)
+        session.add(new_main_page)
+        session.commit()
+        search_result = session.query(Net_shops).filter_by(name = main_page).one()
+        # main_page_id = search_result.id
+        result_dict['main_page_id'] = search_result.id
+
+    cur_data = Net_links(
+    id_main_page = main_page_id,
+    http_link = link
+    )
+    session.add(cur_data)
+    session.commit()
+    one_link = session.query(Net_links).filter_by(http_link = link).one()
+    result_dict['link_id'] = one_link.id
+    result_dict['http_link'] = one_link.http_link
+    return result_dict
+
+def check_sett_to_parse(result_dict):
+    '''dict{link_id, http_link, main_page_id}'''
+    sett_query = session.query(Shops_sett).filter_by(id_main_page = result_dict['main_page_id']).all()
+    for sett in sett_query:
+        result_dict[sett.tag_type] = {'tag_name': sett.tag_name, 'attr_name': sett.attr_name, 'attr_value': sett.attr_value}
+    return result_dict
+
+# check_sett_to_parse('https://zakupki.gov.ru/epz/contract/contractCard/document-info.html?reestrNumber=2782543560821000023')
+
+def new_parse(link = False, link_id = False):
+    result_dict = {}
+    if link_id:
+        list_of_links = session.query(Net_links).filter_by(id = link_id).one()
+        result_dict['link_id'] = list_of_links.id
+        result_dict['http_link'] = list_of_links.http_link
+        result_dict['main_page_id'] = list_of_links.id_main_page
+        result_dict['main_page'] = list_of_links.net_shops.name
+        result_dict = check_sett_to_parse(result_dict)
+    else:
+        result_dict = check_links_in_db(link)
+
+    # Тут начинается парсинг
+    parsing_types = ['price', 'name']
+    for type in parsing_types:
+        result_dict[f'current_{type}'] = three_tags_parse(result_dict, type)
+    return result_dict
+
+def three_tags_parse(link_info, tag_type):
+    print('\n parsim')
+    my_request = requests.get(link_info['http_link'])
+    soup = BeautifulSoup(my_request.text, 'html.parser')
+    # print(link_info['tag_name'], {link_info['attr_name'], link_info['attr_value']})
+    try:
+
+        price_tag = soup.find(link_info[tag_type]['tag_name'], {link_info[tag_type]['attr_name'], link_info[tag_type]['attr_value']}).string
+
+        if tag_type == 'price':
+            result = clean_number(price_tag)
+        else:
+            result = price_tag
+
+        # ТУТ ЗАПИСЬ ВРЕМЕНИ И ЦЕНЫ ПАРСИНГА В БД
+    except:
+        result = '!!! Не подошли теги'
+    return result
+
+
 def define_main_page(link):
     '''
     Определение главной страницы из строки
@@ -30,7 +130,7 @@ def define_links(string_value):
         return re_sult
     else:
         return False
-        
+
 def clean_number(str_text):
     ''' Выводит только числа из строк с помощью регулярок
         находит числа в которых "." или "," используется
@@ -62,7 +162,6 @@ def define_tags(main_page, sett_dict = settings):
     else:
         return False
 
-
 def parse_one_link(link, main_page):
     # ПРОВЕРКА НА ПОВТОРНЫЙ ПАРСИНГ
     # ЗНАЕМ ЛИ МЫ ТЕГИ, ГДЕ ИСКАТЬ?
@@ -87,3 +186,5 @@ def func_parse_link(link):
         return json.dumps({'main_page': main_page, "price": current_price, "used_tags": used_tags, "link": link})
     else:
         return json.dumps({'main_page': "ПРОВЕРЬ", "price": False, 'used_tags': False})
+
+# print(new_parse(n_l))

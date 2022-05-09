@@ -7,7 +7,7 @@
 
 .setting_blog {
   width: 58%;
-  height: 300px;
+  min-height: 300px;
   margin-top: 20px;}
 
 .check_block {
@@ -79,6 +79,7 @@
   border: 1px solid red;
   margin: 5px;
   display: flex;
+  font-weight:bold;
 }
 .div_for_tags input{
   width: 15%;

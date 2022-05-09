@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
-from funcs_parser import *
-from funcs_parse_file import show_our_shops, show_shop_set_ver2, take_post_message, delete_setting
+from funcs_parser import func_parse_link, new_parse
+from funcs_parse_file import show_our_shops, show_shop_set_ver2, take_post_message, delete_setting, show_few_links_sql
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
@@ -54,12 +54,17 @@ def parse_link():
     json_message = func_parse_link(request.form['name'])
     return json_message
 
-@app.route('/links_sett/<some_data>', methods = ['GET',"POST"])
+@app.route('/parse_one_link/<net_link_id>')
+def parse_one_link(net_link_id):
+    parse_result = new_parse(link_id = net_link_id)
+    return parse_result
+
+@app.route('/links_sett/<some_data>')
 def links_sett(some_data):
     dict_m_p = show_shop_set_ver2(some_data)
     return dict_m_p
 
-@app.route('/print_links_base', methods=['GET', 'POST'])
+@app.route('/print_links_base')
 def print_links_base():
     dict_m_p = show_our_shops()
     return dict_m_p
@@ -78,6 +83,10 @@ def del_sett(string_data):
 def file_parser():
     return render_template('parser_pages/file_parser.html')
 
+@app.route('/show_few_links/<shop_id>')
+def show_few_links(shop_id):
+    links_dict = show_few_links_sql(shop_id)
+    return links_dict
 
 # """ - - - БАЗЫ ДАННЫХ - - -"""
 
@@ -187,7 +196,6 @@ def model_information(model_str_name):
 @app.route('/settings', methods = ('GET', 'POST'))
 def set_all():
     form = Subject_adding_form()
-    tags_form = Tags_form()
 
     if form.validate_on_submit():
         name = form.name.data
@@ -196,19 +204,11 @@ def set_all():
         flash(f'Предмет: "{name}" добавлен успешно')
         print(type(name))
         return redirect(url_for('set_all'))
+    else:
+        print("В форму не попали")
 
-    # if tags_form.validate_on_submit():
-    # if tags_form.validate():
-    if tags_form.validate_on_submit():
-        input_tag_name = tags_form.tag_name.data
-        input_attr_name = tags_form.attr_name.data
-        input_attr_val = tags_form.attr_val.data
-        print(f"\nData received. Now redirecting ///{input_tag_name}")
-        # return redirect('/settings')
-        # return redirect(url_for('set_all'))
-        return f'{input_tag_name} = {input_attr_name} "{input_attr_val}"'
 
-    return render_template('settings.html', form = form, tags_form = tags_form)
+    return render_template('settings.html', form = form)
 
 # if __name__ == "__main__":
     #app.run(host= '0.0.0.0')

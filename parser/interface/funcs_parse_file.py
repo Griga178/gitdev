@@ -75,13 +75,6 @@ def save_dict_to_sql():
         print()
 
 
-# save_dict_to_sql()
-#
-# data_quyrure = session.query(Net_links).all()
-# print(len(data_quyrure))
-# for el in data_quyrure:
-#     print(el.id, el.net_shops.name)
-
 tags_types = {"price": "Цена", "name": "Название", "chars": "Характеристика"}
 def show_shop_set_ver2(shop_id):
     data = session.query(Net_shops).filter_by(id = shop_id).one() # all
@@ -117,6 +110,15 @@ def show_settings_by_type(shop_id, tag_type):
 
     json_dict = json.dumps(my_dict)
 
+    return json_dict
+
+
+def show_few_links_sql(shop_id):
+    sql_query = session.query(Net_links).filter_by(id_main_page = shop_id).limit(3)
+    link_dict = {}
+    for link in sql_query:
+        link_dict[link.id] = link.http_link
+    json_dict = json.dumps(link_dict)
     return json_dict
 
 def save_shop_set_ver2(sett_dict):

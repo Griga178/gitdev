@@ -6,7 +6,7 @@
     {{ get_flashed_messages()[0] }}
   {% endif %}
 
-  <form action="" method="post">
+  <!-- <form action="" method="post">
 
     {{ form.csrf_token() }}
 
@@ -19,33 +19,22 @@
 	</p>
     {% endfor %}
 
-</form>
+</form> -->
 
 <form id="form" action="javascript:sendAjaxForm()" method="post">
   {{ form.csrf_token }}
-  {{ form.name.label }} {{ form.name() }} {{ form.submit() }}
+  {{ form.name.label }} {{ form.name() }} 
   <input type="submit" value="Отправить"/>
 </form>
 
 <div id="msg"></div>
 
-<br><br><br><br>
 
-  <form method="POST" id = 'tag_form'>
-      {{ tags_form.csrf_token }}
-       {{ tags_form.tag_name(size=10) }} {{ tags_form.attr_name(size=10) }} {{ tags_form.attr_val(size=10) }}
-      <input type="submit" value="Go">
-  </form>
-  <script>
-    $(document).ready(function () {
-        $("#tag_form" ).submit(function( event ) {
-          sendAjaxForm("tag_form", "msg");
-          event.preventDefault();
-        });
-    });
-  </script>
 
-<br><br><br><br>
+
+
+
+
 <script>
    // переопределить поведение кнопки "Отправить"
   $(document).ready(function () {
@@ -83,7 +72,7 @@
  }
 </script>
 
-  <p>Формы:<br>
+  <!-- <p>Формы:<br>
   Добавить предмет:<br>
   Добавить модель:<br>
   соединить прeдмет с моделью:<br>
@@ -95,8 +84,8 @@
   <p>поиск конрактов, <br>
       по предметам (название, цена +/-)<br>
     связывание предмета контракта с предметом (либо моделью)<br>
+  </p> -->
 
-  </p>
 </div>
 
 {% endblock %}

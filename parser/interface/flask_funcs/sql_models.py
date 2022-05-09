@@ -17,6 +17,8 @@ class Net_links(Base):
     http_link = Column(String(255), nullable = False)
     id_model = Column(Integer, ForeignKey('models.id'))
     id_main_page = Column(Integer, ForeignKey('net_shops.id'))
+    current_price = Column(REAL)
+    # current_date = Column()
 
 class Shops_sett(Base):
     """ Настройки для парсинга """

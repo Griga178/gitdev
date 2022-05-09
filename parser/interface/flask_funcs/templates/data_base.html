@@ -1,11 +1,28 @@
 {% extends "base_page.html" %}
 {% block content %}
-      <div class="data_base_menu">
-        <li><a href="{{ url_for('subject_page')}}">Предметы</a></li>
-        <li><a href="{{ url_for('models_form') }}">Модели</a></li>
-        <li><a href="#">Категории</a></li>
-        <li><a href="#">ККН-ы</a></li>
-      </div>
+<script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='parser_styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='data_base_styles.css') }}">
+
+<div class="container ">
+
+  <div class="data_base_menu">
+    <li><a href="{{ url_for('subject_page')}}">Предметы</a></li>
+    <li><a href="{{ url_for('models_form') }}">Модели</a></li>
+    <li><a href="#">Категории</a></li>
+    <li><a href="#">ККН-ы</a></li>
+  </div>
+
+  <div class="subjects check_block">
+    <h2>Предметы</h2>
+  </div>
+  <div class="models check_block">
+    <h2>Модели</h2>
+  </div>
+  <div class="categories check_block">
+    <h2>Категории</h2>
+  </div>
+</div>
       <!-- <div class="data_block catalogs clear_fix">
         <h1>Каталоги:</h1>
         <form class="" action="data_base.html" method="post">

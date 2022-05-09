@@ -1,0 +1,13 @@
+.container {
+  min-height: 500px;
+  min-width: 500px;
+}
+
+.subjects {
+  width: 40%;
+}
+
+.models {
+  float: right;
+  width: 40%;
+}
