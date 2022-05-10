@@ -84,12 +84,9 @@ def new_parse(link = False, link_id = False):
     return result_dict
 
 def three_tags_parse(link_info, tag_type):
-    print('\n parsim')
     my_request = requests.get(link_info['http_link'])
     soup = BeautifulSoup(my_request.text, 'html.parser')
-    # print(link_info['tag_name'], {link_info['attr_name'], link_info['attr_value']})
     try:
-
         price_tag = soup.find(link_info[tag_type]['tag_name'], {link_info[tag_type]['attr_name'], link_info[tag_type]['attr_value']}).string
 
         if tag_type == 'price':

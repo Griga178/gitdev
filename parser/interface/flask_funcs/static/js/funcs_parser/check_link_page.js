@@ -41,11 +41,25 @@ function draw_main_page_list() {
       for (variable in java_dict) {
         let row_for_data = document.createElement("div");
         row_for_data.setAttribute("onclick", `show_settings_ver2(${variable})`)
+        row_for_data.setAttribute("style", 'display:block;')
         row_for_data.innerHTML = `<p>${variable} ${java_dict[variable]}</p>`;
         row_list.appendChild(row_for_data);
       }
     }
   });
+}
+
+function main_page_filter() {
+  let filter = search_main_page.value.toUpperCase();
+  let main_page_list = row_list.getElementsByTagName('div')
+  for (i = 0; i < main_page_list.length; i++) {
+    txtValue = main_page_list[i].textContent || main_page_list[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      main_page_list[i].style.display = "";
+    } else {
+      main_page_list[i].style.display = "none";
+    }
+  }
 }
 
 function show_settings_ver2(shop_id) {
@@ -90,7 +104,7 @@ function draw_div_tags(json_string_in) {
   div_for_tags.setAttribute("onmousedown", "return false");
 
   div_for_tags.innerHTML =
-  `<p>${sett_dict['rus_tag']}:</p>
+    `<p>${sett_dict['rus_tag']}:</p>
   &lt;<p class = 'tag_name_sett'>${sett_dict['tag_name']}&nbsp;</p>
   <p class = 'attr_name_sett'>${sett_dict['attr_name']} =&nbsp</p>
   <p class = 'value_name_sett'>"${sett_dict['attr_val']}"</p>&gt
@@ -104,7 +118,7 @@ function draw_input_tags(json_string_in) {
   div_tag_for_change.removeAttribute("onmousedown")
 
   div_tag_for_change.innerHTML =
-  `<form id = "${json_string_in['tag_type']}_form" name = "${json_string_in['tag_type']}_form">
+    `<form id = "${json_string_in['tag_type']}_form" name = "${json_string_in['tag_type']}_form">
   ${json_string_in['rus_tag']}:
   <input type = "text" value = "${json_string_in['tag_name']}" name = "tag">
   <input type = "text" value = "${json_string_in['attr_name']}" name = "attr">
@@ -118,7 +132,15 @@ function save_sett_changing_ver2(json_string_in) {
   let in_tag = changing_form.elements.tag.value;
   let in_attr = changing_form.elements.attr.value;
   let in_value = changing_form.elements.attr_val.value;
-  dict_out = {"shop_id": json_string_in['shop_id'], "tag_type": json_string_in['tag_type'], "tag_name": in_tag, "attr_name": in_attr, "attr_val": in_value, "tag_status": true, "tag_id": false};
+  dict_out = {
+    "shop_id": json_string_in['shop_id'],
+    "tag_type": json_string_in['tag_type'],
+    "tag_name": in_tag,
+    "attr_name": in_attr,
+    "attr_val": in_value,
+    "tag_status": true,
+    "tag_id": false
+  };
 
   if (json_string_in['tag_id'] !== false) {
     dict_out['tag_id'] = json_string_in['tag_id'];
@@ -139,17 +161,18 @@ function del_set_from_sql(str_data) {
   $.ajax({
     url: `/del_sett/${str_data}`,
     type: 'POST',
-    success: function(response){
+    success: function(response) {
       obj_data = $.parseJSON(response)
       draw_input_tags(obj_data)
     }
   })
 }
+
 function post_to_sql(str_data) {
   $.ajax({
     url: `/save_sett/${str_data}`,
     type: 'POST',
-    success: function(response){
+    success: function(response) {
       draw_div_tags(response)
     }
   })
@@ -175,18 +198,17 @@ function show_few_links(shop_id) {
         links_p.innerHTML = `${json_dict[net_link_id].slice(0, 30)} ...`
         btn_show_few_links.appendChild(links_p)
         let parse_btn = document.createElement("p")
-        parse_btn.textContent  = "Отпарсить"
-        parse_btn .setAttribute("onclick", `parse_one_link('${net_link_id}')`)
+        parse_btn.textContent = "Отпарсить"
+        parse_btn.setAttribute("onclick", `parse_one_link('${net_link_id}')`)
         btn_show_few_links.appendChild(parse_btn)
       }
     },
   })
 }
 
-function parse_one_link(net_link_id){
+function parse_one_link(net_link_id) {
   let answer_div = document.createElement("div")
   answer_div.innerHTML = "Думаем..."
-
   $.ajax({
     url: `/parse_one_link/${net_link_id}`,
     type: 'GET',
@@ -194,9 +216,9 @@ function parse_one_link(net_link_id){
       parse_result_block.appendChild(answer_div)
     },
     success: function(response) {
-      alert(JSON.stringify(response))
-      answer_div.innerHTML = `${response['main_page']} ${response['current_price']}`
-      // parse_result_block.appendChild(answer_div)
+      // alert(JSON.stringify(response['current_name']))
+      answer_div.innerHTML = `${response['main_page']} ${response['current_price']} ${response['current_name']}`
+
     }
   })
 }
