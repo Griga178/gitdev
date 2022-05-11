@@ -88,7 +88,8 @@ options.add_argument('--disable-gpu')
 options.add_argument('--no-sandbox')
 options.add_argument("--start-maximized")
 options.add_argument("--window-size=1920x1080")
-driver = webdriver.Chrome(options = options)
+driver = webdriver.Chrome(desired_capabilities = caps, options = options)
+# driver = webdriver.Chrome(options = options)
 
 
 driver.implicitly_wait(3) # ждем столько, если не справился закрываем

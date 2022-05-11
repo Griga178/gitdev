@@ -66,22 +66,24 @@ def check_sett_to_parse(result_dict):
 # check_sett_to_parse('https://zakupki.gov.ru/epz/contract/contractCard/document-info.html?reestrNumber=2782543560821000023')
 
 def new_parse(link = False, link_id = False):
-    result_dict = {}
+    output_dict = {}
     if link_id:
         list_of_links = session.query(Net_links).filter_by(id = link_id).one()
-        result_dict['link_id'] = list_of_links.id
-        result_dict['http_link'] = list_of_links.http_link
-        result_dict['main_page_id'] = list_of_links.id_main_page
-        result_dict['main_page'] = list_of_links.net_shops.name
-        result_dict = check_sett_to_parse(result_dict)
+        output_dict['link_id'] = list_of_links.id
+        output_dict['http_link'] = list_of_links.http_link
+        output_dict['main_page_id'] = list_of_links.id_main_page
+        output_dict['main_page'] = list_of_links.net_shops.name
+        output_dict = check_sett_to_parse(output_dict)
     else:
-        result_dict = check_links_in_db(link)
+        output_dict = check_links_in_db(link)
 
     # Тут начинается парсинг
     parsing_types = ['price', 'name']
     for type in parsing_types:
-        result_dict[f'current_{type}'] = three_tags_parse(result_dict, type)
-    return result_dict
+        # result_dict[f'current_{type}'] = three_tags_parse(result_dict, type)
+        output_dict[f'current_{type}'] = selen_three_tag_parse(output_dict, type)
+    return output_dict
+
 
 def three_tags_parse(link_info, tag_type):
     my_request = requests.get(link_info['http_link'])
@@ -99,6 +101,25 @@ def three_tags_parse(link_info, tag_type):
         result = '!!! Не подошли теги'
     return result
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+# options.add_argument("--start-maximized")
+# options.add_argument("--window-size=1920x1080")
+
+def selen_three_tag_parse(link_info, tag_type):
+    tag, atribute, atr_val = link_info[tag_type]['tag_name'], link_info[tag_type]['attr_name'], link_info[tag_type]['attr_value']
+    driver = webdriver.Chrome(options = options)
+    driver.implicitly_wait(3) # ждем столько, если не справился закрываем
+    driver.get(link_info['http_link'])
+    price = driver.find_element_by_xpath(f"//{tag}[@{atribute}='{atr_val}']")
+    a = price.get_attribute('outerHTML')
+    # result_str = clean_number(a)
+    result_str = a
+    return result_str
 
 def define_main_page(link):
     '''
