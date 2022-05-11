@@ -210,14 +210,16 @@ function parse_one_link(net_link_id) {
   let answer_div = document.createElement("div")
   answer_div.innerHTML = "Думаем..."
   $.ajax({
-    url: `/parse_one_link/${net_link_id}`,
+    url: `/parse_one_links/${net_link_id}`,
     type: 'GET',
     beforeSend: function() {
       parse_result_block.appendChild(answer_div)
     },
     success: function(response) {
-      // alert(JSON.stringify(response['current_name']))
-      answer_div.innerHTML = `${response['main_page']} ${response['current_price']} ${response['current_name']}`
+      alert(response)
+      
+      let parse_info = response[`${net_link_id}`]
+      answer_div.innerHTML = `${response['main_page']} ${parse_info['current_price']} ${parse_info['current_name']} ${parse_info['current_date']}`
 
     }
   })

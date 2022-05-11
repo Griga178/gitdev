@@ -20,6 +20,7 @@ from datetime import date
     "name": {"tag_name": x, "attr_name" y, "attr_value": z},
     "chars": {"tag_name": x, "attr_name" y, "attr_value": z},
     "request_tool": "py_requests"}
+    + прочее: "main_page_id":..., "main_page":...
 
     ВОЗВРАЩАЕТ:
 
@@ -50,11 +51,11 @@ input_dict = {
 "links":{1: link, 2: link2},
 "price": {"tag_name": "span", "attr_name": "class", "attr_value": "ProductHeader__price-default_current-price"},
 "name": {"tag_name": "h1", "attr_name": "class", "attr_value": "ProductHeader__title"},
-"request_tool": "py_requests"
+"request_tool": "py_requests", "main_page_id": 4, "main_page": "www.citilink.ru"
 }
 
 # Получаем отрисованную страницу
-def take_html_page(link, request_tool = "py_selenium", driver = False):
+def take_html_page(link, request_tool = "py_requests", driver = False): # py_selenium py_requests
     if request_tool == "py_requests":
         try:
             current_request = requests.get(link)
@@ -100,6 +101,8 @@ def clean_number(str_text):
 
 def shop_parser(input_dict):
     output_dict = {}
+    output_dict['main_page_id'] = input_dict['main_page_id']
+    output_dict['main_page'] = input_dict['main_page']
     today = date.today()
     current_date = today.strftime("%d/%m/%Y")
     # Что ищем на странице
@@ -115,8 +118,8 @@ def shop_parser(input_dict):
     for link in parse_links:
         # Получаем html страницу
         html_string_page = take_html_page(parse_links[link], request_tool, driver)
-        output_dict[link] = {}
-        output_dict[link]["current_date"] = current_date
+        output_dict[str(link)] = {}
+        output_dict[str(link)]["current_date"] = current_date
         if html_string_page:
             for tag_type in tag_types:
                 if tag_type not in input_dict:
@@ -130,7 +133,7 @@ def shop_parser(input_dict):
                         parse_info = " ".join(parse_info.split())
                     elif tag_type == "chars":
                         parse_info = "Не готов парсер"
-                    output_dict[link][f'current_{tag_type}'] = parse_info
+                    output_dict[str(link)][f'current_{tag_type}'] = parse_info
 
     if request_tool == "py_selenium":
         driver.quit()

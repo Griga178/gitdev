@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
 from funcs_parser import func_parse_link, new_parse
-from funcs_parse_file import show_our_shops, show_shop_set_ver2, take_post_message, delete_setting, show_few_links_sql
+
 import sys
 sys.path.append('../')
 from data_loader import load_pkl_file as load
@@ -14,6 +14,10 @@ from .sql_models import *
 
 from .sql_models import *
 from sqlalchemy.orm import sessionmaker
+
+from back_end_manager import parse_one_link as parse_one_link_new
+from engine_data_base import show_shop_set_ver2, show_few_links_sql, delete_setting, show_our_shops, take_post_message
+
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -49,16 +53,23 @@ def get_len():
 def open_parser():
     return render_template('parser_pages/check_links.html')
 
+# ПАРСИМ 1 НЕИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parser_link_check', methods=['GET', 'POST'])
 def parse_link():
     json_message = func_parse_link(request.form['name'])
+    json_message_new = parse_one_link_new(request.form['name'])
+    print('\n', f'NEW: {json_message_new}')
+    print('\n', f'Old: {json_message}')
     return json_message
-
-@app.route('/parse_one_link/<net_link_id>')
-def parse_one_link(net_link_id):
-    parse_result = new_parse(link_id = net_link_id)
-    return parse_result
-
+# ПАРСИМ 1 ИЗВЕСТНУЮ ССЫЛУ
+@app.route('/parse_one_links/<net_link_id>')
+def parse_one_links(net_link_id):
+    # parse_result = new_parse(link_id = net_link_id)
+    json_message_new = parse_one_link_new(id = net_link_id)
+    # print('\n', f'NEW: {json_message_new}')
+    # print('\n', f'Old: {parse_result}')
+    return json_message_new
+# СМОТРИМ НАСТРОЙКИ ТЕГОВ
 @app.route('/links_sett/<some_data>')
 def links_sett(some_data):
     dict_m_p = show_shop_set_ver2(some_data)
@@ -79,6 +90,7 @@ def del_sett(string_data):
     py_response = delete_setting(string_data)
     return py_response
 
+# ПАРСИМ ФАЙЛ С СЫЛКАМИ
 @app.route('/file_parser', methods=['GET', 'POST'])
 def file_parser():
     return render_template('parser_pages/file_parser.html')

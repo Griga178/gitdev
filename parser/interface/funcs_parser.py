@@ -80,8 +80,9 @@ def new_parse(link = False, link_id = False):
     # Тут начинается парсинг
     parsing_types = ['price', 'name']
     for type in parsing_types:
-        # result_dict[f'current_{type}'] = three_tags_parse(result_dict, type)
-        output_dict[f'current_{type}'] = selen_three_tag_parse(output_dict, type)
+        output_dict[f'current_{type}'] = three_tags_parse(output_dict, type)
+        # output_dict[f'current_{type}'] = selen_three_tag_parse(output_dict, type)
+
     return output_dict
 
 
@@ -194,6 +195,7 @@ def parse_one_link(link, main_page):
             current_price = '!!! Не подошли теги'
     else:
         current_price = '!!! не установлены теги'
+
     return current_price
 
 def func_parse_link(link):
