@@ -33,10 +33,15 @@ from datetime import date
     "current_chars": "***Пока не парсим***"}}
     '''
 
-options = Options()
+# options = Options()
+# + Строка 121
+
+options = webdriver.ChromeOptions()
+binary_yandex_driver_file = 'yandexdriver.exe'
+
 
 options.add_experimental_option('excludeSwitches', ['enable-logging']) # не выводит сообщзения в консоль
-options.add_argument('--headless')
+# options.add_argument('--headless')
 
 # не ждем полной загрузки JS
 caps = DesiredCapabilities().CHROME
@@ -44,7 +49,7 @@ caps["pageLoadStrategy"] = "eager"
 
 link = 'https://www.citilink.ru/product/ibp-powercom-spider-spd-1000n-1000va-332717/?text=Powercom+SPD-1000N'
 link2 = 'https://www.citilink.ru/product/ibp-powercom-raptor-rpt-1000a-euro-1000va-859787/'
-
+link3 = 'https://www.komus.ru/katalog/produkty-pitaniya/molochnaya-produktsiya/moloko/moloko-ekoniva-ultrapasterizovannoe-3-2-1-l/p/1004358/?from=block-301-1'
 
 # если на странице нет JS, то просто request, иначе - selenium
 input_dict = {
@@ -113,7 +118,8 @@ def shop_parser(input_dict):
     request_tool = input_dict["request_tool"]
     driver = False
     if request_tool == "py_selenium":
-        driver = webdriver.Chrome(desired_capabilities = caps, options = options)
+        # driver = webdriver.Chrome(desired_capabilities = caps, options = options)
+        driver = webdriver.Chrome(binary_yandex_driver_file, options = options)
 
     for link in parse_links:
         # Получаем html страницу

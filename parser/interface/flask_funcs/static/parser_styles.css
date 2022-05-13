@@ -1,27 +1,77 @@
-.checker_container{
+.comon_styles {
   border: 2px dashed green;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 1%;
+  border-radius: 5px;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+.checker_container{
+  margin-right: 2%;
+  background-color: #D3D3D3;
   min-height: 500px;
   min-width: 500px;
 }
-.online_parser {width: 58%;}
+.check_block {
+  float: left;
+}
+.clear_div {clear: both;}
 
+/* БЛОК: СПИСОК МАГАЗИНОВ */
+.rows_list {
+  overflow-y: auto;
+  float: right;
+  margin-right: 3%;
+  width: 34%;
+  height: 400px;
+}
+.shop_row {
+  position: relative;
+  background: #f11941;
+  display:block;
+  color: white;
+  min-height: 20px;
+  border-radius: 5px;
+  margin: 5px;
+}
+.shop_row:hover{
+  outline: 1px outset black;
+  box-sizing: border-box;
+}
+.shop_name_text {
+  position: absolute;
+  padding-left: 15px;
+}
+.row_indicat{
+  position: absolute;
+  min-height: 20px;
+  width: 33%;
+  opacity: 70%;
+  background: lime;
+}
+  /* настройка индикатора настроек */
+.shop_price {
+right: 67%;
+border-top-left-radius: 5px;
+border-bottom-left-radius: 5px;}
+.shop_name {right: 34%}
+.shop_chars {
+  right: 0%;
+  width: 34%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* БЛОК: ПАРСИНГ 1 ССЫЛКИ */
+.online_parser {width: 58%;}
+/* БЛОК: ТЕГИ ДЛЯ ПАРСИНГА */
 .setting_blog {
   width: 58%;
   min-height: 300px;
   margin-top: 20px;}
 
-.check_block {
-  background-color: white;
-  float: left;
-  box-sizing: border-box;
-  border: 2px dashed green;
-  margin-top: 2%;
-  margin-left: 2%;
-  padding: 1%;
-  border-radius: 5px;
-}
-.clear_div {clear: both;}
-
+/* БЛОК: РЕЗУЛЬТАТЫ ПАРСИНГА */
 .parsed_links{width: 96%;}
 
 .parsed_links div {
@@ -34,18 +84,6 @@
 .parsed_links div:hover{
   background: black;
 }
-.circle_btn {
-  float: right;
-  margin-left: 5px;
-  height: 25px;
-  width: 25px;
-  border: 1px solid black;
-  border-radius: 1em;
-}
-
-#crcl_g:hover {background: green;}
-#crcl_r:hover {background: red;}
-#crcl_y:hover {background: yellow;}
 
 .parser_nav_bar {
   font-size: 25px;
@@ -55,23 +93,6 @@
   margin-left: 10%;
 }
 
-.row_list div p {
-  color: white;
-  background-color: dodgerblue;
-  min-height: 20px;
-  border-radius: 5px;
-  margin: 5px;
-  padding-left: 10px;
-}
-
-.row_list {
-  overflow-y: auto;
-  float: right;
-  margin-right: 3%;
-  width: 34%;
-  height: 400px;
-  padding: 1%;
-}
 
 /* БЛОК С ТЕГАМИ ДЛЯ ПАРСИНГА */
 .div_for_tags {

@@ -1,31 +1,7 @@
 let parsed_links_counter = 0;
 
-function parse_link() {
-  let answer_div = document.createElement("div")
-  answer_div.innerHTML = "Думаем..."
-  $.ajax({
-    url: "/parser_link_check",
-    data: $('form').serialize(),
-    type: 'POST',
-    beforeSend: function() {
-      parse_result_block.appendChild(answer_div)
-      link_input.value = ''
-    },
-    success: function(response) {
-      parsed_links_counter += 1;
-      let json = $.parseJSON(response);
-      answer_div.innerHTML = `${parsed_links_counter} <a id = "res_${parsed_links_counter}" href = "${json.link}" target = "_blank">${json.main_page}<a><b> ${json.price} руб.</b>
-          <button onclick="show_settings(res_${parsed_links_counter})"><i>Показать настройки</i></button>`;
-      console.log(response);
-    },
-    error: function(error) {
-      console.log(error);
-    }
-  });
 
-}
-
-function draw_main_page_list() {
+function draw_shops_list() {
   $.ajax({
     url: "/print_links_base",
     type: 'GET',
@@ -36,33 +12,54 @@ function draw_main_page_list() {
       row_list.appendChild(before_message);
     },
     success: function(json_dict) {
+      // alert(json_dict)
       $('#temp_message').hide()
       let java_dict = jQuery.parseJSON(json_dict);
       for (variable in java_dict) {
-        let row_for_data = document.createElement("div");
-        row_for_data.setAttribute("onclick", `show_settings_ver2(${variable})`)
-        row_for_data.setAttribute("style", 'display:block;')
-        row_for_data.innerHTML = `<p>${variable} ${java_dict[variable]}</p>`;
+        let row_for_data = document.createElement("section");
+        row_for_data.setAttribute("onclick", `show_settings(${variable})`)
+
+        if (java_dict[variable]['price'] === true) {
+          let indicator = document.createElement("div");
+          indicator.setAttribute("class", 'shop_price row_indicat')
+          row_for_data.appendChild(indicator)
+        }
+        if (java_dict[variable]['name'] === true) {
+          let indicator = document.createElement("div");
+          indicator.setAttribute("class", 'shop_name row_indicat')
+          row_for_data.appendChild(indicator)
+        }
+        if (java_dict[variable]['chars'] === true) {
+          let indicator = document.createElement("div");
+          indicator.setAttribute("class", 'shop_chars row_indicat')
+          row_for_data.appendChild(indicator)
+        }
+        row_for_data.setAttribute("class", 'shop_row')
+        let text_content = document.createElement('p');
+        text_content.setAttribute('class', 'shop_name_text')
+        text_content.innerHTML = `${variable} ${java_dict[variable]['shop_name']}`;
+
+        row_for_data.appendChild(text_content);
         row_list.appendChild(row_for_data);
       }
     }
   });
 }
 
-function main_page_filter() {
-  let filter = search_main_page.value.toUpperCase();
-  let main_page_list = row_list.getElementsByTagName('div')
-  for (i = 0; i < main_page_list.length; i++) {
-    txtValue = main_page_list[i].textContent || main_page_list[i].innerText;
+function shop_filter() {
+  let filter = search_shop.value.toUpperCase();
+  let shop_list = row_list.getElementsByTagName('section')
+  for (i = 0; i < shop_list.length; i++) {
+    txtValue = shop_list[i].textContent || shop_list[i].innerText;
     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      main_page_list[i].style.display = "";
+      shop_list[i].style.display = "";
     } else {
-      main_page_list[i].style.display = "none";
+      shop_list[i].style.display = "none";
     }
   }
 }
 
-function show_settings_ver2(shop_id) {
+function show_settings(shop_id) {
   $.ajax({
     url: `/links_sett/${shop_id}`,
     type: 'GET',
@@ -86,12 +83,12 @@ function show_settings_ver2(shop_id) {
         let json_string_out = JSON.stringify(json_obj[tags_types[tag_type]])
 
         if (json_obj[tags_types[tag_type]]['tag_id'] === false) {
-          let json_string = $.parseJSON(json_string_out)
-          draw_input_tags(json_string)
+          draw_input_tags(json_obj[tags_types[tag_type]])
         } else {
           draw_div_tags(json_string_out)
         }
       }
+      use_selenium_message.innerHTML = `Selenium: <b>${json_obj['use_selenium']}</b>`
       btn_show_few_links.innerHTML = `<p onclick = "show_few_links(${shop_id})">Показать пару ссылок <p>`
     }
   })
@@ -107,8 +104,9 @@ function draw_div_tags(json_string_in) {
     `<p>${sett_dict['rus_tag']}:</p>
   &lt;<p class = 'tag_name_sett'>${sett_dict['tag_name']}&nbsp;</p>
   <p class = 'attr_name_sett'>${sett_dict['attr_name']} =&nbsp</p>
-  <p class = 'value_name_sett'>"${sett_dict['attr_val']}"</p>&gt
-  <p onclick = 'delete_settings(${json_string_in})'>Удалить</p>`
+  <p class = 'value_name_sett'>"${sett_dict['attr_val']}"</p>&gt&nbsp
+  <p onclick = 'delete_settings(${json_string_in})'>Удалить</p>
+  `
 }
 
 function draw_input_tags(json_string_in) {
@@ -217,10 +215,35 @@ function parse_one_link(net_link_id) {
     },
     success: function(response) {
       alert(response)
-      
+
       let parse_info = response[`${net_link_id}`]
       answer_div.innerHTML = `${response['main_page']} ${parse_info['current_price']} ${parse_info['current_name']} ${parse_info['current_date']}`
 
     }
   })
+}
+
+function parse_link() {
+  let answer_div = document.createElement("div")
+  answer_div.innerHTML = "Думаем..."
+  $.ajax({
+    url: "/parser_link_check",
+    data: $('form').serialize(),
+    type: 'POST',
+    beforeSend: function() {
+      parse_result_block.appendChild(answer_div)
+      link_input.value = ''
+    },
+    success: function(response) {
+      parsed_links_counter += 1;
+      let json = $.parseJSON(response);
+      answer_div.innerHTML = `${parsed_links_counter} <a id = "res_${parsed_links_counter}" href = "${json.link}" target = "_blank">${json.main_page}<a><b> ${json.price} руб.</b>
+          <button onclick="show_settings(res_${parsed_links_counter})"><i>Показать настройки</i></button>`;
+      console.log(response);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+
 }

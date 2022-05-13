@@ -29,15 +29,18 @@ class Shops_sett(Base):
     tag_name = Column(Text)
     attr_name = Column(Text)
     attr_value = Column(Text)
-    sett_active = Column(BOOLEAN)
+    sett_active = Column(REAL)
 
 class Net_shops(Base):
     """Продавцы товаров"""
     __tablename__ = 'net_shops'
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
+    # use_selenium = Column(BOOLEAN)
+    # selenium_used = Column(REAL)
     net_link = relationship("Net_links", backref = 'net_shops')
     net_link_sett = relationship("Shops_sett", backref = 'net_shops')
+
 
 class Models(Base):
     """Модели товаров"""

@@ -9,9 +9,9 @@
   <a href="{{url_for('file_parser')}}">Загрузить файл</a>
 </div>
 
-<div class="checker_container">
+<div class="checker_container comon_styles">
 
-  <div class="online_parser check_block">
+  <div class="online_parser check_block comon_styles">
     <form action="javascript:parse_link()" method="post" name="form" id="form_link">
       <label for="name">Вставьте ссылку:</label>
       <input id="link_input" name="name" type="text">
@@ -20,27 +20,26 @@
     <h2 id="loading"></h2>
   </div>
 
-  <div id="row_list" class="row_list check_block">
+  <div id="row_list" class="rows_list check_block comon_styles">
     <h2>Магазины</h2>
-    <input id="search_main_page" onkeyup="main_page_filter()" type="text" name="" value="" placeholder="Поиск">
+    <input id="search_shop" onkeyup="shop_filter()" type = "search" name="" placeholder="Поиск">
     <script>
-      draw_main_page_list()
+      draw_shops_list()
     </script>
   </div>
-  <div id="settings_block" class="setting_blog check_block">
+
+  <div id="settings_block" class="setting_blog check_block comon_styles">
     <h2>Теги для парсера:</h2><br>
-    <!-- <div class="circle_btn" id="crcl_r"></div> -->
-    <!-- <div class="circle_btn" id="crcl_y"></div> -->
-    <!-- <div class="circle_btn" id="crcl_g"></div> -->
+
     <h3 id="set_main_page">_ _ _ _ _ _ _ _ _</h3><br>
 
     <div id="block_for_sett_tags"></div>
 
     <!-- <br> -->
-    <!-- <h3>BeautifulSoup?  </h3> -->
+    <p id = "use_selenium_message"></p><input type="checkbox" id="scales">
 
-    <div id="btn_show_few_links" style="display: grid">
-      <!-- <p></p> <p>Отпарсить</p> -->
+    <div id="btn_show_few_links" >
+      <!-- <p></p> <p>Отпарсить</p> style="display: grid"-->
     </div>
 
 
@@ -48,19 +47,22 @@
 
 
   <div class="clear_div"></div>
-  <div class="parsed_links check_block" id="parse_result_block">
+  <div class="parsed_links check_block comon_styles" id="parse_result_block">
     <h2 float="left">Результаты: </h2>
     <p>citilink.ru Моноблок 50 000 руб. перейти на сайт</p>
     <p>Старые и новые ссылки (обновить, показать скриншот)</p>
   </div>
+    <div class="clear_div"></div>
+  <div class = "comon_styles">
+    <h2>Загрузить файл</h2>
+    <p>После прочтения файла в блоке главных страниц появиться btn "Обновить"</p>
+    <p>формы для ввода в sql WTF</p>
+  </div>
+  <div class="comon_styles">
+    <p>DEL/SAVE ИКОНКИ</p>
+    <p>При наведени на кнопки "рука"</p>
+  </div>
 
-  <h1>блок Загрузить файл</h1>
-  <p>После прочтения файла в блоке главных страниц появиться btn "Обновить"</p>
-  <p>формы для ввода в sql WTF</p>
-  <p>DEL/SAVE ИКОНКИ</p>
-  <p>ЦВетовой ИНДИКАТОР на главныйх странницах (все настройки есть true/true/true)</p>
-  <p>Поиск по Магазинам</p>
-  <p>При наведени на кнопик "рука"</p>
 
 </div>
 

@@ -11,6 +11,26 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
+# ВЫВОД СПИСКА МАГАЗИНОВ
+def show_list_shops():
+    ''' Возвращает:
+        {1:{"shop_name":"www.onlinetrade.ru",
+            "price":True, "name":True},
+        2:{...},...}'''
+    main_page_list = session.query(Net_shops).all()
+    output_dict = {}
+    tags_types = ['price', 'name', 'chars']
+    for row in main_page_list:
+        output_dict[row.id] = {}
+        output_dict[row.id]['shop_name'] = row.name
+        settings_rows = row.net_link_sett
+        if settings_rows:
+            for sett_row in settings_rows:
+                if sett_row.tag_type in tags_types:
+                    output_dict[row.id][sett_row.tag_type] = True
+    json_dict = json.dumps(output_dict)
+    return json_dict
+
 def define_main_page(link):
     '''
     Определение главной страницы из строки
@@ -39,6 +59,7 @@ def check_links_in_db(link = False, link_id = False):
             link_from_bd = session.query(Net_links).filter_by(http_link = link).one()
         elif link_id:
             link_from_bd = session.query(Net_links).filter_by(id = link_id).one()
+
         result_dict['links'] = {}
         result_dict['links'][link_from_bd.id] = link_from_bd.http_link
         result_dict['main_page_id'] = link_from_bd.id_main_page
@@ -91,7 +112,7 @@ def check_sett_to_parse(result_dict):
 
 # СМОТРИМ НАСТРОЙКИ ТЕГОВ
 tags_types = {"price": "Цена", "name": "Название", "chars": "Характеристика"}
-def show_shop_set_ver2(shop_id):
+def show_shop_sett(shop_id):
     data = session.query(Net_shops).filter_by(id = shop_id).one()
     json_dict = {}
     json_dict['shop_name'] = data.name
@@ -99,6 +120,7 @@ def show_shop_set_ver2(shop_id):
     json_dict['price'] = {'tag_type': "price", 'rus_tag': "Цена", 'shop_id': shop_id, 'tag_id': False, 'tag_name': "", 'attr_name': "", 'attr_val': ""}
     json_dict['name'] = {'tag_type': "name", 'rus_tag': "Название", 'shop_id': shop_id, 'tag_id': False, 'tag_name': "", 'attr_name': "", 'attr_val': ""}
     json_dict['chars'] = {'tag_type': "chars", 'rus_tag': "Характеристика", 'shop_id': shop_id, 'tag_id': False, 'tag_name': "", 'attr_name': "", 'attr_val': ""}
+    json_dict['use_selenium'] = True #data.selenium_used
     for settings in data.net_link_sett:
         temp_dict = {
         'rus_tag': tags_types[settings.tag_type],
@@ -111,6 +133,7 @@ def show_shop_set_ver2(shop_id):
         'tag_id': settings.id}
         json_dict[settings.tag_type] = temp_dict
     json_dict = json.dumps(json_dict)
+    # print(json_dict)
     return json_dict
 # СМОТРИМ НАСТРОЙКИ ТЕГОВ
 def show_settings_by_type(shop_id, tag_type):
@@ -145,19 +168,11 @@ def delete_setting(string_data):
     py_dict_data['tag_id'] = False
     answer = json.dumps(py_dict_data)
     return answer
-# Показать все магазины
-def show_our_shops():
-    main_page_list = session.query(Net_shops).all()
-    dict_m_p = {}
-    for el in main_page_list:
-        dict_m_p[el.id] = el.name
-    dict_m_p = json.dumps(dict_m_p)
-    return dict_m_p
-# Изменяем текущие настройки
+# Меняем текущие настройки
 def take_post_message(string_data):
     py_dict_data = json.loads(string_data)
     if py_dict_data["tag_id"]:
-        # Изменяем старые настройки
+        # Меняем старые настройки
         answer = change_current_settings(py_dict_data)
     else:
         # Создаем новые настройки

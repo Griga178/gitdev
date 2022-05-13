@@ -10,17 +10,17 @@ from classes import Subject_ver_3, Subjects_category, Model_ver2
 from input_form_classes import Subject_adding_form, Tags_form
 
 from . import app
-from .sql_models import *
+# from .sql_models import *
 
-from .sql_models import *
-from sqlalchemy.orm import sessionmaker
+# from .sql_models import *
+# from sqlalchemy.orm import sessionmaker
 
 from back_end_manager import parse_one_link as parse_one_link_new
-from engine_data_base import show_shop_set_ver2, show_few_links_sql, delete_setting, show_our_shops, take_post_message
+from engine_data_base import show_list_shops, show_shop_sett, show_few_links_sql, delete_setting, take_post_message
 
-Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
+# Base.metadata.bind = engine
+# DBSession = sessionmaker(bind=engine)
+# session = DBSession()
 
 pickle_file_name = 'Models_Subjects_dict'
 
@@ -52,7 +52,16 @@ def get_len():
 @app.route('/parser')
 def open_parser():
     return render_template('parser_pages/check_links.html')
-
+# ВЫВОД СПИСКА МАГАЗИНОВ
+@app.route('/print_links_base')
+def print_links_base():
+    dict_m_p = show_list_shops()
+    return dict_m_p
+# СМОТРИМ НАСТРОЙКИ ТЕГОВ
+@app.route('/links_sett/<some_data>')
+def links_sett(some_data):
+    dict_m_p = show_shop_sett(some_data)
+    return dict_m_p
 # ПАРСИМ 1 НЕИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parser_link_check', methods=['GET', 'POST'])
 def parse_link():
@@ -64,21 +73,8 @@ def parse_link():
 # ПАРСИМ 1 ИЗВЕСТНУЮ ССЫЛУ
 @app.route('/parse_one_links/<net_link_id>')
 def parse_one_links(net_link_id):
-    # parse_result = new_parse(link_id = net_link_id)
     json_message_new = parse_one_link_new(id = net_link_id)
-    # print('\n', f'NEW: {json_message_new}')
-    # print('\n', f'Old: {parse_result}')
     return json_message_new
-# СМОТРИМ НАСТРОЙКИ ТЕГОВ
-@app.route('/links_sett/<some_data>')
-def links_sett(some_data):
-    dict_m_p = show_shop_set_ver2(some_data)
-    return dict_m_p
-
-@app.route('/print_links_base')
-def print_links_base():
-    dict_m_p = show_our_shops()
-    return dict_m_p
 
 @app.route('/save_sett/<string_data>', methods=['GET', 'POST'])
 def save_sett(string_data):
