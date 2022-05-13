@@ -73,3 +73,11 @@ def save_dict_to_sql():
             session.add(cur_data)
             session.commit()
         print()
+
+def define_links(string_value):
+    # возращает список с возможными сылками
+    if not string_value  is None:
+        re_sult = re.findall(r'[\w:/.\-?=&+%#\[\]]+', string_value)
+        return re_sult
+    else:
+        return False

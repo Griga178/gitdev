@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
-from funcs_parser import func_parse_link, new_parse
+
 
 import sys
 sys.path.append('../')
@@ -10,17 +10,11 @@ from classes import Subject_ver_3, Subjects_category, Model_ver2
 from input_form_classes import Subject_adding_form, Tags_form
 
 from . import app
-# from .sql_models import *
 
-# from .sql_models import *
-# from sqlalchemy.orm import sessionmaker
-
-from back_end_manager import parse_one_link as parse_one_link_new
+from back_end_manager import parse_one_link
 from engine_data_base import show_list_shops, show_shop_sett, show_few_links_sql, delete_setting, take_post_message
 
-# Base.metadata.bind = engine
-# DBSession = sessionmaker(bind=engine)
-# session = DBSession()
+
 
 pickle_file_name = 'Models_Subjects_dict'
 
@@ -63,20 +57,17 @@ def links_sett(some_data):
     dict_m_p = show_shop_sett(some_data)
     return dict_m_p
 # ПАРСИМ 1 НЕИЗВЕСТНУЮ ССЫЛКУ
-@app.route('/parser_link_check', methods=['GET', 'POST'])
+@app.route('/parser_link_check', methods = ['GET', 'POST'])
 def parse_link():
-    json_message = func_parse_link(request.form['name'])
-    json_message_new = parse_one_link_new(request.form['name'])
-    print('\n', f'NEW: {json_message_new}')
-    print('\n', f'Old: {json_message}')
-    return json_message
+    json_message_new = parse_one_link(input_link = request.form['name'])
+    return json_message_new
 # ПАРСИМ 1 ИЗВЕСТНУЮ ССЫЛУ
 @app.route('/parse_one_links/<net_link_id>')
 def parse_one_links(net_link_id):
-    json_message_new = parse_one_link_new(id = net_link_id)
+    json_message_new = parse_one_link(input_id = net_link_id)
     return json_message_new
 
-@app.route('/save_sett/<string_data>', methods=['GET', 'POST'])
+@app.route('/save_sett/<string_data>', methods = ['GET', 'POST'])
 def save_sett(string_data):
     py_response = take_post_message(string_data)
     return py_response

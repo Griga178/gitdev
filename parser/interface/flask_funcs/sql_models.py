@@ -19,6 +19,8 @@ class Net_links(Base):
     id_main_page = Column(Integer, ForeignKey('net_shops.id'))
     current_price = Column(REAL)
     # current_date = Column()
+    # product_avaliable = Column(BOOLEAN)
+    # current_name = Column(Text)
 
 class Shops_sett(Base):
     """ Настройки для парсинга """
@@ -37,7 +39,7 @@ class Net_shops(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
     # use_selenium = Column(BOOLEAN)
-    # selenium_used = Column(REAL)
+    # need_selenium = Column(REAL)
     net_link = relationship("Net_links", backref = 'net_shops')
     net_link_sett = relationship("Shops_sett", backref = 'net_shops')
 

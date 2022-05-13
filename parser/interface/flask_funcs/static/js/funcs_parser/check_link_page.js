@@ -105,7 +105,7 @@ function draw_div_tags(json_string_in) {
   &lt;<p class = 'tag_name_sett'>${sett_dict['tag_name']}&nbsp;</p>
   <p class = 'attr_name_sett'>${sett_dict['attr_name']} =&nbsp</p>
   <p class = 'value_name_sett'>"${sett_dict['attr_val']}"</p>&gt&nbsp
-  <p onclick = 'delete_settings(${json_string_in})'>Удалить</p>
+  <p onclick = 'del_set_from_sql(${json_string_in})'>Удалить</p>
   `
 }
 
@@ -149,21 +149,22 @@ function save_sett_changing_ver2(json_string_in) {
 
 function delete_settings(json_string_in) {
   let json_string_out = JSON.stringify(json_string_in)
-  let shure = confirm("Вы уверены?")
-  if (shure) {
-    del_set_from_sql(json_string_out)
-  }
+
 }
 
 function del_set_from_sql(str_data) {
-  $.ajax({
-    url: `/del_sett/${str_data}`,
-    type: 'POST',
-    success: function(response) {
-      obj_data = $.parseJSON(response)
-      draw_input_tags(obj_data)
-    }
-  })
+  let json_string_out = JSON.stringify(str_data)
+  let shure = confirm("Вы уверены?")
+  if (shure) {
+    $.ajax({
+      url: `/del_sett/${json_string_out}`,
+      type: 'POST',
+      success: function(response) {
+        obj_data = $.parseJSON(response)
+        draw_input_tags(obj_data)
+      }
+    })
+  }
 }
 
 function post_to_sql(str_data) {
@@ -214,15 +215,14 @@ function parse_one_link(net_link_id) {
       parse_result_block.appendChild(answer_div)
     },
     success: function(response) {
-      alert(response)
-
-      let parse_info = response[`${net_link_id}`]
-      answer_div.innerHTML = `${response['main_page']} ${parse_info['current_price']} ${parse_info['current_name']} ${parse_info['current_date']}`
-
+      // alert(response)
+      draw_parse_resalt(response, answer_div)
+      // let parse_info = $.parseJSON(response);
+      // answer_div.innerHTML = `${parse_info['main_page']} ${parse_info['current_price']} ${parse_info['current_name']} ${parse_info['current_date']}`
     }
   })
 }
-
+// вставка ссылок через форму - POST
 function parse_link() {
   let answer_div = document.createElement("div")
   answer_div.innerHTML = "Думаем..."
@@ -235,15 +235,27 @@ function parse_link() {
       link_input.value = ''
     },
     success: function(response) {
-      parsed_links_counter += 1;
-      let json = $.parseJSON(response);
-      answer_div.innerHTML = `${parsed_links_counter} <a id = "res_${parsed_links_counter}" href = "${json.link}" target = "_blank">${json.main_page}<a><b> ${json.price} руб.</b>
-          <button onclick="show_settings(res_${parsed_links_counter})"><i>Показать настройки</i></button>`;
-      console.log(response);
+      draw_parse_resalt(response, answer_div)
+      // parsed_links_counter += 1;
+      // let json = $.parseJSON(response);
+      // answer_div.innerHTML = `${parsed_links_counter} <a id = "res_${parsed_links_counter}" href = "${json.link}" target = "_blank">${json.main_page}<a><b> ${json.price} руб.</b>
+      //     <button onclick="show_settings(res_${parsed_links_counter})"><i>Показать настройки</i></button>`;
+      // console.log(response);
     },
     error: function(error) {
       console.log(error);
     }
   });
+}
 
+function draw_parse_resalt(js_respone, html_tag) {
+  let parse_info = $.parseJSON(js_respone);
+  parsed_links_counter += 1;
+  // html_tag.innerHTML = `${parse_info['main_page']} ${parse_info['current_price']} ${parse_info['current_name']} ${parse_info['current_date']}`
+
+  html_tag.innerHTML = `
+    ${parsed_links_counter}
+    <a href = "${parse_info.http_link}" target = "_blank">${parse_info.main_page}</a>
+    <b> ${parse_info.current_price} руб.</b>
+    <p>${parse_info.current_name}</p>`;
 }
