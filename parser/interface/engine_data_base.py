@@ -64,7 +64,7 @@ def check_links_in_db(link = False, link_id = False):
         result_dict['link'] = link_from_bd.http_link
         result_dict['shop_id'] = link_from_bd.id_main_page
         result_dict['shop_name'] = link_from_bd.net_shops.name
-        result_dict['current_price'] = link_from_bd.current_price
+        # result_dict['current_price'] = link_from_bd.current_price
         # result_dict['current_name'] = link_from_bd.current_name
         # result_dict['current_date'] = link_from_bd.current_date
         result_dict['need_selenium'] = True #link_from_bd.net_shops.need_selenium

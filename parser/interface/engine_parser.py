@@ -34,7 +34,7 @@ from datetime import date
     '''
 
 # options = Options()
-# + Строка 121
+# + Строка 115
 
 options = webdriver.ChromeOptions()
 binary_yandex_driver_file = 'yandexdriver.exe'

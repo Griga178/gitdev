@@ -17,10 +17,17 @@ class Net_links(Base):
     http_link = Column(String(255), nullable = False)
     id_model = Column(Integer, ForeignKey('models.id'))
     id_main_page = Column(Integer, ForeignKey('net_shops.id'))
+    net_link = relationship("Parsed_net_links", backref = 'net_links')
+
+class Parsed_net_links(Base):
+    """Результаты парсинга"""
+    __tablename__ = 'parsed_net_links'
+    id = Column(Integer, primary_key = True)
+    id_http_link = Column(Integer, ForeignKey('net_links.id'), nullable = False)
     current_price = Column(REAL)
-    # current_date = Column()
-    # product_avaliable = Column(BOOLEAN)
-    # current_name = Column(Text)
+    current_date = Column(TEXT)
+    current_name = Column(Text)
+    product_avaliable = Column(Integer)
 
 class Shops_sett(Base):
     """ Настройки для парсинга """
@@ -31,18 +38,17 @@ class Shops_sett(Base):
     tag_name = Column(Text)
     attr_name = Column(Text)
     attr_value = Column(Text)
-    sett_active = Column(REAL)
+    sett_active = Column(Integer)
 
 class Net_shops(Base):
-    """Продавцы товаров"""
+    """Интересующие сайты"""
     __tablename__ = 'net_shops'
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
-    # use_selenium = Column(BOOLEAN)
-    # need_selenium = Column(REAL)
+    need_selenium = Column(Integer)
     net_link = relationship("Net_links", backref = 'net_shops')
     net_link_sett = relationship("Shops_sett", backref = 'net_shops')
-
+    shop_type = Column(String)
 
 class Models(Base):
     """Модели товаров"""
