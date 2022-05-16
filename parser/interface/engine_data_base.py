@@ -1,4 +1,5 @@
 from flask import json
+from datetime import date, timedelta
 
 import sys
 sys.path.append('flask_funcs')
@@ -200,3 +201,35 @@ def create_settings(js_dict):
     answer = show_settings_by_type(js_dict['shop_id'], js_dict['tag_type'])
     json_answer = json.dumps(answer)
     return json_answer
+
+# ЗАПИСЬ РЕЗУЛЬТАТОВ ПАРСИНГА
+def send_parse_result_to_db(result_dict):
+    # try except
+    cur_data = Parsed_net_links(
+    id_http_link = result_dict['link_id'],
+    current_price = result_dict['current_price'],
+    current_date = result_dict['current_date'],
+    current_name = result_dict['current_name'],
+    product_avaliable = True,
+    )
+    session.add(cur_data)
+    session.commit()
+    return True
+
+# Поиск последнего парсинга ссылки
+def search_last_parse_date(link_id, day_amount = 2):
+    today = date.today()
+    old_date = (today - timedelta(days = day_amount)).strftime("%d/%m/%Y")
+    # old_date = "17/05/2022"
+    try:
+        qry = session.query(Parsed_net_links).filter_by(id_http_link = link_id).filter(Parsed_net_links.current_date >= old_date).order_by(Parsed_net_links.current_date.desc()).first()
+        return {"current_price": qry.current_price, "current_date": qry.current_date, "current_name": qry.current_name}
+    except:
+        return False
+
+#
+# a = search_last_parse_date(310)
+# if a:
+#     print(a['current_price'])
+# else:
+#     print(a)

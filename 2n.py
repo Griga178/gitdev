@@ -38,10 +38,20 @@ import pickle
 start_time = time.time()
 
 # csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_2_2022.csv'
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/Norm_2_2022.csv'
-dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/Norm_3_2022.csv'
+dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
 pkl_file_name = dir_for_screen + 'price.pkl'
-# Если папки нет создать
+# Если папки нет: создать
+def check_folder(folder_name):
+    folder_exist = os.path.isdir(folder_name)
+    if folder_exist:
+        print(f"Папка: {folder_name} уже создана")
+    else:
+        os.mkdir(folder_name)
+        print(f"Новая папка: {folder_name} успешно создана")
+
+check_folder(dir_for_screen)
+
 beauty_file_name = 'settings/my_beauty_links.csv'
 selenium_file_name = 'settings/my_selenium_links.csv'
 

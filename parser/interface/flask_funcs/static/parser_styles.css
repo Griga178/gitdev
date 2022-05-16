@@ -65,11 +65,6 @@ border-bottom-left-radius: 5px;}
 
 /* БЛОК: ПАРСИНГ 1 ССЫЛКИ */
 .online_parser {width: 58%;}
-/* БЛОК: ТЕГИ ДЛЯ ПАРСИНГА */
-.setting_blog {
-  width: 58%;
-  min-height: 300px;
-  margin-top: 20px;}
 
 /* БЛОК: РЕЗУЛЬТАТЫ ПАРСИНГА */
 .parsed_links{width: 96%;}
@@ -95,6 +90,11 @@ border-bottom-left-radius: 5px;}
 
 
 /* БЛОК С ТЕГАМИ ДЛЯ ПАРСИНГА */
+.setting_blog {
+  width: 58%;
+  min-height: 300px;
+  margin-top: 20px;
+}
 .div_for_tags {
   box-sizing: border-box;
   border: 1px solid red;

@@ -18,6 +18,7 @@ class Net_links(Base):
     id_model = Column(Integer, ForeignKey('models.id'))
     id_main_page = Column(Integer, ForeignKey('net_shops.id'))
     net_link = relationship("Parsed_net_links", backref = 'net_links')
+    # kkn_id = Column(Integer, ForeignKey('kkns_list.id'))
 
 class Parsed_net_links(Base):
     """Результаты парсинга"""
@@ -50,6 +51,14 @@ class Net_shops(Base):
     net_link_sett = relationship("Shops_sett", backref = 'net_shops')
     shop_type = Column(String)
 
+class KKNs_list(Base):
+    """Тут хранятся названия ККН-ов"""
+    __tablename__ = 'kkns_list'
+    id = Column(Integer, primary_key = True)
+    name = Column(String(255), nullable = False)
+    links_id = relationship("Net_links", backref = 'kkns_list')
+
+
 class Models(Base):
     """Модели товаров"""
     __tablename__ = 'models'
@@ -62,8 +71,8 @@ class Models(Base):
 class Subject(Base):
     """Тут хранятся названия предметов"""
     __tablename__ = 'subjects'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
-    objects = relationship("Models", backref='subjects')
+    objects = relationship("Models", backref ='subjects')
 
 Base.metadata.create_all(engine)

@@ -72,13 +72,19 @@ def take_html_page(link, we_need_selenium = True, driver = False): # py_selenium
 
 # ищем инфу по 3 параметрам: tag, attribute, attribute value через BF
 def seerch_info_by_param(html_string_page, tag_param):
-    soup = BeautifulSoup(html_string_page, 'html.parser')
-    result_info = soup.find(tag_param['tag_name'], {tag_param['attr_name'], tag_param['attr_val']})
-    if not result_info:
-        re_sult = "Не удалось найти теги"
-    else:
-        re_sult = result_info.string
-    return re_sult
+    try:
+        soup = BeautifulSoup(html_string_page, 'html.parser')
+        result_info = soup.find(tag_param['tag_name'], {tag_param['attr_name'], tag_param['attr_val']})
+        if not result_info:
+            print(result_info)
+            return False
+        else:
+            return result_info.string
+    except:
+        print("\nОшибка: поиск инфы по тегат")
+        print(f"\nТеги: {tag_param}")
+        print("\nresult_info")
+
 
 def clean_number(str_text):
     ''' Выводит только числа из строк с помощью регулярок
@@ -99,9 +105,11 @@ def clean_number(str_text):
 
 def shop_parser(input_dict):
     output_dict = {}
+    output_dict['new_parse'] = True
     output_dict['main_page_id'] = input_dict['shop_id']
     output_dict['main_page'] = input_dict['shop_name']
     output_dict['http_link'] = input_dict['link']
+    output_dict['link_id'] = input_dict['link_id']
     today = date.today()
     current_date = today.strftime("%d/%m/%Y")
     # Что ищем на странице
@@ -124,15 +132,17 @@ def shop_parser(input_dict):
                 parse_info = "Нет настроек"
             else:
                 parse_info = seerch_info_by_param(html_string_page, input_dict[tag_type])
-
-                if tag_type == "price":
-                    parse_info = clean_number(parse_info)
-                elif tag_type == "name":
-                    parse_info = " ".join(parse_info.split())
-                elif tag_type == "chars":
-                    parse_info = "Не готов парсер"
-                output_dict[f'current_{tag_type}'] = parse_info
-
+                # print(input_dict)
+                if parse_info:
+                    if tag_type == "price":
+                        parse_info = clean_number(parse_info)
+                    elif tag_type == "name":
+                        parse_info = " ".join(parse_info.split())
+                    elif tag_type == "chars":
+                        parse_info = "Не готов парсер"
+                    output_dict[f'current_{tag_type}'] = parse_info
+                else:
+                    output_dict[f'current_{tag_type}'] = False
     if we_need_selenium:
         driver.quit()
     return output_dict

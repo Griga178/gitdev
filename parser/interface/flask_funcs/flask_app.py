@@ -11,7 +11,7 @@ from input_form_classes import Subject_adding_form, Tags_form
 
 from . import app
 
-from back_end_manager import parse_one_link
+from back_end_manager import parse_one_link, manual_result_saving
 from engine_data_base import show_list_shops, show_shop_sett, show_few_links_sql, delete_setting, take_post_message
 
 
@@ -61,11 +61,19 @@ def links_sett(some_data):
 def parse_link():
     json_message_new = parse_one_link(input_link = request.form['name'])
     return json_message_new
-# ПАРСИМ 1 ИЗВЕСТНУЮ ССЫЛУ
+# ПАРСИМ 1 ИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parse_one_links/<net_link_id>')
 def parse_one_links(net_link_id):
     json_message_new = parse_one_link(input_id = net_link_id)
     return json_message_new
+# СОХРАНЯЕМ РЕЗУЛТАТЫ ПАРСИНГА
+@app.route('/send_parse_result', methods = ['GET', 'POST'])
+def send_parse_resalt():
+    if request.method == "POST":
+        print("Сохранеяем")
+        dict_to_db = request.form.to_dict()
+        save_result = manual_result_saving(dict_to_db)
+        return save_result
 
 @app.route('/save_sett/<string_data>', methods = ['GET', 'POST'])
 def save_sett(string_data):

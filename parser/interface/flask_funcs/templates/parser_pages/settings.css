@@ -1,0 +1,25 @@
+body {
+  background-color: grey;
+  margin: 0 auto;
+  width: 1400px;
+}
+.setting_blog {
+  width: 58%;
+  min-height: 300px;
+  margin-top: 20px;
+}
+
+.item{
+  cursor: pointer
+}
+
+
+.comon_styles {
+  border: 2px dashed green;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 1%;
+  border-radius: 5px;
+  margin-top: 2%;
+  margin-left: 2%;
+}

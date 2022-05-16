@@ -1,5 +1,8 @@
 import openpyxl
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import os
 # Для создания скринов
 import time
 import numpy as np
@@ -23,10 +26,20 @@ elif == 'r'
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Ручной парсин.xlsx'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Manual_3kv.xlsx'
 sheet_name = 'citi'
 # Папка для скринов
-screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/new_step/'
+screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/new_step/'
+# Если папки нет: создать
+def check_folder(folder_name):
+    folder_exist = os.path.isdir(folder_name)
+    if folder_exist:
+        print(f"Папка: {folder_name} уже создана")
+    else:
+        os.mkdir(folder_name)
+        print(f"Новая папка: {folder_name} успешно создана")
+
+check_folder(screens_folder)
 
 def links_to_list_from_excel():
     '   Создаем список с [Ссылка, номер скриншота(строки)]'
@@ -50,11 +63,12 @@ def run_manual_parse():
     'В ручную добалвяем цены к ссылке + делаем скрин'
     csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(three).csv'
     work_list = links_to_list_from_excel()
-    #options = webdriver.ChromeOptions()
-    #options.add_argument("--ignore-certificate-error")
-    #options.add_argument('--ignore-certificate-errors-spki-list')
-    #options.add_argument('--ignore-ssl-errors')
-    driver = webdriver.Chrome() #options = options
+    options = Options()
+    options.add_experimental_option('excludeSwitches', ['enable-logging']) # не выводит сообщзения в консоль
+    # не ждем полной загрузки JS
+    caps = DesiredCapabilities().CHROME
+    caps["pageLoadStrategy"] = "eager"
+    driver = webdriver.Chrome(desired_capabilities = caps)
     work_list_with_price = []
 
     for row in work_list:

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Форма для настроек парсинга</title>
+    <link rel="stylesheet" href="settings.css">
+  </head>
+  <body>
+    <div class="setting_blog  comon_styles">
+      <h2>Заголовок</h2>
+      <div id = "div_for_price">
+          <p onclick = "form_three_tags()" class = "item">Теги для актуальной цены</p>
+      </div>
+
+
+
+      <p>Теги: Товара нет в наличии</p>
+
+      <input type="checkbox" name="" value="">
+      <h3>Варианты поиска:</h3>
+      <p>Поиск по 3 значениям (тег, аттрибут, значение аттрибута)</p>
+      <p>Поиск внутри тега (значине одного из атрибутов прим: "content")</p>
+      <p>Поиск в строке между 2 словами</p>
+      <p>Поиск внутри родительского тега/блока</p><input type="checkbox" name="" value="">
+
+      <p>Сайт использует JavaScript</p>
+      <input type="checkbox" name="" value="">
+
+      <p>Возможные значения тега (div, h1, span, ...) </p>
+      <p>Теги для названия товара</p>
+
+    <script>
+      function form_three_tags(){
+
+        div_for_price.innerHTML =
+          `<form id = "price_form" name = "price_form">
+        теги для актуальной цены:
+        <input type = "text" value = 'div' name = "tag">
+        <input type = "text" value = "class" name = "attr">
+        <input type = "text" value = "price" name = "attr_val">
+        <p onclick = "my_func()" class = "item">Сохранить</p> </form>`
+      }
+      function my_func() {
+        alert("Сохранили")
+      }
+    </script>
+
+  </body>
+</html>
