@@ -9,26 +9,57 @@
     <div class="setting_blog  comon_styles">
       <h2>Заголовок</h2>
       <div id = "div_for_price">
-          <p onclick = "form_three_tags()" class = "item">Теги для актуальной цены</p>
+          <p onclick = "show_content()" class = "item">Теги для актуальной цены</p>
       </div>
 
+      <form class="" action="#" method="post">
+        <fieldset id = "actual_price_fieldset">
+          <legend onclick="show_content()">Теги для актуальной цены </legend>
+
+            <!-- <label for="name">Название тега </label>
+            <input id="name"><br>
+            <label for="telephone">Название аттрибута</label>
+            <input id="telephone"><br>
+            <label for="email">Значение аттрибута </label>
+            <input id="email"><br>
+
+            <label for="inside_tag">Поиск внутри тега</label>
+            <input id="inside_tag" type="checkbox"> -->
+
+          <p>&lt;div&nbsp;class =&nbsp"price"&gt</p>
+
+        </fieldset>
+
+      </form>
+
+      <form >
+        <fieldset>
+          <legend >Сайт использует JavaScript</legend>
+          <label for="need_selenium_flag"><input id="need_selenium_flag" type="checkbox"> Да</label>
+          <span class = "confirm_btn pct_btn" title="Сохранить">&#10004;</span>
+          <span class = "delete_btn pct_btn" title="Удалить">&#10008;</span>
+          <span class = "change_btn pct_btn" title="Изменить">&#128394;</span>
+          <span class = "cancel_btn pct_btn" title="Отменить">&#128473;</span>
+
+        </fieldset>
+        <p><input type="submit" value="Отправить информацию"></p>
+      </form>
 
 
       <p>Теги: Товара нет в наличии</p>
 
-      <input type="checkbox" name="" value="">
       <h3>Варианты поиска:</h3>
-      <p>Поиск по 3 значениям (тег, аттрибут, значение аттрибута)</p>
+
       <p>Поиск внутри тега (значине одного из атрибутов прим: "content")</p>
       <p>Поиск в строке между 2 словами</p>
       <p>Поиск внутри родительского тега/блока</p><input type="checkbox" name="" value="">
 
-      <p>Сайт использует JavaScript</p>
-      <input type="checkbox" name="" value="">
+
+
 
       <p>Возможные значения тега (div, h1, span, ...) </p>
       <p>Теги для названия товара</p>
-
+      <a href="https://professorweb.ru/my/html/html5/level2/2_1.php" target="_blank">Источник</a>
     <script>
       function form_three_tags(){
 
@@ -41,7 +72,26 @@
         <p onclick = "my_func()" class = "item">Сохранить</p> </form>`
       }
       function my_func() {
+
         alert("Сохранили")
+      }
+      function show_content() {
+        let legend_tag = actual_price_fieldset.children[0]
+        let save_btn = document.createElement("span")
+        let cancel_btn = document.createElement("span")
+        save_btn.setAttribute('onclick', 'hide_content()')
+        save_btn.setAttribute('class', 'confirm_btn pct_btn')
+        save_btn.setAttribute('title', 'Сохранить')
+        save_btn.innerHTML = "&#10004;"
+        cancel_btn.setAttribute('class', 'cancel_btn pct_btn')
+        cancel_btn.setAttribute('title', 'Отменить')
+        cancel_btn.innerHTML = "&#128473;"
+        actual_price_fieldset.appendChild(cancel_btn)
+        actual_price_fieldset.appendChild(save_btn)
+
+      }
+      function hide_content() {
+        actual_price_fieldset.innerHTML = `<legend onclick="show_content()">Теги для актуальной цены </legend>`
       }
     </script>
 
