@@ -28,17 +28,28 @@ legend {
   color: blue;
   cursor: pointer;
 }
-.confirm_btn {
+.confirm_btn:hover {
   color: green;
+  font-size: 27px;
+  box-shadow: 2px 1px 2px 2px;
 }
-
-.delete_btn {
+.cancel_btn:hover {
+  color: gold;
+  font-size: 27px;
+  box-shadow: 2px 1px 2px 2px;
+}
+.delete_btn:hover {
   color: red;
+  font-size: 27px;
+  box-shadow: 2px 1px 2px 2px;
 }
-.change_btn {
+.change_btn:hover {
   color: blue;
+  font-size: 27px;
+  box-shadow: 2px 1px 2px 2px;
 }
 .pct_btn {
+  color: grey;
   margin: 1px;
   text-align: center;
   display: block;
@@ -50,10 +61,9 @@ legend {
 
 }
 
-.pct_btn:hover {
+.pct_btn {
   /* background-color: grey; */
-  font-size: 27px;
-  box-shadow: 2px 1px 2px 2px;
+
   /* border: solid 1px black; */
 }
 /* .pct_btn:hover::after {

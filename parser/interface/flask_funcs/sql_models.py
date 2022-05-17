@@ -17,8 +17,8 @@ class Net_links(Base):
     http_link = Column(String(255), nullable = False)
     id_model = Column(Integer, ForeignKey('models.id'))
     id_main_page = Column(Integer, ForeignKey('net_shops.id'))
+    kkn_id = Column(Integer, ForeignKey('kkns_list.id'))
     net_link = relationship("Parsed_net_links", backref = 'net_links')
-    # kkn_id = Column(Integer, ForeignKey('kkns_list.id'))
 
 class Parsed_net_links(Base):
     """Результаты парсинга"""
@@ -47,9 +47,9 @@ class Net_shops(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
     need_selenium = Column(Integer)
+    shop_type = Column(String)
     net_link = relationship("Net_links", backref = 'net_shops')
     net_link_sett = relationship("Shops_sett", backref = 'net_shops')
-    shop_type = Column(String)
 
 class KKNs_list(Base):
     """Тут хранятся названия ККН-ов"""
@@ -57,7 +57,6 @@ class KKNs_list(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
     links_id = relationship("Net_links", backref = 'kkns_list')
-
 
 class Models(Base):
     """Модели товаров"""

@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <title>Форма для настроек парсинга</title>
     <link rel="stylesheet" href="settings.css">
+
+
   </head>
   <body>
+
+
     <div class="setting_blog  comon_styles">
       <h2>Заголовок</h2>
-      <div id = "div_for_price">
-          <p onclick = "show_content()" class = "item">Теги для актуальной цены</p>
-      </div>
+
 
       <form class="" action="#" method="post">
         <fieldset id = "actual_price_fieldset">
@@ -34,8 +36,10 @@
 
       <form >
         <fieldset>
-          <legend >Сайт использует JavaScript</legend>
-          <label for="need_selenium_flag"><input id="need_selenium_flag" type="checkbox"> Да</label>
+          <legend>Информация о сайте</legend>
+          <label for="need_selenium_flag">Сайт использует JavaScript<input id="need_selenium_flag" type="checkbox"><span title="Подсказка">?</span></label><br>
+          <label for="">Сайт содержит цены <input type="checkbox" name="" value="">?</label><br>
+          <label for="">Сайт содержит характеристики товаров <input type="checkbox" name="" value="">?</label><br>
           <span class = "confirm_btn pct_btn" title="Сохранить">&#10004;</span>
           <span class = "delete_btn pct_btn" title="Удалить">&#10008;</span>
           <span class = "change_btn pct_btn" title="Изменить">&#128394;</span>
@@ -85,7 +89,7 @@
         save_btn.innerHTML = "&#10004;"
         cancel_btn.setAttribute('class', 'cancel_btn pct_btn')
         cancel_btn.setAttribute('title', 'Отменить')
-        cancel_btn.innerHTML = "&#128473;"
+        cancel_btn.innerHTML = "&#8592;"
         actual_price_fieldset.appendChild(cancel_btn)
         actual_price_fieldset.appendChild(save_btn)
 
@@ -94,6 +98,7 @@
         actual_price_fieldset.innerHTML = `<legend onclick="show_content()">Теги для актуальной цены </legend>`
       }
     </script>
-
+    <script type=text/javascript src="jquery-3.6.0.min.js"></script>
+    <script type=text/javascript src="settings.js"></script>
   </body>
 </html>
