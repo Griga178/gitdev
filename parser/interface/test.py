@@ -39,9 +39,9 @@ status_not_avaliable = 'Нет в наличии'
 status_avaliable = 'В наличии'
 status_other = 'Предзаказ'
 
-# в этом режиме откроется браузер, если на странице будет проверка
-manual_mode = True
 defender_message = ['h1', 'Проверка безопасности']
+
+manual_mode = True
 
 def take_html_page(link, tag, num = False):
 
