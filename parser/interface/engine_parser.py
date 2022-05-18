@@ -72,16 +72,19 @@ def take_html_page(link, we_need_selenium = True, driver = False): # py_selenium
 
 # ищем инфу по 3 параметрам: tag, attribute, attribute value через BF
 def seerch_info_by_param(html_string_page, tag_param):
+
     try:
         soup = BeautifulSoup(html_string_page, 'html.parser')
-        result_info = soup.find(tag_param['tag_name'], {tag_param['attr_name'], tag_param['attr_val']})
+        result_info = soup.find(tag_param['tag_name'], attrs = {tag_param['attr_name']: tag_param['attr_val']})
+        print(result_info)
+        print(result_info.text)
         if not result_info:
             print(result_info)
             return False
         else:
-            return result_info.string
+            return result_info.text
     except:
-        print("\nОшибка: поиск инфы по тегат")
+        print("\nОшибка: поиск инфы по тегам")
         print(f"\nТеги: {tag_param}")
         print("\nresult_info")
 
@@ -128,19 +131,24 @@ def shop_parser(input_dict):
     output_dict["current_date"] = current_date
     if html_string_page:
         for tag_type in tag_types:
-            if tag_type not in input_dict:
+            if not input_dict[tag_type]:
                 parse_info = "Нет настроек"
+                print(f'\n{tag_type} НЕ Парсим {parse_info}')
             else:
+                print(f'\nПАрсим   {tag_type}')
                 parse_info = seerch_info_by_param(html_string_page, input_dict[tag_type])
-                # print(input_dict)
+                print(parse_info)
                 if parse_info:
                     if tag_type == "price":
                         parse_info = clean_number(parse_info)
+                        print('Чистим цену', parse_info)
                     elif tag_type == "name":
                         parse_info = " ".join(parse_info.split())
+                        print('Чистим имя', parse_info)
                     elif tag_type == "chars":
                         parse_info = "Не готов парсер"
                     output_dict[f'current_{tag_type}'] = parse_info
+                    print('\nСЛОВАРЬ', output_dict)
                 else:
                     output_dict[f'current_{tag_type}'] = False
     if we_need_selenium:

@@ -124,6 +124,17 @@ function draw_input_tags(json_string_in) {
   <p onclick = 'save_sett_changing_ver2(${json_string_out})'>Сохранить</p> </form>`
 }
 
+// ФОРМЫ НАСТРОЕК
+// Поиск ЦЕНЫ
+// function draw_price_setting_form(json_string_in){
+//
+// }
+
+let examp_json = `{'tag_type':'price',
+'tag_name':'div',
+'attr_name':'class',
+'attr_val':'attr_value_price',
+}`
 function save_sett_changing_ver2(json_string_in) {
   let dict_out;
   let changing_form = document.getElementById(`${json_string_in['tag_type']}_form`);
