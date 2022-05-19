@@ -98,7 +98,7 @@ user_passw = 'cmec789'
 #user_passw = '123123'
 
 #exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers2_22.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers3_22.xlsx'
 
 sheets_name_e = 'Ekranki'
 sheets_name_o = 'Otveti'
@@ -169,7 +169,7 @@ authorization_func(user_name, user_passw)
 print('Авторизовались\n')
 
 # main_func(sheets_name_e)
-# main_func(sheets_name_o)
+main_func(sheets_name_o)
 
 
 #file = 'C:/Users/G.Tishchenko/Desktop/Аквариус.msg'

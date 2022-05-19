@@ -5,10 +5,11 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import requests
 from bs4 import BeautifulSoup
 
-import re
+
 
 from datetime import date
 
+from engine_parser_addition import clean_number
 # import time
 # start_time = time.time()
 
@@ -89,22 +90,6 @@ def seerch_info_by_param(html_string_page, tag_param):
         print("\nresult_info")
 
 
-def clean_number(str_text):
-    ''' Выводит только числа из строк с помощью регулярок
-        находит числа, в которых "." или "," используется
-        только для копеек'''
-    result = re.findall(r'\d+\.?\,?', str_text)
-
-    clear_number = ''.join(result)
-
-    if ',' in clear_number:
-        clear_number = clear_number.replace(',', '.')
-    try:
-        clear_number = float(clear_number)
-        return clear_number
-    except:
-        clear_number = f"!Не преобразовать в число:{str_text}"
-        return clear_number
 
 def shop_parser(input_dict):
     output_dict = {}

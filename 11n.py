@@ -114,7 +114,7 @@ user_name = 'Mustafin_RI'
 user_passw = '123123'
 
 #exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers2_22.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers3_22.xlsx'
 
 sheets_name_e = 'Ekranki'
 

@@ -13,7 +13,7 @@ import pandas
 
 #sheets_name = 'RT new'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/картинки.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/картинки2.xlsx'
 sheets_name = 'КБТ' #'RT new'
 
 column_name = 'Наименование поставщика'
@@ -148,7 +148,7 @@ def create_dirs():
 # Копируем скриншоты
 # испольюзуются: dict_ekranki, dict_otveti
 #where_screens = '../devfiles/scr/new/'
-where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_2_2022/'
+where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
 
 def copy_screen():
     copy_count = 0
@@ -185,7 +185,7 @@ def copy_screen():
             except:
                 print("Не удалось скопировать", scr_name)
     print(copy_count_ecr, ' Экранок')
-# 
+#
 # create_dirs()
 # copy_screen()
 

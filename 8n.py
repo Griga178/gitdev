@@ -88,9 +88,9 @@ def pic_save(dir_source, dir_destiny):
 
     print(f'\nВсего скриншотов: {all_pic_number}\nВсего word файлов: {doc_number}')
 
-create_dirs()
-pic_save(source_O, dir_name_O) # 691 шт 4 кв Ответы
-pic_save(source_E, dir_name_E) # 745 шт 4 кв Экранки
+# create_dirs()
+# pic_save(source_O, dir_name_O) # 691 шт 4 кв Ответы
+# pic_save(source_E, dir_name_E) # 745 шт 4 кв Экранки
 
 
 def one_pic_save(dir_source, dir_destiny, comp_name):
