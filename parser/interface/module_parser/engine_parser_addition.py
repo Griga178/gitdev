@@ -27,3 +27,7 @@ def set_current_date():
     current_date = today.strftime("%d/%m/%Y")
 
     return current_date
+
+def set_true(usless_t = False):
+    # ЕСЛИ НАХОДИТ ЭТОТ ТЕГ, ЗНАЧИТ ТОВАРА НЕТ В НАЛИЧИИ
+    return True
