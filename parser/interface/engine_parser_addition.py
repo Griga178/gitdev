@@ -1,4 +1,5 @@
 import re
+from datetime import date
 
 def clean_number(str_text):
     ''' Выводит только числа из строк с помощью регулярок
@@ -20,3 +21,9 @@ def clean_number(str_text):
 def clean_text(str_text):
     str_text = " ".join(str_text.split())
     return str_text
+
+def set_current_date():
+    today = date.today()
+    current_date = today.strftime("%d/%m/%Y")
+
+    return current_date

@@ -48,9 +48,9 @@ options.add_argument('--headless')
 caps = DesiredCapabilities().CHROME
 caps["pageLoadStrategy"] = "eager"
 
-link = 'https://www.citilink.ru/product/ibp-powercom-spider-spd-1000n-1000va-332717/?text=Powercom+SPD-1000N'
-link2 = 'https://www.citilink.ru/product/ibp-powercom-raptor-rpt-1000a-euro-1000va-859787/'
-link3 = 'https://www.komus.ru/katalog/produkty-pitaniya/molochnaya-produktsiya/moloko/moloko-ekoniva-ultrapasterizovannoe-3-2-1-l/p/1004358/?from=block-301-1'
+# link = 'https://www.citilink.ru/product/ibp-powercom-spider-spd-1000n-1000va-332717/?text=Powercom+SPD-1000N'
+# link2 = 'https://www.citilink.ru/product/ibp-powercom-raptor-rpt-1000a-euro-1000va-859787/'
+# link3 = 'https://www.komus.ru/katalog/produkty-pitaniya/molochnaya-produktsiya/moloko/moloko-ekoniva-ultrapasterizovannoe-3-2-1-l/p/1004358/?from=block-301-1'
 
 
 # Получаем отрисованную страницу
