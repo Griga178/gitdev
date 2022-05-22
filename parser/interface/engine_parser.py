@@ -120,16 +120,16 @@ def shop_parser(input_dict):
                 parse_info = "Нет настроек"
                 print(f'\n{tag_type} НЕ Парсим {parse_info}')
             else:
-                print(f'\nПАрсим   {tag_type}')
+                # print(f'\nПАрсим   {tag_type}')
                 parse_info = seerch_info_by_param(html_string_page, input_dict[tag_type])
                 print(parse_info)
                 if parse_info:
                     if tag_type == "price":
                         parse_info = clean_number(parse_info)
-                        print('Чистим цену', parse_info)
+                        # print('Чистим цену', parse_info)
                     elif tag_type == "name":
                         parse_info = " ".join(parse_info.split())
-                        print('Чистим имя', parse_info)
+                        # print('Чистим имя', parse_info)
                     elif tag_type == "chars":
                         parse_info = "Не готов парсер"
                     output_dict[f'current_{tag_type}'] = parse_info

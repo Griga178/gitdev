@@ -25,6 +25,7 @@ def parse_one_link(input_link = False, input_id = False):
     # ЕСЛИ ССЫЛКА УЖЕ БЫЛА ПРОПАРСЕНА (НА ЭТОЙ НЕДЕЛЕ/ в теч. 2 дн.) - НЕ ПАРСИМ
     amount_of_date_to_start_parse = 2
     last_parse_date_result = search_last_parse_date(link_registration['link_id'], day_amount = amount_of_date_to_start_parse)
+
     if last_parse_date_result:
         # ИЩЕМ ТЕГИ ДЛЯ ПАРСИНГА
         parser_result = last_parse_date_result
@@ -36,6 +37,7 @@ def parse_one_link(input_link = False, input_id = False):
         parser_result['main_page_id'] = link_registration['shop_id']
         parser_result['new_parse'] = False
     else:
+        # ЕСЛИ ПОСЛЕДНИЙ ПАРСИНГ УСТАРЕЛ
         tags_types = ['price', 'name', 'chars']
         for type in tags_types:
             link_registration[type] = show_settings_by_type(link_registration['shop_id'], type)
@@ -43,6 +45,7 @@ def parse_one_link(input_link = False, input_id = False):
 
     # ПАРСИМ
     # Если есть хоть одна настройка: парсим
+    print(link_registration)
     if start_parse:
         parser_result = shop_parser(link_registration)
 

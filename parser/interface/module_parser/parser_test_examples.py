@@ -53,7 +53,7 @@ def count_links_amount(input_dict):
     return comon_amount
 
 def pretty_print(dict_output):
-    print('КРАСИВЫЙ ВЫВОД:')
+    print('КРАСИВЫЙ ВЫВОД***:')
     for shop_id, links_result in dict_output.items():
         print(' ', shop_id)
         for link_id, link_info in links_result.items():
