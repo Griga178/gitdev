@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from engine_parser_addition import clean_number, clean_text, set_current_date
+# from engine_parser_addition import clean_number, clean_text, set_current_date
 from engine_beauty_parser import html_searcher
 
 def run_selenium_parser(settings):

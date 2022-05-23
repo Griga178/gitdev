@@ -1,14 +1,15 @@
 # 'defender_message': {'tag': 'h1', 'attr_val': 'Проверка безопасности'},
-from manager_parser import parser_manager
+from manager_parser import start_parse
 
 final_result_output_dict = {
     1:{
-    "shop_name": "https://www.citilink.ru",
+    # "shop_name": "https://www.citilink.ru",
     'need_selenium': False,
     'headless_mode': True,
     "links": {
         1: 'https://www.citilink.ru/product/ibp-powercom-spider-spd-1000n-1000va-332717/?text=Powercom+SPD-1000N',
-        2: 'https://www.citilink.ru/product/monitor-igrovoi-samsung-c27g54tqwi-27-chernyi-lc27g54tqwixci-1444512/'
+        2: 'https://www.citilink.ru/product/monitor-igrovoi-samsung-c27g54tqwi-27-chernyi-lc27g54tqwixci-1444512/',
+        3: 'https://www.citilink.ru/product/akkumulyatornyi-fonar-era-pa-602-chernyi-zheltyi-b0031033-1121815/'
         },
     'tag_setting': {
         'price':{'tag': 'span', 'attr': 'class', 'attr_val': 'ProductHeader__price-default_current-price'},
@@ -70,5 +71,5 @@ def pretty_print(dict_output):
             print(first_str)
             print(second_str)
 
-# pretty_print(parser_manager(final_result_output_dict))
+pretty_print(start_parse(final_result_output_dict))
 # count_links_amount(final_result_output_dict)
