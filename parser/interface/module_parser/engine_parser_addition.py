@@ -22,6 +22,7 @@ def clean_text(str_text):
     str_text = " ".join(str_text.split())
     return str_text
 
+'''проблема!: не импортируется!'''
 def change_to_true(usless_t):
     a = True
     return a
@@ -31,7 +32,3 @@ def set_current_date():
     current_date = today.strftime("%d/%m/%Y")
 
     return current_date
-
-def just_print():
-    a = 'links123'
-    print(a)

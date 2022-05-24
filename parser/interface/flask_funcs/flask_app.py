@@ -3,15 +3,17 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 
 import sys
 sys.path.append('../')
-from data_loader import load_pkl_file as load
-from data_loader import save_pkl as save
+# from data_loader import load_pkl_file as load
+# from data_loader import save_pkl as save
 
 from classes import Subject_ver_3, Subjects_category, Model_ver2
 from input_form_classes import Subject_adding_form, Tags_form
 
 from . import app
 
-from back_end_manager import parse_one_link, manual_result_saving
+# from back_end_manager import parse_one_link, manual_result_saving
+
+from main_manager import parse_from_input, parse_from_registered_link
 from engine_data_base import show_list_shops, show_shop_sett, show_few_links_sql, delete_setting, take_post_message
 
 
@@ -59,12 +61,17 @@ def links_sett(some_data):
 # ПАРСИМ 1 НЕИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parser_link_check', methods = ['GET', 'POST'])
 def parse_link():
-    json_message_new = parse_one_link(input_link = request.form['name'])
+    input_link = request.form['name']
+    # json_message_new = parse_one_link(input_link = input_link)
+    json_message_new = parse_from_input([input_link])
+    print(json_message_new)
+
     return json_message_new
 # ПАРСИМ 1 ИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parse_one_links/<net_link_id>')
 def parse_one_links(net_link_id):
-    json_message_new = parse_one_link(input_id = net_link_id)
+    # json_message_new = parse_one_link(input_id = net_link_id)
+    json_message_new = parse_from_registered_link([net_link_id])
     return json_message_new
 # СОХРАНЯЕМ РЕЗУЛТАТЫ ПАРСИНГА
 @app.route('/send_parse_result', methods = ['GET', 'POST'])

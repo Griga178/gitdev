@@ -5,7 +5,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-# from engine_parser_addition import clean_number, clean_text, set_current_date
 from engine_beauty_parser import html_searcher
 
 def run_selenium_parser(settings):
@@ -15,14 +14,24 @@ def run_selenium_parser(settings):
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "eager"
 
+    # proxy = "144.240.187.80:83"
+    # caps["proxy"] = {"httpProxy":proxy,
+    #    "ftpProxy": proxy,
+    #    "sslProxy": proxy,
+    #    "noProxy": None,
+    #    "proxyType":"MANUAL",
+    #    "class":"org.openqa.selenium.Proxy",
+    #    "autodetect": False
+    #   }
+
     binary_yandex_driver_file = 'yandexdriver.exe'
 
     headless_mode = settings['headless_mode']
-
     if not headless_mode:
         options.headless = False
 
     driver = webdriver.Chrome(binary_yandex_driver_file, desired_capabilities = caps, options = options)
+    driver.delete_all_cookies()
     # driver = webdriver.Chrome(desired_capabilities = caps, options = options)
 
     dict_output = {}
@@ -31,6 +40,11 @@ def run_selenium_parser(settings):
         tag_setting = settings['tag_setting']
         try:
             driver.get(link)
+            child_xpath = f'//body[contains(text(), "")]'
+            WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, child_xpath)))
+            # import time
+            # print('sleep 5')
+            # time.sleep(5)
             html_page = driver.page_source
             link_result = html_searcher(tag_setting, html_page)
         except:

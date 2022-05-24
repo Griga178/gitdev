@@ -8,7 +8,7 @@ import engine_parser_addition
 
 
 '''
-from engine_parser_addition import clean_number, clean_text, set_current_date#, change_to_true #
+from engine_parser_addition import clean_number, clean_text #, change_to_true #
 
 def change_to_true(usless_t):
     # ЕСЛИ НАХОДИТ ЭТОТ ТЕГ, ЗНАЧИТ ТОВАРА НЕТ В НАЛИЧИИ
@@ -51,10 +51,12 @@ def html_searcher(tag_setting, for_soup):
 
             else:
                 dict_output[f'current_{type}'] = False
+        else:
+            dict_output[f'current_{type}'] = False
 
-    result_true = True
+    result_true = False
     for result in dict_output:
-        result_true += bool(result)
+        result_true += bool(dict_output[result])
     if result_true:
         return dict_output
     else:
