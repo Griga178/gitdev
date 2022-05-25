@@ -95,22 +95,22 @@ border-bottom-left-radius: 5px;}
   min-height: 300px;
   margin-top: 20px;
 }
-.div_for_tags {
+.form_for_tags {
   box-sizing: border-box;
   border: 1px solid red;
   margin: 5px;
   display: flex;
   font-weight:bold;
 }
-.div_for_tags input{
-  width: 15%;
-}
-.div_for_tags p:first-child{
+.form_for_tags input{
   width: 25%;
 }
-.div_for_tags:hover {
-  background-color: dodgerblue;
+.form_for_tags label{
+  width: 33%;
 }
+/* .form_for_tags:hover {
+  background-color: dodgerblue;
+} */
 .tag_name_sett {
   color: #C71585;
 }
@@ -119,4 +119,42 @@ border-bottom-left-radius: 5px;}
 }
 .value_name_sett {
   color: #0000FF;
+}
+
+.confirm_btn {
+  color: green;
+  /* font-size: 27px; */
+  /* box-shadow: 1px 1px 1px 5px; */
+}
+.cancel_btn {
+  color: gold;
+  /* font-size: 27px; */
+  /* box-shadow: 1px 1px 1px 5px; */
+}
+.delete_btn {
+  color: red;
+  /* font-size: 27px; */
+  /* box-shadow: 1px 1px 1px 5px; */
+}
+.change_btn {
+  color: blue;
+  /* font-size: 27px; */
+  /* box-shadow: 1px 1px 1px 5px; */
+}
+.pct_btn {
+  /* color: grey; */
+  margin: 1px;
+  text-align: center;
+  vertical-align: middle;
+  display: block;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+  height: 28px;
+  width: 28px;
+}
+
+.pct_btn:hover {
+  font-size: 21px;
+  box-shadow: 2px 1px 1px 3px;
 }

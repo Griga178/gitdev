@@ -28,44 +28,39 @@ legend {
   color: blue;
   cursor: pointer;
 }
-.confirm_btn:hover {
+.confirm_btn {
   color: green;
-  font-size: 27px;
-  box-shadow: 2px 1px 2px 2px;
+  /* font-size: 27px; */
+  /* box-shadow: 1px 1px 1px 5px; */
 }
-.cancel_btn:hover {
+.cancel_btn {
   color: gold;
-  font-size: 27px;
-  box-shadow: 2px 1px 2px 2px;
+  /* font-size: 27px; */
+  /* box-shadow: 1px 1px 1px 5px; */
 }
-.delete_btn:hover {
+.delete_btn {
   color: red;
-  font-size: 27px;
-  box-shadow: 2px 1px 2px 2px;
+  /* font-size: 27px; */
+  /* box-shadow: 1px 1px 1px 5px; */
 }
-.change_btn:hover {
+.change_btn {
   color: blue;
-  font-size: 27px;
-  box-shadow: 2px 1px 2px 2px;
+  /* font-size: 27px; */
+  /* box-shadow: 1px 1px 1px 5px; */
 }
 .pct_btn {
-  color: grey;
+  /* color: grey; */
   margin: 1px;
   text-align: center;
   display: block;
   float: right;
   font-size: 26px;
   cursor: pointer;
-  height: 40px;
-  width: 40px;
-
+  height: 30px;
+  width: 30px;
 }
 
-.pct_btn {
-  /* background-color: grey; */
-
-  /* border: solid 1px black; */
+.pct_btn:hover {
+  font-size: 27px;
+  box-shadow: 1px 1px 1px 5px;
 }
-/* .pct_btn:hover::after {
- content: attr(class);
-} */
