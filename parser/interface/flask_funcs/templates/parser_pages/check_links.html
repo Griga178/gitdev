@@ -2,7 +2,9 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='parser_styles.css') }}">
 <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
-<script type=text/javascript src="{{ url_for('static', filename='js/check_link_page.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/parser_page_funcs/common_funcs.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/parser_page_funcs/settings_funcs.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/parser_page_funcs/parser_funcs.js') }}"></script>
 
 <div class="parser_nav_bar">
   <a href="{{url_for('open_parser')}}">Проверка ссылок</a>

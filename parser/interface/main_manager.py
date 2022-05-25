@@ -3,6 +3,7 @@ sys.path.append('module_data_base')
 sys.path.append('module_parser')
 
 from query_for_parser import get_links_by_string_to_parser, get_links_by_id_to_parser, save_parsed_result
+from query_parser_setting import show_shop_sett_2
 from manager_parser import start_parse
 
 import json

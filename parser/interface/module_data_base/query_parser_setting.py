@@ -8,7 +8,7 @@ from sql_models import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
-Base.metadata.bind = engine
+# Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
@@ -46,6 +46,27 @@ def show_shop_sett(shop_id):
         json_dict[settings.tag_type] = show_settings_by_type(shop_id, settings.tag_type)
     json_dict = json.dumps(json_dict)
     return json_dict
+
+'''ЕСТЬ Ф-Я: get_settings_by_shop_id(shop_id) '''
+def show_shop_sett_2(shop_id):
+    data = session.query(Net_shops).filter_by(id = shop_id).one()
+    output_dict = {}
+    output_dict['shop_name'] = data.name
+    output_dict['shop_id'] = data.id
+    output_dict['need_selenium'] = bool(data.need_selenium)
+    # output_dict['headless_mode'] = bool(data.headless_mode)
+    # output_dict['sett_active'] = bool(data.sett_active)
+    output_dict['sett_active'] = True
+    output_dict['headless_mode'] = True
+
+    output_dict['tag_setting'] = {}
+    for settings_data in data.net_link_sett:
+        output_dict['tag_setting'][settings_data.tag_type] = {'tag_name': settings_data.tag_name,
+            'attr_name': settings_data.attr_name,
+            'attr_value': settings_data.attr_value,
+            'tag_id': settings_data.id
+            }
+    return json.dumps(output_dict)
 
 # ВЫВОДИ НАСТРОЙКИ ТЕГОВ ПО ТИПУ
 def show_settings_by_type(shop_id, tag_type):

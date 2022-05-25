@@ -13,7 +13,7 @@ from . import app
 
 # from back_end_manager import parse_one_link, manual_result_saving
 
-from main_manager import parse_from_input, parse_from_registered_link
+from main_manager import parse_from_input, parse_from_registered_link, show_shop_sett_2
 from engine_data_base import show_list_shops, show_shop_sett, show_few_links_sql, delete_setting, take_post_message
 
 
@@ -53,40 +53,35 @@ def open_parser():
 def print_links_base():
     dict_m_p = show_list_shops()
     return dict_m_p
-# СМОТРИМ НАСТРОЙКИ ТЕГОВ
-@app.route('/links_sett/<some_data>')
-def links_sett(some_data):
-    dict_m_p = show_shop_sett(some_data)
-    return dict_m_p
 # ПАРСИМ 1 НЕИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parser_link_check', methods = ['GET', 'POST'])
 def parse_link():
     input_link = request.form['name']
-    # json_message_new = parse_one_link(input_link = input_link)
     json_message_new = parse_from_input([input_link])
-    print(json_message_new)
-
     return json_message_new
 # ПАРСИМ 1 ИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parse_one_links/<net_link_id>')
 def parse_one_links(net_link_id):
-    # json_message_new = parse_one_link(input_id = net_link_id)
     json_message_new = parse_from_registered_link([net_link_id])
     return json_message_new
 # СОХРАНЯЕМ РЕЗУЛТАТЫ ПАРСИНГА
 @app.route('/send_parse_result', methods = ['GET', 'POST'])
 def send_parse_resalt():
     if request.method == "POST":
-        print("Сохранеяем")
         dict_to_db = request.form.to_dict()
         save_result = manual_result_saving(dict_to_db)
         return save_result
 
+# СМОТРИМ НАСТРОЙКИ ТЕГОВ
+@app.route('/links_sett/<some_data>')
+def links_sett(some_data):
+    dict_m_p = show_shop_sett_2(some_data)
+    # dict_m_p = show_shop_sett(some_data)
+    return dict_m_p
 @app.route('/save_sett/<string_data>', methods = ['GET', 'POST'])
 def save_sett(string_data):
     py_response = take_post_message(string_data)
     return py_response
-
 @app.route('/del_sett/<string_data>', methods=['GET', 'POST'])
 def del_sett(string_data):
     py_response = delete_setting(string_data)

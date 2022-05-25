@@ -17,7 +17,7 @@ from sql_models import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
-Base.metadata.bind = engine
+# Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
