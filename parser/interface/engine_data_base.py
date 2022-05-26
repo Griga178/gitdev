@@ -12,92 +12,92 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
-# ВЫВОД СПИСКА МАГАЗИНОВ
-def show_list_shops():
-    ''' Возвращает:
-        {1:{"shop_name":"www.onlinetrade.ru",
-            "price":True, "name":True},
-        2:{...},...}'''
-    main_page_list = session.query(Net_shops).all()
-    output_dict = {}
-    tags_types = ['price', 'name', 'chars']
-    for row in main_page_list:
-        output_dict[row.id] = {}
-        output_dict[row.id]['shop_name'] = row.name
-        settings_rows = row.net_link_sett
-        if settings_rows:
-            for sett_row in settings_rows:
-                if sett_row.tag_type in tags_types:
-                    output_dict[row.id][sett_row.tag_type] = True
-    json_dict = json.dumps(output_dict)
-    return json_dict
+# # ВЫВОД СПИСКА МАГАЗИНОВ
+# def show_list_shops():
+#     ''' Возвращает:
+#         {1:{"shop_name":"www.onlinetrade.ru",
+#             "price":True, "name":True},
+#         2:{...},...}'''
+#     main_page_list = session.query(Net_shops).all()
+#     output_dict = {}
+#     tags_types = ['price', 'name', 'chars']
+#     for row in main_page_list:
+#         output_dict[row.id] = {}
+#         output_dict[row.id]['shop_name'] = row.name
+#         settings_rows = row.net_link_sett
+#         if settings_rows:
+#             for sett_row in settings_rows:
+#                 if sett_row.tag_type in tags_types:
+#                     output_dict[row.id][sett_row.tag_type] = True
+#     json_dict = json.dumps(output_dict)
+#     return json_dict
 
-def define_main_page(link):
-    '''
-    Определение главной страницы из строки
-    '''
-    if type(link) == str:
-        split_list = link.split("/")
-        h_protocol = split_list[0]
-        try:
-            main_page = split_list[2]
-        except:
-            main_page = ''
-        if 'http' or 'ftp' in h_protocol:
-            return main_page
-        else:
-            print('ERROR: не похоже на ссылку')
-            return False
-    else:
-        print('ERROR: ссылка не в формате строки')
-        return False
+# def define_main_page(link):
+#     '''
+#     Определение главной страницы из строки
+#     '''
+#     if type(link) == str:
+#         split_list = link.split("/")
+#         h_protocol = split_list[0]
+#         try:
+#             main_page = split_list[2]
+#         except:
+#             main_page = ''
+#         if 'http' or 'ftp' in h_protocol:
+#             return main_page
+#         else:
+#             print('ERROR: не похоже на ссылку')
+#             return False
+#     else:
+#         print('ERROR: ссылка не в формате строки')
+#         return False
+#
+# def check_links_in_db(link = False, link_id = False):
+#     ''' Проверка есть ли ссылка в БД'''
+#     result_dict = {}
+#     try:
+#         if link:
+#             link_from_bd = session.query(Net_links).filter_by(http_link = link).one()
+#         elif link_id:
+#             link_from_bd = session.query(Net_links).filter_by(id = link_id).one()
+#
+#         result_dict['link_id'] = link_from_bd.id
+#         result_dict['link'] = link_from_bd.http_link
+#         result_dict['shop_id'] = link_from_bd.id_main_page
+#         result_dict['shop_name'] = link_from_bd.net_shops.name
+#         # result_dict['current_price'] = link_from_bd.current_price
+#         # result_dict['current_name'] = link_from_bd.current_name
+#         # result_dict['current_date'] = link_from_bd.current_date
+#         result_dict['need_selenium'] = True #link_from_bd.net_shops.need_selenium
+#
+#         return result_dict
+#     except NoResultFound:
+#         return False
 
-def check_links_in_db(link = False, link_id = False):
-    ''' Проверка есть ли ссылка в БД'''
-    result_dict = {}
-    try:
-        if link:
-            link_from_bd = session.query(Net_links).filter_by(http_link = link).one()
-        elif link_id:
-            link_from_bd = session.query(Net_links).filter_by(id = link_id).one()
+# def check_main_page_in_db(main_page):
+#     ''' Проверка есть ли Сайт в БД - нет: создать'''
+#     try:
+#         main_page_from_bd = session.query(Net_shops).filter_by(name = main_page).one()
+#         result = main_page_from_bd.id
+#     except NoResultFound:
+#         new_main_page = Net_shops(name = main_page) #need_selenium = True
+#         session.add(new_main_page)
+#         session.commit()
+#         search_result = session.query(Net_shops).filter_by(name = main_page).one()
+#         result = search_result.id
+#     return result
 
-        result_dict['link_id'] = link_from_bd.id
-        result_dict['link'] = link_from_bd.http_link
-        result_dict['shop_id'] = link_from_bd.id_main_page
-        result_dict['shop_name'] = link_from_bd.net_shops.name
-        # result_dict['current_price'] = link_from_bd.current_price
-        # result_dict['current_name'] = link_from_bd.current_name
-        # result_dict['current_date'] = link_from_bd.current_date
-        result_dict['need_selenium'] = True #link_from_bd.net_shops.need_selenium
-
-        return result_dict
-    except NoResultFound:
-        return False
-
-def check_main_page_in_db(main_page):
-    ''' Проверка есть ли Сайт в БД - нет: создать'''
-    try:
-        main_page_from_bd = session.query(Net_shops).filter_by(name = main_page).one()
-        result = main_page_from_bd.id
-    except NoResultFound:
-        new_main_page = Net_shops(name = main_page) #need_selenium = True
-        session.add(new_main_page)
-        session.commit()
-        search_result = session.query(Net_shops).filter_by(name = main_page).one()
-        result = search_result.id
-    return result
-
-def add_new_link_to_db(link):
-    '''Добавляем ссылку в БД, если нет главной страницы,
-    то добавляем и ее - так же связываем'''
-    main_page = define_main_page(link)
-    main_page_id = check_main_page_in_db(main_page)
-    cur_data = Net_links(id_main_page = main_page_id, http_link = link)
-    session.add(cur_data)
-    session.commit()
-    registred_link = session.query(Net_links).filter_by(http_link = link).one()
-    link_id = registred_link.id
-    return link_id
+# def add_new_link_to_db(link):
+#     '''Добавляем ссылку в БД, если нет главной страницы,
+#     то добавляем и ее - так же связываем'''
+#     main_page = define_main_page(link)
+#     main_page_id = check_main_page_in_db(main_page)
+#     cur_data = Net_links(id_main_page = main_page_id, http_link = link)
+#     session.add(cur_data)
+#     session.commit()
+#     registred_link = session.query(Net_links).filter_by(http_link = link).one()
+#     link_id = registred_link.id
+#     return link_id
 
 def check_sett_to_parse(result_dict):
 
@@ -165,7 +165,9 @@ def delete_setting(string_data):
 
 # Меняем текущие настройки
 def take_post_message(string_data):
-    py_dict_data = json.loads(string_data)
+    # py_dict_data = json.loads(string_data)
+    py_dict_data = string_data
+    print(py_dict_data)
     if py_dict_data["tag_id"]:
         # Меняем старые настройки
         answer = change_current_settings(py_dict_data)
@@ -179,7 +181,7 @@ def change_current_settings(js_dict):
     'tag_name': js_dict['tag_name'],
     'attr_name': js_dict['attr_name'],
     'attr_value': js_dict['attr_val'],
-    'sett_active': js_dict['tag_status']
+    # 'sett_active': js_dict['tag_status']
     })
     session.commit()
     answer = show_settings_by_type(js_dict['shop_id'], js_dict['tag_type'])
@@ -193,7 +195,7 @@ def create_settings(js_dict):
     tag_name = js_dict['tag_name'],
     attr_name = js_dict['attr_name'],
     attr_value = js_dict['attr_val'],
-    sett_active = js_dict['tag_status']
+    # sett_active = js_dict['tag_status']
     )
     session.add(cur_data)
     session.commit()

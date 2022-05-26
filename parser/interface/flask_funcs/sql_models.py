@@ -47,6 +47,8 @@ class Net_shops(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
     need_selenium = Column(Integer)
+    headless_mode = Column(Integer)
+    sett_active = Column(Integer)
     shop_type = Column(String)
     net_link = relationship("Net_links", backref = 'net_shops')
     net_link_sett = relationship("Shops_sett", backref = 'net_shops')

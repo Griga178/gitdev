@@ -1,20 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, json
 
-
 import sys
 sys.path.append('../')
-# from data_loader import load_pkl_file as load
-# from data_loader import save_pkl as save
 
 from classes import Subject_ver_3, Subjects_category, Model_ver2
 from input_form_classes import Subject_adding_form, Tags_form
 
 from . import app
 
-# from back_end_manager import parse_one_link, manual_result_saving
-
 from main_manager import parse_from_input, parse_from_registered_link, show_shop_sett_2
-from engine_data_base import show_list_shops, show_shop_sett, show_few_links_sql, delete_setting, take_post_message
+from main_manager import show_few_links_sql, show_list_shops
+
+from engine_data_base import show_shop_sett, delete_setting, take_post_message
 
 
 
@@ -65,23 +62,25 @@ def parse_one_links(net_link_id):
     json_message_new = parse_from_registered_link([net_link_id])
     return json_message_new
 # СОХРАНЯЕМ РЕЗУЛТАТЫ ПАРСИНГА
-@app.route('/send_parse_result', methods = ['GET', 'POST'])
-def send_parse_resalt():
-    if request.method == "POST":
-        dict_to_db = request.form.to_dict()
-        save_result = manual_result_saving(dict_to_db)
-        return save_result
+# @app.route('/send_parse_result', methods = ['GET', 'POST'])
+# def send_parse_resalt():
+#     if request.method == "POST":
+#         dict_to_db = request.form.to_dict()
+#         save_result = manual_result_saving(dict_to_db)
+#         return save_result
 
-# СМОТРИМ НАСТРОЙКИ ТЕГОВ
-@app.route('/links_sett/<some_data>')
+# СМОТРИМ НАСТРОЙКИ МАГАЗИНА
+@app.route('/show_shop_settings/<some_data>')
 def links_sett(some_data):
     dict_m_p = show_shop_sett_2(some_data)
     # dict_m_p = show_shop_sett(some_data)
     return dict_m_p
-@app.route('/save_sett/<string_data>', methods = ['GET', 'POST'])
-def save_sett(string_data):
-    py_response = take_post_message(string_data)
-    return py_response
+@app.route('/save_sett', methods = ['GET', 'POST'])
+def save_sett():
+    dict_to_db = request.get_json()
+    save_result = take_post_message(dict_to_db)
+    return save_result
+
 @app.route('/del_sett/<string_data>', methods=['GET', 'POST'])
 def del_sett(string_data):
     py_response = delete_setting(string_data)
