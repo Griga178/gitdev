@@ -2,17 +2,40 @@ import sys
 sys.path.append('module_data_base')
 sys.path.append('module_parser')
 
-from query_common import show_list_shops, show_few_links_sql
+from query_common import select_all_shops_with_tag
 from query_for_parser import get_links_by_string_to_parser, get_links_by_id_to_parser, save_parsed_result
-from query_parser_setting import show_shop_sett_2
-from manager_parser import start_parse
+# from query_parser_setting import show_shop_sett_2
 
+from manager_parser import start_parse
 
 import json
 
 
-# ФУНКЦИИ ДЛЯ ПАРСЕРА
+# СТАРТ СТРАНИЦЫ
+def get_shop_list():
+    select_query = select_all_shops_with_tag()
+    json_result = json.dumps(select_query)
+    return json_result
 
+# НАСТРОЙКА МАГАЗИНОВ
+def get_shop_setting(shop_id):
+    select_query = select_all_shops_with_tag(shop_id)
+    json_result = json.dumps(select_query)
+    return json_result
+
+def get_setting_by_id(set_id):
+    pass
+
+def delete_set_by_id(set_id):
+    pass
+
+def save_new_setting(setting_dict):
+    pass
+
+def change_setting(setting_dict):
+    pass
+
+# ФУНКЦИИ ДЛЯ ПАРСЕРА
 def parse_from_input(input_info):
 
     dict_to_parse = get_links_by_string_to_parser(input_info)

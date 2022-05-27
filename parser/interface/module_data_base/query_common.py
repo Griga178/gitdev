@@ -8,29 +8,19 @@ from sql_models import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
+''' https://ploshadka.net/sqlalchemy-kak-poluchit-dannye-v-vide-spiska-slovarejj/ '''
 # Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
 # ВЫВОД СПИСКА МАГАЗИНОВ
-def show_list_shops():
-    ''' Возвращает:
-        {1:{"shop_name":"www.onlinetrade.ru",
-            "price":True, "name":True},
-        2:{...},...}'''
-    main_page_list = session.query(Net_shops).all()
-    output_dict = {}
-    tags_types = ['price', 'name', 'chars']
-    for row in main_page_list:
-        output_dict[row.id] = {}
-        output_dict[row.id]['shop_name'] = row.name
-        settings_rows = row.net_link_sett
-        if settings_rows:
-            for sett_row in settings_rows:
-                if sett_row.tag_type in tags_types:
-                    output_dict[row.id][sett_row.tag_type] = True
-    json_dict = json.dumps(output_dict)
-    return json_dict
+def select_all_shops_with_tag(shop_id = False):
+    if shop_id:
+        query_result = session.query(Net_shops).filter_by(id = shop_id).one().full_shop_tags
+    else:
+        query_result = [shop_row.full_shop_tags for shop_row in session.query(Net_shops).all()]
+    return query_result
+
 
 # показать 3 ссылки
 def show_few_links_sql(shop_id):

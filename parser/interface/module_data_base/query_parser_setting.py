@@ -12,20 +12,6 @@ from sqlalchemy.orm.exc import NoResultFound
 DBSession = sessionmaker(bind = engine)
 session = DBSession()
 
-# СМОТРИМ НАСТРОЙКИ ТЕГОВ
-def show_shop_sett(shop_id):
-    data = session.query(Net_shops).filter_by(id = shop_id).one()
-    json_dict = {}
-    json_dict['shop_name'] = data.name
-    # json_dict['shop_id'] = shop_id
-    json_dict['price'] = {'tag_type': "price", 'rus_tag': "Цена", 'shop_id': shop_id, 'tag_id': False, 'tag_name': "", 'attr_name': "", 'attr_val': ""}
-    json_dict['name'] = {'tag_type': "name", 'rus_tag': "Название", 'shop_id': shop_id, 'tag_id': False, 'tag_name': "", 'attr_name': "", 'attr_val': ""}
-    json_dict['chars'] = {'tag_type': "chars", 'rus_tag': "Характеристика", 'shop_id': shop_id, 'tag_id': False, 'tag_name': "", 'attr_name': "", 'attr_val': ""}
-    json_dict['use_selenium'] = True #data.selenium_used
-    for settings in data.net_link_sett:
-        json_dict[settings.tag_type] = show_settings_by_type(shop_id, settings.tag_type)
-    json_dict = json.dumps(json_dict)
-    return json_dict
 
 '''ЕСТЬ Ф-Я: get_settings_by_shop_id(shop_id) '''
 def show_shop_sett_2(shop_id):
@@ -106,3 +92,12 @@ def create_settings(js_dict):
     answer = show_settings_by_type(js_dict['shop_id'], js_dict['tag_type'])
     json_answer = json.dumps(answer)
     return json_answer
+
+
+def select_tag_set_by_id(tag_id):
+    query_result = session.query(Shops_sett).filter_by(id = tag_id).one().setting_info
+    return json.dumps(query_result)
+
+def select_shop_by_id(shop_id):
+    query_result = session.query(Net_shops).filter_by(id = shop_id).one().shop_info
+    return json.dumps(query_result)

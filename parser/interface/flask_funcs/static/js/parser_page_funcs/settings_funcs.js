@@ -1,6 +1,6 @@
 function draw_settings(shop_id){
   $.ajax({
-    url: `/show_shop_settings/${shop_id}`,
+    url: `/get_shop_setting/${shop_id}`,
     type: 'GET',
     beforeSend: function() {
       set_main_page.innerHTML = "Загрузка..."
@@ -80,6 +80,7 @@ function draw_input_tag(obj_set, form_block) {
 
   form_block.appendChild(final_row)
 }
+
 function draw_input_checkbox(obj_type, form_block) {
   let input_checkbox = document.createElement("input")
   input_checkbox.setAttribute("type", "checkbox");
@@ -97,6 +98,17 @@ function draw_save_checkbox (obj_set, tag_id, final_row) {
   final_row.appendChild(save_btn)
 }
 
+function save_checkbox_setting(form_id, tag_type) {
+  let shop_id_value = set_main_page.firstChild.id
+  let dict_out = {
+    "shop_id": shop_id_value,
+    "tag_type": tag_type,
+  }
+  json_dict_out = JSON.stringify(dict_out)
+  alert(json_dict_out)
+  // send_checkbox_value_to_db(json_dict_out)
+}
+
 function draw_save_buttons (obj_set, tag_id, final_row) {
   let save_btn = document.createElement("span")
   save_btn.setAttribute("class", "confirm_btn pct_btn");
@@ -104,16 +116,6 @@ function draw_save_buttons (obj_set, tag_id, final_row) {
   save_btn.setAttribute("onclick", `save_sett_changing('${obj_set?obj_set['tag_id']:''}', "${tag_id}")`);
   save_btn.innerHTML = "&#10004;"
   final_row.appendChild(save_btn)
-}
-
-function save_checkbox_setting(form_id) {
-  let shop_id_value = set_main_page.firstChild.id
-  let changing_form = document.getElementById(form_id);
-  let dict_out = {
-    "shop_id": changing_form,
-    "tag_type": shop_id_value,
-  }
-  alert(JSON.stringify(dict_out))
 }
 
 function save_sett_changing (data, form_id) {

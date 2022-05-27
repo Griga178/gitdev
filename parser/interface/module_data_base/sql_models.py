@@ -40,7 +40,7 @@ class Shops_sett(Base):
     attr_name = Column(Text)
     attr_value = Column(Text)
     sett_active = Column(Integer)
-    
+
     @property
     def order_by_type(self):
         return {self.tag_type: {
@@ -72,6 +72,31 @@ class Net_shops(Base):
     shop_type = Column(String)
     net_link = relationship("Net_links", backref = 'net_shops')
     net_link_sett = relationship("Shops_sett", backref = 'net_shops')
+
+    @property
+    def full_shop_tags(self):
+        tag_setting = {}
+        [tag_setting.update(row.order_by_type) for row in self.net_link_sett]
+        output_dict = {
+            'shop_id': self.id,
+            'shop_name': self.name,
+            'need_selenium': bool(self.need_selenium),
+            'headless_mode': bool(self.headless_mode),
+            'sett_active': bool(self.sett_active),
+            'tag_setting': tag_setting
+            }
+        return output_dict
+
+    @property
+    def shop_info(self):
+        output_dict = {
+            'shop_id': self.id,
+            'shop_name': self.name,
+            'need_selenium': bool(self.need_selenium),
+            'headless_mode': bool(self.headless_mode),
+            'sett_active': bool(self.sett_active),
+            }
+        return output_dict
 
 class KKNs_list(Base):
     """Тут хранятся названия ККН-ов"""

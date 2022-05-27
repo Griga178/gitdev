@@ -8,10 +8,13 @@ from input_form_classes import Subject_adding_form, Tags_form
 
 from . import app
 
-from main_manager import parse_from_input, parse_from_registered_link, show_shop_sett_2
-from main_manager import show_few_links_sql, show_list_shops
+from main_manager import parse_from_input, parse_from_registered_link
 
-from engine_data_base import show_shop_sett, delete_setting, take_post_message
+from main_manager import get_shop_list
+from main_manager import get_shop_setting
+from main_manager import get_setting_by_id, delete_set_by_id, save_new_setting, change_setting
+
+from engine_data_base import delete_setting, take_post_message
 
 
 
@@ -38,18 +41,16 @@ def get_len():
 
 
 # """ - - - ПАРСЕР - - -"""
-
-# цена, название предмета, характеристики, статус
-# список отпарсенных ссылок - скачать csv
-# Отображение всех отпрсенных сайтов - главная страница # пагинация
 @app.route('/parser')
 def open_parser():
     return render_template('parser_pages/check_links.html')
+
 # ВЫВОД СПИСКА МАГАЗИНОВ
 @app.route('/print_links_base')
 def print_links_base():
-    dict_m_p = show_list_shops()
-    return dict_m_p
+    shop_list = get_shop_list()
+    return shop_list
+
 # ПАРСИМ 1 НЕИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parser_link_check', methods = ['GET', 'POST'])
 def parse_link():
@@ -61,20 +62,13 @@ def parse_link():
 def parse_one_links(net_link_id):
     json_message_new = parse_from_registered_link([net_link_id])
     return json_message_new
-# СОХРАНЯЕМ РЕЗУЛТАТЫ ПАРСИНГА
-# @app.route('/send_parse_result', methods = ['GET', 'POST'])
-# def send_parse_resalt():
-#     if request.method == "POST":
-#         dict_to_db = request.form.to_dict()
-#         save_result = manual_result_saving(dict_to_db)
-#         return save_result
 
 # СМОТРИМ НАСТРОЙКИ МАГАЗИНА
-@app.route('/show_shop_settings/<some_data>')
-def links_sett(some_data):
-    dict_m_p = show_shop_sett_2(some_data)
-    # dict_m_p = show_shop_sett(some_data)
-    return dict_m_p
+@app.route('/get_shop_setting/<shop_id>')
+def links_sett(shop_id):
+    shop_setting = get_shop_setting(shop_id)
+    return shop_setting
+
 @app.route('/save_sett', methods = ['GET', 'POST'])
 def save_sett():
     dict_to_db = request.get_json()

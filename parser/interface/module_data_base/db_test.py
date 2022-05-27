@@ -1,5 +1,7 @@
 from query_for_parser import save_parsed_result
-from query_parser_setting import show_shop_sett_2
+from query_parser_setting import show_shop_sett_2, select_shop_by_id, select_tag_set_by_id
+
+from query_common import select_all_shops_with_tag
 
 cr_res = {1:
             {1:
@@ -26,5 +28,12 @@ cr_res = {1:
 "current_price": 889.0,
 "current_name": "\u041b\u0435\u043d\u0442\u0430 \u0441\u0432\u0435\u0442\u043e\u0434\u0438\u043e\u0434\u043d\u0430\u044f YEELIGHT LED Lightstrip Extension [ylot01yl]"}
 
-test = show_shop_sett_2(3)
-print(test)
+# test_data = select_all_shops_with_tag(1)
+# test_data = select_shop_by_id(1)
+# test_data = select_tag_set_by_id(13)
+#
+# if type(test_data) == list:
+#     for el in test_data:
+#         print(el)
+# else:
+#     print(test_data)
