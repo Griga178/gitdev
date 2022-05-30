@@ -1,7 +1,7 @@
 // стартовые функции
 function draw_shops_list() {
   $.ajax({
-    url: "/print_links_base",
+    url: "/select_shops",
     type: 'GET',
     beforeSend: function() {
       let before_message = document.createElement('h3')
@@ -12,7 +12,7 @@ function draw_shops_list() {
     success: function(json_dict) {
       $('#temp_message').hide()
       let java_dict = jQuery.parseJSON(json_dict);
-      
+
       draw_shop_rows(java_dict)
     }
   });

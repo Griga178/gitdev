@@ -4,7 +4,7 @@ sys.path.append('module_parser')
 
 from query_common import select_all_shops_with_tag
 from query_for_parser import get_links_by_string_to_parser, get_links_by_id_to_parser, save_parsed_result
-# from query_parser_setting import show_shop_sett_2
+from query_parser_setting import insert_to_tags_settings, delete_set_by_id, update_shop_setting
 
 from manager_parser import start_parse
 
@@ -26,14 +26,17 @@ def get_shop_setting(shop_id):
 def get_setting_by_id(set_id):
     pass
 
-def delete_set_by_id(set_id):
-    pass
+# def delete_set_by_id(set_id):
+#     pass
+def save_shop_setting(setting_dict):
+    update_shop_setting(setting_dict)
 
-def save_new_setting(setting_dict):
-    pass
+def update_tag_setting(setting_dict):
+    # insert + update
+    insert_query = insert_to_tags_settings(setting_dict)
+    json_result = json.dumps(insert_query)
+    return json_result
 
-def change_setting(setting_dict):
-    pass
 
 # ФУНКЦИИ ДЛЯ ПАРСЕРА
 def parse_from_input(input_info):

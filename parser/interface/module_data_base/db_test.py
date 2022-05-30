@@ -37,3 +37,29 @@ cr_res = {1:
 #         print(el)
 # else:
 #     print(test_data)
+from query_parser_setting import insert_to_shops_setts
+
+# my_data = {'shop_id': '1',
+#     'tag_type': 'chars',
+#     'tag_name': 'test',
+#     'attr_name': 'trest',
+#     'attr_val': 'test2',
+#     'tag_id': False}
+
+my_data = {'id_main_page': '1',
+    'tag_type': 'chars',
+    'tag_name': 'test3',
+    'attr_name': 'test3',
+    'attr_value': 'test3',
+    'id': False}
+
+my_data2 = {'id_main_page': '1',
+    'tag_type': 'chars',
+    'tag_name': 'test3',
+    'attr_name': 'test3',
+    'attr_value': 'test3',
+    'id': 78}
+
+a = insert_to_shops_setts(my_data)
+
+print(a.setting_info)

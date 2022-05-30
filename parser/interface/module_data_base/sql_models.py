@@ -40,7 +40,7 @@ class Shops_sett(Base):
     attr_name = Column(Text)
     attr_value = Column(Text)
     sett_active = Column(Integer)
-
+    
     @property
     def order_by_type(self):
         return {self.tag_type: {

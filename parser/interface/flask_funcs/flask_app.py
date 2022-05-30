@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 import sys
 sys.path.append('../')
 
-from classes import Subject_ver_3, Subjects_category, Model_ver2
+# from classes import Subject_ver_3, Subjects_category, Model_ver2
 from input_form_classes import Subject_adding_form, Tags_form
 
 from . import app
@@ -12,23 +12,9 @@ from main_manager import parse_from_input, parse_from_registered_link
 
 from main_manager import get_shop_list
 from main_manager import get_shop_setting
-from main_manager import get_setting_by_id, delete_set_by_id, save_new_setting, change_setting
+from main_manager import get_setting_by_id, delete_set_by_id, update_tag_setting, save_shop_setting
 
-from engine_data_base import delete_setting, take_post_message
-
-
-
-pickle_file_name = 'Models_Subjects_dict'
-
-def chose_model_example_by_name(name):
-    search_model_example = False
-    data = load(pickle_file_name)
-    model_example_list = data['Models']
-    for model_example in model_example_list:
-        if model_example.name == name:
-            search_model_example = model_example
-            break
-    return search_model_example
+# from engine_data_base import delete_setting, take_post_message
 
 @app.route('/', methods = ('GET', 'POST'))
 def index():
@@ -40,13 +26,12 @@ def get_len():
     return json.dumps({'len': len(name)})
 
 
-# """ - - - ПАРСЕР - - -"""
+# """ - * - * - * - * - * - * - * - * - * - * - * - * - ПАРСЕР - * - * - * - * - * - * - * - * - * - * - * - * -"""
 @app.route('/parser')
 def open_parser():
     return render_template('parser_pages/check_links.html')
 
-# ВЫВОД СПИСКА МАГАЗИНОВ
-@app.route('/print_links_base')
+@app.route('/select_shops')
 def print_links_base():
     shop_list = get_shop_list()
     return shop_list
@@ -57,28 +42,35 @@ def parse_link():
     input_link = request.form['name']
     json_message_new = parse_from_input([input_link])
     return json_message_new
+
 # ПАРСИМ 1 ИЗВЕСТНУЮ ССЫЛКУ
 @app.route('/parse_one_links/<net_link_id>')
 def parse_one_links(net_link_id):
     json_message_new = parse_from_registered_link([net_link_id])
     return json_message_new
 
-# СМОТРИМ НАСТРОЙКИ МАГАЗИНА
 @app.route('/get_shop_setting/<shop_id>')
 def links_sett(shop_id):
     shop_setting = get_shop_setting(shop_id)
     return shop_setting
 
-@app.route('/save_sett', methods = ['GET', 'POST'])
+@app.route('/save_tag_setting', methods = ['GET', 'POST'])
 def save_sett():
     dict_to_db = request.get_json()
-    save_result = take_post_message(dict_to_db)
+    save_result = update_tag_setting(dict_to_db)
     return save_result
 
-@app.route('/del_sett/<string_data>', methods=['GET', 'POST'])
-def del_sett(string_data):
-    py_response = delete_setting(string_data)
-    return py_response
+@app.route('/save_shop_setting', methods = ['GET', 'POST'])
+def take_shop_setting():
+    dict_to_db = request.get_json()
+    print(dict_to_db)
+    save_shop_setting(dict_to_db)
+    return 'success'
+
+@app.route('/del_sett/<setting_id>', methods = ['GET', 'POST'])
+def del_sett(setting_id):
+    py_response = delete_set_by_id(setting_id)
+    return 'success'
 
 # ПАРСИМ ФАЙЛ С СЫЛКАМИ
 @app.route('/file_parser', methods=['GET', 'POST'])
@@ -90,8 +82,7 @@ def show_few_links(shop_id):
     links_dict = show_few_links_sql(shop_id)
     return links_dict
 
-# """ - - - БАЗЫ ДАННЫХ - - -"""
-
+# """ - * - * - * - * - * - * - * - * - * - * - * - * - БАЗЫ ДАННЫХ - * - * - * - * - * - * - * - * - * - * - * - * -"""
 @app.route('/data', methods = ('GET', 'POST'))
 def manage_data():
     return render_template('data_base.html')

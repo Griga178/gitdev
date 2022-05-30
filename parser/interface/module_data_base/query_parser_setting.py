@@ -101,3 +101,29 @@ def select_tag_set_by_id(tag_id):
 def select_shop_by_id(shop_id):
     query_result = session.query(Net_shops).filter_by(id = shop_id).one().shop_info
     return json.dumps(query_result)
+
+def insert_to_tags_settings(js_dict):
+    if js_dict['id']:
+        current_query = session.query(Shops_sett).filter_by(id = js_dict['id']).update(js_dict)
+        session.commit()
+        current_query = session.query(Shops_sett).filter_by(id = js_dict['id']).one()
+    else:
+        current_query = Shops_sett(
+            id_main_page = js_dict['id_main_page'],
+            tag_type = js_dict['tag_type'],
+            tag_name = js_dict['tag_name'],
+            attr_name = js_dict['attr_name'],
+            attr_value = js_dict['attr_value'],
+        )
+        session.add(current_query)
+        session.commit()
+    return current_query.setting_info
+
+def delete_set_by_id(tag_id):
+    id_of_del = session.query(Shops_sett).filter_by(id = tag_id).one()
+    session.delete(id_of_del)
+    session.commit()
+
+def update_shop_setting(dict_setting):
+    current_query = session.query(Net_shops).filter_by(id = dict_setting['id']).update(dict_setting)
+    session.commit()
