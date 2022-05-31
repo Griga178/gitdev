@@ -18,6 +18,7 @@ class Net_links(Base):
     id_model = Column(Integer, ForeignKey('models.id'))
     id_main_page = Column(Integer, ForeignKey('net_shops.id'))
     kkn_id = Column(Integer, ForeignKey('kkns_list.id'))
+    kkns = relationship("Kkn_link", backref = 'net_links')
     net_link = relationship("Parsed_net_links", backref = 'net_links')
 
 class Parsed_net_links(Base):
@@ -40,7 +41,7 @@ class Shops_sett(Base):
     attr_name = Column(Text)
     attr_value = Column(Text)
     sett_active = Column(Integer)
-    
+
     @property
     def order_by_type(self):
         return {self.tag_type: {
@@ -79,6 +80,7 @@ class KKNs_list(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
     links_id = relationship("Net_links", backref = 'kkns_list')
+    links = relationship("Kkn_link", backref = 'kkns_list')
 
 class Models(Base):
     """Модели товаров"""
@@ -95,5 +97,11 @@ class Subject(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
     objects = relationship("Models", backref ='subjects')
+
+class Kkn_link(Base):
+    __tablename__ = 'kkn_link'
+    id = Column(Integer, primary_key=True)
+    kkn_id =  Column(Integer(), ForeignKey("kkns_list.id"), nullable = False)
+    link_id =  Column(Integer(), ForeignKey("net_links.id"), nullable = False)
 
 Base.metadata.create_all(engine)

@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, json
+from flask import render_template, request, redirect, url_for, flash, json
+from werkzeug.utils import secure_filename
+import os
 
-import sys
-sys.path.append('../')
+# import sys
+# sys.path.append('../')
 
-# from classes import Subject_ver_3, Subjects_category, Model_ver2
-from input_form_classes import Subject_adding_form, Tags_form
+# from . import input_form_classes
+# from input_form_classes import Subject_adding_form
 
 from . import app
 
@@ -20,16 +22,16 @@ from main_manager import get_setting_by_id, delete_set_by_id, update_tag_setting
 def index():
     return render_template('main.html')
 
-@app.route('/get_len', methods=['GET', 'POST'])
-def get_len():
-    name = request.form['name'];
-    return json.dumps({'len': len(name)})
+# @app.route('/get_len', methods=['GET', 'POST'])
+# def get_len():
+#     name = request.form['name'];
+#     return json.dumps({'len': len(name)})
 
 
 # """ - * - * - * - * - * - * - * - * - * - * - * - * - ПАРСЕР - * - * - * - * - * - * - * - * - * - * - * - * -"""
 @app.route('/parser')
 def open_parser():
-    return render_template('parser_pages/check_links.html')
+    return render_template('check_links.html')
 
 @app.route('/select_shops')
 def print_links_base():
@@ -72,15 +74,31 @@ def del_sett(setting_id):
     py_response = delete_set_by_id(setting_id)
     return 'success'
 
-# ПАРСИМ ФАЙЛ С СЫЛКАМИ
-@app.route('/file_parser', methods=['GET', 'POST'])
-def file_parser():
-    return render_template('parser_pages/file_parser.html')
-
 @app.route('/show_few_links/<shop_id>')
 def show_few_links(shop_id):
     links_dict = show_few_links_sql(shop_id)
     return links_dict
+
+# """ - * - * - * - * - * - * - * - * - * - * - * - * - Загрузка файлов - * - * - * - * - * - * - * - * - * - * - * - * -"""
+@app.route('/file_loader', methods = ['GET', 'POST'])
+def file_loader():
+    return render_template('file_parser.html')
+
+@app.route('/load_file', methods = ['GET', 'POST'])
+def load_file():
+    file = request.files.get('file')
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+
+    # print(filename)
+
+@app.route('/show_content', methods = ['GET', 'POST'])
+def show_content():
+    pass
+
+@app.route('/parse_file', methods = ['GET', 'POST'])
+def parse_file():
+    pass
 
 # """ - * - * - * - * - * - * - * - * - * - * - * - * - БАЗЫ ДАННЫХ - * - * - * - * - * - * - * - * - * - * - * - * -"""
 @app.route('/data', methods = ('GET', 'POST'))
@@ -188,17 +206,17 @@ def model_information(model_str_name):
 
 @app.route('/settings', methods = ('GET', 'POST'))
 def set_all():
-    form = Subject_adding_form()
-
-    if form.validate_on_submit():
-        name = form.name.data
-        # здесь логика базы данных
-        print(f"\nData received. Now redirecting ...{name}")
-        flash(f'Предмет: "{name}" добавлен успешно')
-        print(type(name))
-        return redirect(url_for('set_all'))
-    else:
-        print("В форму не попали")
+    # form = Subject_adding_form()
+    #
+    # if form.validate_on_submit():
+    #     name = form.name.data
+    #     # здесь логика базы данных
+    #     print(f"\nData received. Now redirecting ...{name}")
+    #     flash(f'Предмет: "{name}" добавлен успешно')
+    #     print(type(name))
+    #     return redirect(url_for('set_all'))
+    # else:
+    #     print("В форму не попали")
 
 
     return render_template('settings.html', form = form)

@@ -3,8 +3,10 @@ from datetime import date, timedelta
 
 import sys
 sys.path.append('flask_funcs')
+# sys.path.append('../')
 
-from sql_models import *
+# from sql_models import *
+from sql_start import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 

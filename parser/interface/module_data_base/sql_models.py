@@ -1,14 +1,15 @@
 # from sqlalchemy import Column, ForeignKey, Integer, String, create_engine, Table
-from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.ext.declarative import declarative_base
 # для создания отношений между таблицами
 from sqlalchemy.orm import relationship # пока не надо
 # для настроек
 from sqlalchemy import *
 
-Base = declarative_base()
-metadata = MetaData()
-my_base = 'sqlite:///test_base_ver_1.db'
-engine = create_engine(f'{my_base}?check_same_thread=False')
+from main_import import Base
+# Base = declarative_base()
+# metadata = MetaData()
+# my_base = 'sqlite:///test_base_ver_1.db'
+# engine = create_engine(f'{my_base}?check_same_thread=False')
 
 class Net_links(Base):
     """Ссылки на товары"""
@@ -40,7 +41,7 @@ class Shops_sett(Base):
     attr_name = Column(Text)
     attr_value = Column(Text)
     sett_active = Column(Integer)
-    
+
     @property
     def order_by_type(self):
         return {self.tag_type: {
@@ -121,4 +122,4 @@ class Subject(Base):
     name = Column(String(255), nullable = False)
     objects = relationship("Models", backref ='subjects')
 
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)

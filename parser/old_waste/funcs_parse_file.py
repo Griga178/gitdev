@@ -29,7 +29,7 @@ def parse_file_links(file_name):
     for string_xlsx_row in active_sheet.rows:
         # находим все ссылки в строке excel
         list_links = define_links(string_xlsx_row[0].value)
-        
+
         if list_links:
             for link in list_links:
                 # проверяем ссылка ли это +...

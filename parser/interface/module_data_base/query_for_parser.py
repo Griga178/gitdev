@@ -13,7 +13,8 @@
 import re
 import sys
 
-from sql_models import *
+# from sql_models import *
+from sql_start import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 

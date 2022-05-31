@@ -60,6 +60,6 @@ my_data2 = {'id_main_page': '1',
     'attr_value': 'test3',
     'id': 78}
 
-a = insert_to_shops_setts(my_data)
+# a = insert_to_shops_setts(my_data)
 
-print(a.setting_info)
+# print(a.setting_info)
