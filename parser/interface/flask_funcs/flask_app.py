@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash, json
-from werkzeug.utils import secure_filename
-import os
+# from werkzeug.utils import secure_filename
+# import os
 
 # import sys
 # sys.path.append('../')
@@ -10,12 +10,13 @@ import os
 
 from . import app
 
-from main_manager import parse_from_input, parse_from_registered_link
+from flask_funcs.main_manager import parse_from_input, parse_from_registered_link
 
-from main_manager import get_shop_list
-from main_manager import get_shop_setting
-from main_manager import get_setting_by_id, delete_set_by_id, update_tag_setting, save_shop_setting
+from flask_funcs.main_manager import get_shop_list
+from flask_funcs.main_manager import get_shop_setting
+from flask_funcs.main_manager import get_setting_by_id, delete_set_by_id, update_tag_setting, save_shop_setting
 
+from flask_funcs.main_manager import file_recept
 # from engine_data_base import delete_setting, take_post_message
 
 @app.route('/', methods = ('GET', 'POST'))
@@ -87,8 +88,9 @@ def file_loader():
 @app.route('/load_file', methods = ['GET', 'POST'])
 def load_file():
     file = request.files.get('file')
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    answer = file_recept(file, app)
+    return answer
+
 
     # print(filename)
 

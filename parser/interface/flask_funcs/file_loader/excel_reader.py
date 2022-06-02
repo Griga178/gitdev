@@ -3,11 +3,8 @@ import re
 # import sys
 # sys.path.append('../../module_data_base')
 
-# from query_for_parser import define_main_page, define_links
-def define_main_page():
-    pass
-def define_links():
-    pass
+from flask_funcs.module_data_base.query_for_parser import define_main_page, define_links
+
 
 def parse_file_links(file_name):
     # ОТКРЫВАЕМ ФАЙЛ
@@ -48,7 +45,38 @@ def parse_file_links(file_name):
         print(output_dict[kkn])
     print(len(output_dict))
 
-# вывод
-# test_file_name = 'C:/Users/G.Tishchenko/Desktop/26 Театр.xlsx'
+# задачи:
+    # занести новые ккны - в БД
+    # занести новые ссылки в БД
+    # создать связи ккн - ссылка
+    # создать связи файл - ссылка
 
-# parse_file_links(test_file_name)
+# заносим файл в бд получаем id
+example_d = {"kkn_name": {"link1", "link2"}, "kkn_name2": {"link3", "link4"}}
+example_d_2 = {1: {"link1", "link2"}, 2: {"link3", "link4"}}
+example_d_3 = {1: {1,2}, 2: {3, 4}}
+
+# получаем id ккн-в
+def check_kkn(kkn_list):
+    kkn_id = 1
+    d_out = {}
+    for kkn in kkn_list:
+        d_out[kkn] = kkn_id
+        # d_out[kkn_id] = kkn
+        kkn_id += 1
+    return d_out
+# меняем ключи в словаре
+def raplace_kkn_name_kkn_id(in_dict, kkns_id):
+    d_out = {}
+    for kkn_name, links in in_dict:
+        d_out[kkns_id[kkn_name]] = links
+
+
+
+# получили словарь имен с id
+
+# добавить множество ссылок в БД
+
+# добавить ссылку в БД получить id
+
+# добавить связь kkn_id, link_id

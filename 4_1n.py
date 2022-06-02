@@ -23,10 +23,12 @@ elif == 'r'
 исправить цену в номере
 '''
 
+binary_yandex_driver_file = 'yandexdriver.exe'
+
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Manual_3kv.xlsx'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Manual 26.xlsx'
 sheet_name = 'citi'
 # Папка для скринов
 screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/new_step/'
@@ -68,7 +70,8 @@ def run_manual_parse():
     # не ждем полной загрузки JS
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "eager"
-    driver = webdriver.Chrome(desired_capabilities = caps)
+    # driver = webdriver.Chrome(desired_capabilities = caps)
+    driver = webdriver.Chrome(binary_yandex_driver_file, desired_capabilities = caps) #, options = options
     work_list_with_price = []
 
     for row in work_list:

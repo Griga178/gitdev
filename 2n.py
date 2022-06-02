@@ -24,6 +24,10 @@ from clear_func import stand_clear
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+binary_yandex_driver_file = 'yandexdriver.exe'
+
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -38,7 +42,7 @@ import pickle
 start_time = time.time()
 
 # csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_2_2022.csv'
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/Norm_3_2022.csv'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/26_3_2022.csv'
 dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
 pkl_file_name = dir_for_screen + 'price.pkl'
 # Если папки нет: создать
@@ -98,7 +102,8 @@ options.add_argument('--disable-gpu')
 options.add_argument('--no-sandbox')
 options.add_argument("--start-maximized")
 options.add_argument("--window-size=1920x1080")
-driver = webdriver.Chrome(desired_capabilities = caps, options = options)
+# driver = webdriver.Chrome(desired_capabilities = caps, options = options)
+driver = webdriver.Chrome(binary_yandex_driver_file, desired_capabilities = caps, options = options)
 # driver = webdriver.Chrome(options = options)
 
 
@@ -201,6 +206,7 @@ with open(csv_file_name) as file:
     readers = csv.reader(file, delimiter = ';')
 
     for row in readers:
+        print(row[0])
         if row[0] in selen_dict: ####and comon_counter <= 2000 not in temp_list
             try:
                 answer = selen_parse(row[0], str(dir_for_screen + row[1] + '.jpg')) #'../devfiles/scr/'
