@@ -28,10 +28,10 @@ binary_yandex_driver_file = 'yandexdriver.exe'
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Manual 26.xlsx'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Manual 19.xlsx'
 sheet_name = 'citi'
 # Папка для скринов
-screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/new_step/'
+screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
 # Если папки нет: создать
 def check_folder(folder_name):
     folder_exist = os.path.isdir(folder_name)
@@ -79,7 +79,7 @@ def run_manual_parse():
         try:
             driver.get(row[0])
         except:
-            print(f"ОШИБКА ПЕРЕХОДА НА СТРАНИЦУ: {row[0]}")
+            print(f"ОШИБКА ПЕРЕХОДА НА СТРАНИЦУ: {[row[0]]}")
         input_price = input(f'{row[1]}. Значение цены: ')
 
         if input_price == 's':

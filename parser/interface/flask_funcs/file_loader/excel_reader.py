@@ -39,11 +39,11 @@ def parse_file_links(file_name):
                         output_dict[current_kkn].add(link)
                     else:
                         output_dict[current_kkn] = {link}
-    # # return dict_links
-    for kkn in output_dict:
-        print(kkn)
-        print(output_dict[kkn])
+    # for kkn in output_dict:
+    #     print(kkn)
+    #     print(output_dict[kkn])
     print(len(output_dict))
+    return output_dict
 
 # задачи:
     # занести новые ккны - в БД
