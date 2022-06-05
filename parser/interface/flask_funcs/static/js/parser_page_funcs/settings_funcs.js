@@ -112,6 +112,7 @@ function save_checkbox_setting(setting_name) {
   // alert(json_dict_out)
   send_checkbox_value_to_db(json_dict_out)
 }
+
 function send_checkbox_value_to_db(js_dict){
   $.ajax({
     url: '/save_shop_setting',
