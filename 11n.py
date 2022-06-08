@@ -12,7 +12,7 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-
+binary_yandex_driver_file = 'yandexdriver.exe'
 
 start_time = time.time()
 
@@ -21,7 +21,8 @@ page_enter = 'http://srv07/cmec/Login.aspx?ReturnUrl=%2fcmec%2fCA%2fDesktop%2fDe
 def authorization_func(user_name, user_passw):
 
     global driver
-    driver = webdriver.Chrome()
+    # driver = webdriver.Chrome()
+    driver = webdriver.Chrome(binary_yandex_driver_file)
     driver.implicitly_wait(1000) # ждем столько, если не справился заканчиваем?
 
     driver.get(page_enter)
@@ -116,7 +117,8 @@ user_passw = '123123'
 #exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
 exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers3_22.xlsx'
 
-sheets_name_e = 'Ekranki'
+# sheets_name_e = 'Ekranki'
+sheets_name_e = 'Otveti'
 
 
 

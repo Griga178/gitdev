@@ -15,6 +15,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
+binary_yandex_driver_file = 'yandexdriver.exe'
+
 start_time = time.time()
 
 page_enter = 'http://srv07/cmec/Login.aspx?ReturnUrl=%2fcmec%2fCA%2fDesktop%2fDefault.aspx%3fwintype%3dwindow_desktops'
@@ -22,7 +24,8 @@ page_enter = 'http://srv07/cmec/Login.aspx?ReturnUrl=%2fcmec%2fCA%2fDesktop%2fDe
 
 def authorization_func(user_name, user_passw):
     global driver
-    driver = webdriver.Chrome()
+    # driver = webdriver.Chrome()
+    driver = webdriver.Chrome(binary_yandex_driver_file)
     driver.implicitly_wait(1000) # ждем столько, если не справился заканчиваем?
 
     driver.get(page_enter)
@@ -168,8 +171,8 @@ def one_append(file, number):
 authorization_func(user_name, user_passw)
 print('Авторизовались\n')
 
-# main_func(sheets_name_e)
-main_func(sheets_name_o)
+main_func(sheets_name_e)
+# main_func(sheets_name_o)
 
 
 #file = 'C:/Users/G.Tishchenko/Desktop/Аквариус.msg'

@@ -18,7 +18,7 @@ from docx.shared import Inches
 #name_file = 'new_file.docx'
 #name_name_file = 'new_file_2.docx'
 
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_2_2022/'
 
 word_folder = 'C:/Users/G.Tishchenko/Desktop/'
 dir_name_i = word_folder + 'Word_folder'

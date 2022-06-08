@@ -13,7 +13,7 @@ import pandas
 
 #sheets_name = 'RT new'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/картинки2.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/2_2022_Сорт _Источн.xlsx'
 sheets_name = 'КБТ' #'RT new'
 
 column_name = 'Наименование поставщика'
@@ -21,6 +21,18 @@ column_name = 'Наименование поставщика'
 column_price = 'Цена, включая НДС, руб.'
 column_numer = 'Источник ценовой информации'
 column_jpg_name = 'Номер скриншота'
+
+# СОЗДАЕМ ПАПКИ
+#main_dir = '../devfiles/new_ales_screenes'
+main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_2_2022/'
+otvet_dir = main_dir + '/Otveti'
+ekran_dir = main_dir + '/Ekranki'
+
+# Копируем скриншоты
+# испольюзуются: dict_ekranki, dict_otveti
+#where_screens = '../devfiles/scr/new/'
+# where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
+where_screens = 'Z:/Тищенко Г.Л/screens_2_2022/'
 
 dict_main = {}
 
@@ -55,7 +67,7 @@ for el in list_name:
         if str_len != 33:
             # Если это НЕ КОНТРАКТ!
             count += 1
-            jpg_name = (int(list_jpg_name[row]))           # ---- с колонкой jpg менять тут
+            jpg_name = (str(list_jpg_name[row]))           # ---- с колонкой jpg менять тут
             #print(f'Номер строки: {row + 2} jpg_name: {jpg_name}')
             if list_numer[row][:1] == "О" and list_price[row] > 0:
                 # Если это "Ответ на запрос" и Цена используется
@@ -117,10 +129,7 @@ def count_scr_info():
 import os
 import shutil
 
-#main_dir = '../devfiles/new_ales_screenes'
-main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder/'
-otvet_dir = main_dir + '/Otveti'
-ekran_dir = main_dir + '/Ekranki'
+
 
 def create_dirs():
     try:
@@ -145,10 +154,7 @@ def create_dirs():
         except:
             print(dir_name, '   Не создавалась')
 
-# Копируем скриншоты
-# испольюзуются: dict_ekranki, dict_otveti
-#where_screens = '../devfiles/scr/new/'
-where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
+
 
 def copy_screen():
     copy_count = 0
