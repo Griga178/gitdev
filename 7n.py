@@ -13,8 +13,8 @@ import pandas
 
 #sheets_name = 'RT new'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/2_2022_Сорт _Источн.xlsx'
-sheets_name = 'КБТ' #'RT new'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers3_22.xlsx'
+sheets_name = 'folders' #'RT new'
 
 column_name = 'Наименование поставщика'
 #column_inn = 'ИНН поставщика'
@@ -24,7 +24,8 @@ column_jpg_name = 'Номер скриншота'
 
 # СОЗДАЕМ ПАПКИ
 #main_dir = '../devfiles/new_ales_screenes'
-main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_2_2022/'
+
+main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_3_2022/'
 otvet_dir = main_dir + '/Otveti'
 ekran_dir = main_dir + '/Ekranki'
 
@@ -32,7 +33,7 @@ ekran_dir = main_dir + '/Ekranki'
 # испольюзуются: dict_ekranki, dict_otveti
 #where_screens = '../devfiles/scr/new/'
 # where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
-where_screens = 'Z:/Тищенко Г.Л/screens_2_2022/'
+where_screens = 'Z:/Тищенко Г.Л/3 квартал Скриншоты/'
 
 dict_main = {}
 
@@ -193,7 +194,7 @@ def copy_screen():
     print(copy_count_ecr, ' Экранок')
 #
 # create_dirs()
-# copy_screen()
+copy_screen()
 
 
 # Считаем количество использования источников {Ситилинк ООО; 100}

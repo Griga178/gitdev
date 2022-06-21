@@ -81,6 +81,7 @@ def main_func(sheets_name):
         ''' Вставка текста в "Содержание": "Экранная копия" '''
         qa2 = '//div[@class="Wb_Textarea Wb_FormElement_Position1 text_Content Wb_Control Wb_EditableField WbForm_Obligatory"]/div/textarea'
         text2 = 'Экранная копия'
+        # text2 = 'Ответ на запрос'
         print("Пробуем заполнить содержание")
         find_element = driver.find_element_by_xpath(qa2)
         find_element.clear()
@@ -117,8 +118,8 @@ user_passw = '123123'
 #exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
 exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers3_22.xlsx'
 
-# sheets_name_e = 'Ekranki'
-sheets_name_e = 'Otveti'
+sheets_name_e = 'Ekranki'
+# sheets_name_e = 'Otveti'
 
 
 

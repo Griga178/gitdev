@@ -8,15 +8,15 @@
 import pandas
 
 # Имя исходного файла
-exel_file = 'C:/Users/G.Tishchenko/Desktop/19 Бытова(востан).xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Нормирование.xlsx'
 # Имя исходного листа в файле
-sheets_name = 'Быт 19 (81)'
+sheets_name = '(177 шт) (Перечень)'
 # Имя столбца с сылками
 column_links =  'Ссылка'
 # Имя столбца с номерами для скриношотов
 screen_nums = 'Номер скриншота'
 # Имя файла, куда будем сохранять
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/19_3_2022.csv'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/norm_3_2022.csv'
 # Номер первой строки, в которой ссылка
 first_num = 2
 
@@ -40,7 +40,7 @@ for el_num in range(len(list_link)):
         # названия главной страницы
         main_page = (val.split("/")[2])
         # добавление в общий список: Главная стр. номер строки, ссылка
-        list_tuples_links.append((main_page, list_scr_name[el_num], val)) # list_num[inde_x]
+        list_tuples_links.append((main_page, int(list_scr_name[el_num]), val)) # list_num[inde_x]
     except:
         print(list_scr_name[el_num], end = ' ')
         print('trouble with main_page', val)

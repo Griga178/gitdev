@@ -18,7 +18,7 @@ from docx.shared import Inches
 #name_file = 'new_file.docx'
 #name_name_file = 'new_file_2.docx'
 
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_2_2022/'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_3_2022/'
 
 word_folder = 'C:/Users/G.Tishchenko/Desktop/'
 dir_name_i = word_folder + 'Word_folder'
@@ -88,9 +88,9 @@ def pic_save(dir_source, dir_destiny):
 
     print(f'\nВсего скриншотов: {all_pic_number}\nВсего word файлов: {doc_number}')
 
-# create_dirs()
-# pic_save(source_O, dir_name_O) # 691 шт 4 кв Ответы
-# pic_save(source_E, dir_name_E) # 745 шт 4 кв Экранки
+create_dirs()
+pic_save(source_O, dir_name_O) # 691 шт 4 кв Ответы
+pic_save(source_E, dir_name_E) # 745 шт 4 кв Экранки
 
 
 def one_pic_save(dir_source, dir_destiny, comp_name):

@@ -15,6 +15,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
+# МЕНЯЕМ:
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers3_22.xlsx'
+dir_files = 'C:/Users/G.Tishchenko/Desktop/Word_folder/'
+
 binary_yandex_driver_file = 'yandexdriver.exe'
 
 start_time = time.time()
@@ -101,15 +105,12 @@ user_passw = 'cmec789'
 #user_passw = '123123'
 
 #exel_file = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/numbers.xlsx'
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers3_22.xlsx'
+
 
 sheets_name_e = 'Ekranki'
 sheets_name_o = 'Otveti'
 
 #dir_files = 'C:/Users/G.Tishchenko/Desktop/myfiles/dev/devfiles/images/'
-dir_files = 'C:/Users/G.Tishchenko/Desktop/Word_folder/'
-
-
 
 def main_func(sheets_name):
     # Добавляет все экранки по списку excel
@@ -171,8 +172,8 @@ def one_append(file, number):
 authorization_func(user_name, user_passw)
 print('Авторизовались\n')
 
-main_func(sheets_name_e)
-# main_func(sheets_name_o)
+# main_func(sheets_name_e)
+main_func(sheets_name_o)
 
 
 #file = 'C:/Users/G.Tishchenko/Desktop/Аквариус.msg'
