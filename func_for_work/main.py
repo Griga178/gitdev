@@ -5,6 +5,12 @@ I Этап - автоматическая обработка
 
     Создаем все необходимые папки, рабочий файл с данными
 
+    читаем excel-файл
+        Источники (открытые/закрытые)
+        Номер части
+        Ссылки
+        ...
+        
     меняем рабочую таблицу - добавляем номера скриншотов
 
     выгружаем номер скрина - ссылка
@@ -31,19 +37,10 @@ III Этап - сохранение, загрузка в СЭД
 
     загрузка всех файлов в общую папку
 '''
+
 import time
-import datetime
 import sys
 import os
-
-current_date = datetime.datetime.now()
-# first_qurter = datetime.strtime()
-second_qurter =
-third_qurter =
-fourth_qurter =
-print(current_date)
-
-
 
 if len(sys.argv) > 1:
     print(sys.argv[1])
@@ -52,3 +49,12 @@ input_something = input("input ")
 
 print('sleep 2 sec')
 # time.sleep(2)
+
+
+def define_date():
+    quarters = ["01", "02", "03", "04"]
+    print("Какой квартал: ", ", ".join(quarters))
+    chosen_qu = int(input("Введите от 1 - 4: "))
+    chosen_year = str(input("За какой год: "))
+    current_date = f'{quarters[chosen_qu - 1]}_{chosen_year}'
+    return current_date
