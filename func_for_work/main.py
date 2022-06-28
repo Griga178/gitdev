@@ -1,8 +1,6 @@
 '''
 I Этап - автоматическая обработка
 
-    Определяемся с кварталом
-
     Создаем все необходимые папки, рабочий файл с данными
 
     читаем excel-файл
@@ -10,7 +8,7 @@ I Этап - автоматическая обработка
         Номер части
         Ссылки
         ...
-        
+
     меняем рабочую таблицу - добавляем номера скриншотов
 
     выгружаем номер скрина - ссылка
@@ -42,8 +40,18 @@ import time
 import sys
 import os
 
+from folders import run_manager
+from excel_reader import read_work_table
+
+
+run_manager()
+
 if len(sys.argv) > 1:
     print(sys.argv[1])
+    a = read_work_table(sys.argv[1])
+    # print(a)
+
+
 
 input_something = input("input ")
 
