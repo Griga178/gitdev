@@ -9,13 +9,14 @@ start_time = time.time()
 
 main_page = 'https://egrul.nalog.ru/index.html'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Реестр 1 кв 2022.xlsx'
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/Реестр 1 кв 2022.xlsx'
+exel_file = "Z:/Тищенко Г.Л/Номера 3кв.xlsx"
+binary_yandex_driver_file = 'yandexdriver.exe'
+sheets_name = 'новый поиск'
 
-sheets_name = 'for_search'
 
-
-column_name = 'comp_name'
-column_inn = 'inn'
+column_name = 'Наименование поставщика'
+column_inn = 'ИНН поставщика'
 
 csv_file_name = 'C:/Users/G.Tishchenko/Desktop/comp.csv'
 
@@ -27,7 +28,8 @@ list_inn = df[column_inn].tolist()
 # Список списков для записи в csv
 finish_list =[]
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(binary_yandex_driver_file)
+
 driver.implicitly_wait(100) # ждем столько, если не справился заканчиваем?
 
 count = 0
