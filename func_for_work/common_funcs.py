@@ -6,6 +6,7 @@ def define_links(string_value):
         re_sult = re.findall(r'[\w:/.\-?=&+%#\[\]]+', string_value)
         return re_sult
     else:
+        print('В строке не нашлось ссылок')
         return False
 
 def define_main_page(link):
