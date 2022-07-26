@@ -35,4 +35,4 @@ def open_current_setting_file(file_path):
 def run_manager():
     create_folder(main_folder)
     create_folder(screen_folder)
-    open_current_setting_file(current_data_file)
+    # open_current_setting_file(current_data_file)

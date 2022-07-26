@@ -1,5 +1,5 @@
 
-import time
+
 import sys
 import os
 
@@ -20,16 +20,11 @@ run_console_interface()
 
 
 
-input_something = input("input ")
-
-print('     ДО СВИДАНИЯ!')
-time.sleep(1)
-
-def define_date():
-    """Запись текущей даты (переделка)"""
-    quarters = ["01", "02", "03", "04"]
-    print("Какой квартал: ", ", ".join(quarters))
-    chosen_qu = int(input("Введите от 1 - 4: "))
-    chosen_year = str(input("За какой год: "))
-    current_date = f'{quarters[chosen_qu - 1]}_{chosen_year}'
-    return current_date
+# def define_date():
+#     """Запись текущей даты (переделка)"""
+#     quarters = ["01", "02", "03", "04"]
+#     print("Какой квартал: ", ", ".join(quarters))
+#     chosen_qu = int(input("Введите от 1 - 4: "))
+#     chosen_year = str(input("За какой год: "))
+#     current_date = f'{quarters[chosen_qu - 1]}_{chosen_year}'
+#     return current_date

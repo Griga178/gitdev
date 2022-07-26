@@ -28,8 +28,6 @@ def read_work_table(excel_file_name):
     dict_information = {}
     list_links = []
 
-
-
     for string_xlsx_row in rows_generator:
 
         comp_inn = string_xlsx_row[comp_inn_clm_num].value
@@ -70,22 +68,4 @@ def read_work_table(excel_file_name):
         else:
             list_links.append([str(link_num), links_list[0]])
 
-
     return dict_information, list_links
-
-'''
-Сценарий:
-    открытие документа
-
-    перебор каждой строки (инн имя ссылки номер_ссылки)
-        перебор ссылок внутри ячейки => список ссылок (от 0 до ...)
-
-        если список ссылок больше 1:
-            то для последующих создаем доп номер
-            цикл
-                [номер, главная страница, ссылка]
-        иначе если список не пуст:
-            [номер, главная страница, ссылка]
-
-        создать словарь источников
-'''
