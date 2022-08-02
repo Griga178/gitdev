@@ -1,16 +1,14 @@
 import openpyxl
+import os
 
-desktop_path = 'C:/Users/G.Tishchenko/Desktop/'
+# desktop_path = 'C:/Users/G.Tishchenko/Desktop/'
 
-excel_links_table = 'Work_links_test.xlsx'
+# excel_links_table = 'Work_links_test.xlsx'
 
-excel_companies_info = 'Companies_info_test.xlsx'
+# excel_companies_info = 'Companies_info_test.xlsx'
 
 
-
-def create_new_link_table():
-    file_path = desktop_path + excel_links_table
-
+def create_new_link_table(file_path):
     wb = openpyxl.Workbook()
 
     current_sheet = wb.active
@@ -38,8 +36,7 @@ def create_new_link_table():
 
     wb.save(file_path)
 
-def create_companies_file():
-    file_path = desktop_path + excel_companies_info
+def create_companies_file(file_path):
 
     wb = openpyxl.Workbook()
 
@@ -74,12 +71,25 @@ def create_companies_file():
 
     wb.save(file_path)
 
+def check_companies_info_file(file_path):
+    file_exists = os.path.isfile(file_path)
+    if file_exists:
+        print(f"Найден файл: {file_path}")
+    else:
+        create_companies_file(file_path)
+        print(f"{file_path} - создан")
+
+def check_links_table_file(file_path):
+    file_exists = os.path.isfile(file_path)
+    if file_exists:
+        print(f"Найден файл: {file_path}")
+    else:
+        create_new_link_table(file_path)
+        print(f"{file_path} - создан")
+
 def update_link_table(excel_info):
     pass
 
 
 def update_companies_file():
     pass
-
-create_companies_file()
-# create_new_link_table()
