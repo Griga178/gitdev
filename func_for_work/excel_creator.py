@@ -1,12 +1,6 @@
 import openpyxl
 import os
 
-# desktop_path = 'C:/Users/G.Tishchenko/Desktop/'
-
-# excel_links_table = 'Work_links_test.xlsx'
-
-# excel_companies_info = 'Companies_info_test.xlsx'
-
 
 def create_new_link_table(file_path):
     wb = openpyxl.Workbook()
@@ -17,12 +11,12 @@ def create_new_link_table(file_path):
 
     current_sheet.cell(row = 1, column = 1).value = "Company INN"
     current_sheet.column_dimensions['A'].width = 15
-    current_sheet.cell(row = 1, column = 2).value = "Link/screen number"
-    current_sheet.column_dimensions['B'].width = 19
-    current_sheet.cell(row = 1, column = 3).value = "Link"
-    current_sheet.column_dimensions['C'].width = 13
-    current_sheet.cell(row = 1, column = 4).value = "Main page"
-    current_sheet.column_dimensions['D'].width = 13
+    current_sheet.cell(row = 1, column = 2).value = "Main page"
+    current_sheet.column_dimensions['B'].width = 13
+    current_sheet.cell(row = 1, column = 3).value = "Link/screen number"
+    current_sheet.column_dimensions['C'].width = 19
+    current_sheet.cell(row = 1, column = 4).value = "Link"
+    current_sheet.column_dimensions['D'].width = 19
     current_sheet.cell(row = 1, column = 5).value = "Price"
     current_sheet.column_dimensions['E'].width = 13
     current_sheet.cell(row = 1, column = 6).value = "Name"
@@ -74,18 +68,18 @@ def create_companies_file(file_path):
 def check_companies_info_file(file_path):
     file_exists = os.path.isfile(file_path)
     if file_exists:
-        print(f"Найден файл: {file_path}")
+        print(f'Найден файл: "{file_path.split("/")[-1]}"')
     else:
         create_companies_file(file_path)
-        print(f"{file_path} - создан")
+        print(f'"{file_path.split("/")[-1]}" - создан')
 
 def check_links_table_file(file_path):
     file_exists = os.path.isfile(file_path)
     if file_exists:
-        print(f"Найден файл: {file_path}")
+        print(f'Найден файл: "{file_path.split("/")[-1]}"')
     else:
         create_new_link_table(file_path)
-        print(f"{file_path} - создан")
+        print(f'"{file_path.split("/")[-1]}" - создан')
 
 def update_link_table(excel_info):
     pass

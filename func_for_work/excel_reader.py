@@ -22,18 +22,22 @@ def read_work_table(excel_file_name):
     # номера столбцов (-1)
     comp_inn_clm_num = 16
     comp_name_clm_num = 17
+
     links_clm_num = 18
-    link_num_clm_num = 20
+    # link_num_clm_num = 20
 
     dict_information = {}
     list_links = []
+    link_num = 1
 
     for string_xlsx_row in rows_generator:
 
         comp_inn = string_xlsx_row[comp_inn_clm_num].value
         comp_name = string_xlsx_row[comp_name_clm_num].value
-        link_num = string_xlsx_row[link_num_clm_num].value
+        # link_num = string_xlsx_row[link_num_clm_num].value
+
         links_list = define_links(string_xlsx_row[links_clm_num].value)
+        kkn_part = string_xlsx_row[19].value
 
         main_page_set = set()
 
@@ -43,7 +47,7 @@ def read_work_table(excel_file_name):
                 main_page = define_main_page(link)
                 main_page_set.add(main_page)
         else:
-            print(f"№ {link_num} - пропускаем")
+            # print(f"№ {link_num} - пропускаем")
             continue
 
         if "zakupki.gov.ru" in main_page_set:
@@ -61,11 +65,44 @@ def read_work_table(excel_file_name):
 
         # Создание списка ссылок
         if len(links_list) > 1:
+            # print(links_list)
             cntr = 1
             for link in links_list:
-                list_links.append([f"{link_num}_0{cntr}", links_list[0]])
+                # list_links.append([comp_inn, main_page, f"{link_num}_0{cntr}", links_list[0],'' ,'' , kkn_part])
+                list_links.append([comp_inn, main_page, int(link_num), links_list[0],'' ,'' , kkn_part])
+                link_num += 1
                 cntr += 1
         else:
-            list_links.append([str(link_num), links_list[0]])
+            list_links.append([comp_inn, main_page, int(link_num), links_list[0],'' ,'' , kkn_part]) #str(link_num)
+
+        link_num += 1
 
     return dict_information, list_links
+
+#
+def read_links_table(file_path):
+    links_table_gen = open_excel(file_path)
+
+    links_set = set()
+    num_set = set()
+    out_list = []
+    for row in links_table_gen:
+        current_values = []
+        for r_value in row:
+            current_values.append(r_value.value)
+        out_list.append(current_values)
+
+        links_set.add(row[3].value)
+        num_set.add(row[2].value)
+
+        # print(row[2].value, row[3].value)
+    if num_set:
+        max_number = max(num_set)
+    else:
+        max_number = 1
+    return max_number, links_set, out_list
+
+
+# a = read_links_table('C:/Users/G.Tishchenko/Desktop/main/links_table.xlsx')
+#
+# print(a[2])

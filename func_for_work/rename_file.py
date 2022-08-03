@@ -10,6 +10,7 @@ new_name = 'C:/Users/G.Tishchenko/Desktop/тест2.xlsx'
 jpg_folder = 'C:/Users/G.Tishchenko/Desktop/2022 май Нормирование/МФУ'
 
 new_folder = 'C:/Users/G.Tishchenko/Desktop/jpg_mfu'
+
 search_files = {68,70,71,78,79,80,81,85,90,93,91,92,103,
     104,105,43,111,112,114,115,116,118,126,127,128,
     129,130,65,137,140,143,145,149,151,156,159,162,
