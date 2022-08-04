@@ -46,6 +46,8 @@ def create_companies_file(file_path):
     current_sheet.column_dimensions['C'].width = 19
     current_sheet.cell(row = 1, column = 4).value = "Phone"
     current_sheet.column_dimensions['D'].width = 13
+    current_sheet.cell(row = 1, column = 5).value = "Part"
+    current_sheet.column_dimensions['I'].width = 13
 
     # Создание второго листа
     current_sheet_2 = wb.create_sheet("site_settings")
