@@ -1,6 +1,5 @@
 import time
 
-
 second_mesage = '''
 1   - Запустить парсер
 2   - Прверка скринов
@@ -10,6 +9,7 @@ second_mesage = '''
     - Проверка компаний по ИНН
 0   - Выход из программы
 '''
+
 def run_console_interface(command = False):
     print('Панель управления')
     if not command:
@@ -17,13 +17,14 @@ def run_console_interface(command = False):
         # print(second_mesage)
         command = str(input("Ввести цифру: "))
         run_console_interface(command)
+
     elif command == "0":
         print("Good bye")
         time.sleep(1)
         quit()
     elif command == "1":
         print("Включаем парсер")
-        run_console_interface(0)
+        run_console_interface()
     elif command == "2":
         print("Провеяем скрины")
         run_console_interface()
@@ -36,3 +37,10 @@ def run_console_interface(command = False):
     elif command == "9":
         print("помощь")
         run_console_interface()
+
+def run_parser_interface():
+    print("Парсер запущен")
+    print(' 1 - для проверки ссылки')
+    # ФУНКЦИИ:
+    # 1 ПРОПАРСИТЬ НОВЫЕ ССЫЛКИ
+    # 2 ПРОВЕРИТЬ КОНКРЕТНУЮ ССЫЛКУ
