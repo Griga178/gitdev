@@ -42,8 +42,8 @@ import pickle
 start_time = time.time()
 
 # csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_2_2022.csv'
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/norm_3_2022.csv'
-dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/11_4_2022.csv'
+dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_4_2022/'
 pkl_file_name = dir_for_screen + 'price.pkl'
 # Если папки нет: создать
 def check_folder(folder_name):
@@ -114,11 +114,12 @@ driver.implicitly_wait(3) # ждем столько, если не справи�
 def selen_parse(link, name):
     # находим правила
     main_page = link
-    name = 0
+    # name = 0
     # выгрузка тегов для каждого сайта
     tag = selen_dict[main_page][0]
     atribute = selen_dict[main_page][1]
     atr_val = selen_dict[main_page][2]
+    print(main_page, tag, atribute, atr_val)
     # заходим на сайт
     try:
         driver.get(row[2])
@@ -209,6 +210,7 @@ with open(csv_file_name) as file:
         print(row[0])
         if row[0] in selen_dict: ####and comon_counter <= 2000 not in temp_list
             try:
+                print("Кидаем в парсер:", row[0], str(dir_for_screen + row[1] + '.jpg'))
                 answer = selen_parse(row[0], str(dir_for_screen + row[1] + '.jpg')) #'../devfiles/scr/'
             except:
                 print('ОШИБКА', row[0])

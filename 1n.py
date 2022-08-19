@@ -8,15 +8,18 @@
 import pandas
 
 # Имя исходного файла
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Нормирование.xlsx'
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/Нормирование.xlsx'
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/10_ч.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/11_ч.xlsx'
 # Имя исходного листа в файле
-sheets_name = '(177 шт) (Перечень)'
+# sheets_name = '(177 шт) (Перечень)'
+sheets_name = 'Лист1'
 # Имя столбца с сылками
 column_links =  'Ссылка'
 # Имя столбца с номерами для скриношотов
 screen_nums = 'Номер скриншота'
 # Имя файла, куда будем сохранять
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/norm_3_2022.csv'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/11_4_2022.csv'
 # Номер первой строки, в которой ссылка
 first_num = 2
 
