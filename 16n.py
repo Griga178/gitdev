@@ -1,7 +1,7 @@
 import pickle
 import openpyxl
 
-pkl_path = 'C:/Users/G.Tishchenko/Desktop/screens_4_cat/price.pkl'
+pkl_path = 'C:/Users/G.Tishchenko/Desktop/price.pkl'
 excel_path = 'C:/Users/G.Tishchenko/Desktop/prices2.xlsx'
 
 with open(pkl_path, 'rb') as f:

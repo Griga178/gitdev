@@ -16,6 +16,7 @@ class Net_links(Base):
     # files = relationship("File_Link", back_populates = "net_links")
 
 class Loaded_files(Base):
+    """ Загруженные файлы """
     __tablename__ = 'loaded_files'
     id = Column(Integer, primary_key = True)
     name = Column(String(255), nullable = False)
@@ -24,6 +25,7 @@ class Loaded_files(Base):
 
 
 class File_Link(Base):
+    """ Связь файл - ссылка """
     __tablename__ = 'file_link'
     id = Column(Integer, primary_key = True)
     files_id = Column(Integer, ForeignKey("loaded_files.id"), nullable = False)

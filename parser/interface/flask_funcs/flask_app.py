@@ -107,6 +107,13 @@ def parse_file():
 def manage_data():
     return render_template('data_base.html')
 
+# ССЫЛКИ
+@app.route('/links', methods = ['GET'])
+def get_links():
+
+    answer = 'ЭТО ИНФА С ССЫЛКАМИ'
+    return answer
+
 # ПРЕДМЕТЫ
 # Главная по предметам (добавить новый предмет)
 @app.route('/subjects', methods = ('GET', 'POST'))

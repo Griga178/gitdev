@@ -19,7 +19,7 @@ import pandas
 import os
 import time
 
-from clear_func import stand_clear
+from clear_func import stand_clear, clean_number
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -42,8 +42,8 @@ import pickle
 start_time = time.time()
 
 # csv_file_name = 'C:/Users/G.Tishchenko/Desktop/R_2_2022.csv'
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/11_4_2022.csv'
-dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/screens_4_2022/'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/11_comp.csv'
+dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/toner/'
 pkl_file_name = dir_for_screen + 'price.pkl'
 # Если папки нет: создать
 def check_folder(folder_name):
@@ -102,6 +102,7 @@ options.add_argument('--disable-gpu')
 options.add_argument('--no-sandbox')
 options.add_argument("--start-maximized")
 options.add_argument("--window-size=1920x1080")
+options.add_argument("--ignore-certificate-errors")
 # driver = webdriver.Chrome(desired_capabilities = caps, options = options)
 driver = webdriver.Chrome(binary_yandex_driver_file, desired_capabilities = caps, options = options)
 # driver = webdriver.Chrome(options = options)
@@ -119,7 +120,7 @@ def selen_parse(link, name):
     tag = selen_dict[main_page][0]
     atribute = selen_dict[main_page][1]
     atr_val = selen_dict[main_page][2]
-    print(main_page, tag, atribute, atr_val)
+    # print(main_page, tag, atribute, atr_val)
     # заходим на сайт
     try:
         driver.get(row[2])
@@ -159,6 +160,7 @@ def selen_parse(link, name):
     cv2.imwrite(name, image)
 
     return stand_clear(answer)
+    # return clean_number(answer) # ПОМОГАЕТ ИНОГДА 
 
 def beauty_pars(name):
     main_page = row[0]
@@ -207,10 +209,9 @@ with open(csv_file_name) as file:
     readers = csv.reader(file, delimiter = ';')
 
     for row in readers:
-        print(row[0])
+
         if row[0] in selen_dict: ####and comon_counter <= 2000 not in temp_list
             try:
-                print("Кидаем в парсер:", row[0], str(dir_for_screen + row[1] + '.jpg'))
                 answer = selen_parse(row[0], str(dir_for_screen + row[1] + '.jpg')) #'../devfiles/scr/'
             except:
                 print('ОШИБКА', row[0])
@@ -243,6 +244,7 @@ with open(csv_file_name) as file:
 
 
         comon_counter += 1
+        print(comon_counter, row[0], answer)
 
 
 
