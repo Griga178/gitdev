@@ -1,6 +1,5 @@
 from flask import Flask
 
-# app = create_app()
 
 UPLOAD_FOLDER = './flask_funcs/file_loader/upload_folder'
 

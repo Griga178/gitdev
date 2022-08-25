@@ -1,8 +1,3 @@
-# import sys
-# sys.path.append('module_data_base')
-# sys.path.append('module_parser')
-
-
 from flask_funcs.module_data_base.query_common import select_all_shops_with_tag
 from flask_funcs.module_data_base.query_for_parser import get_links_by_string_to_parser, get_links_by_id_to_parser, save_parsed_result
 from flask_funcs.module_data_base.query_parser_setting import insert_to_tags_settings, delete_set_by_id, update_shop_setting
@@ -11,24 +6,19 @@ from flask_funcs.module_parser.manager_parser import start_parse
 
 import json
 
-
+# НАСТРОЙКИ ПАРСЕРА
 # СТАРТ СТРАНИЦЫ
 def get_shop_list():
     select_query = select_all_shops_with_tag()
     json_result = json.dumps(select_query)
     return json_result
 
-# НАСТРОЙКА МАГАЗИНОВ
+# НАСТРОЙКИ МАГАЗИНОВ
 def get_shop_setting(shop_id):
     select_query = select_all_shops_with_tag(shop_id)
     json_result = json.dumps(select_query)
     return json_result
 
-def get_setting_by_id(set_id):
-    pass
-
-# def delete_set_by_id(set_id):
-#     pass
 def save_shop_setting(setting_dict):
     update_shop_setting(setting_dict)
 
@@ -78,3 +68,10 @@ def file_recept(file_obj, app):
     # print(type(file_obj), filename)
 
     return "ok"
+
+from flask_funcs.module_data_base.query_for_db import select_links_table
+
+def get_table_links():
+    list_table = select_links_table()
+
+    return json.dumps(list_table)

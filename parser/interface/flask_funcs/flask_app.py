@@ -1,12 +1,4 @@
 from flask import render_template, request, redirect, url_for, flash, json
-# from werkzeug.utils import secure_filename
-# import os
-
-# import sys
-# sys.path.append('../')
-
-# from . import input_form_classes
-# from input_form_classes import Subject_adding_form
 
 from . import app
 
@@ -14,7 +6,10 @@ from flask_funcs.main_manager import parse_from_input, parse_from_registered_lin
 
 from flask_funcs.main_manager import get_shop_list
 from flask_funcs.main_manager import get_shop_setting
-from flask_funcs.main_manager import get_setting_by_id, delete_set_by_id, update_tag_setting, save_shop_setting
+from flask_funcs.main_manager import delete_set_by_id, update_tag_setting, save_shop_setting
+
+# для базы данных
+from flask_funcs.main_manager import get_table_links
 
 from flask_funcs.main_manager import file_recept
 # from engine_data_base import delete_setting, take_post_message
@@ -39,7 +34,7 @@ def print_links_base():
     shop_list = get_shop_list()
     return shop_list
 
-# ПАРСИМ 1 НЕИЗВЕСТНУЮ ССЫЛКУ
+# ПАРСИМ 1 НЕИЗВЕСТНУЮ ССЫЛКУ (Добаваляем новую(ые) ссылку(и))
 @app.route('/parser_link_check', methods = ['GET', 'POST'])
 def parse_link():
     input_link = request.form['name']
@@ -91,9 +86,6 @@ def load_file():
     answer = file_recept(file, app)
     return answer
 
-
-    # print(filename)
-
 @app.route('/show_content', methods = ['GET', 'POST'])
 def show_content():
     pass
@@ -110,8 +102,8 @@ def manage_data():
 # ССЫЛКИ
 @app.route('/links', methods = ['GET'])
 def get_links():
-
-    answer = 'ЭТО ИНФА С ССЫЛКАМИ'
+    answer = get_table_links()
+    # answer = 'ЭТО ИНФА С ССЫЛКАМИ'
     return answer
 
 # ПРЕДМЕТЫ
@@ -212,25 +204,3 @@ def model_information(model_str_name):
         #     input_subject_name = request.form['input_subject_name']
         #     print(input_subject_name)
     return render_template('model_information.html', model_example = model_example, descript = model_dict_description)
-
-@app.route('/settings', methods = ('GET', 'POST'))
-def set_all():
-    # form = Subject_adding_form()
-    #
-    # if form.validate_on_submit():
-    #     name = form.name.data
-    #     # здесь логика базы данных
-    #     print(f"\nData received. Now redirecting ...{name}")
-    #     flash(f'Предмет: "{name}" добавлен успешно')
-    #     print(type(name))
-    #     return redirect(url_for('set_all'))
-    # else:
-    #     print("В форму не попали")
-
-
-    return render_template('settings.html', form = form)
-
-# if __name__ == "__main__":
-    #app.run(host= '0.0.0.0')
-
-    # app.run(debug = True)

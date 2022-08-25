@@ -6,31 +6,12 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='data_base_styles.css') }}">
 
 <div class="container ">
-
+<a href="https://v3c.ru/javascript/sort-table" target="_blank">Сортировка таблицы</a>
 
   <div class="" id = 'links_block'>
     <h3>список ссылок</h3>
-    <table>
-      <tr>
-        <th>#</th>
-        <th>Domain</th>
-        <th>Link</th>
-        <th>name</th>
-        <th>price</th>
-        <th>pars_date</th>
-        <th>kkn_type</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>citilink.ru</td>
-        <td>citilink.ru/123.html</td>
-        <td>Notebook</td>
-        <td>10000</td>
-        <td>24.08.2022</td>
-        <td>Ноутбук тип 1</td>
-      </tr>
-    </table>
-    <p onclick="get_links_info()">Нарисовать таблицу >>> </p>
+
+    <p onclick="get_links_info()" id = "p_btn_draw_links"> Нарисовать таблицу >>> </p>
   </div>
 
 </div>
