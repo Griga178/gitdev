@@ -1,6 +1,8 @@
 import pickle
 import openpyxl
-
+'''
+РАСПАКОВКА PICLE ФАЙЛА В EXCEL
+'''
 pkl_path = 'C:/Users/G.Tishchenko/Desktop/price.pkl'
 excel_path = 'C:/Users/G.Tishchenko/Desktop/prices2.xlsx'
 

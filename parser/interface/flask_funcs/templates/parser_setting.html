@@ -1,6 +1,6 @@
 {% extends "base_page.html" %}
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='parser_styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='parser_setting.css') }}">
 <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
 <script type=text/javascript src="{{ url_for('static', filename='js/parser_page_funcs/common_funcs.js') }}"></script>
 <script type=text/javascript src="{{ url_for('static', filename='js/parser_page_funcs/settings_funcs.js') }}"></script>
@@ -9,6 +9,7 @@
 
 <div class="checker_container comon_styles">
 
+ <!-- - - - - - - - - - - - ВСТАВКА ССЫЛКИ - - - - - - - - - - -  -->
   <div class="online_parser check_block comon_styles">
     <form action="javascript:parse_link()" method="post" name="form" id="form_link">
       <label for="name">Вставьте ссылку:</label>
@@ -18,6 +19,8 @@
     <h2 id="loading"></h2>
   </div>
 
+ <!-- - - - - - - - - - - - СПИСОК ДОМЕНОВ - - - - - - - - - - -  -->
+
   <div id="row_list" class="rows_list check_block comon_styles">
     <h2>Магазины</h2>
     <input id="search_shop" onkeyup="shop_filter()" type = "search" name="" placeholder="Поиск">
@@ -26,54 +29,27 @@
     </script>
   </div>
 
+ <!-- - - - - - - - БЛОК НАСТРОЕК ВЫБРАННОГО ДОМЕНА  - - - - - - -  -->
+
   <div id="settings_block" class="setting_blog check_block comon_styles">
     <h2>Теги для парсера:</h2><br>
-
     <h3 id="set_main_page">_ _ _ _ _ _ _ _ _</h3><br>
-
     <div id="block_for_sett_tags"></div>
-
     <div id = "settings_form">
-
     </div>
-
     <div id="btn_show_few_links" ></div>
   <a href="https://learn.javascript.ru/events-change" target="_blank">Интересный источник</a>
   </div>
 
   <div class="clear_div"></div>
 
+ <!-- - - -  - - - РЕЗУЛЬТАТЫ ПРОБНОГО ПАРСИНГА  - - - - - -  -->
+
   <div class="parsed_links check_block comon_styles" id="parse_result_block">
     <h2 float="left">Результаты: </h2>
-
-
   </div>
 
   <div class="clear_div"></div>
-
-  <div class = "comon_styles">
-    <h2>Загрузить файл</h2>
-    <p>После прочтения файла в блоке главных страниц появиться btn "Обновить"</p>
-    <p>формы для ввода в sql WTF</p>
-  </div>
-
-  <div class="comon_styles">
-
-    <p>Если в БД есть запись парсинга, появится кнопка повторный парсинг</p>
-    <p>Показать пару ссылок: при успешном парсинге ссылка заменяется</p>
-    <p>Показать ссылки, у которых нет цены</p>
-    <p>Настроить парсер - убрать ошибки</p>
-    <ul>
-      Ошибки:
-      <li>Не находит страницу (kns), html - код = false</li>
-    </ul>
-    <h2>Дополнения:</h2>
-    <p>Новые результаты появляются наверху</p>
-    <p>DEL/SAVE ИКОНКИ</p>
-    <p>При наведени на кнопки "рука"</p>
-    <p>При в воде тегов предлагать варианты (возможно из БД)</p>
-
-  </div>
 
 </div>
 

@@ -24,10 +24,10 @@ def index():
 #     return json.dumps({'len': len(name)})
 
 
-# """ - * - * - * - * - * - * - * - * - * - * - * - * - ПАРСЕР - * - * - * - * - * - * - * - * - * - * - * - * -"""
+# """ - * - * - * - * - * - * - * - * - * - * - * - * - Настроки Парсера - * - * - * - * - * - * - * - * - * - * - * - * -"""
 @app.route('/parser')
-def open_parser():
-    return render_template('check_links.html')
+def open_parser_setting():
+    return render_template('parser_setting.html')
 
 @app.route('/select_shops')
 def print_links_base():

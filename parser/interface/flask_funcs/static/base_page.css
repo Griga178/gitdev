@@ -5,8 +5,8 @@
   padding: 0;
 }
 body {
-  /* background: Pink; */
-  background-image: url(pictures/back_img.jpg);
+  background: #5E458D;
+  /* background-image: url(pictures/back_img.jpg) */
   font-family: 'Montserrat', sans-serif;
 }
 a {

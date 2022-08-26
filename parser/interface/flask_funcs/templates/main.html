@@ -3,49 +3,42 @@
 <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
 
 
-<script>
-  function get_len() {
-      $.ajax({
-          type: "POST",
-          url: "/get_len",
-          data: $('form').serialize(),
-          type: 'POST',
-          success: function(response) {
-              var json = jQuery.parseJSON(response)
-              $('#len').html(json.len)
-              console.log(response);
-          },
-          error: function(error) {
-              console.log(error);
-          }
-      });
-  }
-</script>
 
-<form action="/get_len" method="post" name="form">
-  <label for="name">Введите текст:</label>
-  <input id="name" name="name" type="text">
-  <input type="button" value="Отправить" onclick="get_len();">
-</form>
+ <!-- - - - - - - БЕСПОЛЕЗНЫЕ КРУЖОЧКИ  - - - - - - -  -->
+<button>Update</button>
+
+<canvas></canvas>
+  <script>
+  const btn = document.querySelector('button');
+  const canvas = document.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+
+  let WIDTH = document.documentElement.clientWidth;
+  let HEIGHT = document.documentElement.clientHeight;
+
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
+
+  function random(number) {
+    return Math.floor(Math.random()*number);
+  }
+
+  function draw() {
+    ctx.clearRect(0,0,WIDTH,HEIGHT);
+    for(let i = 0; i < 100; i++) {
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255,0,0,0.5)';
+      ctx.arc(random(WIDTH), random(HEIGHT), random(50), 0, 2 * Math.PI);
+      ctx.fill();
+    }
+  }
+
+  btn.addEventListener('click',draw);
+
+  </script>
 
 <div id="len"></div>
 
-<div class="some_info clear_fix">
 
-  <p>Тут можно получить разную информацию из ссылок (цена, название товара, характеристики)</p>
-  <p>Найти ссылку на нужный(ые) товар(ы) по моделям, характеристикам, категории</p>
-  <p>сравнить характеристики товаров из одной группы</p>
-  <p>Посмотреть отпарсенные ссылки, необходимые скриншоты</p>
-  <h3>План работы:</h3>
-  <ul>
-
-    <li>, описание) <a href="{{ url_for('subject_page') }}">Предметы 2</a></li>
-    <li>страница моделей, (добавить, удалить, изменить, описание) <a href="{{ url_for('models_form') }}">Модели</a></li>
-    <li>Сортировка моделей по предметам, (+ по категориям)</li>
-    <li>Наследование подменю</li>
-    <li>Переписать стили по одинаковым параметрам (исправить сдвиги)</li>
-  </ul>
-
-  </div>
 
 {% endblock %}
