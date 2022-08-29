@@ -6,19 +6,25 @@ from flask_funcs.module_parser.manager_parser import start_parse
 
 import json
 
-# НАСТРОЙКИ ПАРСЕРА
-# СТАРТ СТРАНИЦЫ
+# - - - - - - - - - - НАСТРОЙКИ ДОМЕНОВ - - - - - - - - - -
 def get_shop_list():
+    '[{список словарей}] доменов из БД'
     select_query = select_all_shops_with_tag()
     json_result = json.dumps(select_query)
     return json_result
 
 # НАСТРОЙКИ МАГАЗИНОВ
 def get_shop_setting(shop_id):
+    'Словарь 1-го домена'
     select_query = select_all_shops_with_tag(shop_id)
     json_result = json.dumps(select_query)
     return json_result
 
+def get_domain_setting(domain_id):
+    'Выгружает все настройки для домена'
+    ' - убрать настройки из таблицы доменов'
+    pass
+    
 def save_shop_setting(setting_dict):
     update_shop_setting(setting_dict)
 

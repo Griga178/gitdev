@@ -28,10 +28,12 @@ binary_yandex_driver_file = 'yandexdriver.exe'
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Manual 19.xlsx'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Manual 26.xlsx'
 sheet_name = 'citi'
+# файл для сохранения
+csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(26).csv'
 # Папка для скринов
-screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
+screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_manua/'
 # Если папки нет: создать
 def check_folder(folder_name):
     folder_exist = os.path.isdir(folder_name)
@@ -63,7 +65,7 @@ def make_screenshoot(screen_name):
 
 def run_manual_parse():
     'В ручную добалвяем цены к ссылке + делаем скрин'
-    csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(three).csv'
+
     work_list = links_to_list_from_excel()
     options = Options()
     options.add_experimental_option('excludeSwitches', ['enable-logging']) # не выводит сообщзения в консоль

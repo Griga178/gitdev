@@ -3,10 +3,12 @@ from flask import render_template, request, redirect, url_for, flash, json
 from . import app
 
 from flask_funcs.main_manager import parse_from_input, parse_from_registered_link
-
+# список доменов
 from flask_funcs.main_manager import get_shop_list
+# настройка для парсинга
 from flask_funcs.main_manager import get_shop_setting
 from flask_funcs.main_manager import delete_set_by_id, update_tag_setting, save_shop_setting
+from flask_funcs.module_data_base.query_common import show_few_links_sql
 
 # для базы данных
 from flask_funcs.main_manager import get_table_links
@@ -17,12 +19,6 @@ from flask_funcs.main_manager import file_recept
 @app.route('/', methods = ('GET', 'POST'))
 def index():
     return render_template('main.html')
-
-# @app.route('/get_len', methods=['GET', 'POST'])
-# def get_len():
-#     name = request.form['name'];
-#     return json.dumps({'len': len(name)})
-
 
 # """ - * - * - * - * - * - * - * - * - * - * - * - * - Настроки Парсера - * - * - * - * - * - * - * - * - * - * - * - * -"""
 @app.route('/parser')
@@ -51,6 +47,11 @@ def parse_one_links(net_link_id):
 def links_sett(shop_id):
     shop_setting = get_shop_setting(shop_id)
     return shop_setting
+
+@app.route('/get_domain_setting/<domain_id>')
+def domain_setting(domain_id):
+    print(f'select domain by id: {domain_id}')
+    return domain_id
 
 @app.route('/save_tag_setting', methods = ['GET', 'POST'])
 def save_sett():

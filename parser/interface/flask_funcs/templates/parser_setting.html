@@ -2,9 +2,10 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='parser_setting.css') }}">
 <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
-<script type=text/javascript src="{{ url_for('static', filename='js/parser_page_funcs/common_funcs.js') }}"></script>
-<script type=text/javascript src="{{ url_for('static', filename='js/parser_page_funcs/settings_funcs.js') }}"></script>
-<script type=text/javascript src="{{ url_for('static', filename='js/parser_page_funcs/parser_funcs.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/parser_setting/domain_list.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/parser_setting/settings_funcs.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/parser_setting/settings_block.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/parser_setting/parser_funcs.js') }}"></script>
 
 
 <div class="checker_container comon_styles">
@@ -37,16 +38,37 @@
     <div id="block_for_sett_tags"></div>
     <div id = "settings_form">
     </div>
-    <div id="btn_show_few_links" ></div>
+
   <a href="https://learn.javascript.ru/events-change" target="_blank">Интересный источник</a>
   </div>
 
-  <div class="clear_div"></div>
+  <!-- <div class="clear_div"></div> -->
+
+ <!-- - - - - - - - БЛОК НАСТРОЕК ВЫБРАННОГО ДОМЕНА версия 2 - - - - - - -  -->
+ <div id="settings_block_ver2" class="setting_blog check_block comon_styles">
+   <h3>Настройки домена: </h3>
+   <div class="domain_name" id = "set_domain_name">www.citilink.ru</div>
+   <div class="domain_setting_row comon_styles">
+     <h4>Цена</h4>
+   </div>
+   <div class="domain_setting_row comon_styles">
+     <h4>Название</h4>
+   </div>
+ </div>
+
+ <style>
+   .domain_setting_row {
+
+     background: green;
+   }
+ </style>
 
  <!-- - - -  - - - РЕЗУЛЬТАТЫ ПРОБНОГО ПАРСИНГА  - - - - - -  -->
 
-  <div class="parsed_links check_block comon_styles" id="parse_result_block">
-    <h2 float="left">Результаты: </h2>
+  <div class = "parsed_links check_block comon_styles" id = "parse_result_block">
+    <h3 float = "left">Пробный парсинг: </h3>
+    <button type="button" id = 'btn_show_links' hidden> Показать пару ссылок </button>
+
   </div>
 
   <div class="clear_div"></div>
