@@ -129,6 +129,7 @@ function send_checkbox_value_to_db(js_dict){
     }
   })
 }
+
 function draw_save_buttons (obj_set, tag_id, final_row) {
   let save_btn = document.createElement("span")
   save_btn.setAttribute("class", "confirm_btn pct_btn");
