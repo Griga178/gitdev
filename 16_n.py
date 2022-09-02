@@ -2,11 +2,11 @@
 import os
 
 
-# csv_file_path = 'C:/Users/G.Tishchenko/Desktop/screens_4_3/links_3p_4.csv'
-# screen_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_3/'
+csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_manua/'
 
-excel_file_name = 'Z:/Тищенко Е.Ю/screens_4_cat/prices3.xlsx'
-screen_folder = 'Z:/Тищенко Е.Ю/screens_4_cat/'
+# excel_file_name = 'Z:/Тищенко Е.Ю/screens_4_cat/prices3.xlsx'
+# screen_folder = 'Z:/Тищенко Е.Ю/screens_4_cat/'
 
 folder_names = set()
 
@@ -19,7 +19,7 @@ def read_csv(csv_file_path):
 
         for line in data_reader:
             # print (line)
-            if line[3] != '':
+            if line[2] != '':
                 csv_names.add(line[1])
     return csv_names
 
@@ -56,8 +56,8 @@ for fol_file in fols_content:
 
             # - - - - - - - - - Вывод результата - - - - - - - - -
 
-# csv_names = read_csv(csv_file_path)
-csv_names = read_excel(excel_file_name)
+csv_names = read_csv(csv_file_path)
+# csv_names = read_excel(excel_file_name)
 
 print(f'Количество в CSV/EXCEL: {len(csv_names)} шт.')
 print(f'Количество в Папке: {len(folder_names)} шт.\n')
