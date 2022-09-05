@@ -28,10 +28,10 @@ binary_yandex_driver_file = 'yandexdriver.exe'
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Manual 19.xlsx'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 manual.xlsx'
 sheet_name = 'citi'
 # файл для сохранения
-csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
+csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(3).csv'
 # Папка для скринов
 screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_manua/'
 # Если папки нет: создать

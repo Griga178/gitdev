@@ -2,8 +2,9 @@
 import os
 
 
-csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_manua/'
+# csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3p_4.xlsx'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_3/'
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/screens_4_cat/prices3.xlsx'
 # screen_folder = 'Z:/Тищенко Е.Ю/screens_4_cat/'
@@ -23,7 +24,7 @@ def read_csv(csv_file_path):
                 csv_names.add(line[1])
     return csv_names
 
-def read_excel(file_name, sheet_name = 'Sheet'):
+def read_excel(file_name, sheet_name = 'main'):
     ''' Возвращает множество set() имен скринов с ценами из excel файла '''
     excel_set = set()
     import openpyxl
@@ -32,11 +33,14 @@ def read_excel(file_name, sheet_name = 'Sheet'):
     active_sheet = wb[sheet_name]
 
     for row in active_sheet.rows:
-        screen_number = str(row[1].value)
+        # screen_number = str(row[1].value)
+        screen_number = str(row[20].value) # из файла реестра
+        
         # price_val = (row[17].value)
 
         try:
-            price_val = float(row[3].value)
+            # price_val = float(row[3].value)
+            price_val = float(row[21].value) # из файла реестра
             # print(price_val)
         except:
             price_val = None
@@ -56,8 +60,8 @@ for fol_file in fols_content:
 
             # - - - - - - - - - Вывод результата - - - - - - - - -
 
-csv_names = read_csv(csv_file_path)
-# csv_names = read_excel(excel_file_name)
+# csv_names = read_csv(csv_file_path)
+csv_names = read_excel(excel_file_name)
 
 print(f'Количество в CSV/EXCEL: {len(csv_names)} шт.')
 print(f'Количество в Папке: {len(folder_names)} шт.\n')
