@@ -3,18 +3,16 @@
     Есть - Создаем папки с названием по компаниям
     Есть - Подсчет количества цен (- необходимых скриншотов) по каждой компании (csv)
     Есть - Закидываем в эти папки скриншоты (подсчет)
+
+Функции:
+    count_scr_info()
 '''
 
 import pandas
 
-
-#exel_file = '../devfiles/reestr 4 (для скринов + норм вар).xlsx'
-#exel_file = '../../../reestr 4.xlsx'
-
-#sheets_name = 'RT new'
-
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Numbers3_22.xlsx'
-sheets_name = 'folders' #'RT new'
+# - - - * - - - НАСТРОЙКИ ЕКСЕЛЬ ФАЙЛА - - - * - - -
+exel_file = 'C:/Users/G.Tishchenko/Desktop/26p_4.xlsx'
+sheets_name = 'main'
 
 column_name = 'Наименование поставщика'
 #column_inn = 'ИНН поставщика'
@@ -22,10 +20,8 @@ column_price = 'Цена, включая НДС, руб.'
 column_numer = 'Источник ценовой информации'
 column_jpg_name = 'Номер скриншота'
 
-# СОЗДАЕМ ПАПКИ
-#main_dir = '../devfiles/new_ales_screenes'
-
-main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_3_2022/'
+# - - - * - - - НАСТРОЙКИ МЕСТА ДЛЯ ПАПОК - - - * - - -
+main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_4_2022/'
 otvet_dir = main_dir + '/Otveti'
 ekran_dir = main_dir + '/Ekranki'
 
@@ -33,7 +29,7 @@ ekran_dir = main_dir + '/Ekranki'
 # испольюзуются: dict_ekranki, dict_otveti
 #where_screens = '../devfiles/scr/new/'
 # where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
-where_screens = 'Z:/Тищенко Г.Л/3 квартал Скриншоты/'
+where_screens = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
 dict_main = {}
 
@@ -69,7 +65,8 @@ for el in list_name:
             # Если это НЕ КОНТРАКТ!
             count += 1
             jpg_name = (str(list_jpg_name[row]))           # ---- с колонкой jpg менять тут
-            #print(f'Номер строки: {row + 2} jpg_name: {jpg_name}')
+            jpg_name = jpg_name.replace('.0', '')
+            # print(f'Номер строки: {row + 2} jpg_name: {jpg_name}')
             if list_numer[row][:1] == "О" and list_price[row] > 0:
                 # Если это "Ответ на запрос" и Цена используется
                 o_count += 1
@@ -165,7 +162,7 @@ def copy_screen():
         for num in dict_otveti[el]:
             scr_name = str(num) + '.jpg'
             old_screen_name = where_screens + scr_name
-            new_screen_name = direct_name + 'new' + scr_name
+            new_screen_name = direct_name + scr_name #+ 'new'
             #print(old_screen_name)
             print(new_screen_name)
             try:
@@ -183,7 +180,7 @@ def copy_screen():
         for num in dict_ekranki[el]:
             scr_name = str(num) + '.jpg'
             old_screen_name = where_screens + scr_name
-            new_screen_name = direct_name + 'new' +  scr_name
+            new_screen_name = direct_name  +  scr_name #+ 'new'
             #print(old_screen_name)
             print(new_screen_name)
             try:
@@ -193,8 +190,8 @@ def copy_screen():
                 print("Не удалось скопировать", scr_name)
     print(copy_count_ecr, ' Экранок')
 #
-# create_dirs()
-copy_screen()
+create_dirs()
+# copy_screen()
 
 
 # Считаем количество использования источников {Ситилинк ООО; 100}
