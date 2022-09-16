@@ -57,15 +57,12 @@ def search_rows(driver):
     print('СТРОКИ: ', len(row_list))
     print(row_list)
 
-driver = start_srv_work(user_name, user_passw)
+# driver = start_srv_work(user_name, user_passw)
 
-click_by_name('На рассмотрении')
-
-search_rows(driver)
-
-time.sleep(2)
-
-driver.quit()
-
-def find_number(number):
-    pass
+# click_by_name('На рассмотрении')
+#
+# search_rows(driver)
+#
+# time.sleep(2)
+#
+# driver.quit()
