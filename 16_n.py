@@ -3,27 +3,30 @@ import os
 
 
 # csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/26p_4.xlsx'
-# screen_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_26/'
+# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Общая.xlsx'
+# screen_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_norm/'
+# screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
-# excel_file_name = 'Z:/Тищенко Е.Ю/screens_4_cat/prices3.xlsx'
+# excel_file_name = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 
-# sheet_name = 'main'
+sheet_name = 'main'
 # scr_n = 20
-# prc_n = 21
+# prc_n = 21 # если есть проверка на 160 тогда +3
 
         # КАТИНЫ ЧАСТИ
+        # из файла реестра У меня 20 у кати 24/25
 # excel_file_name = 'Z:/Тищенко Е.Ю/ЗАПЧАСТИ/2022/4 кв 2022 ЗАПЧАСТИ/Копия 10. Запасные части для офисного оборудования -4 кв 2022 катина.xlsx'
 # screen_folder = 'Z:/Тищенко Е.Ю/screens_4_запч/'
 # sheet_name = 'Реестр 3 кв 2022'
 # scr_n = 24
 # prc_n = 20
 
-excel_file_name = 'Z:/Тищенко Е.Ю/КАРТРИДЖИ/2022/4 кв 2022 КАРТРИДЖИ/Копия 11 часть 3 квартал картирджи катино.xlsx'
-screen_folder = 'Z:/Тищенко Е.Ю/screens_4_картр/'
-sheet_name = 'Лист1'
-scr_n = 25
-prc_n = 20
+# excel_file_name = 'Z:/Тищенко Е.Ю/КАРТРИДЖИ/2022/4 кв 2022 КАРТРИДЖИ/Копия 11 часть 3 квартал картирджи катино.xlsx'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
+screen_folder = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
+# sheet_name = 'Лист1'
+scr_n = 20
+prc_n = 19
 
 
 folder_names = set()
@@ -50,16 +53,16 @@ def read_excel(file_name):
     active_sheet = wb[sheet_name]
 
     for row in active_sheet.rows:
-        # screen_number = str(row[1].value)
-        screen_number = str(row[scr_n].value) # из файла реестра У меня 20 у кати 24/25
+
+        screen_number = str(row[scr_n].value)
         # print(screen_number)
 
-        # price_val = (row[17].value)
+
 
         try:
             # price_val = float(row[3].value)
-            price_val = float(row[prc_n].value) # из файла реестра У меня 21 у кати 20
             # print(price_val)
+            price_val = float(row[prc_n].value)
         except:
             price_val = None
 

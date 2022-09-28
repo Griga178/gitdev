@@ -11,17 +11,18 @@
 import pandas
 
 # - - - * - - - НАСТРОЙКИ ЕКСЕЛЬ ФАЙЛА - - - * - - -
-exel_file = 'C:/Users/G.Tishchenko/Desktop/26p_4.xlsx'
+
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
 sheets_name = 'main'
 
 column_name = 'Наименование поставщика'
 #column_inn = 'ИНН поставщика'
-column_price = 'Цена, включая НДС, руб.'
+column_price = 'Новая цена'
 column_numer = 'Источник ценовой информации'
 column_jpg_name = 'Номер скриншота'
 
 # - - - * - - - НАСТРОЙКИ МЕСТА ДЛЯ ПАПОК - - - * - - -
-main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_4_2022/'
+main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_4_2022_k/'
 otvet_dir = main_dir + '/Otveti'
 ekran_dir = main_dir + '/Ekranki'
 
@@ -29,7 +30,8 @@ ekran_dir = main_dir + '/Ekranki'
 # испольюзуются: dict_ekranki, dict_otveti
 #where_screens = '../devfiles/scr/new/'
 # where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
-where_screens = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
+# where_screens = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
+where_screens = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 
 dict_main = {}
 
@@ -191,7 +193,9 @@ def copy_screen():
     print(copy_count_ecr, ' Экранок')
 #
 create_dirs()
-# copy_screen()
+copy_screen()
+
+
 
 
 # Считаем количество использования источников {Ситилинк ООО; 100}

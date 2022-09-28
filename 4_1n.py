@@ -28,7 +28,7 @@ binary_yandex_driver_file = 'yandexdriver.exe'
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 manual.xlsx'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/norm_4.xlsx'
 sheet_name = 'citi'
 # файл для сохранения
 csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(3).csv'

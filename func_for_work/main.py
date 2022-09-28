@@ -9,7 +9,7 @@ from excel_creator import check_companies_info_file, check_links_table_file
 from excel_reader import read_work_table, read_links_table, update_companies_file
 from data_merger import merge_links_tables
 from excel_writer import write_links_data
-from console_interface import run_console_interface
+
 
 # Проверка на наличие необходимых файлов, папок - Создание
 check_create_folder(main_folder)
@@ -36,7 +36,3 @@ if len(sys.argv) > 1:
     for file_path in sys.argv[1:]:
     # for file_path in file_list:
         read_input_file(file_path)
-
-
-# Запуск панели управления
-run_console_interface()

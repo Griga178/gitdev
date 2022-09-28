@@ -9,7 +9,8 @@
 по папкам по компаниям)
 
 ПЕРЕД ЗАПУСКОМ:
-https://chromedriver.chromium.org/downloads
+https://chromedriver.chromium.org/downloads - для Chrome
+https://github.com/yandex/YandexDriver/releases - для Яндекса
 обновит driver chrome
 заменить: csv_file_name, dir_for_screen
 '''
@@ -160,7 +161,7 @@ def selen_parse(link, name):
     cv2.imwrite(name, image)
 
     return stand_clear(answer)
-    # return clean_number(answer) # ПОМОГАЕТ ИНОГДА 
+    # return clean_number(answer) # ПОМОГАЕТ ИНОГДА
 
 def beauty_pars(name):
     main_page = row[0]

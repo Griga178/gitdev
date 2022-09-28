@@ -1,5 +1,6 @@
 '''
 Помогает изменить имена компаний в номерах СЭДа
+номая прога ---> funcs_for_work.srv_test_rename
 '''
 import time
 
