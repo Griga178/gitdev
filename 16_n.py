@@ -3,13 +3,15 @@ import os
 
 
 # csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Общая.xlsx'
-# screen_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_norm/'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/all_s3_.xlsx'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/all_1kv_23y/'
 # screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 
-sheet_name = 'main'
+sheet_name = 'links_all'
+scr_n = 1
+prc_n = 3
 # scr_n = 20
 # prc_n = 21 # если есть проверка на 160 тогда +3
 
@@ -22,11 +24,11 @@ sheet_name = 'main'
 # prc_n = 20
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/КАРТРИДЖИ/2022/4 кв 2022 КАРТРИДЖИ/Копия 11 часть 3 квартал картирджи катино.xlsx'
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
-screen_folder = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
+# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
+# screen_folder = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 # sheet_name = 'Лист1'
-scr_n = 20
-prc_n = 19
+# scr_n = 20
+# prc_n = 19
 
 
 folder_names = set()
@@ -66,8 +68,8 @@ def read_excel(file_name):
         except:
             price_val = None
 
-        if type(price_val) == float and price_val > 0:
-            excel_set.add(screen_number)
+        # if type(price_val) == float and price_val > 0:
+        excel_set.add(screen_number)
 
     return excel_set
 
@@ -91,7 +93,7 @@ not_in_fol = csv_names - folder_names
 not_in_csv = folder_names - csv_names
 
 if not_in_fol:
-    print(f'Не хватает в папке {len(not_in_fol)} шт.\n', not_in_fol)
+    print(f'Не хватает в папке {len(not_in_fol)} шт.(м.б. лишние в excel)\n', not_in_fol)
 
 if not_in_csv:
     print(f'Не хватает в csv/excel {len(not_in_csv)} шт.\n', not_in_csv)

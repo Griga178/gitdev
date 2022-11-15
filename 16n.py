@@ -3,8 +3,8 @@ import openpyxl
 '''
 РАСПАКОВКА PICLE ФАЙЛА В EXCEL
 '''
-pkl_path = 'C:/Users/G.Tishchenko/Desktop/price.pkl'
-excel_path = 'C:/Users/G.Tishchenko/Desktop/prices2.xlsx'
+pkl_path = 'C:/Users/G.Tishchenko/Desktop/11_part_v2/price.pkl'
+excel_path = 'C:/Users/G.Tishchenko/Desktop/11_part_v2/prices2.xlsx'
 
 with open(pkl_path, 'rb') as f:
     dub_list = pickle.load(f)

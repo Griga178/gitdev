@@ -43,8 +43,8 @@ import pickle
 start_time = time.time()
 
 # csv_file_name = 'C:/Users/G.Tishchenko/Desktop/Norm_3_2022.csv'
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/Norm_3_2022.csv'
-dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/toner/'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/all.csv'
+dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/all_1kv_23y/'
 pkl_file_name = dir_for_screen + 'price.pkl'
 # Если папки нет: создать
 def check_folder(folder_name):
@@ -130,10 +130,14 @@ def selen_parse(link, name):
 
     # Два варианта парсинга
     a, b = None, None
+
     try:
         # находит текст внутри тега
-        price = driver.find_element_by_xpath(f"//{tag}[@{atribute}='{atr_val}']")
-        a = price.get_attribute('outerHTML')
+        # price = driver.find_element_by_xpath(f"//{tag}[@{atribute}='{atr_val}']")
+        # a = price.get_attribute('outerHTML')
+        price = driver.find_element_by_xpath(f"//{tag}[contains(@{atribute}, '{atr_val}')]")
+        a = price.text
+
         # находит значение атрибута тега (когда цена не выводится на сайт прямо)
         pricea = driver.find_element_by_xpath(f"//{tag}[@{atribute}='{atr_val}']")
         b = pricea.get_attribute('content')
@@ -160,8 +164,8 @@ def selen_parse(link, name):
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     cv2.imwrite(name, image)
 
-    return stand_clear(answer)
-    # return clean_number(answer) # ПОМОГАЕТ ИНОГДА
+    # return stand_clear(answer)
+    return clean_number(answer) # ПОМОГАЕТ ИНОГДА
 
 def beauty_pars(name):
     main_page = row[0]

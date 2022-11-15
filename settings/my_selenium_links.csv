@@ -4,7 +4,7 @@ www.regard.ru;meta;itemprop;price;
 www.dns-shop.ru;div;class;product-buy__price;
 www.ipsolution.ru;meta;itemprop;price;
 shop.prosv.ru;div;class;prices;
-www.imperiatechno.ru;div;class;prices;cur
+www.imperiatechno.ru;div;class;price-curent
 my-shop.ru;div;class;price__base price-black;
 a4toner.ru;div;class;product-item-price-current2 mb-1;
 argusmaster.ru;div;class;price;
@@ -35,3 +35,5 @@ kotofoto.ru;span;class;newqpricest;
 lenprint.ru;div;class;price;
 o-manager.ru;span;class;price;
 t-toner.ru;span;class;price nowrap;
+nicom-spb.ru;span;class;price_value;
+www.officemag.ru;div;class;js-insidelistCardGoods;
