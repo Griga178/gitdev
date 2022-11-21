@@ -42,9 +42,12 @@ import pickle
 
 start_time = time.time()
 
-# csv_file_name = 'C:/Users/G.Tishchenko/Desktop/Norm_3_2022.csv'
-csv_file_name = 'C:/Users/G.Tishchenko/Desktop/all.csv'
-dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/all_1kv_23y/'
+
+# csv_file_name = 'C:/Users/G.Tishchenko/Desktop/all.csv'
+# dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/all_1kv_23y/'
+dir_for_screen = 'C:/Users/G.Tishchenko/Desktop/ofitrade_kate/'
+csv_file_name = 'C:/Users/G.Tishchenko/Desktop/all_kate.csv'
+
 pkl_file_name = dir_for_screen + 'price.pkl'
 # Если папки нет: создать
 def check_folder(folder_name):

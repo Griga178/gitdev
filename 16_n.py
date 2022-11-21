@@ -3,14 +3,14 @@ import os
 
 
 # csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/all_s3_.xlsx'
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/all_1kv_23y/'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/all_2023_1.xlsx'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 # screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 
-sheet_name = 'links_all'
-scr_n = 1
+sheet_name = 'cur_parse'
+scr_n = 0
 prc_n = 3
 # scr_n = 20
 # prc_n = 21 # если есть проверка на 160 тогда +3
