@@ -1,7 +1,7 @@
-from screen_shot.browser import open_page
-from screen_shot.screen import make_screen
-from screen_shot.excel import read_xlsx
-from screen_shot.counter import counter_gen
+from scr_maker.browser import open_page
+from scr_maker.screen import make_screen
+from scr_maker.excel import read_xlsx
+from scr_maker.counter import counter_gen
 
 import time, pyautogui
 
