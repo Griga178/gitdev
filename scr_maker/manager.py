@@ -7,7 +7,7 @@ import time, pyautogui
 
 def start_screening(xlsx_file_name, screen_folder, sleep_second = False, sheet_name = False):
     link_list = read_xlsx(xlsx_file_name, sheet_name if sheet_name else False)
-    counter_obj = counter_gen(link_list, sleep_second if sleep_second else 2)
+    counter_obj = counter_gen(link_list)
 
     for scr_num, link in link_list:
         img_name = screen_folder + f'{scr_num}.jpg'
