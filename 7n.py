@@ -1,5 +1,5 @@
 '''
-    I   (сортировка скриншотов)
+    I   (сортировка скриншотов по папкам)
     Есть - Создаем папки с названием по компаниям
     Есть - Подсчет количества цен (- необходимых скриншотов) по каждой компании (csv)
     Есть - Закидываем в эти папки скриншоты (подсчет)
@@ -11,27 +11,37 @@
 import pandas
 
 # - - - * - - - НАСТРОЙКИ ЕКСЕЛЬ ФАЙЛА - - - * - - -
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/Часть 10. Запасные части для офисного оборудования.xlsx'
+# sheets_name = 'Реестр 1 кв 2023г'
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/Часть 11. Картриджи.xlsx'
+# sheets_name = 'Лист1'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/For_sed.xlsx'
+# exel_file = 'Z:/Тищенко Е.Ю/Часть 10. Запасные части для офисного оборудования.xlsx'
+# sheets_name = 'main'
+sheets_name = 'RT new'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
-sheets_name = 'main'
-
+# column_name = 'Наименование'
 column_name = 'Наименование поставщика'
+
 #column_inn = 'ИНН поставщика'
 column_price = 'Новая цена'
 column_numer = 'Источник ценовой информации'
-column_jpg_name = 'Номер скриншота'
+column_jpg_name = 'Номер скрина'
 
 # - - - * - - - НАСТРОЙКИ МЕСТА ДЛЯ ПАПОК - - - * - - -
-main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_4_2022_k/'
+main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_1_2023/'
 otvet_dir = main_dir + '/Otveti'
 ekran_dir = main_dir + '/Ekranki'
 
 # Копируем скриншоты
 # испольюзуются: dict_ekranki, dict_otveti
 #where_screens = '../devfiles/scr/new/'
-# where_screens = 'C:/Users/G.Tishchenko/Desktop/screens_3_2022/'
+where_screens = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
+# where_screens = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/запчасти/'
+# where_screens = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/картриджи/'
+
 # where_screens = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
-where_screens = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
+# where_screens = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/запчасти/'
 
 dict_main = {}
 

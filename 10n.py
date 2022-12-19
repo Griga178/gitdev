@@ -16,8 +16,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 # МЕНЯЕМ:
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Номера К.xlsx'
-dir_files = 'C:/Users/G.Tishchenko/Desktop/Word_folder_k/'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/For_sed.xlsx'
+dir_files = 'C:/Users/G.Tishchenko/Desktop/Word_folder/'
 
 binary_yandex_driver_file = 'yandexdriver.exe'
 
@@ -99,10 +99,10 @@ def upload_file(file_name): # загрузка файлов с компа
     #    print(f'- - -[ulpoad_file] - - - - - - - Не получилось добавить в:    {short_name}\n')
     '''
 
-# user_name = 'Tishchenko_GL'
-# user_passw = 'cmec789'
-user_name = 'Tishchenko_EU'
-user_passw = 'cmec234'
+user_name = 'Tishchenko_GL'
+user_passw = 'cmec789'
+# user_name = 'Tishchenko_EU'
+# user_passw = 'cmec234'
 #user_name = 'Mustafin_RI'
 #user_passw = '123123'
 

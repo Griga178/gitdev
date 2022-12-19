@@ -18,10 +18,10 @@ from docx.shared import Inches
 #name_file = 'new_file.docx'
 #name_name_file = 'new_file_2.docx'
 
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_4_2022_k/'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_1_2023/'
 
 word_folder = 'C:/Users/G.Tishchenko/Desktop/'
-dir_name_i = word_folder + 'Word_folder_k'
+dir_name_i = word_folder + 'Word_folder'
 dir_name_O = dir_name_i + '/Otveti'
 dir_name_E = dir_name_i + '/Ekranki'
 
@@ -40,7 +40,7 @@ source_O = screen_folder + '/Otveti/'
 source_E = screen_folder + '/Ekranki'
 
 def pic_save(dir_source, dir_destiny):
-    ''' 2 обязательных аргумента (названия папок)
+    '''
     1) где лежат фотки
     2) куда сохраняем ворд файл
     '''
@@ -90,11 +90,11 @@ def pic_save(dir_source, dir_destiny):
 
 create_dirs()
 pic_save(source_O, dir_name_O) # 691 шт 4 кв Ответы
-pic_save(source_E, dir_name_E) # 745 шт 4 кв Экранки
+# pic_save(source_E, dir_name_E) # 745 шт 4 кв Экранки
 
 
 def one_pic_save(dir_source, dir_destiny, comp_name):
-    ''' 2 обязательных аргумента (названия папок)
+    '''
     1) где лежат фотки
     2) куда сохраняем ворд файл
     3) имя компании

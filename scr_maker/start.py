@@ -7,8 +7,8 @@ import time, pyautogui
 
 # setts
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_file_name = 'C:/Users/G.Tishchenko/Desktop/all_2023_1.xlsx'
-sleep_second = 4
+xlsx_file_name = 'C:/Users/G.Tishchenko/Desktop/запчасти.xlsx'
+sleep_second = 5
 
 link_list = read_xlsx(xlsx_file_name, sheet_name = 'cur_parse')
 counter_obj = counter_gen(link_list)

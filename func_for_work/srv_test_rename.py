@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from srv_funcs.excel_reader import get_excel_rows
 import time
 
-test_file_name = 'C:/Users/G.Tishchenko/Desktop/For_sed.xlsx'
+test_file_name = 'C:/Users/G.Tishchenko/Desktop/For_sed_k.xlsx'
 
 user_name, user_passw = 'Mustafin_RI', '123123'
 

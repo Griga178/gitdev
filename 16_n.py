@@ -5,30 +5,38 @@ import os
 # csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
 excel_file_name = 'C:/Users/G.Tishchenko/Desktop/all_2023_1.xlsx'
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/all_1kv_23y/'
+
 # screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 
-sheet_name = 'links (2)'
-scr_n = 1
-prc_n = 3
+sheet_name = 'RT new'
+scr_n = 20
+prc_n = 21
 # scr_n = 20
 # prc_n = 21 # если есть проверка на 160 тогда +3
 
         # КАТИНЫ ЧАСТИ
         # из файла реестра У меня 20 у кати 24/25
-# excel_file_name = 'Z:/Тищенко Е.Ю/ЗАПЧАСТИ/2022/4 кв 2022 ЗАПЧАСТИ/Копия 10. Запасные части для офисного оборудования -4 кв 2022 катина.xlsx'
-# screen_folder = 'Z:/Тищенко Е.Ю/screens_4_запч/'
-# sheet_name = 'Реестр 3 кв 2022'
-# scr_n = 24
-# prc_n = 20
+# excel_file_name = 'Z:/Тищенко Е.Ю/ЗАПЧАСТИ/2023/1 кв 2023/Часть 10. Запасные части для офисного оборудования.xlsx'
+# excel_file_name = 'Z:/Тищенко Е.Ю/Часть 10. Запасные части для офисного оборудования.xlsx'
+# excel_file_name = 'Z:/Тищенко Е.Ю/КАРТРИДЖИ/2023/Часть 11. Картриджи в реестр 1 кв 2023.xlsx'
+# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Часть 11. Картриджи в реестр 1 кв 2023.xlsx'
+
+# screen_folder = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/запчасти/'
+# screen_folder = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/картриджи/'
+# sheet_name = 'Реестр 1 кв 2023г'
+# sheet_name = 'Лист1'
+# sheet_name = 'Картриджи'
+# scr_n = 24 # 24 = "Y"
+# prc_n = 21 # 21 = "V"
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/КАРТРИДЖИ/2022/4 кв 2022 КАРТРИДЖИ/Копия 11 часть 3 квартал картирджи катино.xlsx'
 # excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
 # screen_folder = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 # sheet_name = 'Лист1'
-# scr_n = 20
-# prc_n = 19
+# scr_n = 27 #20
+# prc_n = 24 # 19
 
 
 folder_names = set()
@@ -68,14 +76,15 @@ def read_excel(file_name):
         except:
             price_val = None
 
-        # if type(price_val) == float and price_val > 0:
-        excel_set.add(screen_number)
+        if type(price_val) == float and price_val > 0:
+            excel_set.add(screen_number)
 
     return excel_set
 
             # - - - - - - - - - Чтение содержимого папки - - - - - - - - -
 
 fols_content = os.listdir(screen_folder)
+# fols_content = os.listdir(screen_folder_2)
 
 for fol_file in fols_content:
     if ".jpg" in fol_file:
