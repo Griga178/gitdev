@@ -9,7 +9,7 @@ start_time = time.time()
 
 main_page = 'https://egrul.nalog.ru/index.html'
 
-exel_file = 'C:/Users/G.Tishchenko/Desktop/Склейка вер8 +топливо.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/Поставщики_все.xlsx'
 # exel_file = "Z:/Тищенко Г.Л/Номера 3кв.xlsx"
 # exel_file = 'C:/Users/G.Tishchenko/Desktop/comp.csv'
 binary_yandex_driver_file = 'yandexdriver.exe'
