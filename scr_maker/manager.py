@@ -17,7 +17,5 @@ def start_screening(xlsx_file_name, screen_folder, sleep_second = False, sheet_n
         pyautogui.hotkey('ctrl', 'w')
         print(counter_obj.__next__(), end = '\r')
 
-
-# screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-# xlsx_file_name = 'C:/Users/G.Tishchenko/Desktop/all_2023_1.xlsx'
-# start_screening(xlsx_file_name, screen_folder, sleep_second = 2, sheet_name = 'cur_parse'):
+# Запускаемый файл
+# ../atest.py
