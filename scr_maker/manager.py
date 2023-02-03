@@ -9,7 +9,7 @@ def start_screening(xlsx_file_name, screen_folder, sleep_second = False, sheet_n
     link_list = read_xlsx(xlsx_file_name, sheet_name if sheet_name else False)
     counter_obj = counter_gen(link_list)
 
-    for scr_num, link in link_list:
+    for scr_num, link in link_list[200:350]:
         img_name = screen_folder + f'{scr_num}.jpg'
         open_page(link)
         time.sleep(sleep_second)
