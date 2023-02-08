@@ -3,16 +3,17 @@ import os
 
 
 # csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/all_2023_1.xlsx'
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/all_1kv_23y/'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 компьютерное.xlsx'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/3 компьютеры/'
 
 # screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 
-sheet_name = 'RT new'
-scr_n = 20
-prc_n = 21
+sheet_name = 'Лист1'
+
+scr_n = 21 # V столбец
+prc_n = 22 # W столбец
 # scr_n = 20
 # prc_n = 21 # если есть проверка на 160 тогда +3
 

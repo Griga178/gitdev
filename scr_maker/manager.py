@@ -10,8 +10,8 @@ def start_screening(xlsx_file_name, screen_folder, sleep_second = False, sheet_n
     # excel_data = my_func(xlsx_file_name, sheet_name)
     counter_obj = counter_gen(link_list)
 
-    for scr_num, link,  p, kkn_name in link_list[350:600]: # нормирование
-        meta_content = {"id": scr_num, "link": link, "kkn": kkn_name}
+    for scr_num, link,  p, kkn_name in link_list: # нормирование
+        meta_content = {"id": scr_num, "link": link} #, "kkn": kkn_name
         img_name = screen_folder + f'{scr_num}.jpg'
         open_page(link)
         time.sleep(sleep_second)

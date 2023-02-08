@@ -7,8 +7,9 @@
 import openpyxl
 import os
 
-work_table_name = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
-screnshot_folder_name = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_4_2022_k/'
+# work_table_name = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
+work_table_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 компьютерное.xlsx'
+screnshot_folder_name = 'C:/Users/G.Tishchenko/Desktop/3 компьютеры/'
 
 o_excel_companies = set()
 e_excel_companies = set()
@@ -25,7 +26,8 @@ def open_excel(excel_file_name, sheet_number = 0):
 def read_excel(excel_gen):
     comp_name_clm_num = 17 # R столбец
     # price_clm_num = 21 # V столбец
-    price_clm_num = 20 # U столбец
+    # price_clm_num = 20 # U столбец
+    price_clm_num = 22 # W столбец
     type_of_price = 5 # F столбец
     for ex_row in excel_gen:
         if ex_row[price_clm_num].value:
