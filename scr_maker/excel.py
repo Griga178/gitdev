@@ -12,8 +12,9 @@ def read_xlsx(file_name, sheet_name = False):
     for row in active_sheet.rows:
         scr_num = str(row[0].value)
         link_val = str(row[1].value)
-        price = str(row[2].value)
-        kkn_name = str(row[3].value)
-        list_links.append([scr_num, link_val, price, kkn_name])
+        # price = str(row[2].value)
+        # kkn_name = str(row[3].value)
+        # list_links.append([scr_num, link_val, price, kkn_name])
+        list_links.append([scr_num, link_val])
 
     return list_links
