@@ -35,7 +35,7 @@ class Category():
         return x
 
     def check_connections():
-        """После сохранения всех характеристик запустить, для проверки связей
+        """После сохранения всех категорий запустить, для проверки связей
         Category.check_connections()
         """
         for id, category in Category.categories.items():
