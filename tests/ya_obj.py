@@ -42,3 +42,7 @@ class Category():
             if category.parent_id:
                 if type(category.parent) != Category:
                     category.parent = Category.categories[category.parent_id]
+    def get_parent(self):
+        par_list = [self]
+        par_list = self.get_parents(par_list)
+        return par_list[-1]
