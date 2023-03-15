@@ -30,6 +30,9 @@ for companies_info in my_list:
     text_org_name = companies_info[2]
     text_org_type = companies_info[0]
     test_number_element = companies_info[1]
+    # text_org_name = companies_info[0]
+    # test_number_element = companies_info[2]
+    # text_org_type = 'Экранная копия'
 
     # -  -  -  *  -  -  - Ищем документ -  -  -  *  -  -  -
     find_document_from_main(driver, test_number_element)
@@ -51,19 +54,19 @@ for companies_info in my_list:
 
     # Проверяем что внутри инпута
     # print("Смотрим что внутри инпута")
-    text_where_from = 'Сторонняя организация, интернет-магазин'
-    org_input = '//*[@wbkey="classifier_Where"]/div/table/tbody/tr/td[7]/div/input'
-    current_input_text = driver.find_element_by_xpath(org_input).get_attribute('value')
-
-    if 'Сторонняя организация, интернет-магазин' != current_input_text:
-
-        driver.find_element_by_xpath(org_btn).click()
-        driver.find_element_by_xpath(org_btn).click()
-
-        driver.find_element_by_xpath(org_input).clear()
-        driver.find_element_by_xpath(org_input).send_keys(text_where_from)
-        time.sleep(1)
-        # driver.find_element_by_xpath(org_input).send_keys(Keys.TAB)
+    # text_where_from = 'Сторонняя организация, интернет-магазин'
+    # org_input = '//*[@wbkey="classifier_Where"]/div/table/tbody/tr/td[7]/div/input'
+    # current_input_text = driver.find_element_by_xpath(org_input).get_attribute('value')
+    #
+    # if 'Сторонняя организация, интернет-магазин' != current_input_text:
+    #
+    #     driver.find_element_by_xpath(org_btn).click()
+    #     driver.find_element_by_xpath(org_btn).click()
+    #
+    #     driver.find_element_by_xpath(org_input).clear()
+    #     driver.find_element_by_xpath(org_input).send_keys(text_where_from)
+    #     time.sleep(1)
+    #     # driver.find_element_by_xpath(org_input).send_keys(Keys.TAB)
 
 
 
@@ -74,7 +77,7 @@ for companies_info in my_list:
     driver.find_element_by_xpath(input_org_name).send_keys(text_org_name)
 
     # Вставляем "Содержание"
-    # print("Заполняем содержание")
+    print("Заполняем содержание")
 
     qa2 = '//div[@class="Wb_Textarea Wb_FormElement_Position1 text_Content Wb_Control Wb_EditableField WbForm_Obligatory"]/div/textarea'
     find_element = driver.find_element_by_xpath(qa2)
@@ -85,7 +88,7 @@ for companies_info in my_list:
 
     save_btn_path = '//*[@wbkey="btn_saveIncoming"]'
     driver.find_element_by_xpath(save_btn_path).click()
-    # print("Сохранили")
+    print("Сохранили")
 
     time.sleep(1)
 
