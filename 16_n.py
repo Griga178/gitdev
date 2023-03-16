@@ -8,8 +8,10 @@ import os
 # screen_folder = 'C:/Users/G.Tishchenko/Desktop/3 компьютеры/'
 # excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/19 Бытовые приборы.xlsx'
 # screen_folder = 'C:/Users/G.Tishchenko/Desktop/19 Быт/'
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/26 Оборудование для театрально.xlsx'
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/26 Театр/'
+# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/26 Оборудование для театрально.xlsx'
+# screen_folder = 'C:/Users/G.Tishchenko/Desktop/26 Театр/'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 Нормирование.xlsx'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/3 Нормирование/'
 
 # screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
