@@ -11,14 +11,12 @@
 import pandas
 
 # - - - * - - - НАСТРОЙКИ ЕКСЕЛЬ ФАЙЛА - - - * - - -
-# exel_file = 'C:/Users/G.Tishchenko/Desktop/Часть 10. Запасные части для офисного оборудования.xlsx'
-# sheets_name = 'Реестр 1 кв 2023г'
-# exel_file = 'C:/Users/G.Tishchenko/Desktop/Часть 11. Картриджи.xlsx'
-# sheets_name = 'Лист1'
-exel_file = 'C:/Users/G.Tishchenko/Desktop/For_sed.xlsx'
-# exel_file = 'Z:/Тищенко Е.Ю/Часть 10. Запасные части для офисного оборудования.xlsx'
-# sheets_name = 'main'
-sheets_name = 'RT new'
+
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/26 Оборудование для театрально.xlsx'
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/19 Бытовые приборы.xlsx'
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 компьютерное.xlsx'
+exel_file = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 Нормирование.xlsx'
+sheets_name = 'Лист1'
 
 # column_name = 'Наименование'
 column_name = 'Наименование поставщика'
@@ -29,14 +27,16 @@ column_numer = 'Источник ценовой информации'
 column_jpg_name = 'Номер скрина'
 
 # - - - * - - - НАСТРОЙКИ МЕСТА ДЛЯ ПАПОК - - - * - - -
-main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_1_2023/'
+main_dir = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_2_2023/'
 otvet_dir = main_dir + '/Otveti'
 ekran_dir = main_dir + '/Ekranki'
 
 # Копируем скриншоты
 # испольюзуются: dict_ekranki, dict_otveti
 #where_screens = '../devfiles/scr/new/'
-where_screens = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
+# where_screens = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
+where_screens = 'Z:/Тищенко Г.Л/2023_2_квартал/'
+
 # where_screens = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/запчасти/'
 # where_screens = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/картриджи/'
 

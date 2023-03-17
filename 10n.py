@@ -16,7 +16,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 # МЕНЯЕМ:
-exel_file = 'C:/Users/G.Tishchenko/Desktop/For_sed.xlsx'
+# exel_file = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/26 Оборудование для театрально.xlsx'
+# exel_file, kkn_part_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/19 Бытовые приборы.xlsx', '19 часть '
+# exel_file, kkn_part_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 компьютерное.xlsx', '3 часть '
+exel_file, kkn_part_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 Нормирование.xlsx', '3 нормирование '
+# kkn_part_name = '19 часть '
 dir_files = 'C:/Users/G.Tishchenko/Desktop/Word_folder/'
 
 binary_yandex_driver_file = 'yandexdriver.exe'
@@ -116,7 +120,8 @@ sheets_name_o = 'Otveti'
 
 def main_func(sheets_name):
     # Добавляет все экранки по списку excel
-    column_name, column_number = 'name', 'number'
+    # column_name, column_number = 'name', 'number'
+    column_name, column_number = 'Наименование поставщика', 'Номер'
     df = pandas.read_excel(exel_file, sheet_name = sheets_name, usecols = [column_name, column_number])
     list_name = df[column_name].tolist()
     list_number  = df[column_number].tolist()
@@ -126,26 +131,32 @@ def main_func(sheets_name):
 
     main_page = 'http://srv07/cmec/CA/Desktop/Default.aspx?wintype=window_desktops#view=desktop_2501'
     num_index = 0
-
+    driver.get(main_page)
     for number in list_number:
 
-        driver.get(main_page)
+
         #print(f'Следующий номер: {number}')
-        find_document_from_main(number)
-        print(f'зашли на страницу по номеру {number} -- {list_name[num_index]}')
-        time.sleep(1)
-        click_by_name('Вложения')
-        #print('перешли на вкладку вложения')
+        split_number = number.split(' ')
+        number = split_number[-1]
         file_name = list_name[num_index].replace('"', '').replace('«', '').replace('»', '') + '.docx'
-        time.sleep(1)
-        #print(f'Прикрепили файл {file_name}\n')
+
+
 
         # штука, что бы контролировать процесс
         # после каждого круга Enter или s = stop
         # добавить запись в csv из empty.py
         if file_name in list_docs:
+            find_document_from_main(number)
+            print(f'зашли на страницу по номеру {number} -- {list_name[num_index]}')
+            time.sleep(1)
+            click_by_name('Вложения')
+            #print('перешли на вкладку вложения')
+            time.sleep(1)
+            #print(f'Прикрепили файл {file_name}\n')
             #print(cur_dir + file_name) #+ '/'
-            upload_file(cur_dir + file_name)
+            os.rename(cur_dir + file_name, cur_dir + kkn_part_name + file_name)
+
+            upload_file(cur_dir + kkn_part_name + file_name)
             reestr_list.append(number)
             #time.sleep(1)
 
@@ -153,9 +164,11 @@ def main_func(sheets_name):
         else:
             print(f'Не нашел файл: {file_name}\nв папке {cur_dir}')
             num_index += 1
+            continue
         argument = input('Enter, что бы продолжить\ns, что бы закончить: \n')
         if argument == 's':
             break
+        driver.get(main_page)
 
 
     print(f'Добавлено: {num_index} файлов')

@@ -18,7 +18,7 @@ from docx.shared import Inches
 #name_file = 'new_file.docx'
 #name_name_file = 'new_file_2.docx'
 
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_1_2023/'
+screen_folder = 'C:/Users/G.Tishchenko/Desktop/Screen_folder_2_2023/'
 
 word_folder = 'C:/Users/G.Tishchenko/Desktop/'
 dir_name_i = word_folder + 'Word_folder'
@@ -39,7 +39,7 @@ def create_dirs():
 source_O = screen_folder + '/Otveti/'
 source_E = screen_folder + '/Ekranki'
 
-def pic_save(dir_source, dir_destiny):
+def pic_save(dir_source, dir_destiny, kkn_part_num = False):
     '''
     1) где лежат фотки
     2) куда сохраняем ворд файл
@@ -49,7 +49,10 @@ def pic_save(dir_source, dir_destiny):
     list_comp_name = os.listdir(dir_source)
     for el in list_comp_name:
         # имя ворд файла
-        doc_file_name = dir_destiny + '/' + el + '.docx'
+        if kkn_part_num:
+            doc_file_name = dir_destiny + '/' + kkn_part_num + el + '.docx'
+        else:
+            doc_file_name = dir_destiny + '/' + el + '.docx'
         # Создаем word файл
         document = docx.Document()
         section = document.sections[0]
@@ -89,8 +92,8 @@ def pic_save(dir_source, dir_destiny):
     print(f'\nВсего скриншотов: {all_pic_number}\nВсего word файлов: {doc_number}')
 
 create_dirs()
-pic_save(source_O, dir_name_O) # 691 шт 4 кв Ответы
-# pic_save(source_E, dir_name_E) # 745 шт 4 кв Экранки
+pic_save(source_O, dir_name_O, kkn_part_num = "3 нормирование ") # 691 шт 4 кв Ответы
+pic_save(source_E, dir_name_E) # 745 шт 4 кв Экранки
 
 
 def one_pic_save(dir_source, dir_destiny, comp_name):
