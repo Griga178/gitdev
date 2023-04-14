@@ -7,15 +7,6 @@ def list_to_excel(py_list, excel_path):
         current_sheet.append(el)
     wb.save(excel_path)
 
-from typing import Dict
-def read_excel(headers: Dict = False) -> str:
-    return headers
-
-# a = read_excel({"1": "abc"})
-# print(a)
-# b = read_excel()
-# print(b)
-
 def excel_to_list(xl_name, **kwargs):
     wb = load_workbook(xl_name, read_only = True, data_only = True)
     sheet_name = kwargs['sheet_name'] if 'sheet_name' in kwargs else wb.sheetnames[0]
@@ -27,6 +18,10 @@ def excel_to_list(xl_name, **kwargs):
             if column_name.value in kwargs['headers_names']:
                 column_index = active_sheet[1].index(column_name)
                 column_indices.append(column_index)
+                kwargs['headers_names'].remove(column_name.value)
+        else:
+            if kwargs["headers_names"]:
+                print(f'НЕ НАШЛОСЬ КОЛОНКА(И) {kwargs["headers_names"]}')
     # headers_indexes =
     return_list = []
     for row in active_sheet.iter_rows(min_row = min_row, values_only = True):
@@ -38,12 +33,4 @@ def excel_to_list(xl_name, **kwargs):
             return_row = list(row)
         return_list.append(return_row)
 
-    # for el in return_list:
-    #     print(el)
-
     return return_list
-
-# exel_file = 'C:/Users/G.Tishchenko/Desktop/19p_4.xlsx'
-# , headers_names = ['Наименование ККН','ИНН поставщика', 'Наименование поставщика', 'ссылка']
-# excel_to_list(exel_file, headers = False, headers_names = ['Наименование ККН'])
-# , sheet_name = 'main'

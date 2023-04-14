@@ -28,12 +28,12 @@ binary_yandex_driver_file = 'yandexdriver.exe'
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/norm_4.xlsx'
-sheet_name = 'citi'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 Нормирование.xlsx'
+sheet_name = 'Лист2'
 # файл для сохранения
 csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(3).csv'
 # Папка для скринов
-screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_4_manua/'
+screens_folder = 'C:/Users/G.Tishchenko/Desktop/screens_3_manual/'
 # Если папки нет: создать
 def check_folder(folder_name):
     folder_exist = os.path.isdir(folder_name)
