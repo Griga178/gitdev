@@ -14,13 +14,10 @@ import pyautogui
 
 программа открывает ссылку
 человек в консоль вводит цену
-если есть цена - запись + создать скрин
-(свернуть консоль или в брузер в полный экран)
-ДОБАВИТЬ
-IF INPUY == 'n':
-добавить новую ссылку и цену
-elif == 'r'
-исправить цену в номере
+если есть цена -> запись + создать скрин
+Таблица:
+A: [link, ...]
+B: [screen_number, ...]
 '''
 
 binary_yandex_driver_file = 'yandexdriver.exe'
@@ -28,7 +25,7 @@ binary_yandex_driver_file = 'yandexdriver.exe'
 start_time = time.time()
 
 # ссылки по которым надо пройтись
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 Нормирование.xlsx'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 компьютерное.xlsx'
 sheet_name = 'Лист2'
 # файл для сохранения
 csv_new_name = 'C:/Users/G.Tishchenko/Desktop/R_manual(3).csv'
@@ -64,7 +61,6 @@ def make_screenshoot(screen_name):
     cv2.imwrite(screen_name, image)
 
 def run_manual_parse():
-    'В ручную добалвяем цены к ссылке + делаем скрин'
 
     work_list = links_to_list_from_excel()
     options = Options()
@@ -77,7 +73,7 @@ def run_manual_parse():
     work_list_with_price = []
 
     for row in work_list:
-        driver.set_window_size(1240, 1080)
+        # driver.set_window_size(1240, 1080)
         try:
             driver.get(row[0])
         except:
@@ -102,7 +98,7 @@ def run_manual_parse():
         if input_price > 0:
             work_list_with_price.append([row[0], row[1], input_price])
             print('Цена =', input_price)
-            driver.maximize_window()
+            # driver.maximize_window()
             screen_name = screens_folder + str(row[1]) + '.jpg' #row[1] + f'_{str(input_price).replace(".", ",")}'
             print(screen_name)
             make_screenshoot(screen_name)

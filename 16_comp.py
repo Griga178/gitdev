@@ -8,8 +8,9 @@ import openpyxl
 import os
 
 # work_table_name = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
-work_table_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 компьютерное.xlsx'
-screnshot_folder_name = 'C:/Users/G.Tishchenko/Desktop/3 компьютеры/'
+work_table_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 Нормирование.xlsx'
+# screnshot_folder_name = 'C:/Users/G.Tishchenko/Desktop/3 компьютеры/'
+screnshot_folder_name = 'Z:/Тищенко Г.Л/3 кв 2023 скрины'
 
 o_excel_companies = set()
 e_excel_companies = set()

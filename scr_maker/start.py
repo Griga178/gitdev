@@ -7,7 +7,7 @@ import time, pyautogui
 
 # setts
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_file_name = 'C:/Users/G.Tishchenko/Desktop/Рабочая таблица 07.04.2023 Наша.xlsx'
+xlsx_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 компьютерное.xlsx'
 sleep_second = 5
 
 link_list = read_xlsx(xlsx_file_name, sheet_name = 'citi2')

@@ -1,4 +1,7 @@
 from exif import Image
+'''
+    заполняем Мета инфу в jpg файле
+'''
 #
 image_path = 'C:/Users/G.Tishchenko/Desktop/Exif_jpg2.jpg'
 image_path2 = 'C:/Users/G.Tishchenko/Desktop/Exif_jpg3.jpg'

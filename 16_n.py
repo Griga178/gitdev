@@ -10,19 +10,18 @@ import os
 # screen_folder = 'C:/Users/G.Tishchenko/Desktop/19 Быт/'
 # excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/26 Оборудование для театрально.xlsx'
 # screen_folder = 'C:/Users/G.Tishchenko/Desktop/26 Театр/'
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 Нормирование.xlsx'
-screen_folder = 'C:/Users/G.Tishchenko/Desktop/3 Нормирование/'
-
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 Нормирование.xlsx'
+screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/'
 # screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 
 sheet_name = 'Лист1'
 
-scr_n = 21+2 # V столбец - X
-prc_n = 22+2 # W столбец - Y
-# scr_n = 20
-# prc_n = 21 # если есть проверка на 160 тогда +3
+# scr_n = 21+2 # V столбец - X
+# prc_n = 22+2 # W столбец - Y
+scr_n = 20 # столбец - U
+prc_n = 21  # столбец - V
 
         # КАТИНЫ ЧАСТИ
         # из файла реестра У меня 20 у кати 24/25
