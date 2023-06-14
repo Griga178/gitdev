@@ -4,24 +4,27 @@ import os
 
 # csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
 
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/3 компьютерное.xlsx'
-# screen_folder = 'C:/Users/G.Tishchenko/Desktop/3 компьютеры/'
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/19 Бытовые приборы.xlsx'
-# screen_folder = 'C:/Users/G.Tishchenko/Desktop/19 Быт/'
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 23/26 Оборудование для театрально.xlsx'
-# screen_folder = 'C:/Users/G.Tishchenko/Desktop/26 Театр/'
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 Нормирование.xlsx'
-screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/'
+# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 компьютерное.xlsx'
+# screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/компьютерное оборудование/'
+# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/19 Бытовые приборы.xlsx'
+# screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/бытовое оборудование/'
+excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/26 Оборудование для театрально.xlsx'
+screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/театральное оборудование/'
+# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 Нормирование.xlsx'
+# screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/нормирование/'
 # screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
 
 # excel_file_name = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
 
 sheet_name = 'Лист1'
 
-# scr_n = 21+2 # V столбец - X
-# prc_n = 22+2 # W столбец - Y
-scr_n = 20 # столбец - U
-prc_n = 21  # столбец - V
+scr_n = 21+2 # V столбец - X
+# scr_n = 20 # столбец - U
+
+
+# prc_n = 21  # столбец - V
+prc_n = 24  # столбец - Y
+# prc_n = 25  # столбец - Z
 
         # КАТИНЫ ЧАСТИ
         # из файла реестра У меня 20 у кати 24/25
