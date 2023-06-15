@@ -1,3 +1,8 @@
+'''
+    2 столба с заголовками:
+    A Наименование поставщика
+    B Источник ценовой информации
+'''
 from srv_funcs.log_in import log_in
 from srv_funcs.find_document import find_document_from_main
 
@@ -27,12 +32,9 @@ log_in(driver, user_name, user_passw)
 my_list = get_excel_rows(test_file_name)
 for companies_info in my_list:
     print(my_list.index(companies_info), companies_info)
-    text_org_name = companies_info[2]
     text_org_type = companies_info[0]
     test_number_element = companies_info[1]
-    # text_org_name = companies_info[0]
-    # test_number_element = companies_info[2]
-    # text_org_type = 'Экранная копия'
+    text_org_name = companies_info[2]
 
     # -  -  -  *  -  -  - Ищем документ -  -  -  *  -  -  -
     find_document_from_main(driver, test_number_element)

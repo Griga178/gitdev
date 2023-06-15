@@ -41,6 +41,12 @@ class Work_space():
         else:
             print("Не введен search_text")
         print(self.driver)
+        
+    def change_name(self, source_info):
+        pass
+
+    def upload_file(self, file_path):
+        pass
 
 user_name, user_passw = 'Tishchenko_GL', 'cmec789'
 
