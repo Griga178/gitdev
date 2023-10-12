@@ -1,18 +1,20 @@
 '''
-    7n + 8n
-    закидываем скриншоты в ворд файлы
-    0 принимает стандартную рабочую таблицу 
+    закидываем скриншоты в ворд файлы:
+    в excel должны быть столбцы:
+    "Номер скрина" == имя jpg файла (без типа файла и пути) "12345"
+    "Новая цена" - если 0, то не учитывается (вроде бы)
+
+    0 принимает стандартную рабочую таблицу
     1 чтение рабочей таблицы, отбираем строки с ценами и скринами
     2 обработка информации:
         объединяем скрины по компаниям и типам источников
     3 создание папок для хранения .doc файлов
     4 создание .doc файлов
 
-    название папки со скринами добавляется в название файла.doc
-    "СИТИЛИНК ООО_компьютерное оборудование.doc"
+    пример названия файла.doc:
+    "1234_СИТИЛИНК ООО_03 компьютерное оборудование.doc"
 '''
 from excel_funcs import excel_to_list
-# from nine_editor import edit_row_v2
 import nine_editor
 
 import os
@@ -22,17 +24,17 @@ from docx.enum.section import WD_ORIENT
 from docx.shared import Inches, Mm, Pt
 
 # - - - * - -  НАСТРОЙКИ ЕКСЕЛЬ ФАЙЛА - - - * - - -
-EXCEL_FOLDER = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/'
-SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/'
+FOLDER_PATH = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд2/'
+EXCEL_FOLDER = 'C:/Users/G.Tishchenko/Desktop/4 кв 2023/'
+SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/4 кв 2023 скрины/'
+# EXCEL_NAME = '26 Оборудование для театрально.xlsx'
+# SCREEN_FOLDER_NAME = '26 театральное оборудование'
 
-EXCEL_NAME = '26 Оборудование для театрально.xlsx'
-SCREEN_FOLDER_NAME = 'театральное оборудование'
-
-# EXCEL_NAME = '19 Бытовые приборы.xlsx'
-# SCREEN_FOLDER_NAME = 'бытовое оборудование'
+EXCEL_NAME = '19 Бытовые приборы.xlsx'
+SCREEN_FOLDER_NAME = '19 бытовое оборудование'
 
 # EXCEL_NAME = '3 компьютерное.xlsx'
-# SCREEN_FOLDER_NAME = 'компьютерное оборудование'
+# SCREEN_FOLDER_NAME = '3 компьютерное оборудование'
 #
 # EXCEL_NAME = '3 Нормирование.xlsx'
 # SCREEN_FOLDER_NAME = 'нормирование'
@@ -40,7 +42,7 @@ SCREEN_FOLDER_NAME = 'театральное оборудование'
 EXCEL_PATH = EXCEL_FOLDER + EXCEL_NAME
 SCREEN_FOLDER = SCREEN_FOLDER_FOLDER + SCREEN_FOLDER_NAME + "/"
 
-FOLDER_PATH = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/'
+
 
 ex_set = {
     'sheet_name': 'Лист1',

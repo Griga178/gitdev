@@ -85,7 +85,7 @@ def read_amount():
 
 def page_data_save(file_name):
     # Чтение и запись номеров контрактов
-        # считываем все номера со страницы
+    # считываем все номера со страницы
     cells = '//div[@class="registry-entry__header-mid__number"]'
     numbers = driver.find_elements_by_xpath(cells)
         # записываем все "чистые" номера во множество

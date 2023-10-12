@@ -1,5 +1,14 @@
 '''
-    загружаем файлы в СЭД
+
+    загружаем файлы в СЭД:
+
+    берет все файлы с 1 номером "1234_***"
+    по номеру ворд файла ищет карточку в "сэд"
+    загружает файл в карточку
+    проверяет что такое имя существует на странице
+
+    ps. перед применением обновить selenium driver
+    
 '''
 
 import os
@@ -7,12 +16,12 @@ from ten_edit import *
 from ten_edit_two import *
 import time
 # папка с файлами
-# "3217_ОНЛАЙН_ТРЕЙД_ООО_БЫТОВОЕ_ОБОРУДОВАНИЕ.doc"
-# DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Экранные копии/'
 
-DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос/'
-# user_name, user_passw = 'Tishchenko_GL', 'cmec789'
-user_name, user_passw = 'Mustafin_RI', '123123'
+
+DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Экранные копии/'
+user_name, user_passw = 'Tishchenko_GL', 'cmec789'
+# DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос/'
+# user_name, user_passw = 'Mustafin_RI', '123123'
 
 # инфа для формирования нофера источника "04-4129/23-0-0"
 LEFT_PART = '04-'

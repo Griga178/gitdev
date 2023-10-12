@@ -59,5 +59,5 @@ def just_do(amount):
     print(f'Закрыто документов: {counter}\nКол-во ошибок: {errors_counter}')
 
 
-just_do(15)
+just_do(44)
 # print_position_info()

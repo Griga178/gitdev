@@ -2,51 +2,35 @@
 import os
 
 
-# csv_file_path = 'C:/Users/G.Tishchenko/Desktop/R_manual(19).csv'
 
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 компьютерное.xlsx'
-# screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/компьютерное оборудование/'
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/19 Бытовые приборы.xlsx'
-# screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/бытовое оборудование/'
-excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/26 Оборудование для театрально.xlsx'
-screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/театральное оборудование/'
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/3 кв 23/3 Нормирование.xlsx'
-# screen_folder = 'Z:/Тищенко Г.Л/3 кв 2023 скрины/нормирование/'
-# screen_folder = 'Z:/Тищенко Г.Л/4 квартал Скриншоты/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/4 кв 2023/'
+SCREEN_PATH = 'Z:/Тищенко Г.Л/4 кв 2023 скрины/'
 
-# excel_file_name = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
+FILE_NAME = '3 компьютерное.xlsx'
+SCREEN_FOLDER = '3 компьютерное оборудование/'
+#
+# FILE_NAME = '26 Оборудование для театрально.xlsx'
+# SCREEN_FOLDER = '26 театральное оборудование'
+
+# FILE_NAME = '19 Бытовые приборы.xlsx'
+# SCREEN_FOLDER = '19 бытовое оборудование'
+#
+FILE_NAME = '3 Нормирование.xlsx'
+SCREEN_FOLDER = 'нормирование'
+
+
+excel_file_name = FILE_PATH + FILE_NAME
+screen_folder = SCREEN_PATH + SCREEN_FOLDER
 
 sheet_name = 'Лист1'
 
-scr_n = 21+2 # V столбец - X
-# scr_n = 20 # столбец - U
+# scr_n = 21+2 # V столбец - X
+scr_n = 20 # столбец - U
 
 
 # prc_n = 21  # столбец - V
 prc_n = 24  # столбец - Y
 # prc_n = 25  # столбец - Z
-
-        # КАТИНЫ ЧАСТИ
-        # из файла реестра У меня 20 у кати 24/25
-# excel_file_name = 'Z:/Тищенко Е.Ю/ЗАПЧАСТИ/2023/1 кв 2023/Часть 10. Запасные части для офисного оборудования.xlsx'
-# excel_file_name = 'Z:/Тищенко Е.Ю/Часть 10. Запасные части для офисного оборудования.xlsx'
-# excel_file_name = 'Z:/Тищенко Е.Ю/КАРТРИДЖИ/2023/Часть 11. Картриджи в реестр 1 кв 2023.xlsx'
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Часть 11. Картриджи в реестр 1 кв 2023.xlsx'
-
-# screen_folder = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/запчасти/'
-# screen_folder = 'Z:/Тищенко Е.Ю/скрины/все скрины 1 кв 2023/картриджи/'
-# sheet_name = 'Реестр 1 кв 2023г'
-# sheet_name = 'Лист1'
-# sheet_name = 'Картриджи'
-# scr_n = 24 # 24 = "Y"
-# prc_n = 21 # 21 = "V"
-
-# excel_file_name = 'Z:/Тищенко Е.Ю/КАРТРИДЖИ/2022/4 кв 2022 КАРТРИДЖИ/Копия 11 часть 3 квартал картирджи катино.xlsx'
-# excel_file_name = 'C:/Users/G.Tishchenko/Desktop/Общая_K.xlsx'
-# screen_folder = 'Z:/Тищенко Е.Ю/все скрины 4 кв 2022/'
-# sheet_name = 'Лист1'
-# scr_n = 27 #20
-# prc_n = 24 # 19
 
 
 folder_names = set()
