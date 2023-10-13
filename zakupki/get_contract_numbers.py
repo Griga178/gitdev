@@ -1,4 +1,4 @@
-from settings import START_DATE, END_DATE, DAYS_STEP, DATA_BASE_PATH
+from settings import START_DATE, END_DATE, DAYS_STEP#, DATA_BASE_PATH
 
 from date_setup import get_days
 from selenium_setup import get_driver
@@ -103,7 +103,7 @@ def read_page(DRIVER):
 def parse_numbers():
     # открываем сайт
     DRIVER = get_driver()
-    DB_API = Data_base_API(DATA_BASE_PATH)
+    DB_API = Data_base_API()#DATA_BASE_PATH)
     # настраиваем фильтры
     setup_site_filter(DRIVER)
 

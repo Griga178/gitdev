@@ -41,3 +41,9 @@ def string_to_datetime(string_value):
         return datetime_object
     except:
         return None
+
+def clean_string(string):
+    rvar = r'\w+'
+    results = findall(rvar, string)
+    result = ' '.join(results)
+    return result
