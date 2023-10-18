@@ -48,6 +48,7 @@ class Product(Base):
     country_producer = Column(Text)
     ktru = Column(Text)
     okpd_2 = Column(Text)
+    type = Column(Text)
     measure = Column(Text)
     quantity = Column(Float)
     price = Column(Float)

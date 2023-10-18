@@ -3,6 +3,7 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from .tables import Contrant_card
 
 
+
 class Contrant_cards():
     def __init__(self, session):
         self.session = session
@@ -33,4 +34,4 @@ class Contrant_cards():
     def save(self, asset: Contrant_card):
         self.session.add(asset)
         self.session.commit()
-        print(f"<Contrant_card: {asset}> - обновлен")
+        # print(f"<Contrant_card: {asset}> - обновлен")

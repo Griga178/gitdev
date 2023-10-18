@@ -7,7 +7,10 @@ def get_driver():
 
     options = Options()
     # options.add_argument('--ignore-certificate-errors')
-    DRIVER = webdriver.Chrome(selenium_driver)#, options = options)
+    options.add_argument('--headless')
+    options.add_argument("--disable-gpu")
+    options.add_argument('--log-level=3')
+    DRIVER = webdriver.Chrome(selenium_driver, options = options)
     DRIVER.implicitly_wait(100)
 
     DRIVER.get('https://zakupki.gov.ru/epz/contract/search/results.html')

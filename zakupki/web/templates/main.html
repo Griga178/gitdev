@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<table id="data" class="table table-striped">
+   <thead>
+     <tr>
+       <th>Номер</th>
+       <th>Дата заключения</th>
+       <th>Цена</th>
+       <th>Дата обновления</th>
+
+     </tr>
+   </thead>
+   <!-- <tbody>
+     {% for contract in contracts %}
+       <tr>
+         <td>{{ contract.number }}</td>
+         <td>{{ contract.date }}</td>
+         <td>{{ contract.price }}</td>
+         <td>{{ contract.update_date }}</td>
+
+       </tr>
+     {% endfor %}
+   </tbody> -->
+ </table>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+  $(document).ready(function () {
+     $('#data').DataTable({
+       ajax: '/api/contracts',
+       columns: [
+         {data: 'number', orderable: true, searchable: true,
+         render: function(data, type, row, meta){
+            if(type === 'display'){
+                data = '<a href="https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=' + data + '" target="_blank">' + data + '</a>';
+            }
+
+            return data;
+         }},
+         {data: 'date', searchable: false},
+         {data: 'price', orderable: false, searchable: false},
+         {data: 'update_date', orderable: true, searchable: false},
+
+
+       ],
+     });
+   });
+  </script>
+{% endblock %}

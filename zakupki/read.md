@@ -8,9 +8,15 @@
 1 app.py
   Скачиваем номера контрактов
 
-2 app2.py
+2 get_card_info.py
   Скачиваем инфу по закупленным товарам в контракте
 
+3 app2.py
+  поиск совпадений по:
+    ОКПД2 + ЦЕНА (+/- 30%)
+    НАЗВАНИЕ + ЦЕНА (+/- 30%)
+4 app3.py
+  веб интерфес с поиском по БД(flask)
 
 Процесс парсинга номеров:
   составления списка дат для поиска
@@ -23,19 +29,17 @@
 
 
 
-Настройка миграций Бд
+Миграции Бд
 
 установка:
 pip install alembic
-инит в папку "migration"
-
+инит в папку "migration":
 py -m alembic init migration
 
-указываем путь до БД
-в alembic.ini
+указываем путь до БД: alembic.ini
 sqlalchemy.url = sqlite:///C:/Users/G.Tishchenko/Desktop/myfiles/zakupki.db
 
-импортируем + подключаем Метаданные от sqlalchemy в migration/env.py
+импортируем + подключаем Метаданные от sqlalchemy: migration/env.py
 from db import *
 target_metadata = Base.metadata
 
@@ -43,12 +47,10 @@ target_metadata = Base.metadata
 py -m alembic revision --autogenerate -m 'initial'
 
 внесение изменений
-1 вносим изменения в модель
+1 вносим изменения в модель (tables.py)
 2 создаем автоматическую миграцию:
-   py -m alembic revision --autogenerate  -m "comment"
-3 вноси руками в новый созданый файл в папке versions
-4 запуск
-  -m alembic upgrade 91123912person add second_name.py
- вносятся изменения в sql таблице
+py -m alembic revision --autogenerate  -m "comment"
 
- py -m alembic revision --autogenerate  -m "person add phone"
+4 запуск
+py -m alembic upgrade 911...
+...вносятся изменения в sql таблице

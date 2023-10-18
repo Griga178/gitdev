@@ -93,6 +93,7 @@ def read_page(DRIVER):
                 'date': string_to_datetime(c_c_elem.find_element_by_xpath('.//div[@class="data-block__value"]').text),
                 'price': string_to_float(c_c_elem.find_element_by_xpath('.//div[@class="price-block__value"]').text),
                 'customer': c_c_elem.find_element_by_xpath('.//div[@class="registry-entry__body-href"]').text,
+                'update_date': string_to_datetime(c_c_elem.find_element_by_xpath('.//div[2]/div[2]/div[5]/div[2]/div[2]').text)
                 }
             )
         except:
@@ -151,24 +152,28 @@ def parse_numbers():
                     DB_API.contrant_cards.insert(**el)
 
                 # Перелистывание страницы
-                xp_pg_nums = '//*[@id="quickSearchForm_header"]/section[2]/div/div/div[1]/div[4]/div/div[1]/ul/a'
-                pg_num = DRIVER.find_elements_by_xpath(xp_pg_nums)
-                # ловим стрелку перемотки
-                if page_number != 0:
-                    # если это не первая страница - в списке две стрелки
-                    if len(pg_num) == 2:
-                        pg_num[1].click()
-                        page_number += 1
+                if some_text > 50:
+                    xp_pg_nums = '//*[@id="quickSearchForm_header"]/section[2]/div/div/div[1]/div[4]/div/div[1]/ul/a'
+                    pg_num = DRIVER.find_elements_by_xpath(xp_pg_nums)
+                    # ловим стрелку перемотки
+                    if page_number != 0:
+                        # если это не первая страница - в списке две стрелки
+                        if len(pg_num) == 2:
+                            pg_num[1].click()
+                            page_number += 1
+                        else:
+                        # в списке одна стрелка и стр. не №1 = последняя стр.
+                            print('Закончили перелистывать')
+
+                            pars_pages_stat = 1
                     else:
-                    # в списке одна стрелка и стр. не №1 = последняя стр.
-                        print('Закончили перелистывать')
-
-                        pars_pages_stat = 1
+                        # если это первая страница - в списке одна стрелка - сслыка
+                        pg_num[0].click()
+                        page_number += 1
                 else:
-                    # если это первая страница - в списке одна стрелка - сслыка
-                    pg_num[0].click()
-                    page_number += 1
+                    print('нечего перелистывать')
 
+                    pars_pages_stat = 1
             print(f'Скачали: {some_text} шт. за период {period} дн.')
             sum_kontrakts += some_text
             print(f'Всего скачано: {sum_kontrakts} шт.')
