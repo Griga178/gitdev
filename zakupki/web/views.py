@@ -1,16 +1,14 @@
-from flask import Flask, url_for
+from flask import Flask, url_for, request
 from flask import render_template
-from database import Data_base_API
 
 app = Flask(__name__, template_folder = "templates")
 
 app.config['SECRET_KEY'] = 'AASDFASDF'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/G.Tishchenko/Desktop/myfiles/zakupki2.db'
-''
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 app.debug =  True
 
-# from .models import db
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy(app)
@@ -96,16 +94,31 @@ def data():
 def api_products():
     return {'data': [product.to_dict() for product in Product.query]}
 
-# @app.route('/contracts', methods = ('GET', 'POST'))
-# def contracts():
-#     DB_API = Data_base_API()
-#     items = DB_API.contrant_cards.select()[:10]
-#
-#     table = Contrans_table(items)
-#     # return table
-#     return render_template('main.html', table = table)
 
 @app.route('/products', methods = ('GET', 'POST'))
 def products():
 
     return render_template('products.html', title = 'Товары')
+
+@app.route('/products_v2')
+def products_v2():
+
+    return render_template('products_v2.html', title = 'Товары 2.0')
+
+@app.route('/api/products_v2', methods = ('GET', 'POST'))
+def api_products_v2():
+
+    draw = request.form['draw'] # "счетчик" +1 при новом запросе
+    row = int(request.form['start']) # номер начальной строки
+    rowperpage = int(request.form['length']) # количество выводимых строк
+    searchValue = request.form["search[value]"] # строка для поиска
+
+    pq = Product.query.offset(row).limit(rowperpage)
+    if searchValue != '':
+        pass
+        # pq.like
+
+        # print(request.form.columns)
+
+    print(searchValue)
+    return {'data': [product.to_dict() for product in pq]}
