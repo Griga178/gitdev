@@ -110,7 +110,7 @@ def run_manual_parse():
             for line in work_list_with_price:
                 file.write(f'{line[0]};{line[1]};{line[2]}\n')
         cur_sec = round((time.time() - start_time), 2)
-        print(f'Вревмя выполнения: {int(cur_sec // 60)} мин. {cur_sec} сек.)')
+        print(f'Время выполнения: {int(cur_sec // 60)} мин. {cur_sec} сек.)')
 
         driver.close()
         #return work_list_with_price

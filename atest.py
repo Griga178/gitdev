@@ -9,9 +9,9 @@ B: link
 '''
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/4 кв 2023/'
-# xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
-xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/1 кв 2024/'
+xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
+# xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
 # xlsx_file_name = xlsx_folder_path + '3 Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
 
