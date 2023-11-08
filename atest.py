@@ -10,10 +10,10 @@ B: link
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/1 кв 2024/'
-xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
+# xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
 # xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
 # xlsx_file_name = xlsx_folder_path + '3 Нормирование.xlsx'
-# xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
+xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
 
 headers_names = [
     'Ссылка',
@@ -28,7 +28,7 @@ link_dicts = excel_to_dicts(
     sheet_name = 'Лист2',
     headers_names = headers_names,
     headers = False
-    )[:]
+    )[:600]
 
 counter_obj = counter_gen(link_dicts)
 

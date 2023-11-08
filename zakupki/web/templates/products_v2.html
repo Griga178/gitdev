@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+<tbody><tr>
+  <td>Минимальная цена:</td>
+  <td><input class="form-control form-control-sm" type="text" id="min" name="min"></td>
+</tr>
+<tr>
+  <td>Максимальная цена:</td>
+  <td><input aria-controls="data" class="form-control form-control-sm" type="text" id="max" name="max"></td>
+  <!-- <button id="confirm" type="button" name="button">Применить</button> -->
+</tr>
 <table id="data" class="table table-striped">
    <thead>
      <tr>
@@ -21,9 +30,46 @@
 
 {% block scripts %}
 <script>
-  $(document).ready(function () {
+  let minEl = document.querySelector('#min');
+  let maxEl = document.querySelector('#max');
+  let confBtn = document.querySelector('#confirm');
+  // alert(confBtn)
+  confBtn.onclick = function () {
+    let min = parseInt(minEl.value, 10);
+    let max = parseInt(maxEl.value, 10);
+    alert(max)
+  };
+
+
+  let draw_table = function () {
+
+    //  добавляем кнопку
+     $("#data").on("preInit.dt", function(){
+       $("#data_wrapper input[type='search']").after(
+        "<button type='button' id='btn_data_search'>Применить</button>");
+             });
      $('#data').DataTable({
-      ajax: '/api/products_v2',
+      // ajax: '/api/products_v2',
+      initComplete: function(){onint();},
+      ajax: {
+        url: '/api/products_v2',
+        data: {
+        min_price: parseInt(document.querySelector('#min').value, 10),
+        max_price: parseInt(document.querySelector('#max').value, 10),
+        number: 123
+
+        },
+        data:function(dtp){
+                    // change the return value to what your server is expecting
+                    // here is the path to the search value in the textbox
+                    // let searchValue = dtp.search.value;
+
+                    dtp.max_price = parseInt(document.querySelector('#max').value, 10)
+                    dtp.min_price = parseInt(document.querySelector('#min').value, 10)
+                    // console.log(dtp)
+                    return dtp;}
+      //   dataSrc: ""
+      },
       processing: true,
       serverSide: true,
       serverMethod: 'post',
@@ -50,7 +96,22 @@
 
       ],
      });
+     function onint(){
+       // take off all events from the searchfield
+       $("#data_wrapper input[type='search']").off();
+       // Use return key to trigger search
+       $("#data_wrapper input[type='search']").on("keydown", function(evt){
+            if(evt.keyCode == 13){
+              $("#data").DataTable().search($("input[type='search']").val()).draw();
+            }
+       });
 
-   });
+       $("#btn_data_search").on("click", function(){
+             $("#data").DataTable().search($("input[type='search']").val()).draw();
+
+       });
+     }
+   };
+  $(document).ready(draw_table)
 </script>
 {% endblock %}
