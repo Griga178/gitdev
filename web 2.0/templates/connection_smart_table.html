@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row mb-2">
+    <div class="col-7">
+      <table id="connection" class="table">
+        <thead>
+          <th>Parent name</th>
+          <th>Child name</th>
+        </thead>
+        <tbody>
+          {% for con in asocs%}
+            <tr>
+              <td><div class="row_data" edit_type="click">{{con.parent.name}}</div></td>
+              <td><div class="row_data">{{con.child.name}}</div></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  <script type="text/javascript">
+  //--->make div editable > start
+  $(document).on('click', '.row_data', function(event)
+  {
+  	event.preventDefault();
+
+  	if($(this).attr('edit_type') == 'button')
+  	{
+  		return false;
+  	}
+
+  	//make div editable
+  	$(this).closest('div').attr('contenteditable', 'true');
+  	//add bg css
+  	$(this).addClass('bg-warning').css('padding','5px');
+
+  	$(this).focus();
+  })
+  //--->make div editable > end
+  //--->save single field data > start
+$(document).on('focusout', '.row_data', function(event)
+{
+	event.preventDefault();
+
+	if($(this).attr('edit_type') == 'button')
+	{
+		return false;
+	}
+
+	var row_id = $(this).closest('tr').attr('row_id');
+
+	var row_div = $(this)
+	.removeClass('bg-warning') //add bg css
+	.css('padding','')
+
+	var col_name = row_div.attr('col_name');
+	var col_val = row_div.html();
+
+	var arr = {};
+	arr[col_name] = col_val;
+
+	//use the "arr"	object for your ajax call
+	$.extend(arr, {row_id:row_id});
+
+	//out put to show
+	$('.post_msg').html( '<pre class="bg-success">'+JSON.stringify(arr, null, 2) +'</pre>');
+
+})
+//--->save single field data > end
+  </script>
+
+{% endblock %}

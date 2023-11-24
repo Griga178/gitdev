@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}
+Связь
+{% endblock %}
+
+{% block content %}
+<div class="">
+
+  <form class="" action="" method="post">
+    <label for="child_name">Child</label>
+    <select class="" name="child_name">
+      {% for object in objects%}
+      <option selected value="{{object.id}}">{{object.name}}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <label for="parent_name">Parent</label>
+    <select class="" name="parent_name">
+      {% for object in objects%}
+      <option selected value="{{object.id}}">{{object.name}}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <input type="submit">
+  </form>
+</div>
+
+<table>
+  <thead>
+    <th>Parent</th>
+    <th>Child</th>
+  </thead>
+  <tbody>
+    {% for assoc in associations %}
+    <tr>
+      <td>{{assoc.parent.name}}</td>
+      <td>{{assoc.child.name}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+{% endblock %}
