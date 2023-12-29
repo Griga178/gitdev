@@ -30,6 +30,23 @@ def products_v2():
 
     return render_template('products_v2.html', title = 'Товары 2.0')
 
+def reform_im_dict(imm_dict):
+    data = {'columns': [], 'order': []}
+
+    for el in imm_dict:
+        if 'columns' in el:
+            keys = el.split('[')
+            keys = [i.replace(']','') for i in keys]
+            data['columns'][keys[1]]
+
+        if ']' in el:
+            keys = el.split('[')
+            keys = [i.replace(']','') for i in keys]
+            print(keys)
+        else:
+            print(el)
+
+
 @app.route('/api/products_v2', methods = ('GET', 'POST'))
 def api_products_v2():
 
@@ -38,7 +55,11 @@ def api_products_v2():
     rowperpage = int(request.form['length']) # количество выводимых строк
     searchValue = request.form["search[value]"] # строка для поиска
     # print(request.form['columns[1][search][value]'])
-    print(request.form)
+
+    # for el in request.form:
+    #     print(f'{el}: {request.form[el]}')
+        # print([el])
+    reform_im_dict(request.form)
     pq = Product.query.offset(row).limit(rowperpage)
     if searchValue != '':
         pass

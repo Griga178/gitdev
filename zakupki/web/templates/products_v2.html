@@ -2,12 +2,14 @@
 {% block content %}
 <tbody><tr>
   <td>Минимальная цена:</td>
-  <td><input class="form-control form-control-sm" type="text" id="min" name="min"></td>
+  <td><input class="form-control form-control-sm" type="number"
+    id="min" name="min"></td>
 </tr>
 <tr>
   <td>Максимальная цена:</td>
-  <td><input aria-controls="data" class="form-control form-control-sm" type="text" id="max" name="max"></td>
-  <!-- <button id="confirm" type="button" name="button">Применить</button> -->
+  <td><input aria-controls="data" type="number" class="form-control form-control-sm"
+     id="max" name="max"></td>
+  <button id="btn_price_filter" type="button" name="button">Применить</button>
 </tr>
 <table id="data" class="table table-striped">
    <thead>
@@ -32,12 +34,12 @@
 <script>
   let minEl = document.querySelector('#min');
   let maxEl = document.querySelector('#max');
-  let confBtn = document.querySelector('#confirm');
-  // alert(confBtn)
+  let confBtn = document.querySelector('#btn_price_filter');
+
   confBtn.onclick = function () {
     let min = parseInt(minEl.value, 10);
     let max = parseInt(maxEl.value, 10);
-    alert(max)
+    alert(`${min} - ${max}`)
   };
 
 

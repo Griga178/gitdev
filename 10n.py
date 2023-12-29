@@ -8,7 +8,7 @@
     проверяет что такое имя существует на странице
 
     ps. перед применением обновить selenium driver
-    
+
 '''
 
 import os
@@ -21,6 +21,7 @@ import time
 DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Экранные копии/'
 user_name, user_passw = 'Tishchenko_GL', 'cmec789'
 # DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос/'
+# DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос не мои/'
 # user_name, user_passw = 'Mustafin_RI', '123123'
 
 # инфа для формирования нофера источника "04-4129/23-0-0"
@@ -51,6 +52,7 @@ for doc_name in docs:
 driver = get_driver()
 authorization_func(driver, user_name, user_passw)
 
+
 counter = 0
 # загружаем файлы
 for number, value in numbers.items():
@@ -63,14 +65,22 @@ for number, value in numbers.items():
     # if counter > 2:
     #     break
     cur_files = set()
+
+
     for file in value['files']:
         print('Добавляем', file)
         file_name = file.split('/')[-1]
         cur_files.add(file_name)
-        upload_file(driver, file)
+
+        ''' Добавление 2 '''
+        # что бы проверить все загруженные файлы
+        # надо закометить след строку
+        # upload_file(driver, file)
+
     # up_files = set()
     for file_name in cur_files:
         is_doc_uploaded(driver, file_name)
+
     time.sleep(3)
     # while up_files | cur_files:
     #     up_files = get_uploaded_files(driver)

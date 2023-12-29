@@ -17,7 +17,7 @@ class Contrant_card(Base):
 
     provider_id = Column(ForeignKey("company.inn"))
 
-    products = relationship("Product", backref = 'contrant_card')
+    products = relationship("Product", backref = 'contrant_card', lazy='subquery', viewonly=True)
 
     def __str__(self):
         return f'{self.number} {self.date}'

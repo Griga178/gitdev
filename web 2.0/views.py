@@ -85,5 +85,9 @@ def ajax_del_object():
     db.session.commit()
     return '1'
 
+@app.route('/test_page', methods = ['POST', 'GET'])
+def test_page():
+    return render_template('test_page.html')
+
 if __name__ == '__main__':
     app.run()

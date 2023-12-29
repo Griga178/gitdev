@@ -60,3 +60,20 @@ def excel_to_dicts(xl_name, **kwargs):
         return_dicts.append(return_row)
 
     return return_dicts
+
+
+def dicts_to_excel(data, fpath):
+    wb = Workbook()
+    sheet = wb.get_sheet_by_name('Sheet')
+    headers = [i for i in data[0]]
+    sheet.append(headers)
+    sheet.auto_filter.ref = sheet.dimensions
+    # print(headers)
+
+    for d in data:
+        row = []
+        for inf_key in headers:
+            row.append(d[inf_key])
+        sheet.append(row)
+
+    wb.save(fpath)

@@ -3,11 +3,11 @@ import os
 
 
 
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/4 кв 2023/'
-SCREEN_PATH = 'Z:/Тищенко Г.Л/4 кв 2023 скрины/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/1 кв 2024/'
+SCREEN_PATH = 'Z:/Тищенко Г.Л/2024_1 Скрины/'
 
-FILE_NAME = '3 компьютерное.xlsx'
-SCREEN_FOLDER = '3 компьютерное оборудование/'
+# FILE_NAME = '3 компьютерное.xlsx'
+# SCREEN_FOLDER = '3 компьютерное оборудование'
 #
 # FILE_NAME = '26 Оборудование для театрально.xlsx'
 # SCREEN_FOLDER = '26 театральное оборудование'
@@ -24,13 +24,14 @@ screen_folder = SCREEN_PATH + SCREEN_FOLDER
 
 sheet_name = 'Лист1'
 
+'''Номер скрина'''
 # scr_n = 21+2 # V столбец - X
 scr_n = 20 # столбец - U
 
-
+'''Новая цена'''
 # prc_n = 21  # столбец - V
-prc_n = 24  # столбец - Y
-# prc_n = 25  # столбец - Z
+# prc_n = 24  # столбец - Y
+prc_n = 25  # столбец - Z
 
 
 folder_names = set()
