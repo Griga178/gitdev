@@ -14,6 +14,7 @@ class Contrant_card(Base):
     price = Column(Float)
     customer = Column(Text)
     update_date = Column(DateTime)
+    # penalty = Column(Boolean)
 
     provider_id = Column(ForeignKey("company.inn"))
 
@@ -45,6 +46,7 @@ class Product(Base):
 
     id = Column(Integer, primary_key = True)
     name = Column(Text)
+    search_name = Column(Text)
     country_producer = Column(Text)
     ktru = Column(Text)
     okpd_2 = Column(Text)

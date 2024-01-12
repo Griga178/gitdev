@@ -9,7 +9,8 @@ class Contrant_card(db.Model):
     price = db.Column(db.Float)
     customer = db.Column(db.Text)
     update_date = db.Column(db.DateTime)
-
+    # penalty = db.Column(db.Boolean)
+    
     provider_id = db.Column(db.ForeignKey('company.inn'))
 
     products = db.relationship("Product", backref = 'contract')
@@ -34,6 +35,7 @@ class Company(db.Model):
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.Text)
+    search_name = db.Column(db.Text)
     country_producer = db.Column(db.Text)
     ktru = db.Column(db.Text)
     okpd_2 = db.Column(db.Text)
@@ -49,6 +51,7 @@ class Product(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'search_name': self.search_name,
             'country_producer': self.country_producer,
             'ktru': self.ktru,
             'okpd_2': self.okpd_2,

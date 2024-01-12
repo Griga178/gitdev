@@ -1,44 +1,113 @@
 {% extends "base.html" %}
+
+{% block title %}
+Главная
+{% endblock %}
+
 {% block content %}
+<p>Начать поиск контрактов</p>
+<label for="last_date">Дата начала:</label>
+<input id="last_date" type="date" name="" value={{lcd}}>
+<br>
+<label for="end_date">Дата конца:</label>
+<input id="end_date" type="date" name="" value={{ecd}}>
+<br>
+<button id="btn_parse_number" type="button" name="button">Найти</button>
 
-<table id="data" class="table table-striped">
-   <thead>
-     <tr>
-       <th>Номер</th>
-       <th>Дата заключения</th>
-       <th>Цена</th>
-       <th>Дата обновления</th>
+<br>
+<br>
 
-     </tr>
-   </thead>
+<p>Проверить старые контракты на штрафы и др.
+изменения</p>
 
- </table>
+<button id="check_contracts" type="button" name="button">Проверить</button>
+<br>
+<br>
 
+<p>Начать поиск товаров (и проч.инфы) в найденных контрактах</p>
+<button id="check_products" type="button" name="button">Запуск</button>
+
+<!-- Mini App -->
+<br>
+<br>
+<br>
+
+<progress value="0" max="100">0%</progress>
+<br>
+<button id="btn_start" type="button" name="button">Start</button>
+<button id="btn_stop" type="button" name="button">Stop</button>
+<p>Start times: <span id="counter_start">{{start_times}}</span></p>
+<p>Stop times: <span id="counter_stop">{{stop_times}}</p>
+<p>Main times: <span id="counter_main">{{main_times}}</span> </p>
+<!-- <p><span id="app_active">false</span></p> -->
+
+<p>Инфа от парсера:</p>
+<span id="parse_info"></span>
 {% endblock %}
 
 {% block scripts %}
-
 <script>
+  let btn_parse_number = document.querySelector('#btn_parse_number');
+  let app_active = false
+  btn_parse_number.onclick = function () {
 
-  $(document).ready(function () {
-     $('#data').DataTable({
-       ajax: '/api/contracts',
-       columns: [
-         {data: 'number', orderable: true, searchable: true,
-         render: function(data, type, row, meta){
-            if(type === 'display'){
-                data = '<a href="https://zakupki.gov.ru/epz/contract/contractCard/common-info.html?reestrNumber=' + data + '" target="_blank">' + data + '</a>';
-            }
+    $.ajax({
+      url: '/parse_numbers',
+      data: {"key": "value"},
+      type: 'post',
+      success: function (response){
+        alert(response);
 
-            return data;
-         }},
-         {data: 'date', searchable: false},
-         {data: 'price', orderable: false, searchable: false},
-         {data: 'update_date', orderable: true, searchable: false},
+      }
+    })
+  }
+
+  btn_start.onclick = function () {
+    app_active = true
+    $.ajax({
+      url: '/run_app',
+      data: {"key": "value"},
+      type: 'post',
+      success: function (response){
+
+        counter_start.innerHTML = response;
+      }
+    })
+  }
+  btn_stop.onclick = function () {
+    app_active = false
+    $.ajax({
+      url: '/stop_app',
+      data: {"key": "value"},
+      type: 'post',
+      success: function (response){
+        // alert(response);
+
+        counter_stop.innerHTML = response;
+      }
+    })
+  }
+
+    setInterval(
+
+      function(){
+        // alert("Popup window!");
+        if (app_active) {
+        $.ajax({
+          url: '/check_counter',
+          // data: {"key": "value"},
+          type: 'post',
+          success: function (response){
+            // alert(response);
+            counter_main.innerHTML = response;
+          }
+        })
+      }
+
+      }
+      , 1000);
 
 
-       ],
-     });
-   });
-  </script>
+</script>
+
 {% endblock %}

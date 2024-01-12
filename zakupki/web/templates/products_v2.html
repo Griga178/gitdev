@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
 {% block content %}
 <tbody><tr>
   <td>Минимальная цена:</td>
@@ -39,7 +43,12 @@
   confBtn.onclick = function () {
     let min = parseInt(minEl.value, 10);
     let max = parseInt(maxEl.value, 10);
-    alert(`${min} - ${max}`)
+    if (min > max) {
+      alert('min > max')
+    }
+    else {
+      $("#data").DataTable().search($("input[type='search']").val()).draw();
+    }
   };
 
 
@@ -80,8 +89,9 @@
       serverSide: true,
       lengthMenu: [10, 25, 50, 100],
       columns: [
-        {data: 'name'},
-        {data: 'quantity', orderable: false, searchable: false},
+        {data: 'name', name: 'name'},
+        {data: 'quantity', name: 'quantity',
+        orderable: false, searchable: false},
         {data: 'measure', orderable: false, searchable: false},
         {data: 'price', orderable: true, searchable: false},
         {data: 'okpd_2', searchable: true},
