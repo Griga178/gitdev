@@ -4,19 +4,22 @@ import time
 
 # кнопка "Ознакомлен"
 # eye_x, eye_y = (1806, 373) # строка № 1
-eye_x, eye_y = (1806, 485) # строка № 2
-eye_r, eye_g, eye_b = (88, 158, 213)
+eye_x, eye_y = (1806, 487) # строка № 2
+# eye_r, eye_g, eye_b = (88, 158, 213) # 1 вариант цвета
+eye_r, eye_g, eye_b = (144, 191, 227) # 2 вариант цвета
 
 def click_one():
+    # pt.moveTo(1806, 486, duration = 0.25)
+
     current_color = pt.pixel(eye_x, eye_y)
-    if current_color == (88, 158, 213): # 1 вариант цвета
-    # if current_color == (144, 191, 227): # 2 вариант цвета
+    # if current_color == (88, 158, 213): # 1 вариант цвета
+    if current_color == (eye_r, eye_g, eye_b): # 2 вариант цвета
         pt.click(eye_x, eye_y)
         time.sleep(0.5)
     else:
         time.sleep(1)
         print("Ждем... 'ознакомлен'")
-        print(f'цвет: {current_color} должен быть - {(88, 158, 213)}')
+        print(f'цвет: {current_color} должен быть - {(eye_r, eye_g, eye_b)}')
         click_one()
 
 # кнопка подтвердить
@@ -37,8 +40,8 @@ def click_two():
 def print_position_info():
     coord = pt.position()
     px = pt.pixel(coord[0], coord[1])
-    print(px)
-    print(coord)
+    print(px, coord, end = '\r')
+    # print()
 
 def just_do(amount):
     start_time = time.time()
@@ -59,5 +62,9 @@ def just_do(amount):
     print(f'Закрыто документов: {counter}\nКол-во ошибок: {errors_counter}')
 
 
-just_do(44)
-# print_position_info()
+just_do(32)
+# print(pt.pixel(eye_x, eye_y))
+
+# while True:
+#     print_position_info()
+#     time.sleep(0.5)

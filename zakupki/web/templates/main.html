@@ -6,18 +6,27 @@
 
 {% block content %}
 <p>Начать поиск контрактов</p>
-<label for="last_date">Дата начала:</label>
-<input id="last_date" type="date" name="" value={{lcd}}>
+<label for="inp_start_date">Дата начала:</label>
+<input id="inp_start_date" type="date" name="" value={{start_date}}>
+<span id="span_start_date" hidden=true>{{start_date}}</span>
+
 <br>
-<label for="end_date">Дата конца:</label>
-<input id="end_date" type="date" name="" value={{ecd}}>
+<label for="inp_end_date">Дата конца:</label>
+<input id="inp_end_date" type="date" name="" value={{end_date}}>
+<span id="span_end_date" hidden=true>{{end_date}}</span>
 <br>
-<button id="btn_parse_number" type="button" name="button">Найти</button>
+<p>Статус приложения: <span id="app_status"></span></p>
+
+<progress id="parse_progress_bar" value="{{parse_progress}}" max="100"></progress>
+<br>
+<button id="btn_parse_number_start" type="button" name="button">Запустить</button>
+<button hidden=true id="btn_parse_number_stop" type="button" name="button">Стоп</button>
+<button hidden=true id="btn_parse_number_refresh" type="button" name="button">Сбросить</button>
 
 <br>
 <br>
 
-<p>Проверить старые контракты на штрафы и др.
+<!-- <p>Проверить старые контракты на штрафы и др.
 изменения</p>
 
 <button id="check_contracts" type="button" name="button">Проверить</button>
@@ -25,88 +34,104 @@
 <br>
 
 <p>Начать поиск товаров (и проч.инфы) в найденных контрактах</p>
-<button id="check_products" type="button" name="button">Запуск</button>
-
-<!-- Mini App -->
-<br>
-<br>
-<br>
-
-<progress value="0" max="100">0%</progress>
-<br>
-<button id="btn_start" type="button" name="button">Start</button>
-<button id="btn_stop" type="button" name="button">Stop</button>
-<p>Start times: <span id="counter_start">{{start_times}}</span></p>
-<p>Stop times: <span id="counter_stop">{{stop_times}}</p>
-<p>Main times: <span id="counter_main">{{main_times}}</span> </p>
-<!-- <p><span id="app_active">false</span></p> -->
+<button id="check_products" type="button" name="button">Запуск</button> -->
 
 <p>Инфа от парсера:</p>
-<span id="parse_info"></span>
+<div id="parse_info"></div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-  let btn_parse_number = document.querySelector('#btn_parse_number');
-  let app_active = false
-  btn_parse_number.onclick = function () {
+
+  let app_active = {{is_active}}
+
+  btn_parse_number_start.onclick = function () {
+
+    app_active = 1
+    btn_parse_number_stop.hidden = false
+    span_start_date.innerHTML = inp_start_date.value
+    span_end_date.innerHTML = inp_end_date.value
+    span_start_date.hidden = false
+    span_end_date.hidden = false
+
+    btn_parse_number_start.hidden = true
+    btn_parse_number_refresh.hidden = true
+    inp_start_date.hidden = true
+    inp_end_date.hidden = true
+
+    app_status.innerHTML = 'Запущен'
+
+    let p_cur_date = document.createElement('p');
+    p_cur_date.innerHTML =  'Текущий период: '
+    let span_cur_date = document.createElement('span', );
+    span_cur_date.id = 'span_cur_date'
+    p_cur_date.appendChild(span_cur_date)
+    parse_info.appendChild(p_cur_date)
 
     $.ajax({
       url: '/parse_numbers',
+      data: {
+        "start_date": inp_start_date.value,
+        "end_date": inp_end_date.value,
+      },
+      type: 'post',
+      success: function (response){
+        app_active = 0
+        btn_parse_number_refresh.hidden = false
+        btn_parse_number_stop.hidden = true
+        parse_progress_bar.value = response.parse_progress
+        app_status.innerHTML = 'Остановлен'
+      }
+    })
+  }
+
+  btn_parse_number_refresh.onclick = function () {
+    app_active = 0
+    $.ajax({
+      url: '/refresh_app',
       data: {"key": "value"},
       type: 'post',
       success: function (response){
-        alert(response);
+
+        btn_parse_number_refresh.hidden = true
+        btn_parse_number_start.hidden = false
+        parse_progress_bar.value = 0
+        inp_start_date.hidden = false
+        inp_end_date.hidden = false
+        span_start_date.hidden = true
+        span_end_date.hidden = true
+        parse_info.innerHTML = ''
 
       }
     })
   }
 
-  btn_start.onclick = function () {
-    app_active = true
+  btn_parse_number_stop.onclick = function () {
+    app_active = 0
     $.ajax({
-      url: '/run_app',
-      data: {"key": "value"},
-      type: 'post',
-      success: function (response){
-
-        counter_start.innerHTML = response;
-      }
-    })
-  }
-  btn_stop.onclick = function () {
-    app_active = false
-    $.ajax({
-      url: '/stop_app',
-      data: {"key": "value"},
-      type: 'post',
-      success: function (response){
-        // alert(response);
-
-        counter_stop.innerHTML = response;
+      url: "/stop_app",
+      type: "post",
+      success: function (response) {
+        btn_parse_number_stop.hidden = true
+        btn_parse_number_refresh.hidden = false
       }
     })
   }
 
     setInterval(
-
       function(){
-        // alert("Popup window!");
-        if (app_active) {
+        if (app_active === 1) {
         $.ajax({
           url: '/check_counter',
-          // data: {"key": "value"},
           type: 'post',
           success: function (response){
-            // alert(response);
-            counter_main.innerHTML = response;
+            parse_progress_bar.value = response.parse_progress
+            span_cur_date.innerHTML = `${response.parse_date_from} - ${response.parse_date_to}`
           }
         })
       }
-
-      }
-      , 1000);
-
+    },
+       1000);
 
 </script>
 
