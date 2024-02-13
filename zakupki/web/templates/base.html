@@ -6,7 +6,7 @@
     <title>{% block title %} 01100111 {% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
-
+    {% block header %}{% endblock %}
 
   </head>
   <body>
@@ -14,6 +14,7 @@
     <div class = "container">
       <ul>
         <li><a href="{{url_for('main')}}">Главная</a></li>
+        <li><a href="{{url_for('get_parse_page')}}">Парсер</a></li>
         <li><a href="{{url_for('products')}}">Товары (Долго грузит (не более 1 мин))</a></li>
         <li><a href="{{url_for('products_v2')}}">Товары 2.0 (Быстро грузит)</a></li>
       </ul>

@@ -71,8 +71,10 @@
     $.ajax({
       url: '/parse_numbers',
       data: {
-        "start_date": inp_start_date.value,
-        "end_date": inp_end_date.value,
+        // "start_date": inp_start_date.value,
+        // "end_date": inp_end_date.value,
+        "date_from": inp_start_date.value,
+        "date_to": inp_end_date.value,        
       },
       type: 'post',
       success: function (response){

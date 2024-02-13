@@ -9,11 +9,11 @@ B: link
 '''
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/1 кв 2024/'
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/2 кв 2024/'
 # xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
 # xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
-xlsx_file_name = xlsx_folder_path + '3 Нормирование.xlsx'
-# xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
+# xlsx_file_name = xlsx_folder_path + '3 Нормирование.xlsx'
+xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
 
 headers_names = [
     'Ссылка',
@@ -21,7 +21,7 @@ headers_names = [
     'Цена',
 ]
 
-sleep_time = 5
+sleep_time = 4
 
 link_dicts = excel_to_dicts(
     xlsx_file_name,

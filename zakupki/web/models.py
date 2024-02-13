@@ -9,8 +9,10 @@ class Contrant_card(db.Model):
     price = db.Column(db.Float)
     customer = db.Column(db.Text)
     update_date = db.Column(db.DateTime)
-    # penalty = db.Column(db.Boolean)
-    
+    place_date = db.Column(db.DateTime)
+    execute_date = db.Column(db.DateTime)
+    penalty = db.Column(db.Boolean)
+
     provider_id = db.Column(db.ForeignKey('company.inn'))
 
     products = db.relationship("Product", backref = 'contract')

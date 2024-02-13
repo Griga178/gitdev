@@ -1,46 +1,46 @@
 from flask import render_template, url_for, request
 from .models import *
 
-
-from .module_parser import Parse_app
-
-def launch_product_pars():
-    pass
-
-def launch_contract_checking():
-    pass
+from .parse_v2 import Parser_ver_2
 
 
-mini_app = Parse_app(app, Contrant_card)
+parse_app = Parser_ver_2(
+    app = app,
+    db = db,
+    Contrant_card = Contrant_card,
+    Product = Product
+    )
 
 
 @app.route('/refresh_app', methods = ('GET', 'POST'))
 def refresh_app():
-    mini_app.refresh_app()
+
+    parse_app.refresh_app()
     return 'True'
 
 @app.route('/check_counter', methods = ('GET', 'POST'))
 def check_counter():
-    return mini_app.get_info()
+
+    return parse_app.get_info()
 
 @app.route('/')
 @app.route('/main')
 def main():
-    return render_template('main.html', **mini_app.get_info())
+
+    return render_template('main.html', **parse_app.get_info())
 
 @app.route('/parse_numbers', methods = ('GET', 'POST'))
 def parse_numbers():
+    ''' запуск парсера '''
 
-    # Сообщение об настройке дат от проги True/ Error {Message}
-    message_about_dates = mini_app.set_dates(**request.form)
-    if message_about_dates != True:
-        return message_about_dates
-    mini_app.parse_numbers()
-    return mini_app.get_info()
+    parse_app.set_dates(**request.form)
+    parse_app.parse_contract_numbers()
+    return parse_app.get_info()
+
 
 @app.route('/stop_app', methods = ('GET', 'POST'))
 def stop_app():
-    mini_app.is_active = 0
+    parse_app.is_active = 0
     return 'True'
 
 def check_old_dates():

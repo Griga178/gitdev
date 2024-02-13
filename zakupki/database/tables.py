@@ -14,7 +14,9 @@ class Contrant_card(Base):
     price = Column(Float)
     customer = Column(Text)
     update_date = Column(DateTime)
-    # penalty = Column(Boolean)
+    place_date = Column(DateTime)
+    execute_date = Column(DateTime)
+    penalty = Column(Boolean)
 
     provider_id = Column(ForeignKey("company.inn"))
 

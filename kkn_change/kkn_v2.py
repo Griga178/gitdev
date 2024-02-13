@@ -2,7 +2,11 @@ class KKN_v2():
     def __init__(self, **kwargs):
 
         self.id = kwargs.get('id')
+        self.categoryID = kwargs.get('categoryID', None)
+        self.ktruCode = kwargs.get('ktruCode', None) # id кода ktru !
+
         self.name = kwargs.get('name')
+        self.text = kwargs.get('text', None)
         self.okpd2 = kwargs.get('okpd2', None)
         self.detail_code = kwargs.get('detail_code', None)
         self.okeiSymbol = kwargs.get('okeiSymbol', None)
@@ -11,9 +15,26 @@ class KKN_v2():
         self.is_actual = kwargs.get('is_actual', None)
         self.approved = kwargs.get('approved', None)
         self.approved_kgz = kwargs.get('approved_kgz', None)
+        self.date_approved_kgz = kwargs.get('date_approved_kgz', None)
         self.russian_goods = kwargs.get('russian_goods', None)
+        self.archived = kwargs.get('archived', None)
+        self.author = kwargs.get('author', None)
+        self.averagePrice = kwargs.get('averagePrice', None)
+        self.code = kwargs.get('code', None)
+        self.issue_number = kwargs.get('issue_number', None)
+        self.okeiCode = kwargs.get('okeiCode', None)
+        self.okeiSymbol = kwargs.get('okeiSymbol', None)
+        self.okpd = kwargs.get('okpd', None)
+        self.okved = kwargs.get('okved', None)
+        self.okved2 = kwargs.get('okved2', None)
+        self.organizations_unavailable = kwargs.get('organizations_unavailable', None)
+        self.product_part = kwargs.get('product_part', None)
+        self.regulated = kwargs.get('regulated', None)
+        self.requests = kwargs.get('requests', None)
 
+        self.regulations = kwargs.get('regulations', None)
         self.attributes = []
+
 
     def add_attrs(self, value):
         self.attributes.append(KKN_Attr_v2(value))
@@ -38,7 +59,7 @@ class KKN_Attr_v2():
 
 class Attr_value():
     def __init__(self, value, cat_dict):
-        
+
 
 dlist = [
     {'id': 22177574, 'name': "USB Flash",

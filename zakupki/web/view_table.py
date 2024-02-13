@@ -1,4 +1,4 @@
-from .view_main_page import *
+from .view_parser import *
 from sqlalchemy import desc
 
 def reform_im_dict(imm_dict):
