@@ -110,7 +110,7 @@ class Parser_ver_2():
         self.filter_date_to = self.filter_date_from + timedelta(days = days_step)
         self.set_dates_query()
         print('Запуск парсера')
-        while self.filter_date_from < self.date_to:
+        while self.filter_date_from < self.date_to and self.app_status == 1:
             self.parse_progress = round((1 - (self.date_to - self.filter_date_from).days / self.days_amount) * 100)
             # print(self.parse_progress, self.days_amount)
             response = self.get_query()
@@ -193,7 +193,7 @@ class Parser_ver_2():
                 if self.params.get('contractPriceFrom'):
                     del self.params['contractPriceFrom']
         else:
-            self.app_status = 2
+            self.app_status = 11
             self.parse_progress = 100
             # self.params['pageNumber'] = 1
             if self.params.get('contractPriceFrom'):
@@ -205,7 +205,7 @@ class Parser_ver_2():
 
     def refresh_app(self):
         self.parse_progress = 0
-        elf.counter = 0
+        self.counter = 0
         self.date_from = self.get_last_conrtact_date()
         self.date_to = self.get_today()
 
@@ -214,9 +214,9 @@ class Parser_ver_2():
             'app_status': self.app_status,
             'counter': self.counter,
             'parse_progress': self.parse_progress,
-            'start_date': self.date_from,
-            'end_date': self.date_to,
-            'parse_date_from': self.filter_date_from,
+            'start_date': self.date_from.strftime("%Y-%m-%d"),
+            'end_date': self.date_to.strftime("%Y-%m-%d"),
+            'parse_date_from': self.filter_date_from.strftime("%Y-%m-%d") if self.filter_date_from else None,
             'parse_date_to': self.filter_date_to,
         }
 
@@ -229,7 +229,6 @@ class Parser_ver_2():
             c_numbers = set(self.Contrant_card.query.with_entities(self.Contrant_card.number).all())
             p_numbers = set(self.Product.query.with_entities(self.Product.contrant_card_id).all())
             eca = len(c_numbers - p_numbers)
-            # eca = self.Contrant_card.query.filter(self.Contrant_card.products == None).count()
         except:
             fcd = None
             lcd = None
@@ -245,4 +244,21 @@ class Parser_ver_2():
             'last_contract_date': lcd,
             'today_date': self.date_to.strftime("%Y-%m-%d"),
         }
+        response.update(self.get_info())
         return response
+
+    def parse_products(self):
+        '''
+        Парсинг товаров из контрактов и
+        проче инфы (заказчик, штрафы,)
+        '''
+        # НУЖНО ОТФИЛЬТРОВАТЬ УЖЕ ОТПАРСЕННЫЕ КОНТРАКТЫ
+        # получение инфы из связи контракт - продукту
+        # вызывает новое обращение к бд - очень долго
+        # получаем номера отпарсенных контракты
+        p_numbers = set(self.Product.query.with_entities(self.Product.contrant_card_id).all())
+        # получаем номера всех контракты
+        c_numbers = set(self.Contrant_card.query.with_entities(self.Contrant_card.number).all())
+        # оставляем номера только тех, которые не парсили
+        not_parsed_numbers_set = c_numbers - p_numbers
+        print(len(not_parsed_numbers_set))
