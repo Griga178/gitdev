@@ -21,7 +21,7 @@ headers_names = [
     'Цена',
 ]
 
-sleep_time = 4
+sleep_time = 10
 
 link_dicts = excel_to_dicts(
     xlsx_file_name,

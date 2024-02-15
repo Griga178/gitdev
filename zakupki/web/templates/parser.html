@@ -122,6 +122,9 @@
 {% block scripts %}
 <script>
   let app_active = {{app_status}}
+  nav_parser.setAttribute('class', nav_parser.getAttribute('class')+' active')
+
+
 </script>
 <script src="{{ url_for('static', filename='parser_products.js') }}"></script>
 <script src="{{ url_for('static', filename='parser_numbers.js') }}"></script>
