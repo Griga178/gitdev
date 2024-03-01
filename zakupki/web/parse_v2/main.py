@@ -16,6 +16,8 @@ class Parser_ver_2():
         self.Product = kwargs['Product']
 
         self.url = 'https://zakupki.gov.ru/epz/contract/search/results.html'
+        self.pr_card_url = 'https://zakupki.gov.ru/epz/contract/contractCard/common-info.html'
+
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
             }
@@ -246,19 +248,3 @@ class Parser_ver_2():
         }
         response.update(self.get_info())
         return response
-
-    def parse_products(self):
-        '''
-        Парсинг товаров из контрактов и
-        проче инфы (заказчик, штрафы,)
-        '''
-        # НУЖНО ОТФИЛЬТРОВАТЬ УЖЕ ОТПАРСЕННЫЕ КОНТРАКТЫ
-        # получение инфы из связи контракт - продукту
-        # вызывает новое обращение к бд - очень долго
-        # получаем номера отпарсенных контракты
-        p_numbers = set(self.Product.query.with_entities(self.Product.contrant_card_id).all())
-        # получаем номера всех контракты
-        c_numbers = set(self.Contrant_card.query.with_entities(self.Contrant_card.number).all())
-        # оставляем номера только тех, которые не парсили
-        not_parsed_numbers_set = c_numbers - p_numbers
-        print(len(not_parsed_numbers_set))

@@ -1,7 +1,8 @@
 from requests import Response
 from bs4 import BeautifulSoup
-from ..convert_data import *
-import re
+from .product_cadr_reader import *
+# from ..convert_data import *
+# import re
 
 def get_contract_amount(response: Response):
     '''    Количество найденных котрактов    '''
@@ -43,3 +44,42 @@ def get_contract_numbers(response: Response):
         contrant_cards.append(c_c)
         # print(q_co, c_c)
     return contrant_cards
+
+def get_product_amount(response: Response):
+    '''    Количество товаров в карточке котракта    '''
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    amount_div = soup.find("span", {"class": "tableBlock__resultTitle"})
+    product_amount_numbers = re.findall(r'\d', amount_div.string)
+    if product_amount_numbers:
+        product_amount = int(''.join(product_amount_numbers))
+    else:
+        product_amount = 0
+    return product_amount
+
+def get_data_from_product_table(response: Response, contract_id: int):
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    table = soup.find("table", {"id": "contract_subjects"})
+    # rows = table.tbody.find_all("tr", {"class": "tableBlock__row"})
+    rows = table.tbody.findChildren("tr",{"class": "tableBlock__row"}, recursive = False)
+    parsed_rows = []
+    print(len(rows)/2, 'Столько товаров')
+    for row in rows[::2]:
+
+        product_info = {}
+
+        # cells = [row.td for row in rows]
+        cells = row.find_all('td')
+        # print('Ячейка 1:', [cells[1].text])
+        product_info = product_info | get_product_name_country(cells[1].text)
+        # product_info = product_info | get_ktru_okpd_2(product_info, cells[2].text)
+        # product_info = product_info | get_product_type(cells[3].text)
+        # product_info = product_info | get_quantity_measure(cells[4].text)
+        # product_info = product_info | get_price(cells[5].text)
+        # product_info = product_info | get_cost_tax(cells[7].text)
+        product_info['contrant_card_id'] = contract_id
+        # print(product_info)
+        parsed_rows.append(product_info)
+
+    return parsed_rows
