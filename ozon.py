@@ -1,79 +1,137 @@
-'''
-https://codeby.net/threads/metody-obxoda-zaschity-ot-avtomatizirovannogo-po-v-brauzere-chrome-pod-upravleniem-selenium-v-python.81358/
+from openpyxl import Workbook, load_workbook
+from o_1 import get_seller_id
+from o_4 import get_name_ogrn
+from o_5 import get_info
 
-pip install undetected-chromedriver
+path_desktop = 'C:/Users/G.Tishchenko/Desktop/'
 
-pip install selenium selenium-stealth
-'''
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
+xl_name = path_desktop + 'ozon.xlsx'
 
-from selenium_stealth import stealth
+def check_link(link):
 
-links = [
-    'https://www.ozon.ru/product/kovrik-dlya-myshi-bmg-battlegrounds-bayk-h8-kv60-raznotsvetnyy-610072082/',
-    'https://www.ozon.ru/product/onkron-potolochno-nastennyy-kronshteyn-dlya-proektora-belyy-k5a-148044023/',
-    'https://www.ozon.ru/product/kronshteyn-dlya-proektora-holder-pr-103-b-chernyy-nagruzka-20-kg-potolochnyy-povorot-i-naklon-298763-823827163/',
-    'https://www.ozon.ru/product/kronshteyn-dlya-proektora-wize-wpb-s-serebristyy-nagruzka-12-kg-potolochnyy-povorot-i-naklon-1515273-823826930/',
-    'https://www.ozon.ru/product/kreplenie-dlya-proektora-nastennoe-potolochnoe-naklonno-povorotnoe-uniteki-pm2102b-1074657667/',
-    'https://www.ozon.ru/product/videokarta-sinotex-geforce-gtx-750-ti-2-gb-nh75ti025f-rev-1-0-268920858/',
-    'https://www.ozon.ru/product/videokarta-afox-geforce-gtx-1050-ti-4-gb-af1050ti-4096d5h2-648951255/',
-    'https://www.ozon.ru/product/videokarta-geforce-rtx-2070-8-gb-nvidia-geforce-rtx-2070-lhr-1080444698/',
-]
+    split_content = link.split('/')
+    domain = split_content[2]
+    if domain == 'www.ozon.ru':
+        split_content_2 = link.split('?')
+        return split_content_2[0]
+    else:
+        return 'error_link'
 
-selenium_driver = 'yandexdriver.exe'
-service = Service(executable_path = selenium_driver)
+def main(file_name):
+    counter = 0
+    wb = load_workbook(file_name)
+    active_sheet = wb.active
 
-options = Options()
-options.add_argument('--ignore-certificate-errors')
-# options.add_argument('--headless')
-# options.add_argument("--incognito")
-# options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_experimental_option('useAutomationExtension', False)
-# options.add_argument("--disable-gpu")
-options.add_argument('--log-level=3')
+    for active_row in active_sheet.iter_rows(2):
+        # if counter >= 3:
+        #     continue
 
-driver = webdriver.Chrome(service = service, options = options)
+        counter += 1
+        row_is_changed = False
+        print(counter)
+        column_num = active_row[0].column
+        row_num = active_row[0].row
 
-# driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-#     'source': '''
-#         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
-#         delete window.cdc_adoQpoasnfa76pfcZLmcfl_JSON
-#         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Object
-#         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Proxy
-#         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
-#         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
-#   '''
-# })
+        current_link = active_row[0].value
 
+        row_dict = {
+            'dirty_link': current_link,
+            'link': False,
+            'seller_id': False,
+            'company_name_1': False,
+            'company_name_2': False,
+            'company_ogrn': False,
+            'company_address': False,
+        }
 
-
-# stealth(driver=driver,
-#         user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-#                    'Chrome/83.0.4103.53 Safari/537.36',
-#         languages=["ru-RU", "ru"],
-#         vendor="Google Inc.",
-#         platform="Win32",
-#         webgl_vendor="Intel Inc.",
-#         renderer="Intel Iris OpenGL Engine",
-#         fix_hairline=True,
-#         run_on_insecure_origins=True,
-#         )
-
-
-
-url = 'https://www.ozon.ru/product/imice-kovrik-dlya-myshi-bolshoy-kovrik-dlya-myshi-igrovoy-kover-700x300-s-sshitymi-krayami-i-896067985/'
-# driver.headers = {
-#     'User-Agent': 'Mozilla/6.0 (Windows NT 10.0; Win64; x64)',
-#     }
+        if len(active_row) == 1:
+            row_dict['link'] = check_link(current_link)
+            row_is_changed = True
+            # Обработка ссылки
+            # ЕСЛИ ССЫЛКА == ОК
+            # Парсинг id и имя 1
+            # Парсинг имя 2, огрн и адрес
+        elif len(active_row) == 2:
+            row_dict['link'] = active_row[1].value
+            # ЕСЛИ ССЫЛКА == ОК
+            # Парсинг id и имя 1
+            # Парсинг имя 2, огрн и адрес
+        elif len(active_row) == 4:
+            row_dict['link'] = active_row[1].value
+            row_dict['seller_id'] = active_row[2].value
+            row_dict['company_name_1'] = active_row[3].value
+            # Парсинг имя 2, огрн и адрес
 
 
-# a = DRIVER.get(url)
-import time
-for el in links[:2]:
-    driver.get(el)
-    time.sleep(4)
+        else:
+            comp_name = active_row[4].value
+            row_dict['link'] = active_row[1].value
+            row_dict['seller_id'] = active_row[2].value
+            row_dict['company_name_1'] = active_row[3].value
+            row_dict['company_name_2'] = active_row[4].value
 
-# print(a)
+
+        if row_dict['link'] != 'error_link':
+            # Если есть проблемы с seller_id - пробуем еще
+            if row_dict['seller_id'] == False or row_dict['seller_id'] == 'parse_error':
+                print('Вышли сюда 000', row_dict['seller_id'])
+                try:
+                    row_dict['seller_id'], row_dict['company_name_1'] = get_seller_id(row_dict['link'])
+                    row_is_changed = True
+                except:
+                    row_dict['seller_id'] = row_dict['company_name_1'] = 'parse_error'
+
+            else:
+                print('Вышли сюда 111')
+
+            if row_dict['seller_id'] != 'parse_error':
+                if not row_dict['company_name_2']:
+                    try:
+                        c_name_2, c_ogrn, c_address = get_name_ogrn(row_dict['seller_id'])
+                        row_is_changed = True
+                        row_dict['company_name_2'] = c_name_2
+                        row_dict['company_ogrn'] = c_ogrn
+                        row_dict['company_address'] = c_address
+                    except:
+                        print("ошибка парсинга имя 2 и ОГРН")
+                        c_name_2 = c_ogrn = c_address = None
+                        print(c_name_2, c_ogrn, c_address)
+                else:
+                    print('Вышли сюда 222')
+            else:
+                print('Вышли сюда 333')
+
+
+        if row_is_changed:
+            active_sheet.cell(row = row_num, column = 2).value = row_dict['link']
+            active_sheet.cell(row = row_num, column = 3).value = row_dict['seller_id']
+            active_sheet.cell(row = row_num, column = 4).value = row_dict['company_name_1']
+            active_sheet.cell(row = row_num, column = 5).value = row_dict['company_name_2']
+            active_sheet.cell(row = row_num, column = 6).value = row_dict['company_ogrn']
+            active_sheet.cell(row = row_num, column = 7).value = row_dict['company_address']
+            wb.save(xl_name)
+
+        # print(active_sheet.cell(row = row_num, column = 8).value)
+        # egrul_parse = active_row[8].value
+        if active_sheet.cell(row = row_num, column = 8).value == False:
+            print('На ЕГРЮЛ')
+            ogrn_val = active_sheet.cell(row = row_num, column = 7).value
+            if ogrn_val != False:
+                print(ogrn_val)
+                try:
+                    egrul_info = get_info(ogrn_val)
+                    print(egrul_info)
+                    active_sheet.cell(row = row_num, column = 8).value = True
+                    active_sheet.cell(row = row_num, column = 9).value = egrul_info['full_name']
+                    active_sheet.cell(row = row_num, column = 10).value = egrul_info['inn']
+                    active_sheet.cell(row = row_num, column = 11).value = egrul_info['address']
+                    active_sheet.cell(row = row_num, column = 12).value = egrul_info['date']
+                    active_sheet.cell(row = row_num, column = 13).value = egrul_info['kpp']
+                    active_sheet.cell(row = row_num, column = 14).value = egrul_info['name']
+                    active_sheet.cell(row = row_num, column = 15).value = egrul_info['manager']
+                    wb.save(xl_name)
+                except:
+                    print('Неудачный ЕГРЮЛ')
+                    print(ogrn_val)
+
+main(xl_name)
