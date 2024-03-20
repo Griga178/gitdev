@@ -26,11 +26,11 @@ def get_info(number):
     response = resp_2.json()['rows'][0]
 
     d_return = {
-        'full_name': response['n'],
-        'inn': response['i'],
         'address': response.get('a'),
         'name': response.get('c'),
         'manager': response.get('g'),
+        'inn': response['i'],
+        'full_name': response['n'],
         'ogrn': response['o'],
         'date': response['r'],
         'kpp': response.get('p'),

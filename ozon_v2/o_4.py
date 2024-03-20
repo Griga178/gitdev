@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 
 def get_name_ogrn(seller_id):
 
-    selenium_driver = 'yandexdriver.exe'
+    selenium_driver = '../yandexdriver.exe'
     service = Service(executable_path = selenium_driver)
 
     options = Options()
@@ -21,11 +21,11 @@ def get_name_ogrn(seller_id):
     api_ = f'https://www.ozon.ru/api/entrypoint-api.bx/page/json/v2?url=%2Fmodal%2Fshop-in-shop-info%3Fseller_id%3D{seller_id}%26page_changed%3Dtrue'
 
     driver = webdriver.Chrome(service = service, options = options)
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(4)
 
     driver.get(api_)
 
-    time.sleep(2)
+    # time.sleep(2)
 
     # content = driver.find_element_by_tag_name('body')
     content = driver.find_element(By.TAG_NAME, 'pre')
@@ -60,7 +60,7 @@ def get_name_ogrn(seller_id):
                     comp_name = split_content[0]
                 elif len(split_content) == 2:
                     comp_name = split_content[0]
-                    if len(split_content[1]) == 13:
+                    if len(split_content[1]) == 13 or len(split_content[1]) == 15:
                         c_ogrn = split_content[1]
                         c_address = None
                     else:
@@ -87,7 +87,7 @@ def get_name_ogrn(seller_id):
     else:
         print(widgetStates = y['widgetStates'])
         return None, None, None
-
+321774600307130
 
 # get_name_ogrn('1826')
 # get_name_ogrn('1387675')

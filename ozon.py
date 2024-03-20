@@ -13,7 +13,7 @@ def check_link(link):
     domain = split_content[2]
     if domain == 'www.ozon.ru':
         split_content_2 = link.split('?')
-        return split_content_2[0]
+        return split_content_2[0] + '?oos_search=false'
     else:
         return 'error_link'
 

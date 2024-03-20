@@ -18,9 +18,9 @@ def start_srv_work(user_name, user_passw):
     atr_val_p = 'ctl00$FasContent$TextPassword'
     atr_val_enter = 'ctl00$FasContent$ButtonLogin'
 
-    login = driver.find_element_by_xpath(f"//{tag}[@{atribute}='{atr_val}']")
-    password = driver.find_element_by_xpath(f"//{tag}[@{atribute}='{atr_val_p}']")
-    button_enter = driver.find_element_by_xpath(f"//{tag}[@{atribute}='{atr_val_enter}']")
+    login = driver.find_element("xpath", f"//{tag}[@{atribute}='{atr_val}']")
+    password = driver.find_element("xpath", f"//{tag}[@{atribute}='{atr_val_p}']")
+    button_enter = driver.find_element("xpath", f"//{tag}[@{atribute}='{atr_val_enter}']")
 
     login.send_keys(user_name)
     password.send_keys(user_passw)
@@ -37,7 +37,7 @@ def click_by_name(search_text, click_tag = False):
         # par_clk_elem = "table"
         click_tag = ["table", "class", "WbWidget_Content"]
 
-    btn = driver.find_element_by_xpath(f"//*[contains(text(), '{search_text}')]/ancestor::{click_tag[0]}[@{click_tag[1]}='{click_tag[2]}']")
+    btn = driver.find_element("xpath", f"//*[contains(text(), '{search_text}')]/ancestor::{click_tag[0]}[@{click_tag[1]}='{click_tag[2]}']")
 
     '''
     xpath:

@@ -18,7 +18,7 @@ def get_uploaded_files(driver):
 
 def is_doc_uploaded(driver, doc_name):
 
-    web_elem = driver.find_element_by_xpath(f"//span[contains(text(), '{doc_name}')]")
+    web_elem = driver.find_element("xpath", f"//span[contains(text(), '{doc_name}')]")
     # //div[contains(text(), '{doc_name}')]
     # //span[contains(text(), '4105_ОНЛАЙН_ТРЕЙД_ООО_БЫТОВОЕ_ОБОРУДОВАНИЕ.docx')]
     # //div[contains(text(), '4105_ОНЛАЙН_ТРЕЙД_ООО_БЫТОВОЕ_ОБОРУДОВАНИЕ.docx')]

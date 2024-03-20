@@ -3,12 +3,14 @@ import os
 
 
 
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/1 кв 2024/'
-SCREEN_PATH = 'Z:/Тищенко Г.Л/2024_1 Скрины/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/2 кв 2024/'
+# SCREEN_PATH = 'Z:/Тищенко Г.Л/2024_2 Скрины/'
+SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 
+# еще поменять номера столбов строка: 29 --> 24 И 25
 # FILE_NAME = '3 компьютерное.xlsx'
 # SCREEN_FOLDER = '3 компьютерное оборудование'
-#
+
 # FILE_NAME = '26 Оборудование для театрально.xlsx'
 # SCREEN_FOLDER = '26 театральное оборудование'
 
@@ -27,6 +29,7 @@ sheet_name = 'Лист1'
 '''Номер скрина'''
 # scr_n = 21+2 # V столбец - X
 scr_n = 20 # столбец - U
+# scr_n = 24 # столбец - Y
 
 '''Новая цена'''
 # prc_n = 21  # столбец - V
