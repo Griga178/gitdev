@@ -1,3 +1,8 @@
+'''
+
+    ВОЗЧОЖНО ЧЕРНОВИК
+
+'''
 import requests
 import requests.packages.urllib3
 import json

@@ -5,7 +5,8 @@ parse_app = Parser_ver_2(
     app = app,
     db = db,
     Contrant_card = Contrant_card,
-    Product = Product
+    Product = Product,
+    Company = Company,
     )
 
 @app.route('/parse_page')

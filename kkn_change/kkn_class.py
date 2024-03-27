@@ -1,3 +1,8 @@
+'''
+
+    ВОЗЧОЖНО ЧЕРНОВИК
+
+'''
 class KKN_Attributes():
     def __init__(self, attributes):
         '''

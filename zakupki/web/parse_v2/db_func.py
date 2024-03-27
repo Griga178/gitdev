@@ -2,6 +2,7 @@ from sqlalchemy import desc
 from datetime import datetime, timedelta
 from sqlalchemy.orm.exc import NoResultFound
 
+
 def get_last_conrtact_date(self):
     '''
     Получение даты последнего отпарсенного контракта

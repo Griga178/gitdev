@@ -4,7 +4,7 @@ from .app import app
 db = SQLAlchemy(app)
 
 class Contrant_card(db.Model):
-    number = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.Integer, primary_key = True)
     date = db.Column(db.DateTime)
     price = db.Column(db.Float)
     customer = db.Column(db.Text)

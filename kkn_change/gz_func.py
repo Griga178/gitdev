@@ -1,4 +1,12 @@
+'''
+    Тут вход - нахождение ккн поимени - нахождение характеристик ккн по id
+    - сохранение 1 ккн в файл
+'''
+
 from main import Main, json
+from kkn_class import KKN
+from main import login, password
+from gz_xlsx import make_excel
 
 def get_kkn_list_grid(self, **kwargs):
     self.params['module'] = 'nsi'
@@ -72,7 +80,7 @@ Main.get_kkn_list_grid = get_kkn_list_grid
 Main.get_kkn = get_kkn
 Main.get_kkn_attributes_by_id = get_kkn_attributes_by_id
 
-from main import login, password
+
 
 m = Main(login, password)
 
@@ -80,28 +88,27 @@ m = Main(login, password)
     Собираем инфу по ккн
 '''
 
-from kkn_class import KKN
+
 
 # node_resp = m.get_kkn(id)
-kkn_names = 'Утюг'
-# node_resp = m.get_kkn_list_grid(positionsQuery = kkn_names)
-# kkn = KKN(**node_resp['result']['categories'][0])
-node_resp = m.get_kkn('2191276')
+# kkn_names = 'Утюг'
+kkn_names = 'Терминал IP телефонии тип 3'
+node_resp = m.get_kkn_list_grid(positionsQuery = kkn_names)
+kkn = KKN(**node_resp['result']['categories'][0])
+# print(kkn.id)
+# node_resp = m.get_kkn('2191276') # id USB КОНЦЕНТРАТОРА
+node_resp = m.get_kkn(kkn.id)
+# print(node_resp)
 kkn = KKN(**node_resp['result']['category'])
 response = m.get_kkn_attributes_by_id(kkn.id)
 attributes = response['result']['result']
 kkn.init_attributes(attributes)
-# print(kkn.__dict__)
-print()
-# for
+
+# print()
+
 # print(kkn.attributes.__dict__)
 
-# kkn.cmd_print()
-print(kkn.attributes.__dict__)
-
-from gz_xlsx import make_excel
-
-# make_excel(kkn.to_excel())
+make_excel(kkn.to_excel())
 
 '''
 4 столба заменить истина/ложь на да/нет

@@ -1,3 +1,8 @@
+'''
+
+    ВОЗЧОЖНО ЧЕРНОВИК
+
+'''
 import requests
 import requests.packages.urllib3
 # requests.packages.urllib3.disable_warnings()
@@ -35,7 +40,7 @@ with requests.Session() as session:
         url,
         headers = HEADERS,
         verify = False,
-        data = json.dumps(form_data), 
+        data = json.dumps(form_data),
         params = params)
     # print(response.text)
     url_2 = 'http://srv07/cmec/CA/Desktop/Default.aspx?wintype=window_desktops'

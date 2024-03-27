@@ -5,13 +5,13 @@ from step_4 import *
 # save_all_links() # step_1 - добавляем ссылки в БД
 # parse_comp_id() # step_2 - скачивается id компании из карточки товара
 # getOGRN() # step_3 - скачивается огрн по id из api ozon
-egrul_parse() # step_4 - по огрн ищем инфу по компании на сайте egrul
+# egrul_parse() # step_4 - по огрн ищем инфу по компании на сайте egrul
 
 
 def step_5():
     path_desktop = 'C:/Users/G.Tishchenko/Desktop/'
 
-    excel_name_out = path_desktop + 'ozon_out_2.xlsx'
+    excel_name_out = path_desktop + 'ozon_out_3.xlsx'
 
     wb = Workbook()
     active_sheet = wb.active
@@ -28,8 +28,9 @@ def step_5():
             name = 'ИП ' + row.company.full_name
         cust_tuple = (
             row.excel_value,
-            name,
             str(row.company.inn),
+            name,
+            row.company.address
             # row.__dict__
             )
         return cust_tuple

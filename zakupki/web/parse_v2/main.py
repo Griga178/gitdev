@@ -12,6 +12,8 @@ class Parser_ver_2():
     def __init__(self, **kwargs):
         self.app = kwargs['app']
         self.db = kwargs['db']
+        # self.db_api = kwargs['db_api']
+        self.Company = kwargs['Company']
         self.Contrant_card = kwargs['Contrant_card']
         self.Product = kwargs['Product']
 
