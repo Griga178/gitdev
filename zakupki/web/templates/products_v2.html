@@ -27,6 +27,8 @@
        <th>Страна происхождения</th>
        <th>Контракт</th>
        <th>Дата</th>
+       <th>ККН</th>
+       <th>Комментарий</th>
 
      </tr>
    </thead>
@@ -106,9 +108,29 @@
            return data;
          }},
        {data: 'contrant_card_date', searchable: true},
+       {data: 'kkn_name', searchable: false},
+       {data: 'comment', render: function(data, type, row, meta){
+          if(type === 'display'){
+              data = '<span id="comment_'+ row.id + '"'
+                + 'onclick="edit_comment(this)"'
+                + 'class="comment_span"'
+                + '>'
+                + data + '</span>';
+          }
+          return data;
+        }},
 
       ],
+      createdRow: function (row, data, rowIndex) {
+        // Per-cell function to do whatever needed with cells
+        $.each($('td', row), function (colIndex) {
+            // For example, adding data-* attributes to the cell
+            $(this).attr('data-foo', "bar");
+        });
+      },
      });
+
+
      function onint(){
        // take off all events from the searchfield
        $("#data_wrapper input[type='search']").off();
@@ -125,6 +147,48 @@
        });
      }
    };
+
   $(document).ready(draw_table)
+
+  // Добавление комментариевы
+  let edit_comment = function(span_elem){
+    let default_comment = span_elem.innerHTML
+
+    let result = prompt("Изменить комментарий", default_comment)
+    if (result !== default_comment && result) {
+      save_comment(span_elem, result)
+    }
+  }
+
+  let save_comment = function(span_elem, new_comment){
+
+    let product_id = span_elem.id.split('_')[1]
+
+    $.ajax({
+    url: '/api/products_edit_comment',
+    method: 'post',
+    data: {'id': product_id, 'comment': new_comment},
+    success: function (response){
+      span_elem.innerHTML = response.added_comment
+      }
+    })
+  }
+
 </script>
+
+<style media="screen">
+  .comment_span {
+    font-style: italic;
+    font-family: cursive;
+    color: khaki;
+    cursor: pointer;
+    min-width: 100%;
+    min-height: 20px;
+    display: block;
+    background: teal;
+  }
+  .comment_span:hover {
+    background: rosybrown;    
+  }
+</style>
 {% endblock %}

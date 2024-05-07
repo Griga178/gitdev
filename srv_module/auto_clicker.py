@@ -62,7 +62,7 @@ def just_do(amount):
     print(f'Закрыто документов: {counter}\nКол-во ошибок: {errors_counter}')
 
 
-just_do(32)
+just_do(44)
 # print(pt.pixel(eye_x, eye_y))
 
 # while True:

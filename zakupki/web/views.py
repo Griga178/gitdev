@@ -4,6 +4,7 @@ from .view_table import *
     app -->
     models -->
     view_main_page -->
+    view_parser -->
     view_table -->
 
     views --> __init__ --> app3.py

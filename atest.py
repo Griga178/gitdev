@@ -4,17 +4,21 @@ from scr_maker.counter import counter_gen
 
 
 ''' Делаем только скриншоты ссылок
+с "Лист2"
 A: scr_num,
 B: link
 '''
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/2 кв 2024/'
+# xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/2 кв 2024/'
 # xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
 # xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
-xlsx_file_name = xlsx_folder_path + '3 Нормирование.xlsx'
+# xlsx_file_name = xlsx_folder_path + '3 Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
 
+# Разовая акция
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/'
+xlsx_file_name = xlsx_folder_path + 'Интерактивная панель тип 3.xlsx'
 headers_names = [
     'Ссылка',
     'Номер скрина',

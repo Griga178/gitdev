@@ -14,6 +14,7 @@ reestrNumberS = [
     1783000258223000134, # С ошибкой!!! other error
     1784232871924000014, # С ошибкой common_info error!!!
     1783000258223000132, # С ошибкой!!! other error
+    2780547060422000018, # Product error
 ]
 
 

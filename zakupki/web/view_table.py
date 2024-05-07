@@ -103,3 +103,13 @@ def api_products_v2():
     'recordsFiltered': total_filtered,
     'data': [product.to_dict() for product in pq],
     }
+
+@app.route('/api/products_edit_comment', methods = ('GET', 'POST'))
+def edit_comment():
+    id = request.form['id']
+    comment = request.form['comment']
+    prod_obj = Product.query.filter(Product.id == id).one()
+    prod_obj.comment = comment
+    db.session.add(prod_obj)
+    db.session.commit()
+    return {"added_comment": prod_obj.comment}

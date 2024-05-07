@@ -58,6 +58,7 @@ class Product(Base):
     price = Column(Float)
     cost = Column(Float)
     tax = Column(Text)
+    comment = Column(Text)
 
     contrant_card_id = Column(ForeignKey("contrant_card.number"))
 

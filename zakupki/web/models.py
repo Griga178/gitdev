@@ -47,6 +47,7 @@ class Product(db.Model):
     price = db.Column(db.Float)
     cost = db.Column(db.Float)
     tax = db.Column(db.Text)
+    comment = db.Column(db.Text)
 
     contrant_card_id = db.Column(db.ForeignKey("contrant_card.number"))
     def to_dict(self):
@@ -65,6 +66,9 @@ class Product(db.Model):
             'tax': self.tax,
             'contrant_card_id': str(self.contrant_card_id),
             'contrant_card_date': self.contract.date.strftime('%d.%m.%Y'),
+            'comment': self.comment,
+            'kkn_id': '1',
+            'kkn_name': '1',
         }
 
 with app.app_context():
