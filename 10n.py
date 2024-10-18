@@ -19,11 +19,11 @@ import time
 # папка с файлами
 
 
-DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Экранные копии/'
-# DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос/'
-user_name, user_passw = 'Tishchenko_GL', 'cmec789'
+# DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Экранные копии/'
+DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос/'
+# user_name, user_passw = 'Tishchenko_GL', 'cmec789'
 # DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос не мои/'
-# user_name, user_passw = 'Mustafin_RI', '123123'
+user_name, user_passw = 'Mustafin_RI', '123123'
 
 # инфа для формирования нофера источника "04-4129/23-0-0"
 LEFT_PART = '04-'
@@ -76,7 +76,7 @@ for number, value in numbers.items():
         ''' Добавление 2 '''
         # что бы проверить все загруженные файлы
         # надо закометить след строку
-        # upload_file(driver, file)
+        upload_file(driver, file)
 
     # up_files = set()
     for file_name in cur_files:

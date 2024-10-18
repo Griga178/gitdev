@@ -1,0 +1,20 @@
+<svg width="500" height="100">
+    <line id="myLine" x1="0" y1="0" x2="0" y2="0" stroke="black" />
+    <text id="myText" x="10" y="50" font-size="20">Пример текста</text>
+
+</svg>
+
+<script>
+    const textElement = document.getElementById("myText");
+    const lineElement = document.getElementById("myLine");
+
+    // Получение границ текста
+    const bbox = textElement.getBBox();
+
+    // Установка координат начала и конца линии
+    lineElement.setAttribute("x1", bbox.x + bbox.width); // Координата X начала линии - край текста
+    // lineElement.setAttribute("y1", bbox.y + bbox.height / 2); // Центр по Y текста
+    lineElement.setAttribute("y1", bbox.y + bbox.height / 2); // Центр по Y текста
+    lineElement.setAttribute("x2", 300); // Установите конец линии по вашему желанию
+    lineElement.setAttribute("y2", bbox.y + bbox.height / 2); // Центр по Y текста
+</script>

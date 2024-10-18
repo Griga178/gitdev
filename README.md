@@ -17,19 +17,14 @@
 
 ./parser веб интерфейс парсера - самый первый, не доделан
 
-./proto_search - парсинг zakupki.gov.ru
-
 ./scr_maker - создание скриншотов с помощью webbrowser
 
-./settings - теги для парсинга - старое, использ в 2n.py
-
-./sql - парсинг ЕАИС и поиск по скачанным в sql:
-
-./test_pro - фигня с selenium & СЭД:
-
-./tests - временно:
-  чтение xmlx каталога xcom.ru
-  прочее
+./tests
+  чтение xmlx каталога xcom.ru --> excel
+  yandex тесты
+  запуск через drop
+  math root
+  uniq_file
 
 ./work_data_base
   SQLAlchemy - ТАБЛИЦЫ - SQL ЗАПРОСЫ

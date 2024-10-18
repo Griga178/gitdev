@@ -2,6 +2,7 @@
     2 столба с заголовками:
     A Наименование поставщика
     B Источник ценовой информации
+    Лист - первый по счету (не важно какое название)
 '''
 from srv_funcs.log_in import log_in
 from srv_funcs.find_document import find_document_from_main
@@ -13,7 +14,7 @@ from selenium.webdriver.chrome.service import Service
 from srv_funcs.excel_reader import get_excel_rows
 import time
 
-test_file_name = 'C:/Users/G.Tishchenko/Desktop/2 кв 2024/name_for_sed.xlsx'
+test_file_name = 'C:/Users/G.Tishchenko/Desktop/4 кв 2024/name_for_sed_a.xlsx'
 
 user_name, user_passw = 'Mustafin_RI', '123123'
 

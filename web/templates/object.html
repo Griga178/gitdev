@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %} {{object.name}} {% endblock %}
+
+{% block content %}
+
+    <div class="container">
+      <h1>{{object.name}}</h1>
+        <p>{{object.__dict__}}</p>
+    </div>
+{% endblock %}

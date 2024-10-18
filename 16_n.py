@@ -1,24 +1,43 @@
 ''' сравнение скриншотов в папке со списком скриншотов в excel '''
 import os
+import sys
 
 
-
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/2 кв 2024/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/4 кв 2024/'
 # SCREEN_PATH = 'Z:/Тищенко Г.Л/2024_2 Скрины/'
 SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
+scr_n, prc_n  = 24, 25
 
 # еще поменять номера столбов строка: 29 --> 24 И 25
 # FILE_NAME = '3 компьютерное.xlsx'
-# SCREEN_FOLDER = '3 компьютерное оборудование'
+# part = '3 компьютерное'
+# part = '26 Оборудование для театрально'
+# part = '19 бытовые приборы'
+# part = 'Нормирование'
 
-# FILE_NAME = '26 Оборудование для театрально.xlsx'
-# SCREEN_FOLDER = '26 театральное оборудование'
 
-# FILE_NAME = '19 Бытовые приборы.xlsx'
-# SCREEN_FOLDER = '19 бытовое оборудование'
-#
-FILE_NAME = '3 Нормирование.xlsx'
-SCREEN_FOLDER = 'нормирование'
+part_dict = {
+    '3': "3 компьютерное",
+    '26': '26 Оборудование для театрально',
+    '19': '19 бытовые приборы',
+    "n": "Нормирование"
+}
+
+
+if len(sys.argv) == 2:
+    path_key = sys.argv[1]
+
+    if path_key in part_dict:
+        # print(part_dict[path_key])
+        part = part_dict[path_key]
+
+    else:
+        print(f'ERROR PATH KEY (str19): {path_key}')
+        quit()
+
+
+FILE_NAME = f'{part}.xlsx'
+SCREEN_FOLDER = part
 
 
 excel_file_name = FILE_PATH + FILE_NAME
@@ -28,13 +47,13 @@ sheet_name = 'Лист1'
 
 '''Номер скрина'''
 # scr_n = 21+2 # V столбец - X
-scr_n = 20 # столбец - U
+# scr_n = 20 # столбец - U
 # scr_n = 24 # столбец - Y
 
 '''Новая цена'''
 # prc_n = 21  # столбец - V
 # prc_n = 24  # столбец - Y
-prc_n = 25  # столбец - Z
+# prc_n = 25  # столбец - Z
 
 
 folder_names = set()
