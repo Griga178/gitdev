@@ -19,8 +19,15 @@ def edit_screen(old_name: str, new_name: str) -> None:
     print(d_h, d_w)
 
     # скриншот нижнего правого угла
-    # time_part = pyautogui.screenshot(region = (1800, 1040, 120, 40))
-    time_part = pyautogui.screenshot(region = (1800, 1040+d_h, 120, 40-d_h))
+    # time_part = pyautogui.screenshot(region = (1800, 1040+d_h, 120, 40-d_h))
+    # time_part = pyautogui.screenshot(region = (1800, 1040, 120, 40)) # Когда 1919*1079 ## Сдвиг времени вверх
+    if height, width = 1080, 1920:
+        time_part = pyautogui.screenshot(region = (1800, 1040, 120, 40))
+    elif height, width = 1079, 1919:
+        print(1079, 1919)
+        time_part = pyautogui.screenshot(region = (1800, 1040, 120, 40))
+
+    # time_part = pyautogui.screenshot(region = (1800+d_w, 1040+d_h, 120-d_w, 40-d_h))
     time_part = cv2.cvtColor(np.array(time_part), cv2.COLOR_RGB2BGR)
     # print(time_part.shape)
     # base_img[1040 - d_h: 1080 - d_h:, 1800 - d_w: 1920, :3] = time_part

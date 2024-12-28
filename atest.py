@@ -13,15 +13,16 @@ xlsx_file_name - название рабочей таблицы
 '''
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/4 кв 2024/'
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/1 кв 2025/'
 # xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
 xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
 # xlsx_file_name = xlsx_folder_path + 'Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
 # xlsx_file_name = xlsx_folder_path + 't.xlsx'
 # Разовая акция
-# xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/'
-# xlsx_file_name = xlsx_folder_path + 'Интерактивная панель тип 3.xlsx'
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/'
+# xlsx_file_name = xlsx_folder_path + 'Рабочая таблица 3.0.xlsx'
+
 
 headers_names = [
     'Ссылка',
@@ -29,7 +30,7 @@ headers_names = [
     'Цена',
 ]
 
-sleep_time = 5
+sleep_time = 8
 
 link_dicts = excel_to_dicts(
     xlsx_file_name,
@@ -46,7 +47,7 @@ for row in link_dicts:
 
 counter_obj = counter_gen(link_dicts_v2)
 
-for row in link_dicts_v2[:150]:
+for row in link_dicts_v2[:]:
     # if not row['Цена']:
     img_name = screen_folder + f'{row["Номер скрина"]}.jpg'
     make_screenshot(img_name, row['Ссылка'], sleep_time = sleep_time)

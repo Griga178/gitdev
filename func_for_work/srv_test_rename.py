@@ -14,7 +14,7 @@ from selenium.webdriver.chrome.service import Service
 from srv_funcs.excel_reader import get_excel_rows
 import time
 
-test_file_name = 'C:/Users/G.Tishchenko/Desktop/4 кв 2024/name_for_sed_a.xlsx'
+test_file_name = 'C:/Users/G.Tishchenko/Desktop/name_for_sed_a.xlsx'
 
 user_name, user_passw = 'Mustafin_RI', '123123'
 

@@ -1,0 +1,28 @@
+Программа: Paint 3D
+English:
+Стиль: OCR A
+Размер шрифта: 24
+
+Русские:
+Стиль: IMPACT
+Размер шрифта: 24
+
+фоновые цвета:
+Желтый		e2d810
+Пурпурный	d9138d
+Голубой		12a4d9
+Черный		322e2f
+
+индиго		1e2761
+бордовый	7a2048
+синий		408ec6
+
+Моя тема (15. Морская пена, лосось и флот):
+Шапка серый C1C1C1
+Меню 4a536b + Кнопки (на сером фоне)
+Буквы белые (в меню)
+на странице 4a536b
+Подсветка aed6dc	ff9a8d
+
+https://artforlife.ru/stati-po-dizajnu/33-krasivyh-tsvetovyh-sochetaniya-dlya-vashego-sleduyushhego-dizajna.html
+https://colorscheme.ru/

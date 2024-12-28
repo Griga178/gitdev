@@ -1,0 +1,123 @@
+/* --------------------------------------- */
+/* ОБЩИЕ СТИЛИ */
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #5E458D;
+  /* background-image: url(pictures/back_img.jpg) */
+  font-family: 'Montserrat', sans-serif;
+}
+a {
+  text-decoration: none;
+  color: #4a536b;
+}
+
+.container {
+   margin: 0 auto;
+   max-width: 1200px;
+   width: 75%;
+   background: #DCDCDC;
+}
+.header {
+  height: 1px;
+  background-color: #DCDCDC;
+  border-top-right-radius: 1em;
+  border-top-left-radius: 1em;
+  width: 100%;
+  padding-top: 50px;
+  position: relative;
+}
+.menu {
+  float: right;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+.header img {
+  padding-left: 25px;
+}
+.menu-list{
+  list-style-type: none;
+  float: left;
+  text-transform: uppercase;
+  padding: 10px 13px;
+}
+
+.clear_fix {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* --------------------------------------- */
+/* СТИЛИ ПАНЕЛИ С ОСНОВНЫМИ КНОПКАМИ */
+
+.funcs_block {
+  background-color: #4a536b;
+  /* float: left; */
+  padding-left: 10%;
+}
+.funcs_block h2 {
+  color: white;
+}
+
+.block {
+  float: left;
+  text-align: center;
+  margin: 2%;
+  margin-right: 2%;
+  height: 75px;
+  position: relative;
+  width: 75px;
+}
+
+.block_img {
+  margin: 5px auto;
+  /* margin: 5px; */
+  /* margin-top: 5px; */
+  /* margin-bottom: 5px; */
+  border-radius: 5px;
+  outline: 1px solid grey;
+  background-color: white;
+  width: 50px;
+  height: 50px;
+}
+
+.block:hover .block_img{
+  font-weight:bold;
+  /* opacity: 0.8; */
+  border-radius: 5px;
+  outline: 2px solid black;
+  background-color: #aed6dc;
+  height: 50px;
+  width: 50px;
+}
+.block:hover {
+  font-weight:bold;
+}
+
+/* --------------------------------------- */
+/* СТИЛИ НИЖНЕЙ ЧАСТИ */
+.separator {
+  margin: 0 auto;
+  height: 20px;
+  width: 1200px;
+  background-color: #4a536b;
+}
+.footer {
+  margin: 0 auto;
+  width: 1200px;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  background: #DCDCDC;
+  height: 50px;
+
+
+}
+.footer p {
+  font-size: 14px;
+  text-align: right;
+  padding: 1em;
+  color: #4a536b;
+
+}

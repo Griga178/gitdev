@@ -3,7 +3,7 @@ import os
 import sys
 
 
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/4 кв 2024/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/1 кв 2025/'
 # SCREEN_PATH = 'Z:/Тищенко Г.Л/2024_2 Скрины/'
 SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 scr_n, prc_n  = 24, 25
@@ -13,7 +13,7 @@ scr_n, prc_n  = 24, 25
 # part = '3 компьютерное'
 # part = '26 Оборудование для театрально'
 # part = '19 бытовые приборы'
-# part = 'Нормирование'
+part = 'Нормирование'
 
 
 part_dict = {
