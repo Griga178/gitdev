@@ -3,16 +3,17 @@ import time
 
 
 # кнопка "Ознакомлен"
-# eye_x, eye_y = (1806, 373) # строка № 1
+eye_x, eye_y = (1806, 373) # строка № 1
 # eye_x, eye_y = (1806, 487) # строка № 2
-eye_x, eye_y = (1806, 520) # строка № 2 - после сдвига кнопок вниз
+# eye_x, eye_y = (1806, 520) # строка № 2 - после сдвига кнопок вниз
 # eye_r, eye_g, eye_b = (88, 158, 213) # 1 вариант цвета
 # eye_r, eye_g, eye_b = (144, 191, 227) # 2 вариант цвета
-eye_r, eye_g, eye_b = (144, 191, 227)
+# eye_r, eye_g, eye_b = (144, 191, 227)
 # eye_r, eye_g, eye_b = (241, 176, 120) # 3 вариант цвета
+eye_r, eye_g, eye_b = (232, 124, 31) # 4 вар
 
 def click_one():
-    # pt.moveTo(1806, 486, duration = 0.25)
+    pt.moveTo(eye_x, eye_y, duration = 0.25)
 
     current_color = pt.pixel(eye_x, eye_y)
     # if current_color == (88, 158, 213): # 1 вариант цвета
@@ -65,7 +66,7 @@ def just_do(amount):
     print(f'Закрыто документов: {counter}\nКол-во ошибок: {errors_counter}')
 
 
-just_do(30)
+just_do(72)
 # print(pt.pixel(eye_x, eye_y))
 
 # while True:

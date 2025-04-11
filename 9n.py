@@ -25,8 +25,8 @@ from docx.shared import Inches, Mm, Pt
 
 # - - - * - -  НАСТРОЙКИ ЕКСЕЛЬ ФАЙЛА - - - * - - -
 FOLDER_PATH = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/'
-EXCEL_FOLDER = 'C:/Users/G.Tishchenko/Desktop/1 кв 2025/'
-SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/2025_1 Скрины/'
+EXCEL_FOLDER = 'C:/Users/G.Tishchenko/Desktop/2 кв 2025/'
+SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/2025_2 Скрины/'
 
 # EXCEL_NAME = '26 Оборудование для театрально.xlsx'
 # SCREEN_FOLDER_NAME = '26 театральное оборудование'
@@ -41,10 +41,10 @@ SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/2025_1 Скрины/'
 
 
 
-part = '3 компьютерное'
+# part = '3 компьютерное'
 # part = '26 Оборудование для театрально'
 # part = '19 бытовые приборы'
-# part = 'Нормирование'
+part = 'Нормирование'
 
 # EXCEL_NAME = 'Проц 17' + '.xlsx'
 EXCEL_NAME = part + '.xlsx'
@@ -151,6 +151,7 @@ def save_screens(information, logs = True):
         screen_amount = 0
         company_amount = 0
         for company_inn, comp_info in val.items():
+            # print(company_inn, comp_info)
             file_name = FOLDER_PATH + key + '/' + comp_info['number'] + '_'+ edit_name(comp_info['company_name']) + '_' + edit_name(SCREEN_FOLDER_NAME) + '.docx'
             print('\n', file_name, comp_info) if logs else None
             company_amount += 1

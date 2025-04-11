@@ -13,14 +13,14 @@ xlsx_file_name - название рабочей таблицы
 '''
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/1 кв 2025/'
-# xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
-xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/2 кв 2025/'
+xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
+# xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
 # xlsx_file_name = xlsx_folder_path + 'Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
 # xlsx_file_name = xlsx_folder_path + 't.xlsx'
 # Разовая акция
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/'
+# xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/'
 # xlsx_file_name = xlsx_folder_path + 'Рабочая таблица 3.0.xlsx'
 
 
@@ -30,7 +30,7 @@ headers_names = [
     'Цена',
 ]
 
-sleep_time = 8
+sleep_time = 5
 
 link_dicts = excel_to_dicts(
     xlsx_file_name,
@@ -45,9 +45,11 @@ for row in link_dicts:
     if not row['Цена']:
         link_dicts_v2.append(row)
 
+print(f'Всего ссылок {len(link_dicts_v2)} шт.')
+link_dicts_v2 = link_dicts_v2[:300] # сокращаем список
 counter_obj = counter_gen(link_dicts_v2)
 
-for row in link_dicts_v2[:]:
+for row in link_dicts_v2:
     # if not row['Цена']:
     img_name = screen_folder + f'{row["Номер скрина"]}.jpg'
     make_screenshot(img_name, row['Ссылка'], sleep_time = sleep_time)

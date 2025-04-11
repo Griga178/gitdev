@@ -78,4 +78,6 @@ def get_seller_id(link):
 url = 'https://www.ozon.ru/product/videokarta-afox-geforce-gtx-1050-ti-4-gb-af1050ti-4096d5h2-648951255/'
 url_2 = 'https://www.ozon.ru/product/gigabyte-videokarta-geforce-gtx-1050-ti-4-gb-gtx-1050ti-sovershenno-novyy-1442623570/'
 
-# resp_kwa = get_seller_id(url_2)
+url_3 = 'https://www.ozon.ru/product/msi-videokarta-geforce-rtx-4060-rtx-4060-gaming-x-8g-8-gb-rtx-4060-gaming-x-8g-1713173820/?at=WPtNrwq3zIZVyEMclWZV1TDo5YDWTky41J5HNLgMQ3'
+resp_kwa = get_seller_id(url_3)
+print(resp_kwa)

@@ -3,9 +3,9 @@ import os
 import sys
 
 
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/1 кв 2025/'
-# SCREEN_PATH = 'Z:/Тищенко Г.Л/2024_2 Скрины/'
-SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/2 кв 2025/'
+SCREEN_PATH = 'Z:/Тищенко Г.Л/2025_2 Скрины/'
+# SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 scr_n, prc_n  = 24, 25
 
 # еще поменять номера столбов строка: 29 --> 24 И 25
