@@ -3,8 +3,8 @@ import os
 import sys
 
 
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/2 кв 2025/'
-SCREEN_PATH = 'Z:/Тищенко Г.Л/2025_2 Скрины/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/3 кв 2025/'
+SCREEN_PATH = 'Z:/Тищенко Г.Л/2025_3 Скрины/'
 # SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 scr_n, prc_n  = 24, 25
 

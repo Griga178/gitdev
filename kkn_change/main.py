@@ -125,11 +125,11 @@ import gz_data
 login = gz_data.login
 password = gz_data.password
 
-# m = Main(login, password)
+m = Main(login, password)
 
-# response = m.get_kkns_by_name('Утюг электрический бытовой тип 1')
+response = m.get_kkns_by_name('Ноутбук тип 14')
 # response = m.get_kkns_by_name('')
 
-# m.kkn_name_from_response(response)
+m.kkn_name_from_response(response)
 
 # m.get_kkn_chars_by_id(5767826)

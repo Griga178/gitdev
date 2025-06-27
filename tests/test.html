@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Random letters on hover</title>
+    <style media="screen">
+      .section {
+        margin-top: 250px;
+      }
+      .container {
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+      .flex-Xcenter {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        gap: 16px;
+      }
+      .btn {
+        display: inline-block;
+        border-bottom: 2px solid black;
+        padding: 0px 0px 6px 0px;
+        font-size: 60px;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+        user-select: none;
+        white-space: nowrap;
+      }
+      .span-t {
+        color: red;
+        font-family: cursive, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">
+      <div class="container">
+
+        <div class="flex-Xcenter">
+          <div class="js-randomechange"> <span class="span-t">A</span>bout <span class="span-t">O</span>ur Event</div>
+          <img src="test-arrow.svg" alt="">
+        </div>
+      </div>
+    </div>
+<p>
+    <script>
+      const btn = document.querySelector('.js-randomechange');
+
+      // Функция для получения всех текстовых узлов внутри элемента (в порядке)
+      function getTextNodes(node) {
+        let textNodes = [];
+        for (let child of node.childNodes) {
+          if (child.nodeType === Node.TEXT_NODE) {
+            textNodes.push(child);
+          } else if (child.nodeType === Node.ELEMENT_NODE) {
+            textNodes = textNodes.concat(getTextNodes(child));
+          }
+        }
+        return textNodes;
+      }
+
+      // Собираем все текстовые узлы, и объединяем в строчку для удобства
+      const textNodes = getTextNodes(btn);
+
+      // Сохраняем исходный текст всех узлов по отдельности
+      const originalTexts = textNodes.map(node => node.textContent);
+
+      // Создаём массив из всех символов, чтобы знать общее кол-во символов для анимации
+      const fullText = originalTexts.join('');
+
+      let intervalId = null;
+      let timeoutId = null;
+      let hovered = false;
+
+      function getRandomChar() {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+        return chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+
+      btn.addEventListener('mouseenter', () => {
+        hovered = true;
+        const totalLength = fullText.length;
+        let index = 0;      intervalId = setInterval(() => {
+          if (!hovered || index >= totalLength) {
+            clearInterval(intervalId);
+
+            // Восстановить все текстовые узлы
+            for (let i = 0; i < textNodes.length; i++) {
+              textNodes[i].textContent = originalTexts[i];
+            }
+            return;
+          }
+
+          // Пройдемся по всем текстовым узлам и по очереди заменим символ на случайный,
+          // пока не дойдем до index
+          let currentPos = 0; // позиция в общем тексте
+          for (let i = 0; i < textNodes.length; i++) {
+            let txt = originalTexts[i];
+            let length = txt.length;
+            if (index >= currentPos && index < currentPos + length) {
+              // символ на позиции index находится в этом текстовом узле, найдём позицию в нём
+              const localIndex = index - currentPos;
+
+              // меняем символ на случайный в копии строки
+              let tempArr = txt.split('');
+              tempArr[localIndex] = getRandomChar();
+
+              // записываем измененный текст
+              textNodes[i].textContent = tempArr.join('');
+            } else {
+              // в остальных текстовых узлах - возвращаем оригинал
+              textNodes[i].textContent = txt;
+            }
+            currentPos += length;
+          }
+
+          // Через 50 мс возвращаем символ к исходному (если всё ещё наведено)
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
+            if (!hovered) return;
+            let currentPos2 = 0;
+            for (let i = 0; i < textNodes.length; i++) {
+              let txt = textNodes[i].textContent;
+              let orig = originalTexts[i];
+              let len = orig.length;
+
+              if (index - 1 >= currentPos2 && index - 1 < currentPos2 + len) {
+                // Вернуть символ (index-1), который только что менялся
+                const localIdx2 = (index - 1) - currentPos2;
+                let tempArr2 = txt.split('');
+                tempArr2[localIdx2] = orig.charAt(localIdx2);
+                textNodes[i].textContent = tempArr2.join('');
+              }
+              currentPos2 += len;
+            }
+          }, 50);
+
+          index++;
+        }, 50);
+
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        hovered = false;
+        clearInterval(intervalId);
+        clearTimeout(timeoutId);
+        // Восстанавливаем исходные тексты
+        for (let i = 0; i < textNodes.length; i++) {
+          textNodes[i].textContent = originalTexts[i];
+        }
+      });
+    </script>
+    </p>
+  </body>
+</html>

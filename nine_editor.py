@@ -1,5 +1,6 @@
 def edit_row_v2(exel_row, prev_row = False):
     excel_row = {}
+    # print(exel_row)
     # Обработка строк
     if prev_row:
         excel_row['kkn_name'] = exel_row[0] if exel_row[0] else prev_row['kkn_name']
@@ -26,6 +27,9 @@ def edit_row_v2(exel_row, prev_row = False):
             excel_row['source_type'] = "Контракт"
             spl_row = excel_row['source'].split(" ")
             excel_row['source_type_number'] = spl_row[0]
+        else:
+            excel_row['source_type'] = "Пусто"
+            excel_row['source_type_number'] = 0
     else:
         excel_row['source_type'] = "Пусто"
         excel_row['source_type_number'] = 0

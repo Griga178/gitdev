@@ -6,8 +6,8 @@ import exif
 from typing import Dict
 
 def make_screen(img_name, comment_content: Dict = False):
-    # image = pyautogui.screenshot(region = (0, 0, 1920, 1080))
-    image = pyautogui.screenshot(region = (0, 0, 2560, 1440))
+    image = pyautogui.screenshot(region = (0, 0, 1920, 1080))
+    # image = pyautogui.screenshot(region = (0, 0, 2560, 1440))
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
     if comment_content:
