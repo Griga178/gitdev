@@ -4,7 +4,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 import datetime
-from settings import db_path
+from zakupki.settings import db_path
 
 Base = declarative_base()
 
@@ -25,6 +25,7 @@ class KtruVersion(Base):
     ktruId = Column(Integer, ForeignKey('ktru.id'), nullable=False)
     versionNumber = Column(Integer, nullable=False)
     dateUpdate = Column(DateTime, default=datetime.datetime.utcnow)
+    # charsParsed = Column(Boolean, default=False)
 
     ktru = relationship("Ktru", back_populates="versions")
     chars = relationship("KtruChars", back_populates="version", cascade="all, delete-orphan")
@@ -37,6 +38,7 @@ class KtruChars(Base):
     name = Column(Text)
     values = Column(Text)
     unit = Column(String)
+    isRequired = Column(Boolean, nullable=False)
 
     version = relationship("KtruVersion", back_populates="chars")
 

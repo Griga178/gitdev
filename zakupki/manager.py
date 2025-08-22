@@ -59,6 +59,30 @@ class KTRUManager:
             else:
                 return ktru_obj
 
+    def _load_requests(self, requestName, ktruNumber, ktruVersion=None, isSuccess=None):
+
+        """
+        params:
+          requestName (str) - обязательный ("version"|"ktru_info"|"ktru_chars")
+          ktruNumber (str) - обязательный
+          ktruVersion (int) - опционально
+          isSuccess (bool) - опционально (может быть False)
+        """
+
+        with self.session_maker() as session:
+            q = session.query(Requests).filter(
+                Requests.requestName == requestName,
+                Requests.ktruNumber == ktruNumber
+            )
+            if ktruVersion is not None:
+                q = q.filter(Requests.ktruVersion == ktruVersion)
+            if isSuccess is not None:
+                q = q.filter(Requests.isSuccess == isSuccess)
+
+            # Сортируем по дате по возрастанию: последний элемент списка будет самым свежим
+            q = q.order_by(Requests.date)
+            return q.all()
+
     def get_ktru_info(self, ktru_number:str, ktru_version_number:int=None) -> list[KtruVersion,...]:
         # инфа откуда будет информация
         # None - запроса не было
@@ -136,30 +160,43 @@ class KTRUManager:
             response.raise_for_status()  # Проверка на успешность запроса
             return response.text
         except requests.RequestException as e:
-            return f"Ошибка при получении страницы: {e}"
+            print(f"Ошибка при получении страницы: {e}")
+            return None
 
-    def _parse_last_version_number(self, ktruNumber:str) -> Optional[int, None]:
-        request_params = {'requestName': "version", "ktruNumber": ktruNumber}
-        request = _load_requests(**request_params)
+    def _parse_last_version_number(self, ktruNumber:str) -> Optional[int]:
+        """Возвращает целое число (версия КТРУ) или None."""
+        request_params = {
+            "requestName": "version",
+            "ktruNumber": ktruNumber,
+            # "isSuccess": False
+            }
+        request = self._load_requests("version", ktruNumber)
         if request:
+            print("уже был такой же запрос")
+            req_is_success = request[-1].isSuccess
+
             # если есть неудачный рек. - повторяем
             pass
         url = f'https://zakupki.gov.ru/epz/ktru/ktruCard/version-journal.html?itemId={ktruNumber}'
-        soup = BeautifulSoup(html_content, 'html.parser')
-
-        return self.get_last_ktru_version(soup)
+        html_content = self._fetch_from_site(url)
+        if html_content:
+            print("Получили html страницу")
+            lastKtruVersion = self.get_last_ktru_version(html_content)
+            return lastKtruVersion
+        else:
+            print("html страницу - не удалось получить")
 
     def update_all_ktru(self):
         pass
 
     def update_requests(self):
         # загрузить все requests где isSuccess = False
-        if request_name = "version":
+        if request_name == "version":
             # парсим последнюю версию КТРУ
             # проверяем есть ли requests с "ktru_chars" по КТРУ и Версии
             pass
-        elif request_name = "ktru_info":
+        elif request_name == "ktru_info":
             # парсим общую инфу по КТРУ
             pass
-        elif request_name = "ktru_chars":
+        elif request_name == "ktru_chars":
             pass

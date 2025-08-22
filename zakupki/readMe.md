@@ -63,7 +63,43 @@
 - Структура ориентирована на поддержание историй версий и характеристик КТРУ.
 
 
+## Проектная структура
+
+├── project/
+│   ├── controller/
+│   ├── init.py
+│   ├── controller.py     — высокоуровневая логика, координация
+├── db/
+│   ├── init.py
+│   ├── client.py         — обёртка по работе с БД (подключение, сессии)
+│   ├── queries.py        — CRUD ─ функции, SQL ─ запросы
+│   ├── models.py         — ORM ─ модели или DTO для БД
+├── parser/
+│   ├── init.py
+│   ├── fetcher.py        — HTTP - клиенты, получение сырого контента
+│   ├── extractor.py      — парсинг/извлечение данных (BeautifulSoup, regex и т.п.)
+│   ├── normalizer.py     — приведение данных к единому формату
+├── services/
+│   ├──  init.py
+│   ├── business.py       — бизнес ─ логика, объединение парсера и БД
+│   ├── validators.py     — валидация входных данных
+│   ├── tasks.py          — фоновые задачи, планировщик (опционально)
+├── utils/
+│   ├── init.py
+│   ├── logging.py        — настроенный логгер
+│   ├── config.py         — загрузка конфигурации (env, yaml)
+│   ├── helpers.py        — утилитарные функции
+├── tests/
+│   ├── test_db.py
+│   ├── test_parser.py
+│   ├── test_manager.py
+
+├── setup.py / pyproject.toml
+├── README.md
+
 ## requirements:
 requests
 beautifulsoup4
 sqlalchemy
+pytest
+requests-mock

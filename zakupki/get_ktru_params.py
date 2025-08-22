@@ -6,7 +6,6 @@ def get_last_ktru_version(html_content: str) -> Optional[int]:
 
     # Находим div с id="ktruVersionContent"
     div = soup.find('div', id='ktruVersionContent')
-
     ktruVersion = None
     if div:
         # Извлекаем таблицу, tbody, первую строку (tr) и третий столбец (td)
@@ -37,6 +36,8 @@ def get_common_data(html_content: str) -> dict:
         'number': None,
         'version': None,
     }
+    header_block = soup.find('div', class_='sectionMainInfo__header')
+    result['number'] = header_block.get_text(strip=True)
     sections = soup.find_all('div', class_='cardMainInfo__section')
 
     for section in sections:
