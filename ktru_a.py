@@ -42,7 +42,7 @@ def get_ktru_list(excel_path):
     return ktru_list
 
 
-updated_ktru_excel_path = 'C:/Users/G.Tishchenko/Downloads/ццн ктру.xlsx'
+updated_ktru_excel_path = 'C:/Users/G.Tishchenko/Downloads/ктру0901.xlsx'
 # reestr_kkn_excel_path = 'C:/Users/G.Tishchenko/Desktop/94-ККН ЦМЭЦ на 01.07.2025 (8791).xlsx'
 reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/95-ККН ЦМЭЦ на 01.08.2025 (8817).xlsx'
 
@@ -54,20 +54,21 @@ ktru_set = sorted(list(ktru_set))
 uploaded_ktru = []
 ktru_len = len(ktru_set)
 ktru_idx = 0
+days_expiry = 1
 import time
 for valid_ktru_number in ktru_set:
     ktru_idx += 1
     msg = f'{ktru_len}/{ktru_idx}'.center(10)
     print(msg)
     # time.sleep(0.5)
-    result = Controller.fetch_parse_and_store_ktru(valid_ktru_number)
+    result = Controller.fetch_parse_and_store_ktru(valid_ktru_number, days_expiry=days_expiry)
 
     if isinstance(result.get('version'), int) and result['version'] > 1:
         version_0 = result['version'] - 1
     else:
         version_0 = None
 
-    result_0 = Controller.fetch_parse_and_store_ktru(valid_ktru_number, version_0)
+    result_0 = Controller.fetch_parse_and_store_ktru(valid_ktru_number, version_0, days_expiry=days_expiry)
 
     checked_ktru = compare_ktru_chars(result, result_0)
     uploaded_ktru.append(checked_ktru)

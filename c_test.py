@@ -1,7 +1,9 @@
-from scr_maker.manager import make_screenshot
 from excel_funcs import excel_to_dicts
 from scr_maker.counter import counter_gen
 
+from scr_maker.screen import make_screen
+from typing import Optional
+from rbc.controller import RemBrowseControl
 
 ''' Делаем только скриншоты ссылок
 с "Лист2"
@@ -13,7 +15,7 @@ xlsx_file_name - название рабочей таблицы
 '''
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/3 кв 2025/'
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/4 кв 2025/'
 # xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
 # xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
 xlsx_file_name = xlsx_folder_path + 'Нормирование.xlsx'
@@ -24,13 +26,30 @@ xlsx_file_name = xlsx_folder_path + 'Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + 'Рабочая таблица 3.0.xlsx'
 
 
+def validate_urls(url_content: str) -> Optional[str]:
+    if not url_content or not url_content.strip():
+        return None
+
+    # Разделяем по пробелам и переносам строк
+    urls = url_content.split()
+
+    # Если больше одной ссылки - None
+    if len(urls) != 1:
+        return None
+
+    url = urls[0]
+
+    # Проверка, что ссылка начинается с https
+    if not url.startswith("https://"):
+        return None
+    return url
+
 headers_names = [
     'Ссылка',
     'Номер скрина',
     'Цена',
 ]
 
-sleep_time = 5
 
 link_dicts = excel_to_dicts(
     xlsx_file_name,
@@ -49,8 +68,25 @@ print(f'Всего ссылок {len(link_dicts_v2)} шт.')
 link_dicts_v2 = link_dicts_v2[:300] # сокращаем список
 counter_obj = counter_gen(link_dicts_v2)
 
+rbc = RemBrowseControl(browser='edge')
+rbc.run()
+
 for row in link_dicts_v2:
-    # if not row['Цена']:
+
     img_name = screen_folder + f'{row["Номер скрина"]}.jpg'
-    make_screenshot(img_name, row['Ссылка'], sleep_time = sleep_time)
+    url = validate_urls(row['Ссылка'])
+    if not url:
+        continue
+
+    tab_id = rbc.new_tab(url)
+    # для запуска js и парсинга
+    html_content = rbc.get_content(tab_id)
+
+    meta_content = {"url": url}
+    make_screen(img_name, meta_content)
+
+    rbc.close_tab(tab_id)
+
     print(counter_obj.__next__(), end = '\r');
+
+rbc.close()

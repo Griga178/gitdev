@@ -152,7 +152,7 @@ def fetch_for_pasrse_chars(session, ktru_number, version):
     return html
 
 
-def fetch_parse_and_store_ktru(ktru_number: str, user_version:Optional[int] = None, print_stage_on = True) -> Dict[str, Optional[object]]:
+def fetch_parse_and_store_ktru(ktru_number: str, user_version:Optional[int] = None, print_stage_on = True, **kw) -> Dict[str, Optional[object]]:
     """
     Основная функция: получает HTML, парсит общие данные, версию и характеристики,
     синхронизирует с БД. Возвращает словарь с результатом.
@@ -160,6 +160,11 @@ def fetch_parse_and_store_ktru(ktru_number: str, user_version:Optional[int] = No
     version: Опционально, если указана версия выдаем ее иначе, последнюю
 
     print_stage_on: bool -если True - выводит результаты в консоль
+
+    kw:
+        days_expiry: int - Количество дней, после которых информация становится неактуальной.
+        Отнимается от текущей даты для проверки актуальности. если не указан -> 1 (день)
+
     """
     # Начинаем работу с БД
     msg = {}
@@ -207,10 +212,11 @@ def fetch_parse_and_store_ktru(ktru_number: str, user_version:Optional[int] = No
 
             db_failed_request_exist = False
             need_new_parse = False
-            # срок годности запросов 1месяц
+            # срок годности запросов 1 день
+            days_expiry = kw.get('days_expiry', 1)
             current_date = datetime.datetime.utcnow()
             start_of_day = datetime.datetime(current_date.year, current_date.month, current_date.day)
-            start_of_day_month_ago = start_of_day - datetime.timedelta(days=30)
+            start_of_day_month_ago = start_of_day - datetime.timedelta(days=days_expiry)
 
 
             if user_version:

@@ -34,7 +34,7 @@ br_set = {
     'app': '--app=URL',                # режим приложения с одной вкладкой
     'window_size': '--window-size=width,height',   # размер окна
     'window_pos': '--window-position=x,y',         # позиция окна
-    'disable_infobars': '--disable-infobars',      # убрать панель с информацией об автоматизации
+
     'allow_origins': '--remote-allow-origins=http://localhost:9222',
     'port': '--remote-debugging-port=9222'
 }
