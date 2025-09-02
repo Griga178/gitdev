@@ -1,5 +1,3 @@
-
-
 ## Модуль парсинга КТРУ
 
 Модуль содержит функции для парсинга характеристик КТРУ с сайта **zakupki.gov**.
@@ -53,27 +51,34 @@
 ## Структура проекта
 
 > project/
-
 > > controller/
 > > > init.py
+
 > > > controller.py     — высокоуровневая логика, координация
 
 > > db/
 > > > init.py
+
 > > > client.py         — обёртка по работе с БД (подключение, сессии)
+
 > > > queries.py        — CRUD ─ функции, SQL ─ запросы
+
 > > > models.py         — ORM ─ модели для БД
 
 > > z_parser/
 > > > init.py
+
 > > > fetcher.py        — HTTP - клиенты, получение сырого контента
+
 > > > extractor.py      — парсинг/извлечение данных (BeautifulSoup, regex и т.п.)
 
 > > services/
 > > > init.py
+
 > > > business.py       — бизнес ─ логика, объединение парсера и БД
 
 > > settings.py
+
 > > README.md
 
 ## requirements:
