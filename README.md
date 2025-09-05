@@ -13,7 +13,7 @@
 + ./scr_maker - создание скриншотов
 + ./tests/xcom_parser/ - чтение xmlx каталога xcom.ru --> excel
 + ./tests/yandex_tests/ yandex тесты  (запуск через drop)
-+ [Таблицы excel $/excel_funcs$](./excel_funcs/readMe.md)
++ [Таблицы excel](./excel_funcs/readMe.md)
 
 
 ## rare

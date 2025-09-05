@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Настройки парсинга</title>
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+
+  <div class="rulesBlock">
+    <h2>Блок 1 — Заполнение словаря d</h2>
+    <form id="settingsForm" class="block"></form>
+
+    <button id="buildDictBtn">Сформировать словарь d</button>
+    <button id="loadHtmlBtn">Загрузить HTML</button>
+    <input type="file" id="htmlFileInput" style="display:none" accept=".html,.htm" />
+  </div>
+
+  <div class="rightSide">
+    <div class="dictBlock">
+      <h2>Блок 2 — Словарь d (готов для копирования)</h2>
+      <pre id="dictOutput" class="block"></pre>
+    </div>
+
+    <div class="resultBlock">
+      <h2>Блок 3 — Результаты парсинга</h2>
+      <div id="parseResult" class="block"></div>
+    </div>
+  </div>
+
+  <script src="static/form-builder.js"></script>
+  <script src="static/parser.js"></script>
+  <script src="static/main.js"></script>
+
+</body>
+</html>

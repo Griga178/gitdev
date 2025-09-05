@@ -6,6 +6,6 @@
 + `write_kkn_with_ktru.py` - создание справочника ККНс характеристиками КТРУ: List[Dict] -> file.xlsx
 + `write_kkn.py` - создание справочника ККН: List[Dict] -> file.xlsx
 
-$не создает/читает excel$
+$не создает/читает $excel$
 + `check_kkn.py`- сравнение ККН с КТРУ
 + `compare_ktru.py` - сравнение двух версий КТРУ
