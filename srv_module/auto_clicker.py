@@ -51,7 +51,7 @@ def just_do(amount):
     start_time = time.time()
     errors_counter = 0
     counter = 0
-    for step in range(amount + 1):
+    for step in range(amount):
         try:
             click_one()
             click_two()

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Примеры форм</title>
+    <link rel="stylesheet" href="forms.css" />
+  </head>
+  <body>
+
+    <div class="desc">
+      <h3>Кастомные формы</h3>
+      <ul>
+        <li> форма инпут + выбор</li>
+        <li> > 2 значений (клик + выбор)</li>
+        <li> 2 значения (только клик)</li>
+      </ul>
+
+    </div>
+
+    <div class="form-block">
+
+      <div class="field-row" tabindex="0">
+
+        <div class="field-cell"
+          data-name="tag_name"
+          data-key="div"
+          data-dict='{"div": "div", "h1": "h1", "span": "span"}'>
+          <span>div</span>
+          <input class="field-input" type="text"  value="div">
+          <div class="field-desc">Название атрибута</div>
+        </div>
+
+        <div class="field-cell"
+          data-name="name"
+          data-key="name"
+          data-dict='{"name": "name", "price": "price", "price_vs_card": "price_vs_card"}'>
+          <span>name</span>
+          <div class="field-desc">Название элемента</div>
+        </div>
+
+        <div class="field-cell"
+          data-name="type"
+          data-key="Текст"
+          data-dict='{"Текст": "str", "Число": "float"}'>
+          <span>Текст</span>
+          <div class="field-desc">Тип данных</div>
+        </div>
+
+        <div class="field-cell"
+          data-name="is_expected"
+          data-key="Да"
+          data-dict='{"Да": true, "Нет": false}'>
+          <span>Да</span>
+          <div class="field-desc">Элемент ожидается на странице</div>
+        </div>
+
+      </div>
+
+      <div class="field-desc" style="text-align:left">
+        Описание:<br>
+        в каждой форме field-cell есть атрибуты:<br>
+        "data-name" -это  ключ внутри словаря настроек (не меняется,
+        для записи в общие настройки)<br>
+        "data-key" - указано текущее "название значения"<br>
+        "data-dict" - все варианты значений<br>
+         пользователь видит ключ, значение сохраняется всловарь
+         <br><br>
+         можно менять значение:<br>
+         кликом <br>
+         выбором из выпадающего меню (больше 2 значений)<br>
+         вводом в форму ("esc" - отмена ввода, "enter" или "tab" - закрыть + сохранить)
+
+      </div>
+
+      <div class="field-row" tabindex="1" id="dict-container" style="margin-top:20px;">
+
+        <div class="dict-view">
+          <div class="dict-view-header">
+            <span>словарь Python</span>
+            <button id="copy-btn">
+              Скопировать
+            </button>
+          </div>
+
+
+          <pre id="python-dict" >
+
+          {
+            ...
+          }
+
+          </pre>
+        </div>
+
+
+      </div>
+
+    </div>
+    <style media="screen">
+      .dict-view {
+        position: relative;
+        min-width: 200px;
+        min-height: 200px;
+      }
+      button {
+
+        font-size: 12px;
+        padding: 2px 6px;
+        cursor: pointer;
+        background: #eee;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      pre {
+        background:#f0f0f0;
+        padding:10px;
+        border:1px solid #ccc;
+        white-space: pre-wrap;
+        max-height: 300px;
+        overflow-y:auto;
+        font-family: monospace;
+      }
+    </style>
+    <script src="forms.js"></script>
+    <script>
+
+    // Обновление итогового словаря
+    function updateDictOutput() {
+      const dictResult = {};
+      document.querySelectorAll('.field-cell').forEach(cell => {
+        const key = cell.dataset.name;
+        const displayKey = cell.dataset.key;
+
+        // Получаем value из data-dict
+        const dictOptions = JSON.parse(cell.dataset.dict || '{}');
+        let val = dictOptions[displayKey];
+
+        // Если значение undefined, возвращаем отображаемое значение
+        if (val === undefined) val = displayKey;
+
+        dictResult[key] = val;
+      });
+
+      // Форматируем в вид Python-словаря, для удобства - выводим как строку
+      const pythonStr = Object.entries(dictResult).map(([k, v]) => {
+        let valStr;
+        if (typeof v === 'string') valStr = `'${v.replace(/'/g, "\\'")}'`;
+        else if (typeof v === 'boolean') valStr = v ? 'True' : 'False';
+        else valStr = v;
+        return `'${k}': ${valStr}`;
+      }).join(',\n');
+
+      document.getElementById('python-dict').textContent = `{\n${pythonStr}\n}`;
+    }
+
+    // Инициализация вывода
+    updateDictOutput();
+
+    // Кнопка копирования
+    document.getElementById('copy-btn').addEventListener('click', () => {
+      const text = document.getElementById('python-dict').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Словарь скопирован в буфер обмена!');
+      });
+    });
+
+  </script>
+
+
+  </body>
+</html>

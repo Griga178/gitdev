@@ -9,6 +9,8 @@
 4. сравниваем характеристики ККН с хар-ми КТРУ parse_kkn_excel -> kkn_full_list
 
 
+days_expiry = 1 - указать для исключения повторных запросов
+
 """
 
 from zakupki import Controller
@@ -42,9 +44,9 @@ def get_ktru_list(excel_path):
     return ktru_list
 
 
-updated_ktru_excel_path = 'C:/Users/G.Tishchenko/Downloads/ктру0901.xlsx'
+updated_ktru_excel_path = 'C:/Users/G.Tishchenko/Downloads/ктру0925.xlsx'
 # reestr_kkn_excel_path = 'C:/Users/G.Tishchenko/Desktop/94-ККН ЦМЭЦ на 01.07.2025 (8791).xlsx'
-reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/95-ККН ЦМЭЦ на 01.08.2025 (8817).xlsx'
+reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/97-ККН ЦМЭЦ на 01.10.2025 (8866).xlsx'
 
 # читаем файл с неактуальными КТРУ
 ktru_set = set(get_ktru_list(updated_ktru_excel_path))
@@ -54,7 +56,7 @@ ktru_set = sorted(list(ktru_set))
 uploaded_ktru = []
 ktru_len = len(ktru_set)
 ktru_idx = 0
-days_expiry = 1
+days_expiry = 1 # срок годности скачанных ктру (если скачаны раньше - качаем заново)
 import time
 for valid_ktru_number in ktru_set:
     ktru_idx += 1
@@ -91,7 +93,7 @@ write_checked_worked_list_to_excel(checked_reestr_kkn, updated_ktru_excel_path)
 '''
 NEXT TO DO:
 - понять что ккн надо менять
-- на втором листе оставть ККН для изменения
+- на втором листе оставить ККН для изменения
 
 имена ключей ktru_dict и типы значений [
     ktru_id:int,

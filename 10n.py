@@ -19,11 +19,11 @@ import time
 # папка с файлами
 
 
-# DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Экранные копии/'
-DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос/'
-# user_name, user_passw = 'Tishchenko_GL', 'cmec789'
+DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Экранные копии/'
+# DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос/'
+user_name, user_passw = 'Tishchenko_GL', 'Cmec123!!'
 # DOC_FOLDER = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/Ответы на запрос не мои/'
-user_name, user_passw = 'Mustafin_RI', '123123'
+# user_name, user_passw = 'Mustafin_RI', '123123'
 
 # инфа для формирования нофера источника "04-4129/23-0-0"
 LEFT_PART = '04-'
@@ -59,10 +59,10 @@ counter = 0
 for number, value in numbers.items():
     # вбиваем в поиск
     q = value['full_number']
+    counter += 1
     print('\nИщем', counter, q, value['comp_name'])
     find_document_from_main(driver, q)
     click_by_name(driver)
-    counter += 1
     # if counter > 2:
     #     break
     cur_files = set()

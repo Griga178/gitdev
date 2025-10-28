@@ -4,6 +4,7 @@ from scr_maker.counter import counter_gen
 from scr_maker.screen import make_screen
 from typing import Optional
 from rbc.controller import RemBrowseControl
+import time
 
 ''' Делаем только скриншоты ссылок
 с "Лист2"
@@ -16,9 +17,9 @@ xlsx_file_name - название рабочей таблицы
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/4 кв 2025/'
-# xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
+xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
 # xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
-xlsx_file_name = xlsx_folder_path + 'Нормирование.xlsx'
+# xlsx_file_name = xlsx_folder_path + 'Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
 # xlsx_file_name = xlsx_folder_path + 't.xlsx'
 # Разовая акция
@@ -81,7 +82,7 @@ for row in link_dicts_v2:
     tab_id = rbc.new_tab(url)
     # для запуска js и парсинга
     html_content = rbc.get_content(tab_id)
-
+    # time.sleep(4)
     meta_content = {"url": url}
     make_screen(img_name, meta_content)
 

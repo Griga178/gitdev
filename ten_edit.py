@@ -45,12 +45,15 @@ def find_document_from_main(driver, number_element):
     '''
         ИНОГДА ТЫКАЕТ НА ПОИСК, НЕ ВСТАВИВ НОРМАЛЬНО ТО ЧТО ИСКАТЬ
     '''
+
     tag = 'input'
     atribute = 'type'
     atr_val = 'text'
+    print('ищем input')
     find_element =  driver.find_element("xpath", f"//{tag}[@{atribute}='{atr_val}']")
+    print('вставляем')
     find_element.send_keys(number_element)
-
+    print('тыкаем')
     tag = 'div'
     atribute = 'class'
     atr_val_btn = 'WbForm_ButtonIcon buttonSearch searchButtonCtl'

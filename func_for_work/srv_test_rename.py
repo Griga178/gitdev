@@ -3,6 +3,9 @@
     A Наименование поставщика
     B Источник ценовой информации
     Лист - первый по счету (не важно какое название)
+
+    тут яндекс драйвер
+    https://github.com/yandex/YandexDriver/releases
 '''
 from srv_funcs.log_in import log_in
 from srv_funcs.find_document import find_document_from_main

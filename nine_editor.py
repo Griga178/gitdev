@@ -14,7 +14,7 @@ def edit_row_v2(exel_row, prev_row = False):
     excel_row['screen_number'] = exel_row[4]
     excel_row['price'] = exel_row[5]
 
-    if excel_row['source']:
+    if excel_row['source'] and excel_row['price']:
         if excel_row['source'][0].upper() == 'О':
             excel_row['source_type'] = "Ответ на запрос"
             spl_row = excel_row['source'].split("-")
