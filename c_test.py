@@ -16,8 +16,8 @@ xlsx_file_name - название рабочей таблицы
 '''
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/4 кв 2025/'
-xlsx_file_name = xlsx_folder_path + '26 Оборудование для театрально.xlsx'
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/1 кв 2026/'
+xlsx_file_name = xlsx_folder_path + '26. Оборудование.xlsx'
 # xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
 # xlsx_file_name = xlsx_folder_path + 'Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
@@ -41,9 +41,10 @@ def validate_urls(url_content: str) -> Optional[str]:
     url = urls[0]
 
     # Проверка, что ссылка начинается с https
-    if not url.startswith("https://"):
-        return None
-    return url
+    if not url.startswith("https://") or not url.startswith("http://"):
+        return url
+    print(f'wrong url start: {url[:8]}')
+    return None
 
 headers_names = [
     'Ссылка',

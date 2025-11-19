@@ -9,8 +9,9 @@
 4. сравниваем характеристики ККН с хар-ми КТРУ parse_kkn_excel -> kkn_full_list
 
 
-days_expiry = 1 - указать для исключения повторных запросов
-
+updated_ktru_excel_path - файл с неактуальными номерами (читает первый лист - любое имя)
+reestr_kkn_excel_path - файл - справочник ККН
+days_expiry = 1 - срок годности парсинга (дн), указать для исключения повторных запросов за 1 период (дн)
 """
 
 from zakupki import Controller
@@ -46,7 +47,7 @@ def get_ktru_list(excel_path):
 
 updated_ktru_excel_path = 'C:/Users/G.Tishchenko/Downloads/ктру0925.xlsx'
 # reestr_kkn_excel_path = 'C:/Users/G.Tishchenko/Desktop/94-ККН ЦМЭЦ на 01.07.2025 (8791).xlsx'
-reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/97-ККН ЦМЭЦ на 01.10.2025 (8866).xlsx'
+reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/98-ККН ЦМЭЦ на 01.11.2025 (8862).xlsx'
 
 # читаем файл с неактуальными КТРУ
 ktru_set = set(get_ktru_list(updated_ktru_excel_path))
