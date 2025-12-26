@@ -3,17 +3,17 @@ import os
 import sys
 
 
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/4 кв 2025/'
-# SCREEN_PATH = 'Z:/Тищенко Г.Л/2025_4 Скрины/'
-SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/1 кв 2026/'
+SCREEN_PATH = 'Z:/Тищенко Г.Л/2026_1 Скрины/'
+# SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 scr_n, prc_n  = 24, 25
 
 # еще поменять номера столбов строка: 29 --> 24 И 25
 
-# part = '03. Оборудование '
+part = '03. Оборудование '
 # part = '26. Оборудование'
 # part = '19. Бытовые'
-part = '03. Нормирование'
+# part = '03. Нормирование'
 split_part = part.split(" ")
 part = " ".join(split_part[:2])
 
@@ -21,7 +21,7 @@ part_dict = {
     '3': "3 компьютерное",
     '26': '26 Оборудование для театрально',
     '19': '19 бытовые приборы',
-    "n": "Нормирование"
+    "n": "03. Нормирование"
 }
 
 

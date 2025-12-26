@@ -17,15 +17,17 @@ xlsx_file_name - название рабочей таблицы
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/1 кв 2026/'
-xlsx_file_name = xlsx_folder_path + '26. Оборудование.xlsx'
-# xlsx_file_name = xlsx_folder_path + '19 Бытовые приборы.xlsx'
-# xlsx_file_name = xlsx_folder_path + 'Нормирование.xlsx'
-# xlsx_file_name = xlsx_folder_path + '3 компьютерное.xlsx'
+# xlsx_file_name = xlsx_folder_path + '26. Оборудование.xlsx'
+xlsx_file_name = xlsx_folder_path + '19. Бытовые.xlsx'
+# xlsx_file_name = xlsx_folder_path + '03. Оборудование.xlsx'
+# xlsx_file_name = xlsx_folder_path + '03. Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + 't.xlsx'
 # Разовая акция
 # xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/'
 # xlsx_file_name = xlsx_folder_path + 'Рабочая таблица 3.0.xlsx'
 
+two_k = False
+# two_k = True # 2560*1440
 
 def validate_urls(url_content: str) -> Optional[str]:
     if not url_content or not url_content.strip():
@@ -85,7 +87,7 @@ for row in link_dicts_v2:
     html_content = rbc.get_content(tab_id)
     # time.sleep(4)
     meta_content = {"url": url}
-    make_screen(img_name, meta_content)
+    make_screen(img_name, meta_content, two_k)
 
     rbc.close_tab(tab_id)
 
