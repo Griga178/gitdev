@@ -3,17 +3,17 @@ import os
 import sys
 
 
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/1 кв 2026/'
-SCREEN_PATH = 'Z:/Тищенко Г.Л/2026_1 Скрины/'
-# SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/2 кв 2026/'
+# SCREEN_PATH = 'Z:/Тищенко Г.Л/2026_1 Скрины/'
+SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 scr_n, prc_n  = 24, 25
 
 # еще поменять номера столбов строка: 29 --> 24 И 25
 
-part = '03. Оборудование '
+# part = '03. Оборудование '
 # part = '26. Оборудование'
 # part = '19. Бытовые'
-# part = '03. Нормирование'
+part = '03. Нормирование'
 split_part = part.split(" ")
 part = " ".join(split_part[:2])
 

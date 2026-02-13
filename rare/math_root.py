@@ -1,15 +1,21 @@
 '''
-    Да
     Поиск корня числа A, из N степеней
 
     Пример:
-    За 3 года (n = 3), депозит с 1 у.е. вырос до 5 у.е. (a = 5)
-    get_root(3, 5) --> 1.71 => 71% годовых
-     1 * 1.71 * 1.71 * 1.71 = 5
+    За 5 лет (period = 5) депозит вырос в 1024 раза (1 USD → 1024 USD)
+
+    Вопрос
+    Как изменяется депозит при тех же условиях за 1 год?
+
+    Решение
+    get_root(5, 1024) → 4 — увеличение в 4 раза в год (или 300% годовых)
+
+     1*4*4*4*4*4 = 1024
+     4^5 = 1024
 
 '''
 
-def get_root(n, a, d = 2):
+def get_root_old(n, a, d = 2):
     ''' Находит корень n-ой степени из числа a
         n - степень корня (кол-во реинвестирований)
         a - число под корнем (реинвестируемая прибыль - итог)
@@ -39,9 +45,21 @@ def get_root(n, a, d = 2):
 
     return round(m_root, d)
 
+def get_root(n, a, d=2):
+    ''' root ^ n = a '''
+    if n <= 0:
+        raise ValueError("Степень корня n должна быть положительным числом")
+    if a < 0 and n % 2 == 0:
+        raise ValueError("Нельзя вычислить четный корень из отрицательного числа")
 
-period = 3
-revenue = 5
+    d = min(d, 15)
+    root = a ** (1 / n)
+    return round(root, d)
 
-m_root = get_root(period, revenue)
-print('Increase per "period"', m_root)
+
+period = 5
+revenue = 1024
+
+
+m_root = get_root(period, revenue, 3)
+print(f'Increase per step', m_root)

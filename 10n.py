@@ -27,7 +27,7 @@ user_name, user_passw = 'Tishchenko_GL', 'Cmec123!!'
 
 # инфа для формирования нофера источника "04-4129/23-0-0"
 LEFT_PART = '04-'
-RIGHT_PART = '/25-0-0'
+RIGHT_PART = '/26-0-0'
 
 docs = os.listdir(DOC_FOLDER)
 

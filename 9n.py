@@ -25,8 +25,8 @@ from docx.shared import Inches, Mm, Pt
 
 # - - - * - -  НАСТРОЙКИ ЕКСЕЛЬ ФАЙЛА - - - * - - -
 FOLDER_PATH = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/'
-EXCEL_FOLDER = 'C:/Users/G.Tishchenko/Desktop/1 кв 2026/'
-SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/2026_1 Скрины/'
+EXCEL_FOLDER = 'C:/Users/G.Tishchenko/Desktop/2 кв 2026/'
+SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/2026_2 Скрины/'
 
 
 
