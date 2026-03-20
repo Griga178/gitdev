@@ -47,7 +47,7 @@ def get_ktru_list(excel_path):
 
 updated_ktru_excel_path = 'C:/Users/G.Tishchenko/Downloads/ктру0925.xlsx'
 # reestr_kkn_excel_path = 'C:/Users/G.Tishchenko/Desktop/94-ККН ЦМЭЦ на 01.07.2025 (8791).xlsx'
-reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/100-ККН ЦМЭЦ на 01.01.2026 (8849).xlsx'
+reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/101-ККН ЦМЭЦ на 01.02.2026 (8875).xlsx'
 
 # читаем файл с неактуальными КТРУ
 ktru_set = set(get_ktru_list(updated_ktru_excel_path))
@@ -90,8 +90,57 @@ checked_reestr_kkn = check_reestr_vs_checked_ktru(ktru_set, reestr_kkn, uploaded
 print("Запись в EXCEL...")
 write_checked_worked_list_to_excel(checked_reestr_kkn, updated_ktru_excel_path)
 
+# удаление последних последних реквестов от даты sqlitte
+f'''
+-- Начало транзакции
+BEGIN TRANSACTION;
+
+-- Этап 1: Найдем ktruNumber и ktruVersion из таблицы requests
+CREATE TEMPORARY TABLE temp_requests AS
+SELECT ktruNumber, ktruVersion
+FROM requests
+WHERE date > '2026-02-22';
+
+-- Этап 2: Найдем id из таблицы ktru по ktruNumber
+CREATE TEMPORARY TABLE temp_ktrus AS
+SELECT k.id AS ktru_id
+FROM ktru k
+JOIN temp_requests tr ON k.number = tr.ktruNumber;
+
+-- Этап 3: Найдем id версий из таблицы ktruVersion
+CREATE TEMPORARY TABLE temp_versions AS
+SELECT kv.id AS version_id
+FROM ktruVersion kv
+JOIN temp_ktrus tk ON kv.ktruId = tk.ktru_id
+AND kv.versionNumber = (SELECT MAX(versionNumber) FROM ktruVersion WHERE ktruId = tk.ktru_id);
+
+-- Этап 4: Удаляем из таблицы ktruChars
+DELETE FROM ktruChars
+WHERE ktruVersionId IN (SELECT version_id FROM temp_versions);
+
+-- Этап 5: Удаляем из таблицы ktruVersion
+DELETE FROM ktruVersion
+WHERE id IN (SELECT version_id FROM temp_versions);
+
+-- Этап 6: Удаляем из таблицы requests
+DELETE FROM requests
+WHERE EXISTS (
+    SELECT 1
+    FROM temp_requests tr
+    WHERE requests.ktruNumber = tr.ktruNumber AND requests.ktruVersion = tr.ktruVersion
+);
+
+-- Завершаем транзакцию
+COMMIT;
+
+-- Очистка временных таблиц
+DROP TABLE IF EXISTS temp_requests;
+DROP TABLE IF EXISTS temp_ktrus;
+DROP TABLE IF EXISTS temp_versions;
+'''
 
 '''
+
 NEXT TO DO:
 - понять что ккн надо менять
 - на втором листе оставить ККН для изменения

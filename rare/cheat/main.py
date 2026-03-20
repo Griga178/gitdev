@@ -1,55 +1,79 @@
 from read_file import read_file
 from screen_shot import *
 
-"""
-    редактирование jpg.файла
-    Работает, НО ЕСТЬ КУЧА костылей на ошибки если разрешение скриншота не 1920*1080
-
-"""
-
-# settings
-# Имя файла
-# cheat_file_full_name = 'C:/Users/G.Tishchenko/Desktop/Cheat.xlsx'
-cheat_file_full_name = 'C:/Users/G.Tishchenko/Desktop/screenCap/che/Cheat 19.xlsx'
-# Имя листа
-cheat_file_list_name = 'temp'
-# расположение старых фоток
-# Old_jpg_folder_path = 'Z:/Тищенко Г.Л/2024_4 Скрины/нормирование/'
-Old_jpg_folder_path = 'Z:/Тищенко Г.Л/2024_4 Скрины/19 бытовые приборы/'
+import os
+import shutil
 
 
-# расположение новых фоток
-New_jpg_folder_path = 'C:/Users/G.Tishchenko/Desktop/screenCap/che/temp/ok/'
-ok_New_jpg_folder_path = 'C:/Users/G.Tishchenko/Desktop/screenCap/che/temp/ok/'
-# error_jpg_folder_path = 'C:/Users/G.Tishchenko/Desktop/screenCap/temp/error/'
-error_jpg_folder_path = 'C:/Users/G.Tishchenko/Desktop/screenCap/che/temp/error 2/'
+# Имя Excel со старым и новым именем
+cheat_file_full_name = 'C:/Users/G.Tishchenko/Desktop/screenCap/ch_scr.xlsx'
 
+# Название листа
+cheat_file_list_name = 'Лист1'
+
+# Пути до папок
+# со старыми скринами
+Old_jpg_folder_path = 'Z:/Тищенко Г.Л/2026_1 Скрины/03. Нормирование/'
+
+# для новых скринов
+New_jpg_folder_path = 'C:/Users/G.Tishchenko/Desktop/screenCap/che/'
+
+# для копий старых скриншотов (временно)
+PATH_TEMP_COPIES = New_jpg_folder_path + 'copies/'
+
+# папка с изображеними 1920 * 1080
+ok_New_jpg_folder_path = New_jpg_folder_path + 'OK/'
+
+# папка с изображеними другого размера (не изменяется)
+error_jpg_folder_path = New_jpg_folder_path + 'error/'
 
 # смотрим содержимое файла
 jpg_names = read_file(cheat_file_full_name, cheat_file_list_name)
-# копируем все нужные фотки с srv
+
+# Создаем необходимые папки
+os.makedirs(New_jpg_folder_path, exist_ok=True)
+os.makedirs(ok_New_jpg_folder_path, exist_ok=True)
+os.makedirs(PATH_TEMP_COPIES, exist_ok=True)
+os.makedirs(error_jpg_folder_path, exist_ok=True)
+
 counter = 0
 amount = len(jpg_names)
 for jpg_name in jpg_names[:]:
-
-    # jpg_name['old_name'] = jpg_name['new_name'] = 330994
+    is_succsess = False
+    JPG_NEW_NAME = str(jpg_name['new_name']) + '.jpg'
 
     old_image_name = Old_jpg_folder_path + str(jpg_name['old_name']) + '.jpg'
-    new_image_name = New_jpg_folder_path + str(jpg_name['new_name']) + '.jpg'
-    ok_new_image_name = ok_New_jpg_folder_path + str(jpg_name['new_name']) + '.jpg'
-    # ЕСЛИ УЖЕ ОТРЕДАКТИРОВАН - ПРОПУСКАЕМ
-    if check(ok_new_image_name):
+    temp_img_name = PATH_TEMP_COPIES + JPG_NEW_NAME
+
+    # new_image_name = New_jpg_folder_path + str(jpg_name['new_name']) + '.jpg'
+    ok_new_image_name = ok_New_jpg_folder_path + JPG_NEW_NAME
+    error_image_name = error_jpg_folder_path + JPG_NEW_NAME
+
+    # избегаем повторное изменение
+    if os.path.exists(ok_new_image_name):
+        counter += 1
         continue
-    # Просто копия
-    copy_image(old_image_name, new_image_name)
-    # edit_screen(new_image_name, None)
+
+    # создаем копию скрина
+    if not os.path.exists(temp_img_name):
+        shutil.copy(old_image_name, temp_img_name)
+
     try:
-        edit_screen(new_image_name, None)
+        # редактируем скрин
+        is_succsess = edit_screen(temp_img_name)
+
+        if is_succsess:
+            # перемещаем в новую папку
+            shutil.move(temp_img_name, ok_new_image_name)
+            counter += 1
+        else:
+            # перемещаем в папку c ошибками
+            shutil.move(temp_img_name, error_image_name)
+
 
     except Exception as e:
-        new_image_name_error = error_jpg_folder_path + str(jpg_name['new_name']) + '.jpg'
+        shutil.move(temp_img_name, error_image_name)
         print(e)
-        copy_image(new_image_name, new_image_name_error)
-        del_image(new_image_name)
-    counter += 1
-    print(f'{counter}/{amount} шт', str(jpg_name['new_name']))
+
+
+    print(f'{counter}/{amount} шт', JPG_NEW_NAME)

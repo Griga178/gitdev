@@ -1,8 +1,12 @@
 '''
+    a = i^n
+    i = a ** (1/n)
+    n = logarifm (base = i, target = a)
     Поиск корня числа A, из N степеней
 
     Пример:
-    За 5 лет (period = 5) депозит вырос в 1024 раза (1 USD → 1024 USD)
+    За 5 лет (period = 5) депозит без вложений
+    вырос в 1024 раза (1 USD → 1024 USD)
 
     Вопрос
     Как изменяется депозит при тех же условиях за 1 год?
@@ -57,8 +61,8 @@ def get_root(n, a, d=2):
     return round(root, d)
 
 
-period = 5
-revenue = 1024
+period = 15
+revenue = 960000
 
 
 m_root = get_root(period, revenue, 3)
