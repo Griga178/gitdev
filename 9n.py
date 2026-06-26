@@ -25,15 +25,15 @@ from docx.shared import Inches, Mm, Pt
 
 # - - - * - -  НАСТРОЙКИ ЕКСЕЛЬ ФАЙЛА - - - * - - -
 FOLDER_PATH = 'C:/Users/G.Tishchenko/Desktop/файлы_сэд/'
-EXCEL_FOLDER = 'C:/Users/G.Tishchenko/Desktop/2 кв 2026/'
-SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/2026_2 Скрины/'
+EXCEL_FOLDER = 'C:/Users/G.Tishchenko/Desktop/3 кв 2026/'
+SCREEN_FOLDER_FOLDER = 'Z:/Тищенко Г.Л/2026_3 Скрины/'
 
 
 
 # part = '03. Оборудование'
 # part = '26. Оборудование'
-# part = '19. Бытовые'
-part = '03. Нормирование'
+part = '19. Бытовые'
+# part = '03. Нормирование'
 
 # EXCEL_NAME = 'Проц 17' + '.xlsx'
 EXCEL_NAME = part + '.xlsx'

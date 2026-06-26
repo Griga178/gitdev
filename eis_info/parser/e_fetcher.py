@@ -80,7 +80,7 @@ class EisFetcher():
         for item in items:
             params = self.BASE_PARAMS.copy()
             params['publishDateFrom'] = item['publishDateFrom']
-            params['publishDateTo'] = item.get('publishDateTo', '')
+            params['publishDateTo'] = item.get('publishDateTo', params['publishDateFrom'])
             params['priceFromGeneral'] = item.get('priceFromGeneral', '')
             params['priceToGeneral'] = item.get('priceToGeneral', '')
             params['pageNumber'] = item.get('pageNumber', '1')
@@ -91,8 +91,8 @@ class EisFetcher():
 if __name__ == '__main__':
     e_fetcher = EisFetcher()
     items = [
-        {'date': '2026-04-20'},
-        {'date': '2026-04-21', 'min': '', 'max': ''},
+        {'publishDateFrom': '2026-04-20'},
+        {'publishDateFrom': '2026-04-21', 'min': '', 'max': ''},
         # {'date': '2026-04-19', 'min': '1000', 'max': '5000'}
     ]
     # print(e_fetcher.prepare_params(items))

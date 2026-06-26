@@ -4,8 +4,8 @@ import time
 
 # Координаты
 # кнопка "Ознакомлен"
-eye_x, eye_y = (1806, 373) # строка № 1
-# eye_x, eye_y = (1806, 487) # строка № 2
+# eye_x, eye_y = (1806, 373) # строка № 1
+eye_x, eye_y = (1806, 495) # строка № 2
 # eye_x, eye_y = (1806, 520) # строка № 2 - после сдвига кнопок вниз
 # кнопка подтвердить
 cnf_x, cnf_y = (1123, 632)
@@ -73,7 +73,7 @@ def just_do(amount):
     print(f'Закрыто документов: {counter}\nКол-во ошибок: {errors_counter}')
 
 
-just_do(5)
+just_do(80)
 # print(pt.pixel(eye_x, eye_y))
 
 # while True:

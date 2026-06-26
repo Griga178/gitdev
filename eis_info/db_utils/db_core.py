@@ -21,8 +21,6 @@ class DataBase:
         else:
             create_query_script = schema_path
 
-        # create_query_script = "../sql/create.sql"
-        # self.path = PATH
         # 1. проверка есть ли папка "db_files" - создаем
         os.makedirs(os.path.dirname(self.path), exist_ok=True)
 
