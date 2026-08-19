@@ -16,7 +16,7 @@ xlsx_file_name - название рабочей таблицы
 '''
 
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
-xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/3 кв 2026/'
+xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/4 кв 2026/'
 # xlsx_file_name = xlsx_folder_path + '26. Оборудование.xlsx'
 # xlsx_file_name = xlsx_folder_path + '19. Бытовые.xlsx'
 # xlsx_file_name = xlsx_folder_path + '03. Оборудование.xlsx'
@@ -75,6 +75,13 @@ counter_obj = counter_gen(link_dicts_v2)
 rbc = RemBrowseControl(browser='edge')
 rbc.run()
 
+''' START TEST BLOCK '''
+import random
+# ЗАМЕДЛЕНИЕ ДЛЯ ОБХОДА ЗАЩИТЫ (Onlinetrade)
+# limit_is_on = True
+# lim_counter = 0
+''' END TEST BLOCK '''
+
 for row in link_dicts_v2:
 
     img_name = screen_folder + f'{row["Номер скрина"]}.jpg'
@@ -85,8 +92,18 @@ for row in link_dicts_v2:
     tab_id = rbc.new_tab(url)
     # для запуска js и парсинга
     html_content = rbc.get_content(tab_id)
-    # time.sleep(4)
+    time.sleep(0.5)
     meta_content = {"url": url}
+
+    ''' START TEST BLOCK '''
+    # пробуем рандомо спать
+    # time.sleep(random.uniform(10, 15))
+    # if lim_counter > 8:
+    #     # после 8 страниц подряд спим дольше
+    #     time.sleep(random.uniform(20, 30))
+    #     lim_counter == 0
+    ''' END TEST BLOCK '''
+
     make_screen(img_name, meta_content, two_k)
 
     rbc.close_tab(tab_id)

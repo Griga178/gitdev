@@ -97,7 +97,8 @@ class RemBrowseControl():
         if self.br_subprocess_name == 'browser.exe':
             user_data_str = f'--user-data-dir=C:/Users/{self.user_name}/AppData/Local/Yandex/YandexBrowser/User Data'
         elif self.br_subprocess_name == 'msedge.exe':
-            user_data_str = f'--user-data-dir=C:/Users/{self.user_name}/AppData/Local/Microsoft/Edge/User Data'
+            # user_data_str = f'--user-data-dir=C:/Users/{self.user_name}/AppData/Local/Microsoft/Edge/User Data'
+            user_data_str = '--user-data-dir=C:\EdgeDebugProfile'
         settings = [
             self.path,
             # '--window-position=0,0',
@@ -105,8 +106,11 @@ class RemBrowseControl():
             '--start-maximized',
             f'--remote-debugging-port={self.remote_port}',
             f'--remote-allow-origins=http://localhost:{self.remote_port}',
+            # f'--remote-allow-origins=*',
+            '--no-first-run',
+            '--no-default-browser-check',
             user_data_str,
-            '--profile-directory=Default'
+            # '--profile-directory=Default'
         ]
 
         if not self.browser_running:

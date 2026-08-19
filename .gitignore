@@ -7,3 +7,7 @@ __pycache__/
 # парсинг заявок zakupki.gov
 eis_info/database/
 eis_info/venv/
+
+# парсинг сайтов
+web_parser/venv
+web_parser/logs

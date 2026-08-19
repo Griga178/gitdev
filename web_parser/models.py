@@ -21,7 +21,7 @@ class ParseResult(Base):
     __tablename__ = 'parsedData'
     id = Column(Integer, primary_key=True)
     url = Column(Text) # ссылка
-    date =  = Column(DateTime, default=datetime.datetime.now)
+    date = Column(DateTime, default=datetime.datetime.now)
     screenshot = Column(Text) # id скриншота
     data = Column(JSON) # результат парсинга в формате json
 

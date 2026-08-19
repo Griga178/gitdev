@@ -1,4 +1,11 @@
 # fetcher.py
+
+'''
+    ОТКЛЮЧЕНА ПРОВЕРКА СЕРТИФИКАТОВ!
+
+    requests.get(..., verify=False)
+    zakupki.gov.ru
+'''
 import logging
 import requests
 from typing import Tuple, Optional
@@ -23,7 +30,7 @@ DEFAULT_HEADERS = {
 def get_html_content(url: str, timeout: float = 10.0) -> Tuple[Optional[str], Optional[str]]:
     logger.info("Fetching URL %s", url)
     try:
-        response = requests.get(url, timeout=timeout,headers=DEFAULT_HEADERS)
+        response = requests.get(url, timeout=timeout,headers=DEFAULT_HEADERS, verify=False)
         response.raise_for_status()
         logger.debug("Fetched %d bytes from %s", len(response.text), url)
         # Явно указываем кодировку, если сервер не корректно её прислал
