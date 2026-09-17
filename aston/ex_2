@@ -1,0 +1,76 @@
+
+1 Создайте каталог test1 в домашней директории. Сравните время создания системных каталогов /bin, /tmp с каталогом test1.
+mkdir ~/test1
+stat ~/test1 /bin /tmp
+...
+
+2 Скопируйте файл /bin/ls в локальную директорию. Посмотрите атрибуты этого файла. Попробуйте запустить его.
+cd test1
+cp /bin/ls
+ls -l ~/test/ls
+~/test/ls
+
+3 Создайте в локальной директории символическую ссылку tmplnk на директорию /tmp. Скопируйте несколько файлов в директорию tmplnk.
+ln -s /tmp tmplnk
+touch test_file1.txt test_file2.txt
+cp test_file1.txt test_file2.txt tmplnk/
+ls -l tmplnk/ # проверка копирования
+ls -l /tmp/ # проверка копирования
+
+4 Сравните файлы /dev/tty1 и /dev/hda1. Какой тип они имеют? Чем они отличаются?
+ls -l /dev/tty1 /dev/hda1
+stat /dev/tty1 /dev/hda1
+ls -l /dev/ # просмотр подключнных разделов 1
+lsblk # просмотр подключнных разделов 2
+/dev/hd*
+/dev/sd*
+
+5 Найдите все файлы в системе, которые были модифицированы не более суток назад.
+sudo find / -type f -mtime -1 -ls
+
+6 С помощью одной команды найдите все файлы с расширением .html в директории /usr и скопируйте их в локальную папку htmls.
+# find /usr -type f -name "*.html" -exec sh -c 'mkdir -p htmls && cp "$1" htmls/' _ {} \;
+find /usr -type f -name "*.html" -exec sh -c 'mkdir -p htmls && cp "$1" htmls/' _ {} \
+
+7 Создайте архив директории /etc и узнайте его размер. Попробуйте создать сжатый архив той же папки. Сравните степень сжатия gzip и bzip2 на этом примере.
+sudo tar -cf etc_original.tar /etc
+du -h etc_original.tar
+sudo tar -czf etc_gzip.tar.gz /etc
+# time sudo tar -czf etc_gzip.tar.gz /etc
+du -h etc_gzip.tar.gz
+sudo tar etc_bzip2.tar.bz2 /etc
+# time sudo tar etc_bzip2.tar.bz2 /etc
+du -h etc_bzip2.tar.bz2
+ls -l etc_*.tar*
+# rm etc_*.tar*
+
+8 Создайте текстовый файл a.txt из десяти строк. Узнайте его размер. Создайте новый файл, содержащий в себе файл a.txt четыре раза.
+printf "строка 1\nстрока 2\nстрока 3\nстрока 4\nстрока 5\nстрока 6\nстрока 7\nстрока 8\nстрока 9\nстрока 10\n" > a.txt
+cat a.txt
+wc -c a.tx
+# stat -c %s a.tx
+# ls -l a.txt
+# cat a.txt a.txt a.txt a.txt > b.txt
+for i in {1..4}; do cat a.txt; done > b.txt
+wc -l b.txt
+
+9 С помощью одной команды найдите все файлы с расширением .txt в директории /usr и объедините их в один большой файл big.txt.
+sudo find /usr -type f -name "*.txt" -exec cat {} + > big.txt
+# sudo find /usr -type f -name "*.txt" -print0 | xargs -0 cat > big.txt
+
+10 Получите с помощью одной команды файл, содержащий все числовые идентификаторы пользователей, зарегистрированных в системе.
+cut -d: -f3 /etc/passwd > uids.txt
+# awk -F: '$3 >= 1000 {print $3}' /etc/passwd
+
+11 Получите с помощью одной команды строки с 5-ой по 8-ю в файле /proc/cpuinfo, содержащем информацию о процессоре.
+sed -n '5,8p' /proc/cpuinfo
+# head -n 8 /proc/cpuinfo | tail -n 4
+# awk 'NR>=5 && NR<=8' /proc/cpuinfo
+
+12 Придумайте регулярное выражение, соответствующее URL с использованием протокола http. Найдите все строки, содержащие такие URL в файлах директории /etc.
+sudo grep -rE 'http://[^ ]+' /etc
+
+13 С помощью одной команды найдите все файлы с расширениями .txt или .html в директории /usr, в которых содержится слово user.
+sudo find /usr -type f \( -name "*.txt" -o -name "*.html" \) -exec grep -l "user" {} \;
+# sudo find /usr -type f \( -name "*.txt" -o -name "*.html" \) -exec grep -l "user" {} +
+# sudo grep -rl --include="*.txt" --include="*.html" "user" /usr

@@ -3,8 +3,8 @@ import os
 import sys
 
 
-FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/3 кв 2026/'
-SCREEN_PATH = 'Z:/Тищенко Г.Л/2026_3 Скрины/'
+FILE_PATH = 'C:/Users/G.Tishchenko/Desktop/4 кв 2026/'
+SCREEN_PATH = 'Z:/Тищенко Г.Л/2026_4 Скрины/'
 # SCREEN_PATH = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 scr_n, prc_n  = 24, 25
 
@@ -12,8 +12,8 @@ scr_n, prc_n  = 24, 25
 
 # part = '03. Оборудование '
 # part = '26. Оборудование'
-# part = '19. Бытовые'
-part = '03. Нормирование'
+part = '19. Бытовые'
+# part = '03. Нормирование'
 split_part = part.split(" ")
 part = " ".join(split_part[:2])
 

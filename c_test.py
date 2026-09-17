@@ -18,9 +18,9 @@ xlsx_file_name - название рабочей таблицы
 screen_folder = 'C:/Users/G.Tishchenko/Desktop/screenCap/'
 xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/4 кв 2026/'
 # xlsx_file_name = xlsx_folder_path + '26. Оборудование.xlsx'
-# xlsx_file_name = xlsx_folder_path + '19. Бытовые.xlsx'
+xlsx_file_name = xlsx_folder_path + '19. Бытовые.xlsx'
 # xlsx_file_name = xlsx_folder_path + '03. Оборудование.xlsx'
-xlsx_file_name = xlsx_folder_path + '03. Нормирование.xlsx'
+# xlsx_file_name = xlsx_folder_path + '03. Нормирование.xlsx'
 # xlsx_file_name = xlsx_folder_path + 't.xlsx'
 # Разовая акция
 # xlsx_folder_path = 'C:/Users/G.Tishchenko/Desktop/'

@@ -14,3 +14,7 @@ q3 = '''
 SELECT * FROM departments
 JOIN projects ON departments.id = projects.department_id
 '''
+
+
+# Ограничения по уникальности ключей в m to m
+# Внешние ключи
