@@ -1,0 +1,190 @@
+/* styles_2.css */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f0f2f5;
+  color: #1a1a1a;
+}
+
+/* ===== ФИЛЬТРЫ — ЗАКРЕПЛЕНО СВЕРХУ ===== */
+.filters {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 12px 24px 16px;   /* ← отступы по бокам */
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.action-btn {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid #d0d5dd;
+  background: white;
+  color: #344054;
+  cursor: pointer;
+  transition: all .15s;
+}
+.action-btn:hover { border-color: #4a90e2; color: #4a90e2; }
+
+.filter-categories {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 8px 12px;
+  border: 2px solid #d0d5dd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #344054;
+  transition: all .15s;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.filter-btn:hover { border-color: #4a90e2; color: #4a90e2; }
+.filter-btn.active {
+  background: #4a90e2;
+  border-color: #4a90e2;
+  color: white;
+}
+
+/* ===== ГРАФ ===== */
+.graph {
+  position: relative;
+  background: white;
+  padding: 16px 24px 24px;   /* ← отступы по бокам, такие же, как у .filters */
+  min-height: 100vh;
+}
+
+#lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;          /* кривые не обрезаются, но мы их ограничили по ширине */
+  z-index: 1;
+}
+
+#entities {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 2;
+  width: 100%;
+}
+
+/* ===== СУЩНОСТЬ ===== */
+.entity {
+  position: relative;
+  padding: 12px 16px;
+  margin: 10px 0;
+  background: #eef4ff;
+  border: 2px solid #4a90e2;
+  border-radius: 8px;
+  transition: box-shadow .15s, border-color .15s, background .15s;
+  cursor: pointer;
+  /* margin-left и width задаются из JS */
+}
+.entity:hover {
+  box-shadow: 0 4px 12px rgba(74,144,226,.25);
+  border-color: #1d4ed8;
+}
+
+/* Скрытая по фильтру — занимает место, чтобы layout не скакал */
+.entity.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Показана только из-за подсветки (скрыта фильтром) */
+.entity.revealed { border-style: dashed; }
+
+/* Активная (hover или зафиксированная) */
+.entity.highlighted {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  border-style: solid;
+  box-shadow: 0 4px 12px rgba(245,158,11,.35);
+}
+
+.entity-id {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 10px;
+  color: #94a3b8;
+  margin-bottom: 2px;
+}
+
+.entity-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.entity-year { font-size: 11px; color: #667085; }
+
+.entity-cat {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 6px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+/* ===== ТУЛТИП ===== */
+.tooltip {
+  /* position: absolute; */
+  /* left: calc(100% + 12px); */
+  position: fixed;
+  top: 0;
+  background: #101828;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  width: 240px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+  z-index: 100;
+  line-height: 1.5;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+}
+.entity:hover .tooltip { opacity: 1; }
+
+/* ===== ПОДСВЕТКА SVG ===== */
+#lines path.highlighted {
+  stroke: #f59e0b;
+  stroke-width: 3;
+  opacity: 1;
+}
+#lines circle.highlighted {
+  fill: #f59e0b;
+  r: 4;
+}
