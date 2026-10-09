@@ -46,7 +46,7 @@ def get_ktru_list(excel_path):
 
 
 updated_ktru_excel_path = 'C:/Users/G.Tishchenko/Downloads/ктру0925.xlsx'
-reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/108-ККН ЦМЭЦ на 01.09.2026 (8662).xlsx'
+reestr_kkn_excel_path = 'Z:/Официальная публикация/Справочник ККН/109-ККН ЦМЭЦ на 01.10.2026 (8672).xlsx'
 
 # читаем файл с неактуальными КТРУ
 ktru_set = set(get_ktru_list(updated_ktru_excel_path))
